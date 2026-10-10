@@ -1,4 +1,5 @@
-// Tells the app whether the Yorùbá speech service is connected.
+// Tells the app which services are connected.
+// Voice ID needs no key: the speaker model runs on the phone and only needs Spitch for the confirmation recording.
 module.exports = (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   res.status(200).json({

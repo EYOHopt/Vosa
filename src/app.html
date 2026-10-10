@@ -162,6 +162,11 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .lockrow .lk { width: 36px; height: 36px; border-radius: 10px; background: var(--primary); color: #fff; display: grid; place-items: center; flex: 0 0 auto; }
 .lockrow b { display: block; }
 .lockrow > div > span { color: var(--text2); font-size: 13.5px; }
+.digits { display: flex; gap: 8px; justify-content: center; }
+.lockrow .digits span { width: 48px; height: 56px; border-radius: 12px; background: var(--bg); border: 1px solid #D5DCD8; display: grid; place-items: center; font-size: 26px; font-weight: 800; color: var(--primary); }
+.checks { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.lockrow .chk { display: inline-flex; align-items: center; gap: 4px; font-size: 12.5px; font-weight: 600; color: var(--primary); background: var(--tint); border-radius: 999px; padding: 4px 10px; border: 0; }
+.lockrow .chk.off { color: var(--text2); background: var(--bg); border: 1px dashed #B9C4BE; }
 .tries { font-size: 13.5px; font-weight: 700; color: var(--danger); margin: 0; }
 .field { width: 100%; min-height: 52px; border-radius: 12px; border: 1px solid #D5DCD8; background: var(--bg); padding: 0 14px; font-size: 16px; }
 .field:focus { outline: 2px solid var(--primary); outline-offset: -1px; border-color: transparent; }

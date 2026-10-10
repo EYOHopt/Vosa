@@ -246,6 +246,44 @@
     behindShort: { en: 'Behind', pcm: 'Behind', yo: 'Ó ń lẹ́yìn' }, onTrackShort: { en: 'On track', yo: 'Ó ń lọ dáadáa' },
     noHistory: { en: 'No activity in this pot yet.', yo: 'Kò sí nǹkan nínú àpò yìí síbẹ̀.' },
     addDemo: { en: 'Add ₦50k (demo)', pcm: 'Add ₦50k (demo)', yo: 'Fi ₦50k kún un' },
+    sentences: {
+      en: ['My money should work as hard as I do.', 'Every Friday I put a little aside for rent and school fees.', 'Vosa, please keep my savings safe and growing.'],
+      pcm: ['My money suppose dey work hard like me.', 'Every Friday, I dey keep small money for house rent and school fees.', 'Vosa, abeg keep my savings safe make e dey grow.'],
+      yo: ['Owó mi gbọ́dọ̀ ṣiṣẹ́ kára bí èmi náà.', 'Ní gbogbo ọjọ́ Ẹtì, mo máa ń fi owó díẹ̀ pamọ́ fún owó ilé.', 'Vosa, jọ̀ọ́ dáàbò bo owó mi kí ó sì máa pọ̀ sí i.']
+    },
+    vidTitle: { en: 'Voice ID' },
+    vidOn: { en: 'On · your voice is checked before money moves', pcm: 'On · I go check your voice before money move', yo: 'Wà · a ó ṣàyẹ̀wò ohùn rẹ kí owó tó lọ' },
+    vidOff: { en: 'Not set up yet', pcm: 'You never set am', yo: 'O kò tíì ṣètò rẹ̀' },
+    vidNeedsKey: { en: 'Needs the Spitch speech key on the server', pcm: 'E need the Spitch key for server', yo: 'Ó nílò kọ́kọ́rọ́ Spitch' },
+    vidDownload: { en: 'Downloading the voice model. This happens once (about 100 MB), so use Wi-Fi if you can.', pcm: 'I dey download the voice model. Na only once (like 100 MB), so use Wi-Fi if you fit.', yo: 'Mo ń gba àwòṣe ohùn sílẹ̀. Ẹ̀ẹ̀kan péré ni (nǹkan bí 100 MB), lo Wi-Fi tí o bá lè ṣe é.' },
+    enrollSaving: { en: 'Saving your voiceprint…', pcm: 'I dey save your voiceprint…', yo: 'Mo ń fi ohùn rẹ pamọ́…' },
+    setUp: { en: 'Set up', yo: 'Ṣètò' }, redo: { en: 'Redo', yo: 'Tún ṣe' },
+    strictness: { en: 'Voice match', yo: 'Ìbámu ohùn' }, strictDesc: { en: 'How closely your voice must match', pcm: 'How your voice must match reach', yo: 'Bí ohùn rẹ ṣe gbọ́dọ̀ bá a mu tó' },
+    relaxed: { en: 'Relaxed', pcm: 'Easy', yo: 'Rọrùn' }, strict: { en: 'Strict', yo: 'Le' },
+    removeVoice: { en: 'Remove my voiceprint', pcm: 'Delete my voiceprint', yo: 'Pa ohùn mi rẹ́' }, remove: { en: 'Remove', pcm: 'Delete', yo: 'Pa á rẹ́' },
+    enrollT: { en: 'Teach Vosa your voice', pcm: 'Make Vosa sabi your voice', yo: 'Kọ́ Vosa ní ohùn rẹ' },
+    enrollIntro: { en: 'Read these sentences out loud in your normal voice. Keep reading until the bar is full. It takes about 20 seconds.', pcm: 'Read these lines out for your normal voice. Continue until the bar full. E go take like 20 seconds.', yo: 'Ka àwọn gbólóhùn yìí sókè ní ohùn rẹ déédé. Máa kà á títí ìlà náà yóò fi kún. Ó máa gba ìṣẹ́jú-àáyá 20.' },
+    enrollPrivT: { en: 'Stays on this phone', pcm: 'E dey only for this phone', yo: 'Ó wà lórí fóònù yìí nìkan' },
+    enrollPriv: { en: 'Your voiceprint is made and stored on this phone. Your voice is not sent anywhere.', pcm: 'Na this phone dey keep your voiceprint. We no dey send your voice go anywhere.', yo: 'Fóònù yìí ni a ti ṣe ohùn rẹ, ibẹ̀ náà ni ó wà. A kì í fi ohùn rẹ ránṣẹ́ sí ibikíbi.' },
+    start: { en: 'Start', pcm: 'Start', yo: 'Bẹ̀rẹ̀' }, skip: { en: 'Skip for now', pcm: 'Skip am for now', yo: 'Fò ó fún báyìí' },
+    enrollRec: { en: 'Listening… keep reading', pcm: 'I dey hear you… continue to read', yo: 'Mo ń gbọ́… máa kà á lọ' },
+    enrollKeep: { en: 'Read the lines again from the top if you finish before the bar is full.', pcm: 'If you finish before the bar full, start again from the top.', yo: 'Tí o bá parí kí ìlà tó kún, tún un kà láti òkè.' },
+    enrollDoneT: { en: 'Voice ID is ready', pcm: 'Voice ID don ready', yo: 'Voice ID ti ṣetán' },
+    enrollDoneB: { en: 'Sending and withdrawing money now need three things: your secret phrase, the numbers I give you, and your voice.', pcm: 'To send or comot money now need three things: your secret phrase, the numbers I give you, and your voice.', yo: 'Fífi owó ránṣẹ́ àti yíyọ owó nílò nǹkan mẹ́ta báyìí: ọ̀rọ̀ àṣírí rẹ, àwọn nọ́ńbà tí mo fún ọ, àti ohùn rẹ.' },
+    enrollErr: { en: 'Voice ID could not start', pcm: 'Voice ID no fit start', yo: 'Voice ID kò lè bẹ̀rẹ̀' },
+    vidLoading: { en: 'Getting Voice ID ready…', pcm: 'I dey prepare Voice ID…', yo: 'Mo ń múra Voice ID sílẹ̀…' },
+    vidErrShort: { en: 'Voice ID could not start. Checking phrase and numbers only.', pcm: 'Voice ID no start. Na phrase and numbers I go check.', yo: 'Voice ID kò bẹ̀rẹ̀. Ọ̀rọ̀ àṣírí àti nọ́ńbà nìkan ni mo máa ṣàyẹ̀wò.' },
+    sayPhraseThen: { en: 'Say your secret phrase, then these numbers', pcm: 'Talk your secret phrase, then these numbers', yo: 'Sọ ọ̀rọ̀ àṣírí rẹ, lẹ́yìn náà àwọn nọ́ńbà yìí' },
+    numbersAria: { en: 'Numbers to say: {d}', yo: 'Nọ́ńbà tí o máa sọ: {d}' },
+    chkPhrase: { en: 'Secret phrase', yo: 'Ọ̀rọ̀ àṣírí' }, chkNumbers: { en: 'New numbers', yo: 'Nọ́ńbà tuntun' }, chkVoice: { en: 'Your voice', pcm: 'Your voice', yo: 'Ohùn rẹ' },
+    setUpVoice: { en: 'Add Voice ID', pcm: 'Add Voice ID', yo: 'Fi Voice ID kún un' },
+    voiceMatch: { en: 'voice match {p}%', yo: 'ìbámu ohùn {p}%' },
+    phraseNumsPh: { en: 'Phrase and numbers', pcm: 'Phrase and numbers', yo: 'Ọ̀rọ̀ àṣírí àti nọ́ńbà' },
+    speakNow: { en: 'Speak now', pcm: 'Talk now', yo: 'Sọ̀rọ̀ báyìí' },
+    verifiedBy: { en: 'Verified with', pcm: 'Checked with', yo: 'A fi ṣàyẹ̀wò' },
+    verifyAll: { en: 'Phrase, numbers, voice ({p}%)', yo: 'Ọ̀rọ̀, nọ́ńbà, ohùn ({p}%)' },
+    verifyNoVoice: { en: 'Phrase and numbers', yo: 'Ọ̀rọ̀ àti nọ́ńbà' },
+    verifyFp: { en: 'Fingerprint (demo)', yo: 'Ìka (àpẹẹrẹ)' },
     welcomeH: { en: 'Welcome to Vosa', pcm: 'Welcome to Vosa', yo: 'Ẹ kú àbọ̀ sí Vosa' }
   };
   const EXAMPLES = {
@@ -263,7 +301,7 @@
     return {
       lang: 'en', muted: false, handsFree: false, onboarded: false, hideBal: false, view: 'home', speed: 1, textScale: 1,
       wallet: 35000, account: '9012345678', myPhone: '08031234412', myNetwork: 'MTN',
-      secret: 'blue mango', autoSave: null,
+      secret: 'blue mango', autoSave: null, voicePrint: null, voiceStrict: 0.86,
       goals: [
         { key: 'flex', name: null, bal: 12000, target: null, deadline: null },
         { key: 'rent', name: null, bal: 40000, target: 75000, deadline: '2026-12-31' },
@@ -283,6 +321,9 @@
   }
   let state = seed();
   try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && s.goals) state = Object.assign(seed(), s); } catch (e) {}
+  // Older demo versions stored a Picovoice profile; the new engine needs a fresh voiceprint.
+  if ('voiceProfile' in state) delete state.voicePrint;
+  if (!(state.voiceStrict >= 0.75)) state.voiceStrict = 0.86;
   const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
 
   let pending = null;   // {type, needsPhrase, tries, ...}
@@ -481,7 +522,11 @@
       row(t('handsFree'), t('hfDesc'), sw(state.handsFree, toggleHF, t('handsFree'))),
       row(t('sound'), t('soundDesc'), sw(!state.muted, () => { state.muted = !state.muted; if (state.muted) stopSpeaking(); persist(); render(); }, t('sound')))));
     v.append(h('h2', { class: 'group-t', text: t('gSecurity') }), h('div', { class: 'group', style: 'margin-top:0' },
-      row(t('secret'), t('secretDesc', { p: state.secret }), null)));
+      row(t('secret'), t('secretDesc', { p: state.secret }), null),
+      row(t('vidTitle'), !backend.voiceId ? t('vidNeedsKey') : state.voicePrint ? t('vidOn') : t('vidOff'),
+        backend.voiceId ? h('button', { class: 'link', type: 'button', text: state.voicePrint ? t('redo') : t('setUp'), onClick: () => showOv('enroll', { stage: 'intro' }) }) : null),
+      voiceIdOn() ? row(t('strictness'), t('strictDesc'), seg(t('strictness'), [[0.8, t('relaxed')], [0.86, t('normal')], [0.9, t('strict')]], state.voiceStrict, (v) => { state.voiceStrict = v; persist(); render(); })) : null,
+      voiceIdOn() ? row(t('removeVoice'), null, h('button', { class: 'link', type: 'button', style: 'color:var(--danger)', text: t('remove'), onClick: () => { state.voicePrint = null; persist(); render(); } })) : null));
     v.append(h('h2', { class: 'group-t', text: t('gAccess') }), h('div', { class: 'group', style: 'margin-top:0' },
       row(t('textSize'), null, seg(t('textSize'), [[0.9, 'A', 'font-size:12px'], [1, 'A', 'font-size:15px'], [1.2, 'A', 'font-size:18px']], state.textScale, (s) => { state.textScale = s; persist(); render(); })),
       row(t('srTips'), null, h('button', { class: 'link', type: 'button', text: t('open'), onClick: () => showOv('sheet', { tone: 'ok', icon: 'speaker', title: t('srTips'), body: t('srBody'), actions: [{ label: t('ok'), primary: true, fn: closeOv }] }) }))));
@@ -548,7 +593,7 @@
     if (!ov) { fresh.hidden = true; fresh.removeAttribute('role'); return; }
     fresh.hidden = false;
     fresh.setAttribute('role', 'dialog'); fresh.setAttribute('aria-modal', 'true');
-    const b = { confirm: ovConfirm, success: ovSuccess, moneyin: ovMoneyIn, sheet: ovSheet, type: ovType, pick: ovPick, 'goal-form': ovGoalForm, 'send-form': ovSendForm, 'airtime-form': ovAirtimeForm, pot: ovPot, amount: ovAmountCompat, onboard: ovOnboard }[ov.kind];
+    const b = { confirm: ovConfirm, success: ovSuccess, moneyin: ovMoneyIn, sheet: ovSheet, type: ovType, pick: ovPick, 'goal-form': ovGoalForm, 'send-form': ovSendForm, 'airtime-form': ovAirtimeForm, pot: ovPot, amount: ovAmountCompat, onboard: ovOnboard, enroll: ovEnroll }[ov.kind];
     if (!b) { fresh.hidden = true; return; }
     b(fresh, ov.data);
     const focusEl = fresh.querySelector('h1, h2');
@@ -582,14 +627,22 @@
       h('div', { class: 'big-amt' }, h('span', { text: kind }), h('b', { class: 'num', text: fmt(amount) })), kv(rows)];
     if (p.needsPhrase) {
       const tries = p.tries || 0;
-      kids.push(h('div', { class: 'lockrow', 'aria-live': 'assertive' }, h('span', { class: 'lk' }, icon('lock', 18)),
-        h('div', null, h('b', { text: t('sayPhrase') }), h('span', { text: t('imListening') + ' ' + t('typePhrase') }))));
-      if (tries) kids.push(h('p', { class: 'tries', text: t('triesLeft', { n: 3 - tries }) }));
-      kids.push(h('form', { class: 'inrow', autocomplete: 'off', onSubmit: (e) => { e.preventDefault(); handle(e.target.querySelector('input').value, { via: 'text' }); } },
-        h('label', { class: 'sr', for: 'phrase-in', text: t('sayPhrase') }),
-        h('input', { class: 'field', id: 'phrase-in', type: 'password', placeholder: t('phrasePh'), autocomplete: 'off' }),
+      const vOn = voiceIdOn();
+      kids.push(h('div', { class: 'lockrow', style: 'flex-direction:column;align-items:stretch;gap:12px', 'aria-live': 'assertive' },
+        h('div', { style: 'display:flex;gap:12px;align-items:center' }, h('span', { class: 'lk' }, icon('lock', 18)),
+          h('div', null, h('b', { text: t('sayPhraseThen') }), h('span', { text: t('imListening') }))),
+        h('div', { class: 'digits', 'aria-label': t('numbersAria', { d: spaced(p.challenge) }) }, String(p.challenge).split('').map(x => h('span', { class: 'num', text: x }))),
+        h('div', { class: 'checks' },
+          h('span', { class: 'chk' }, icon('check', 14, 2.4), t('chkPhrase')),
+          h('span', { class: 'chk' }, icon('check', 14, 2.4), t('chkNumbers')),
+          vOn ? h('span', { class: 'chk' }, icon('check', 14, 2.4), t('chkVoice')) : (backend.voiceId ? h('button', { class: 'chk off', type: 'button', onClick: () => showOv('enroll', { stage: 'intro' }) }, icon('plus', 14), t('setUpVoice')) : null))));
+      if (tries) kids.push(h('p', { class: 'tries', text: t('triesLeft', { n: 3 - tries }) + (p.lastFail === 'voice' && p.lastScore != null ? ' · ' + t('voiceMatch', { p: Math.round(p.lastScore * 100) }) : '') }));
+      if (!vOn) kids.push(h('form', { class: 'inrow', autocomplete: 'off', onSubmit: (e) => { e.preventDefault(); handle(e.target.querySelector('input').value, { via: 'text' }); } },
+        h('label', { class: 'sr', for: 'phrase-in', text: t('phraseNumsPh') }),
+        h('input', { class: 'field', id: 'phrase-in', type: 'password', placeholder: t('phraseNumsPh'), autocomplete: 'off' }),
         h('button', { class: 'btn p', type: 'submit', text: t('confirmBtn') })));
-      kids.push(h('button', { class: 'btn o', type: 'button', onClick: () => { lastHeard = t('fingerprint'); execute(); } }, icon('finger', 20), t('fingerprint')));
+      else kids.push(h('button', { class: 'btn p', type: 'button', onClick: () => { micDenied = false; startListening(); } }, icon('mic', 20), t('speakNow')));
+      kids.push(h('button', { class: 'btn o', type: 'button', onClick: () => { lastHeard = t('fingerprint'); pending.verified = t('verifyFp'); execute(); } }, icon('finger', 20), t('fingerprint')));
     } else {
       kids.push(h('button', { class: 'btn p', type: 'button', onClick: () => { lastHeard = t('yesShort'); execute(); } }, yes || t('yesShort')));
       kids.push(h('p', { class: 'heard', style: 'text-align:center;margin-top:-6px', text: t('listenYesNo') }));
@@ -613,7 +666,7 @@
       h('h1', { text: d.title }),
       h('span', { class: 'amt num', text: fmt(d.amount) }),
       d.sub ? h('span', { style: 'color:var(--text2);font-size:14px', text: d.sub }) : null),
-      kv([[t('walletBal'), fmt(state.wallet)], [t('date'), nowLabel()], [t('reference'), d.ref || (d.ref = ref())]])];
+      kv([[t('walletBal'), fmt(state.wallet)], [t('date'), nowLabel()], d.verified ? [t('verifiedBy'), d.verified] : null, [t('reference'), d.ref || (d.ref = ref())]])];
     if (pending && pending.type === 'nudge') body.push(nudgeCard(t('nudgeQ', { a: fmt(pending.amount), g: label(pending.goal) })));
     el.append(h('div', { class: 'pg' }, h('div', { class: 'pg-body' }, body),
       h('div', { class: 'pg-foot' }, h('button', { class: 'btn p', type: 'button', onClick: () => { pending = null; closeOv(); go('home'); }, text: t('done') }))));
@@ -783,7 +836,7 @@
         h('h2', { style: 'margin:4px 0 0;font-size:24px;font-weight:800;letter-spacing:-0.02em;line-height:1.25', text: t('howTalk') }),
         h('div', { role: 'radiogroup', style: 'display:flex;flex-direction:column;gap:10px' }, opt(d.hf, t('handsFree'), t('hfOptD'), true), opt(!d.hf, t('tapOpt'), t('tapOptD'), false)),
         h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon('lock', 18)), h('div', null, h('b', { text: t('secret') }), h('span', { text: t('phraseInfo', { p: state.secret }) })))],
-        [h('button', { class: 'btn p', type: 'button', onClick: () => { state.onboarded = true; persist(); closeOv(); setHandsFree(d.hf); reply(R('welcome')); }, text: t('finish') })]);
+        [h('button', { class: 'btn p', type: 'button', onClick: () => { state.onboarded = true; persist(); setHandsFree(d.hf); if (backend.voiceId && !state.voicePrint) { showOv('enroll', { stage: 'intro', fromOnboard: true }); } else { closeOv(); reply(R('welcome')); } }, text: t('finish') })]);
     }
   }
 
@@ -859,16 +912,31 @@
     let r = L.understand(raw, { pending: !!pending, awaiting: awaiting && awaiting.slot, contacts: state.contacts });
 
     if (phraseMode) {
-      if (isPhrase) return execute();
-      if (r.intent === 'no') return cancelPending();
-      if (r.intent === 'yes') return reply(R('phraseHint'));
+      if (r.intent === 'no' && !isPhrase) return cancelPending();
+      if (r.intent === 'yes' && !isPhrase) return reply(R('phraseHint') + R('challenge', { d: spaced(pending.challenge) }));
+      if (voiceIdOn() && !(opts.via === 'voice' && opts.voice)) { renderOv(); return reply(R('sayAloud')); }
+      const digitsOk = !pending.challenge || L.challengeOk(raw, pending.challenge);
+      let voiceOk = true;
+      if (voiceIdOn()) {
+        if (opts.voice.score == null) { pending.challenge = L.newChallenge(); renderOv(); return reply(R('voiceShort', { d: spaced(pending.challenge) })); }
+        pending.lastScore = opts.voice.score;
+        voiceOk = opts.voice.score >= state.voiceStrict;
+      }
+      if (isPhrase && digitsOk && voiceOk) {
+        pending.verified = voiceIdOn() ? t('verifyAll', { p: Math.round(opts.voice.score * 100) }) : t('verifyNoVoice');
+        return execute();
+      }
       pending.tries = (pending.tries || 0) + 1;
       if (pending.tries >= 3) {
         pending = null;
         return fail({ tone: 'err', icon: 'x', k: t('kLocked'), title: R('locked'), actions: [okAction()] }, R('locked'));
       }
+      pending.challenge = L.newChallenge();
+      pending.lastFail = !isPhrase ? 'phrase' : !digitsOk ? 'digits' : 'voice';
       renderOv();
-      return reply(R('phraseWrong'));
+      if (!isPhrase) return reply(R('phraseWrong') + R('challenge', { d: spaced(pending.challenge) }));
+      if (!digitsOk) return reply(R('digitsWrong', { d: spaced(pending.challenge) }));
+      return reply(R('voiceWrong', { d: spaced(pending.challenge) }));
     }
 
     if (r.intent === 'yes') { if (pending) return execute(); r.intent = 'unknown'; }
@@ -913,7 +981,10 @@
     const text = R('lowWallet', { wallet: fmt(state.wallet), amt: fmt(amount) });
     return fail({ tone: 'warn', icon: 'alert', k: t('kNoMoney'), title: text, actions: [okAction(), { label: t('addDemo'), fn: () => { closeOv(); incoming(50000, 'Kemi Adewale'); } }] }, text);
   }
-  function confirmWith(p, text) { pending = p; showOv('confirm'); return reply(text); }
+  function confirmWith(p, text) {
+    if (p.needsPhrase) { p.challenge = L.newChallenge(); text += R('challenge', { d: spaced(p.challenge) }); }
+    pending = p; showOv('confirm'); return reply(text);
+  }
 
   function routeUI(r) { lastHeard = ''; renderTalk(); return route(r); }
   function route(r) {
@@ -1036,7 +1107,7 @@
       g.bal -= p.amount; state.wallet += p.amount;
       logAct({ kind: 'move', g: gref(g), amt: p.amount });
       persist(); render();
-      showOv('success', { title: t('moved'), amount: p.amount, sub: label(g) + ': ' + fmt(g.bal) });
+      showOv('success', { title: t('moved'), amount: p.amount, sub: label(g) + ': ' + fmt(g.bal), verified: p.verified });
       return reply(R('doneWithdraw', { amt: fmt(p.amount), goal: label(g), bal: fmt(g.bal) }));
     }
     if (p.type === 'goal') {
@@ -1058,7 +1129,7 @@
         pending = { type: 'nudge', amount: nudge, goal: flex };
       }
       persist(); render();
-      showOv('success', { title: t('sentTo', { n: p.to.name }), amount: p.amount, sub: p.to.bank + ' •••• ' + p.to.acct.slice(-4) });
+      showOv('success', { title: t('sentTo', { n: p.to.name }), amount: p.amount, sub: p.to.bank + ' •••• ' + p.to.acct.slice(-4), verified: p.verified });
       return reply(msg);
     }
     if (p.type === 'airtime') {
@@ -1112,7 +1183,7 @@
   }
 
   // ---------- speech out ----------
-  const backend = { ok: false, sttYo: false, ttsYo: false, ttsEn: false, ttsPcm: false };
+  const backend = { ok: false, sttYo: false, ttsYo: false, ttsEn: false, ttsPcm: false, voiceId: false };
   let audioEl = null, warnedYo = false, speakToken = 0;
   function stopSpeaking() {
     speakToken++;
@@ -1156,6 +1227,190 @@
   }
   if ('speechSynthesis' in window) { try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => {}; } catch (e) {} }
 
+  // ---------- Voice ID (open-source WavLM speaker model, runs on the phone) ----------
+  // Model: microsoft/wavlm-base-plus-sv (ONNX copy Xenova/wavlm-base-plus-sv), run by transformers.js.
+  // Downloaded once (~100 MB) and cached by the browser. No key, no account, voices never leave the phone.
+  const TJS_SRC = 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.2.0/dist/transformers.min.js';
+  const VID_MODEL = 'Xenova/wavlm-base-plus-sv';
+  const ENROLL_SECS = 15;      // seconds of speech needed to build a voiceprint
+  const VERIFY_MIN_SECS = 1.2; // shortest speech we will score
+  const VERIFY_MAX_SECS = 8;
+  const vid = { engine: null, loading: null, starting: false, onProgress: null };
+  let enrollSession = null;
+  function toB64(bytes) { let s = ''; for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(s); }
+  function fromB64(str) { const bin = atob(str); const u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; }
+  const printToB64 = (f32) => toB64(new Uint8Array(f32.buffer.slice(0)));
+  const printFromB64 = (str) => new Float32Array(fromB64(str).buffer);
+  function unit(v) { let n = 0; for (let i = 0; i < v.length; i++) n += v[i] * v[i]; n = Math.sqrt(n) || 1; const o = new Float32Array(v.length); for (let i = 0; i < v.length; i++) o[i] = v[i] / n; return o; }
+  function cosine(a, b) { if (!a || !b || a.length !== b.length) return null; let d = 0; for (let i = 0; i < a.length; i++) d += a[i] * b[i]; return d; }
+
+  // Loads the model once. Returns { embed(Float32Array 16 kHz) -> unit-length voiceprint }.
+  function vidEngine() {
+    if (vid.engine) return Promise.resolve(vid.engine);
+    if (window.VOSA_TEST_EMBED) { vid.engine = { embed: async (a) => unit(await window.VOSA_TEST_EMBED(a)) }; return Promise.resolve(vid.engine); }
+    if (!vid.loading) vid.loading = (async () => {
+      const tf = await import(TJS_SRC);
+      tf.env.allowLocalModels = false;
+      const files = {};
+      const progress_callback = (p) => {
+        if (!p || !p.file) return;
+        if (p.status === 'progress' && p.total) files[p.file] = [p.loaded, p.total];
+        if (p.status === 'done' && files[p.file]) files[p.file][0] = files[p.file][1];
+        let got = 0, all = 0; Object.values(files).forEach(([l, tt]) => { got += l; all += tt; });
+        if (all && vid.onProgress) vid.onProgress(Math.min(100, Math.round(got / all * 100)));
+      };
+      const processor = await tf.AutoProcessor.from_pretrained(VID_MODEL, { progress_callback });
+      const model = await tf.AutoModelForXVector.from_pretrained(VID_MODEL, { dtype: 'q8', device: 'wasm', progress_callback });
+      vid.engine = {
+        embed: async (audio) => {
+          const inputs = await processor(audio);
+          const { embeddings } = await model(inputs);
+          return unit(Float32Array.from(embeddings.data));
+        }
+      };
+      return vid.engine;
+    })().catch((e) => { vid.loading = null; throw e; });
+    return vid.loading;
+  }
+  const voiceIdOn = () => !!(backend.voiceId && state.voicePrint);
+  const spaced = (d) => String(d || '').split('').join(', ');
+
+  // Microphone -> 16 kHz mono Float32 chunks (what the speaker model expects)
+  function pcmTap(ctx, src, onChunk) {
+    const ratio = ctx.sampleRate / 16000;
+    const node = ctx.createScriptProcessor(4096, 1, 1);
+    let carry = 0;
+    node.onaudioprocess = (e) => {
+      const input = e.inputBuffer.getChannelData(0);
+      const out = [];
+      let pos = carry;
+      while (pos + ratio <= input.length) {
+        let sum = 0, n = 0;
+        for (let j = Math.floor(pos); j < Math.floor(pos + ratio); j++) { sum += input[j]; n++; }
+        out.push(n ? Math.max(-1, Math.min(1, sum / n)) : 0);
+        pos += ratio;
+      }
+      carry = pos - input.length;
+      if (out.length) onChunk(Float32Array.from(out));
+    };
+    const mute = ctx.createGain(); mute.gain.value = 0;
+    src.connect(node); node.connect(mute); mute.connect(ctx.destination);
+    return () => { try { src.disconnect(node); node.disconnect(); mute.disconnect(); } catch (e) {} };
+  }
+  // Keeps only the chunks where someone is speaking, so silence doesn't dilute the voiceprint
+  function speechCollector(maxSecs) {
+    const parts = []; let n = 0; const cap = maxSecs ? maxSecs * 16000 : Infinity;
+    return {
+      push(chunk) {
+        let s = 0; for (let i = 0; i < chunk.length; i++) s += chunk[i] * chunk[i];
+        if (Math.sqrt(s / chunk.length) < 0.015 || n >= cap) return;
+        parts.push(chunk); n += chunk.length;
+      },
+      secs: () => n / 16000,
+      audio() { const o = new Float32Array(n); let k = 0; parts.forEach(p => { o.set(p, k); k += p.length; }); return o; }
+    };
+  }
+  // Scores how much the live voice matches the saved voiceprint (cosine similarity, about 0 to 1)
+  function voiceScorer(engine) {
+    const col = speechCollector(VERIFY_MAX_SECS);
+    return {
+      push: (c) => col.push(c),
+      finish: async () => {
+        if (col.secs() < VERIFY_MIN_SECS) return null;
+        try { return cosine(await engine.embed(col.audio()), printFromB64(state.voicePrint)); } catch (e) { return null; }
+      }
+    };
+  }
+
+  function setEnrollBar(pct) {
+    const bar = document.getElementById('enroll-bar'); if (bar) bar.style.width = pct + '%';
+    const lbl = document.getElementById('enroll-pct'); if (lbl) lbl.textContent = pct + '%';
+  }
+  async function startEnroll(d) {
+    stopListening(); stopSpeaking();
+    d.stage = 'loading'; d.pct = 0; renderOv();
+    let stream, ctx, stopTap, timer, finished = false;
+    const cleanup = () => {
+      clearInterval(timer);
+      try { stopTap && stopTap(); } catch (e) {}
+      try { stream && stream.getTracks().forEach(tr => tr.stop()); } catch (e) {}
+      try { ctx && ctx.close(); } catch (e) {}
+      enrollSession = null; vid.onProgress = null;
+    };
+    const fail = (e) => { if (finished) return; finished = true; cleanup(); d.stage = 'error'; d.err = (e && e.message) || String(e); renderOv(); };
+    enrollSession = { cancel: () => { finished = true; cleanup(); } };
+    try {
+      vid.onProgress = (pct) => { d.pct = pct; setEnrollBar(pct); };
+      const engine = await vidEngine();
+      if (finished) return;
+      stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } });
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const src = ctx.createMediaStreamSource(stream);
+      const col = speechCollector();
+      d.stage = 'rec'; d.pct = 0; renderOv();
+      enrollSession = { cancel: () => { finished = true; cleanup(); } };
+      stopTap = pcmTap(ctx, src, (c) => col.push(c));
+      timer = setInterval(async () => {
+        if (finished) return;
+        const pct = Math.min(100, Math.round(col.secs() / ENROLL_SECS * 100));
+        d.pct = pct; setEnrollBar(pct);
+        if (pct < 100) return;
+        finished = true; cleanup();
+        d.stage = 'saving'; renderOv();
+        try {
+          // Three slices of speech -> three voiceprints -> averaged into one
+          const audio = col.audio(), part = Math.floor(audio.length / 3);
+          let acc = null;
+          for (let i = 0; i < 3; i++) {
+            const e = await engine.embed(audio.subarray(i * part, (i + 1) * part));
+            acc = acc || new Float32Array(e.length);
+            for (let j = 0; j < e.length; j++) acc[j] += e[j];
+          }
+          state.voicePrint = printToB64(unit(acc)); persist();
+          d.stage = 'done'; renderOv(); render();
+        } catch (e) { finished = false; fail(e); }
+      }, 200);
+    } catch (e) { fail(e); }
+  }
+
+  function ovEnroll(el, d) {
+    const leave = async () => {
+      if (enrollSession) enrollSession.cancel();
+      closeOv();
+      if (d.fromOnboard) reply(R('welcome'));
+    };
+    const sentences = h('div', { class: 'kv', style: 'padding:6px 16px' }, T.sentences[state.lang].map(s => h('p', { style: 'margin:10px 0;font-size:16px;font-weight:600;line-height:1.45', text: s })));
+    if (d.stage === 'done') {
+      return pageWrap(el, t('vidTitle'), leave, [
+        h('div', { class: 'done' }, h('span', { class: 'ok' }, icon('check', 30, 2.4)), h('h1', { text: t('enrollDoneT') }), h('p', { style: 'margin:0;color:var(--text2)', text: t('enrollDoneB') }))],
+        [h('button', { class: 'btn p', type: 'button', onClick: leave, text: t('done') })]);
+    }
+    if (d.stage === 'error') {
+      return pageWrap(el, t('vidTitle'), leave, [
+        h('div', { class: 'done' }, h('span', { class: 'ok', style: 'background:var(--danger-bg);color:var(--danger)' }, icon('alert', 30)), h('h1', { text: t('enrollErr') }), h('p', { style: 'margin:0;color:var(--text2);font-size:14px', text: d.err || '' }))],
+        [h('button', { class: 'btn p', type: 'button', onClick: () => startEnroll(d), text: t('tryAgain') }), h('button', { class: 'btn s', type: 'button', onClick: leave, text: d.fromOnboard ? t('skip') : t('cancel') })]);
+    }
+    if (d.stage === 'rec' || d.stage === 'loading' || d.stage === 'saving') {
+      const head = d.stage === 'loading' ? t('vidLoading') : d.stage === 'saving' ? t('enrollSaving') : t('enrollRec');
+      return pageWrap(el, t('vidTitle'), leave, [
+        h('h2', { style: 'margin:4px 0 0;font-size:22px;font-weight:800;letter-spacing:-0.02em', text: head }),
+        h('div', { style: 'display:flex;align-items:center;gap:12px' },
+          h('div', { class: 'bar', style: 'flex:1;height:10px' }, h('i', { id: 'enroll-bar', style: 'width:' + (d.pct || 0) + '%' })),
+          h('b', { id: 'enroll-pct', class: 'num', text: (d.pct || 0) + '%' })),
+        d.stage === 'loading' ? h('p', { style: 'margin:0;color:var(--text2)', text: t('vidDownload') }) : sentences,
+        d.stage === 'rec' ? h('p', { class: 'heard', text: t('enrollKeep') }) : null],
+        [h('button', { class: 'btn s', type: 'button', onClick: leave, text: t('cancel') })]);
+    }
+    pageWrap(el, t('vidTitle'), leave, [
+      h('span', { class: 'gtile', style: 'background:var(--tint);color:var(--primary);width:56px;height:56px;border-radius:16px' }, icon('wave', 28)),
+      h('h2', { style: 'margin:0;font-size:24px;font-weight:800;letter-spacing:-0.02em;line-height:1.25', text: t('enrollT') }),
+      h('p', { style: 'margin:0;color:var(--text2)', text: t('enrollIntro') }),
+      sentences,
+      h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon('lock', 18)), h('div', null, h('b', { text: t('enrollPrivT') }), h('span', { text: t('enrollPriv') })))],
+      [h('button', { class: 'btn p', type: 'button', onClick: () => startEnroll(d) }, icon('mic', 20), t('start')),
+        h('button', { class: 'btn s', type: 'button', onClick: leave, text: d.fromOnboard ? t('skip') : t('cancel') })]);
+  }
+
   // ---------- speech in ----------
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   let listening = false, rec = null, mediaRec = null, chunks = [], stopTimer = null, vad = null;
@@ -1190,8 +1445,14 @@
   function canListen() { return !micDenied && ((state.lang === 'yo' && backend.sttYo) || SR || backend.ok); }
 
   function startListening() {
-    if (listening) return;
+    if (listening || vid.starting) return;
     stopSpeaking();
+    if (pending && pending.needsPhrase && voiceIdOn() && backend.ok) {
+      vid.starting = true;
+      status(t('vidLoading'));
+      return vidEngine().then((engine) => { vid.starting = false; startRecording({ verify: engine }); })
+        .catch(() => { vid.starting = false; status(t('vidErrShort')); startRecording(); });
+    }
     if (state.lang === 'yo' && backend.sttYo) return startRecording();
     if (SR) return startBrowserSR();
     if (backend.ok) return startRecording();
@@ -1215,7 +1476,9 @@
     render();
   }
 
-  async function startRecording() {
+  async function startRecording(opts) {
+    opts = opts || {};
+    let scorer = null, stopTap = null;
     let stream;
     try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
     catch (e) { micDenied = true; return voiceUnavailable(); }
@@ -1236,7 +1499,8 @@
         if (Math.sqrt(sum / buf.length) > 0.04) { heard = true; lastLoud = Date.now(); }
         if ((heard && Date.now() - lastLoud > 1300) || (!heard && Date.now() - started > 7000)) { if (mr.state === 'recording') mr.stop(); }
       }, 100);
-      mr.addEventListener('stop', () => { clearInterval(vad); ctx.close(); });
+      if (opts.verify) { scorer = voiceScorer(opts.verify); stopTap = pcmTap(ctx, src, scorer.push); }
+      mr.addEventListener('stop', () => { clearInterval(vad); if (stopTap) stopTap(); ctx.close(); });
     } catch (e) { heard = true; }
     mr.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
     mr.onstop = async () => {
@@ -1253,8 +1517,9 @@
         const res = await fetch('api/transcribe?lang=' + lang, { method: 'POST', headers: { 'Content-Type': blob.type.split(';')[0] }, body: blob });
         const j = await res.json();
         if (!res.ok || !j.text) throw new Error(j.error || 'no text');
+        const voice = scorer ? { score: await scorer.finish() } : null;
         busy = false; showListen(null);
-        handle(j.text, { via: 'voice' });
+        handle(j.text, { via: 'voice', voice });
       } catch (e) { busy = false; showListen(null); status(t('voiceErr')); afterReply(); }
     };
     mr.start();
@@ -1335,7 +1600,7 @@
       if (!res.ok) return;
       const j = await res.json();
       if (!j || j.service !== 'vosa') return;
-      backend.ok = !!j.spitch; backend.sttYo = !!j.spitch; backend.ttsYo = !!j.spitch; backend.ttsEn = !!j.voiceEn; backend.ttsPcm = !!j.spitch;
+      backend.ok = !!j.spitch; backend.sttYo = !!j.spitch; backend.ttsYo = !!j.spitch; backend.ttsEn = !!j.voiceEn; backend.ttsPcm = !!j.spitch; backend.voiceId = !!j.spitch;
       if (state.view === 'settings') render();
     } catch (e) { /* no server: browser-only mode */ }
   })();

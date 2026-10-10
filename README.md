@@ -25,7 +25,7 @@ Light mode, white with a light-green signature and one deep green (#0C6B35) for 
 | `src/ui.js` | Screen, microphone, voice replies and confirmations |
 | `api/transcribe.js` | Sends a recording to Spitch and gets text back (Yorùbá speech to text) |
 | `api/speak.js` | Sends text to Spitch and gets a Yorùbá voice reply back |
-| `api/health.js` | Tells the app whether Spitch is connected |
+| `api/health.js` | Tells the app which services are connected |
 | `server.js` | Runs the app on your own computer (`npm start`) |
 
 ## Put it online (about 30 minutes, free)
@@ -41,6 +41,21 @@ Light mode, white with a light-green signature and one deep green (#0C6B35) for 
 5. **Open your link** (something like `vosa-xyz.vercel.app`) in **Chrome** on your phone. Allow the microphone when asked.
 
 At the bottom right of the app, you should see **"Yorùbá voice: Spitch"**. If you don't, the key isn't set yet.
+
+### Voice ID (no extra setup)
+
+Voice ID checks that it's really the account owner speaking before money is sent or withdrawn. It uses Microsoft's open-source WavLM speaker model (`wavlm-base-plus-sv`), run on the phone by transformers.js. There's no account and no key. It works once `SPITCH_API_KEY` is set, because the confirmation recording also goes to Spitch to read the words.
+
+1. On your phone: **Settings → Voice ID → Set up** (new users are offered this at the end of setup).
+2. The first time, the phone downloads the model once (about 100 MB, then cached). **Use Wi-Fi.** Do this before the pitch, not on stage.
+3. Read the three sentences until the bar is full (about 15 seconds of speech). Your voiceprint is made and kept on the phone; your voice isn't uploaded for this.
+
+How a transfer or withdrawal is confirmed:
+- **Secret phrase:** what you know.
+- **Three random numbers, new every time:** stops someone playing back a recording of you.
+- **Your voice:** stops someone else saying your phrase. Settings → Voice match sets how strict this is (Relaxed 80% / Normal 86% / Strict 90%).
+
+The receipt shows the voice match score (for example "Phrase, numbers, voice (91%)"). Try a few transfers yourself and ask a friend to try your phrase, then pick the strictness that lets you in and keeps them out. There's a fingerprint (demo) backup for noisy places.
 
 ### Optional settings
 
@@ -93,6 +108,6 @@ npm test                                    # checks the phrase understanding
 - **Yorùbá wording:** a fluent Yorùbá speaker should read the replies in `src/logic.js` (the `yo:` lines) and `src/ui.js` (the `T` table) and fix anything that sounds unnatural. Then run `npm run build` (Vercel also rebuilds automatically).
 - **Amounts in Yorùbá voice replies** are read from digits, e.g. "₦5,000" becomes "5,000 náírà". Check how the Spitch voice pronounces them.
 - **Spitch costs:** check the free credits and pricing on your Spitch dashboard.
-- **Change the secret phrase** by saying, e.g., "change my secret phrase to red pepper". In the pitch, explain that the real product would add voice recognition, so only the owner's voice can move money.
+- **Change the secret phrase** by saying, e.g., "change my secret phrase to red pepper". With Voice ID set up, only the owner's voice can move money.
 - **Hands-free on a phone:** Chrome sometimes stops listening when the screen locks. Keep the screen on during the demo.
 - It's a demo: the money is pretend, nothing connects to a bank, and data is saved only in the browser. Use "Reset demo" to start again.

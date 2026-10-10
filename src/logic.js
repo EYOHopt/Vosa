@@ -266,6 +266,44 @@
     return null;
   }
 
+  // ---------- challenge digits (anti-replay) ----------
+  const DIGIT_MAP = {
+    zero: 0, oh: 0, one: 1, two: 2, to: 2, too: 2, three: 3, four: 4, for: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9,
+    odo: 0, ookan: 1, okan: 1, eeji: 2, meji: 2, eeta: 3, meta: 3, eerin: 4, merin: 4, aarun: 5, marun: 5, eefa: 6, mefa: 6, eeje: 7, meje: 7, eejo: 8, mejo: 8, eesan: 9, mesan: 9
+  };
+  const TENS_MAP = { twenty: 2, thirty: 3, forty: 4, fourty: 4, fifty: 5, sixty: 6, seventy: 7, eighty: 8, ninety: 9 };
+  function newChallenge() {
+    let d = '';
+    while (d.length < 3) { const x = 2 + Math.floor(Math.random() * 8); if (!d.endsWith(String(x))) d += x; }
+    return d;
+  }
+  // Turns "blue mango seven four two", "742", "7 4 2" or "meje merin meji" into "742"
+  function spokenDigits(raw) {
+    const toks = norm(raw).split(' ');
+    let out = '';
+    for (let i = 0; i < toks.length; i++) {
+      const w = toks[i];
+      if (/^\d+$/.test(w)) { out += w; continue; }
+      if (w in TENS_MAP) {
+        const nx = toks[i + 1];
+        if (nx && nx in DIGIT_MAP && DIGIT_MAP[nx] > 0) { out += TENS_MAP[w] + '' + DIGIT_MAP[nx]; i++; }
+        else out += TENS_MAP[w] + '0';
+        continue;
+      }
+      if (w in DIGIT_MAP) {
+        // "to"/"for"/"too" only count as numbers when next to other numbers
+        if (['to', 'too', 'for'].includes(w)) {
+          const prev = toks[i - 1], next = toks[i + 1];
+          const isNum = (x) => x && (/^\d+$/.test(x) || (x in DIGIT_MAP && !['to', 'too', 'for'].includes(x)) || x in TENS_MAP);
+          if (!isNum(prev) && !isNum(next)) continue;
+        }
+        out += DIGIT_MAP[w];
+      }
+    }
+    return out;
+  }
+  const challengeOk = (raw, challenge) => spokenDigits(raw).includes(challenge);
+
   // ---------- understanding ----------
   const YES = /^(yes|yeah|yea|yep|yup|ok|okay|confirm|sure|do it|go ahead|correct|na so|oya|do am|abeg do am|make e be|e do|sharp|beeni|bee ni|en|o daa|o dara|mo gba|ti gba|bee ni o)\b/;
   const NO = /^(no|nope|cancel|stop|dont|do not|abeg no|leave am|forget am|no do am|no wahala no|rara|ma se|fi sile|fagile|bee ko)\b/;
@@ -472,6 +510,11 @@
       yo: 'Hands-free ti bẹ̀rẹ̀. Màá máa gbọ́ lẹ́yìn ìdáhùn kọ̀ọ̀kan. Sọ “stop listening” láti pa á.'
     },
     handsfreeOff: { en: 'Hands-free is off. Tap the microphone or press the space bar when you want to talk.', pcm: 'Hands-free don off. When you wan talk, tap the mic or press space bar.', yo: 'Hands-free ti dúró. Tẹ máíkì tàbí space bar tí o bá fẹ́ sọ̀rọ̀.' },
+    challenge: { en: ' After your secret phrase, say these numbers: {d}.', pcm: ' After your secret phrase, talk these numbers: {d}.', yo: ' Lẹ́yìn ọ̀rọ̀ àṣírí rẹ, sọ àwọn nọ́ńbà yìí: {d}.' },
+    digitsWrong: { en: 'The numbers did not match. Say your secret phrase, then these new numbers: {d}.', pcm: 'The numbers no correct. Talk your secret phrase, then these new numbers: {d}.', yo: 'Àwọn nọ́ńbà náà kò bá a mu. Sọ ọ̀rọ̀ àṣírí rẹ, kí o sì sọ àwọn nọ́ńbà tuntun yìí: {d}.' },
+    voiceWrong: { en: 'That does not sound like you, so I did not move the money. Try again with these numbers: {d}.', pcm: 'That voice no be your own, so I no move the money. Try again with these numbers: {d}.', yo: 'Ohùn yẹn kò dà bí tìrẹ, nítorí náà mi ò gbé owó náà. Gbìyànjú lẹ́ẹ̀kan sí i pẹ̀lú àwọn nọ́ńbà yìí: {d}.' },
+    voiceShort: { en: 'I could not hear enough of your voice. Please say it again, a bit longer: your secret phrase, then {d}.', pcm: 'I no hear your voice well. Abeg talk am again: your secret phrase, then {d}.', yo: 'Mi ò gbọ́ ohùn rẹ tó. Jọ̀ọ́ tún un sọ: ọ̀rọ̀ àṣírí rẹ, lẹ́yìn náà {d}.' },
+    sayAloud: { en: 'Voice ID is on, so please say it out loud instead of typing. Or use the fingerprint backup.', pcm: 'Voice ID dey on, so abeg talk am out instead of to type. Or use the fingerprint backup.', yo: 'Voice ID wà, nítorí náà jọ̀ọ́ sọ ọ́ jáde dípò kí o kọ ọ́. Tàbí lo ìka rẹ.' },
     askSave: { en: 'How much do you want to save?', pcm: 'How much you wan keep?', yo: 'Èló ni o fẹ́ fi pamọ́?' },
     askWithdraw: { en: 'How much do you want to withdraw?', pcm: 'How much you wan comot?', yo: 'Èló ni o fẹ́ yọ?' },
     askGoal: { en: 'How much is the goal?', pcm: 'How much be the target?', yo: 'Èló ni àfojúsùn náà?' },
@@ -593,5 +636,5 @@
       .replace(/%/g, lang === 'yo' ? ' nínú ọgọ́rùn-ún' : ' percent');
   }
 
-  root.VosaLogic = { norm, fmt, parseAmount, parseDeadline, parseDay, detectGoal, customGoalName, understand, say, fill, S, EXPLAIN, GOALS, dateLabel, dayLabel, toSpeech };
+  root.VosaLogic = { newChallenge, spokenDigits, challengeOk, norm, fmt, parseAmount, parseDeadline, parseDay, detectGoal, customGoalName, understand, say, fill, S, EXPLAIN, GOALS, dateLabel, dayLabel, toSpeech };
 })(typeof window !== 'undefined' ? window : globalThis);
