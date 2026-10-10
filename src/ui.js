@@ -72,7 +72,7 @@
     total: { en: 'Total saved', pcm: 'All your savings', yo: 'Àpapọ̀ owó tí o fi pamọ́' },
     wallet: { en: 'Wallet', yo: 'Àpò owó' },
     acct: { en: 'Account', yo: 'Àkáǹtì' },
-    trySay: { en: 'Try saying', pcm: 'Try talk am', yo: 'Gbìyànjú kí o sọ pé' },
+    trySay: { en: 'Try saying', pcm: 'You fit talk', yo: 'Gbìyànjú kí o sọ pé' },
     pots: { en: 'Savings pots', yo: 'Àwọn àpò ìfowópamọ́' },
     seeAll: { en: 'See all {n}', yo: 'Wo gbogbo {n}' },
     sendMoney: { en: 'Send money', yo: 'Fi owó ránṣẹ́' },
@@ -81,7 +81,7 @@
     of: { en: 'of', yo: 'nínú' },
     by: { en: 'by', pcm: 'before', yo: 'títí' },
     onTrack: { en: 'On track · {w} a week', pcm: 'On track · {w} every week', yo: 'Ó ń lọ dáadáa · {w} lọ́sẹ̀' },
-    behind: { en: 'Behind · needs {w} a week', pcm: 'You don fall back · need {w} every week', yo: 'Ó ń lẹ́yìn · ó nílò {w} lọ́sẹ̀' },
+    behind: { en: 'Behind · needs {w} a week', pcm: 'You dey behind · need {w} every week', yo: 'Ó ń lẹ́yìn · ó nílò {w} lọ́sẹ̀' },
     reachedTag: { en: 'Target reached', pcm: 'You don reach target', yo: 'O ti dé àfojúsùn' },
     potsSub: { en: '{t} saved across {n} pots', pcm: '{t} dey inside {n} pots', yo: '{t} wà nínú àpò {n}' },
     newGoal: { en: 'New savings goal', yo: 'Àfojúsùn tuntun' },
@@ -145,13 +145,13 @@
     goalSet: { en: 'Goal created', pcm: 'Goal don set', yo: 'A ti ṣètò àfojúsùn' },
     walletNow: { en: 'Wallet now', yo: 'Àpò owó báyìí' },
     backHome: { en: 'Back to home', pcm: 'Go back home', yo: 'Padà sí ilé' },
-    nudgeQ: { en: 'Want to save {a} to {g} too?', pcm: 'You wan save {a} put for {g} too?', yo: 'Ṣé kí n fi {a} pamọ́ sínú {g} pẹ̀lú?' },
+    nudgeQ: { en: 'Want to save {a} to {g} too?', pcm: 'Shey make I put {a} for {g} join?', yo: 'Ṣé kí n fi {a} pamọ́ sínú {g} pẹ̀lú?' },
     yesShort: { en: 'Yes, save', yo: 'Bẹ́ẹ̀ni' }, noThanks: { en: 'No thanks', pcm: 'No, thank you', yo: 'Rárá o ṣé' },
     orSayYesNo: { en: 'Or say “yes” or “no”', pcm: 'Or talk “yes” or “no”', yo: 'Tàbí sọ “bẹ́ẹ̀ni” tàbí “rárá”' },
     moneyIn: { en: 'Money in', pcm: 'Money don enter', yo: 'Owó wọlé' },
     fromN: { en: 'From {n}', yo: 'Láti ọ̀dọ̀ {n}' },
-    savedForYou: { en: 'I saved {a} for you, as you asked.', pcm: 'I don save {a} for you as you talk.', yo: 'Mo ti fi {a} pamọ́ fún ọ, gẹ́gẹ́ bí o ṣe sọ.' },
-    saveTenQ: { en: 'Want me to save 10% of it ({a})?', pcm: 'Make I save 10% of am ({a})?', yo: 'Ṣé kí n fi 10% rẹ̀ ({a}) pamọ́?' },
+    savedForYou: { en: 'I saved {a} for you, as you asked.', pcm: 'As you talk am, I don keep {a} for you.', yo: 'Mo ti fi {a} pamọ́ fún ọ, gẹ́gẹ́ bí o ṣe sọ.' },
+    saveTenQ: { en: 'Want me to save 10% of it ({a})?', pcm: 'Shey make I keep 10% of am ({a})?', yo: 'Ṣé kí n fi 10% rẹ̀ ({a}) pamọ́?' },
     autoSave: { en: 'Auto-save' },
     okThanks: { en: 'OK, thanks', pcm: 'Okay, thank you', yo: 'Ó dáa, o ṣé' },
     undo: { en: 'Undo this auto-save', pcm: 'Reverse this auto-save', yo: 'Dá auto-save yìí padà' },
@@ -168,7 +168,7 @@
     tryAgain: { en: 'Try again', yo: 'Tún gbìyànjú' }, ok: { en: 'OK', yo: 'Ó dáa' },
     createGoal: { en: 'Create goal', pcm: 'Open goal', yo: 'Ṣí àfojúsùn' },
     welcomeT: { en: 'If you can talk, you can save.', pcm: 'If you fit talk, you fit save.', yo: 'Tí o bá lè sọ̀rọ̀, o lè fowó pamọ́.' },
-    chooseLang: { en: 'Hello, I am Vosa. Which language do you want? Tap or say English, Pidgin or Yorùbá.', pcm: 'How far! Na Vosa be this. Which language you want? Tap or talk English, Pidgin or Yorùbá.', yo: 'Ẹ kú àbọ̀! Èmi ni Vosa. Èdè wo ni o fẹ́? Tẹ̀ tàbí sọ English, Pidgin tàbí Yorùbá.' },
+    chooseLang: { en: 'Hello, I am Vosa. Which language do you want? Tap or say English, Pidgin or Yorùbá.', pcm: 'How you dey? Na me be Vosa. Which language you wan use? Tap am or talk English, Pidgin or Yorùbá.', yo: 'Ẹ kú àbọ̀! Èmi ni Vosa. Èdè wo ni o fẹ́? Tẹ̀ tàbí sọ English, Pidgin tàbí Yorùbá.' },
     cont: { en: 'Continue', yo: 'Tẹ̀síwájú' },
     step: { en: 'Step {n} of 2', yo: 'Ìgbésẹ̀ {n} nínú 2' },
     howTalk: { en: 'How do you want to talk to Vosa?', pcm: 'How you wan dey talk to Vosa?', yo: 'Báwo ni o ṣe fẹ́ bá Vosa sọ̀rọ̀?' },
@@ -227,7 +227,7 @@
     voiceS: { en: 'Try “{ex}”', pcm: 'Try “{ex}”', yo: 'Gbìyànjú “{ex}”' },
     whatSay: { en: 'What can I say?', pcm: 'Wetin I fit talk?', yo: 'Kí ni mo lè sọ?' },
     yourSavings: { en: 'Your savings', pcm: 'Your savings', yo: 'Ìfowópamọ́ rẹ' },
-    seeAll2: { en: 'See all', yo: 'Wo gbogbo' }, recent: { en: 'Recent activity', pcm: 'Wetin happen recently', yo: 'Ohun tó ṣẹlẹ̀ láìpẹ́' },
+    seeAll2: { en: 'See all', yo: 'Wo gbogbo' }, recent: { en: 'Recent activity', pcm: 'Wetin don happen', yo: 'Ohun tó ṣẹlẹ̀ láìpẹ́' },
     newShort: { en: 'New', yo: 'Tuntun' }, savedMonth: { en: 'Saved this month', pcm: 'Saved this month', yo: 'Pamọ́ lóṣù yìí' },
     inWeek: { en: 'Money in · 7 days', pcm: 'Money in · 7 days', yo: 'Owó wọlé · ọjọ́ 7' }, outWeek: { en: 'Money out · 7 days', pcm: 'Money out · 7 days', yo: 'Owó jáde · ọjọ́ 7' },
     gVoice: { en: 'Voice and language', yo: 'Ohùn àti èdè' }, gSecurity: { en: 'Security', yo: 'Ààbò' }, gAccess: { en: 'Accessibility', yo: 'Ìrọ̀rùn lílò' },
@@ -243,14 +243,14 @@
     toPot: { en: 'Save into', yo: 'Fi pamọ́ sínú' }, fromPot: { en: 'Withdraw from', pcm: 'Comot from', yo: 'Yọ láti inú' },
     recentPeople: { en: 'Recent people', yo: 'Àwọn tí o fi ránṣẹ́ sí láìpẹ́' }, acctNo: { en: 'Account number', yo: 'Nọ́ńbà àkáǹtì' },
     lastStepT: { en: 'Secret phrase needed', yo: 'Ọ̀rọ̀ àṣírí pọndandan' },
-    behindShort: { en: 'Behind', pcm: 'You don fall back', yo: 'Ó ń lẹ́yìn' }, onTrackShort: { en: 'On track', yo: 'Ó ń lọ dáadáa' },
+    behindShort: { en: 'Behind', pcm: 'Behind', yo: 'Ó ń lẹ́yìn' }, onTrackShort: { en: 'On track', yo: 'Ó ń lọ dáadáa' },
     noHistory: { en: 'No activity in this pot yet.', yo: 'Kò sí nǹkan nínú àpò yìí síbẹ̀.' },
     addDemo: { en: 'Add ₦50k (demo)', pcm: 'Add ₦50k (demo)', yo: 'Fi ₦50k kún un' },
     welcomeH: { en: 'Welcome to Vosa', pcm: 'Welcome to Vosa', yo: 'Ẹ kú àbọ̀ sí Vosa' }
   };
   const EXAMPLES = {
     en: ['Save 5,000 for rent', 'Send 5k to Tunde', 'How much do I have?', 'Buy 1,000 MTN airtime', 'Save 10% of any money I receive', 'I want to save 200k for school fees by January', 'Withdraw 3,000 from rent', 'What is a money market fund?'],
-    pcm: ['Abeg save 2k for house rent', 'Send 3k give Mama', 'How much I get?', 'Buy 500 Airtel airtime', 'Save 10% of any money wey I receive', 'I wan save 500k for japa before December', 'Comot 2k from my house rent', 'Wetin be inflation?'],
+    pcm: ['Abeg keep 2k for my house rent', 'Send 3k give Mama', 'How much I get?', 'Buy 500 Airtel card', 'Anytime money enter, save 10%', 'I wan gather 500k for japa before December', 'Comot 2k from my house rent', 'Wetin be inflation?'],
     yo: ['Fi ẹgbẹ̀rún márùn-ún pamọ́ fún owó ilé', 'Èló ló wà nínú àpò mi?', 'Fi ẹgbẹ̀rún méjì ránṣẹ́ sí Mama', 'Ra káàdì ìpè MTN ẹgbẹ̀rún kan', 'Mo fẹ́ fi ẹgbẹ̀rún lọ́nà igba pamọ́ fún owó ilé-ìwé kí ó tó di January', 'Yọ ẹgbẹ̀rún méjì kúrò nínú owó ilé', 'Kí ni èlé?']
   };
   const t = (k, vars) => { const e = T[k]; const s = e ? (e[state.lang] || e.en) : k; return vars ? L.fill(s, vars) : s; };
@@ -772,7 +772,7 @@
           h('div', { class: 'vsay' }, h('span', { style: 'flex:0 0 auto' }, logoMark(22)), h('p', { text: t('chooseLang') }),
             h('button', { type: 'button', 'aria-label': t('replayAria'), onClick: () => speak(t('chooseLang'), state.lang, true) }, icon('speaker', 20))),
           h('div', { role: 'radiogroup', 'aria-label': t('language'), style: 'display:flex;flex-direction:column;gap:10px' },
-            [['en', 'English', 'Save 5,000 for rent'], ['pcm', 'Pidgin', 'Abeg save 5k for house rent'], ['yo', 'Yorùbá', 'Fi ẹgbẹ̀rún márùn-ún pamọ́']].map(([code, name, ex]) =>
+            [['en', 'English', 'Save 5,000 for rent'], ['pcm', 'Pidgin', 'Abeg keep 5k for my house rent'], ['yo', 'Yorùbá', 'Fi ẹgbẹ̀rún márùn-ún pamọ́']].map(([code, name, ex]) =>
               h('button', { class: 'lang-row', type: 'button', role: 'radio', 'aria-checked': String(state.lang === code), onClick: () => { setLang(code); speak(t('chooseLang'), code, true); } },
                 h('div', null, h('b', { text: name }), h('span', { lang: code === 'yo' ? 'yo' : null, text: ex })), h('span', { class: 'radio', 'aria-hidden': 'true' }))))),
         h('div', { class: 'pg-foot' }, h('button', { class: 'btn p', type: 'button', onClick: () => showOv('onboard', { step: 2, hf: true }), text: t('cont') }))));
@@ -1112,7 +1112,7 @@
   }
 
   // ---------- speech out ----------
-  const backend = { ok: false, sttYo: false, ttsYo: false, ttsEn: false };
+  const backend = { ok: false, sttYo: false, ttsYo: false, ttsEn: false, ttsPcm: false };
   let audioEl = null, warnedYo = false, speakToken = 0;
   function stopSpeaking() {
     speakToken++;
@@ -1124,7 +1124,7 @@
     stopSpeaking();
     const my = speakToken;
     const spoken = L.toSpeech(text, lang);
-    const useServer = (lang === 'yo' && backend.ttsYo) || (lang !== 'yo' && backend.ttsEn);
+    const useServer = (lang === 'yo' && backend.ttsYo) || (lang === 'pcm' && backend.ttsPcm) || (lang === 'en' && backend.ttsEn);
     if (useServer) {
       try {
         const res = await fetch('api/speak', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: spoken, lang, speed: state.speed }) });
@@ -1165,6 +1165,7 @@
     const parts = [];
     parts.push(SR ? 'English/Pidgin: browser' : (backend.ok ? 'English/Pidgin: Spitch' : 'English/Pidgin: typing only'));
     parts.push(backend.sttYo ? 'Yorùbá: Spitch' : 'Yorùbá: typing (connect Spitch for voice)');
+    if (backend.ttsPcm) parts.push('Pidgin replies: Spitch');
     return parts.join(' · ');
   }
   function showListen(mode) {
@@ -1334,7 +1335,7 @@
       if (!res.ok) return;
       const j = await res.json();
       if (!j || j.service !== 'vosa') return;
-      backend.ok = !!j.spitch; backend.sttYo = !!j.spitch; backend.ttsYo = !!j.spitch; backend.ttsEn = !!j.voiceEn;
+      backend.ok = !!j.spitch; backend.sttYo = !!j.spitch; backend.ttsYo = !!j.spitch; backend.ttsEn = !!j.voiceEn; backend.ttsPcm = !!j.spitch;
       if (state.view === 'settings') render();
     } catch (e) { /* no server: browser-only mode */ }
   })();

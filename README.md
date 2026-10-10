@@ -47,13 +47,15 @@ At the bottom right of the app, you should see **"Yorùbá voice: Spitch"**. If 
 | Variable | What it does |
 |---|---|
 | `SPITCH_VOICE_YO` | Yorùbá voice. The default is `sade`; Spitch also lists `segun`, `femi` and `funmi`. |
+| `SPITCH_VOICE_PCM` | Pidgin voice. The default is `ufoma`; Spitch also has `boma`, `tega` and `justice`. |
 | `SPITCH_VOICE_EN` | Set this (for example `lucy` or `john`) to use a Spitch voice for English and Pidgin replies instead of the phone's built-in voice. |
 
 ## How voice works
 
 | Language | Hearing you | Talking back |
 |---|---|---|
-| English / Pidgin | The phone browser's speech recognition (best in Chrome) | The phone's built-in voice |
+| English | The phone browser's speech recognition (best in Chrome) | The phone's built-in voice |
+| Pidgin | The phone browser's speech recognition | Spitch Pidgin voice (Ufoma) when the key is set |
 | Yorùbá | Spitch | Spitch (Yorùbá voice) |
 
 Without a Spitch key, English and Pidgin voice still work, and Yorùbá works by typing or tapping the examples.

@@ -4,6 +4,7 @@ module.exports = (req, res) => {
   res.status(200).json({
     service: 'vosa',
     spitch: Boolean(process.env.SPITCH_API_KEY),
-    voiceEn: Boolean(process.env.SPITCH_API_KEY && process.env.SPITCH_VOICE_EN)
+    voiceEn: Boolean(process.env.SPITCH_API_KEY && process.env.SPITCH_VOICE_EN),
+    voicePcm: Boolean(process.env.SPITCH_API_KEY)
   });
 };

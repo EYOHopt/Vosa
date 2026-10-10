@@ -18,16 +18,19 @@ module.exports = async (req, res) => {
     const body = await readJson(req);
     const text = String(body.text || '').slice(0, 600);
     if (!text) return res.status(400).json({ error: 'No text' });
-    const lang = body.lang === 'yo' ? 'yo' : 'en';
-    const voice = lang === 'yo'
-      ? (process.env.SPITCH_VOICE_YO || 'sade')
+    const lang = ['yo', 'pcm'].includes(body.lang) ? body.lang : 'en';
+    const voice = lang === 'yo' ? (process.env.SPITCH_VOICE_YO || 'sade')
+      : lang === 'pcm' ? (process.env.SPITCH_VOICE_PCM || 'ufoma')
       : (process.env.SPITCH_VOICE_EN || 'lucy');
-
-    const r = await fetch(SPITCH + '/v1/speech', {
+    const speed = Math.min(1.2, Math.max(0.7, Number(body.speed) || 1));
+    const call = (language) => fetch(SPITCH + '/v1/speech', {
       method: 'POST',
       headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json', Accept: 'audio/*' },
-      body: JSON.stringify({ text, voice, language: lang, format: 'mp3', speed: Math.min(1.3, Math.max(0.7, Number(body.speed) || 1)) })
+      body: JSON.stringify({ text, voice, language, format: 'mp3', speed })
     });
+    // Pidgin: try the Pidgin language code first; if Spitch rejects it, the Pidgin voice reads it as English text.
+    let r = await call(lang);
+    if (!r.ok && lang === 'pcm') r = await call('en');
     if (!r.ok) {
       const detail = (await r.text()).slice(0, 300);
       return res.status(502).json({ error: 'Speech service error', status: r.status, detail });

@@ -180,12 +180,12 @@
 
   // ---------- goals ----------
   const GOALS = {
-    flex: { en: 'Flexible savings', pcm: 'Free savings', yo: 'Àpò ìfowópamọ́' },
+    flex: { en: 'Flexible savings', pcm: 'Flexible savings', yo: 'Àpò ìfowópamọ́' },
     rent: { en: 'Rent', pcm: 'House rent', yo: 'Owó ilé' },
     school: { en: 'School fees', pcm: 'School fees', yo: 'Owó ilé-ìwé' },
     emergency: { en: 'Emergency fund', pcm: 'Emergency money', yo: 'Owó pàjáwìrì' },
     business: { en: 'Business', pcm: 'Business money', yo: 'Owó òwò' },
-    travel: { en: 'Travel', pcm: 'Japa fund', yo: 'Ìrìn-àjò' },
+    travel: { en: 'Travel', pcm: 'Japa money', yo: 'Ìrìn-àjò' },
     phone: { en: 'New phone', pcm: 'New phone', yo: 'Fóònù tuntun' },
     wedding: { en: 'Wedding', pcm: 'Wedding', yo: 'Ìgbéyàwó' },
     christmas: { en: 'Christmas', pcm: 'Christmas', yo: 'Kérésìmesì' },
@@ -267,8 +267,8 @@
   }
 
   // ---------- understanding ----------
-  const YES = /^(yes|yeah|yea|yep|yup|ok|okay|confirm|sure|do it|go ahead|correct|na so|oya|beeni|bee ni|en|o daa|o dara|mo gba|ti gba|bee ni o)\b/;
-  const NO = /^(no|nope|cancel|stop|dont|do not|abeg no|leave am|rara|ma se|fi sile|fagile|bee ko)\b/;
+  const YES = /^(yes|yeah|yea|yep|yup|ok|okay|confirm|sure|do it|go ahead|correct|na so|oya|do am|abeg do am|make e be|e do|sharp|beeni|bee ni|en|o daa|o dara|mo gba|ti gba|bee ni o)\b/;
+  const NO = /^(no|nope|cancel|stop|dont|do not|abeg no|leave am|forget am|no do am|no wahala no|rara|ma se|fi sile|fagile|bee ko)\b/;
 
   function understand(raw, ctx) {
     ctx = ctx || {};
@@ -315,7 +315,7 @@
       r.intent = /\b(stop|off|cancel|disable|no more)\b/.test(t0) ? 'autosaveoff' : 'autosave'; return r;
     }
 
-    if (/\b(airtime|recharge|credit for my line|top up my line|load card|kaadi ipe|kaadi|data)\b/.test(t0)) { r.intent = 'airtime'; return r; }
+    if (/\b(airtime|recharge|card|credit for my line|top up my line|load card|kaadi ipe|kaadi|data)\b/.test(t0)) { r.intent = 'airtime'; return r; }
 
     const sendVerb = /\b(send|transfer|pay|give|ranse|fi ranse|wire)\b/.test(t0);
     if ((sendVerb && (r.contact || r.account || /\b(to|give|si|fun)\s+[a-z]/.test(t0)) && !/\b(save|pamo|for my (rent|school|goal))\b/.test(t0)) || (r.contact && r.amount && !/\b(save|pamo)\b/.test(t0))) {
@@ -337,7 +337,7 @@
     if (/\b(remind|reminder|remember me|ranti|ran mi leti|leti)\b/.test(t0)) { r.intent = 'remind'; return r; }
 
     const wantsGoal = /\b(goal|target|afojusun|plan)\b/.test(t0) ||
-      (r.deadline && /\b(want|wan|wanna|need|fe|plan|go save|dey save|save up)\b/.test(t0));
+      (r.deadline && /\b(want|wan|wanna|need|fe|plan|go save|dey save|save up|gather)\b/.test(t0));
     if (wantsGoal && !/\b(how much|balance|elo|melo)\b/.test(t0)) {
       r.intent = 'goal';
       if (!r.goal) r.customName = customGoalName(dl ? dl.rest : raw);
@@ -349,7 +349,7 @@
 
     if (/\b(my goals|all goals|goals|list|show me|afojusun mi|gbogbo)\b/.test(t0) && !r.amount) { r.intent = 'goals'; return r; }
 
-    if (/\b(save|put|keep|add|deposit|drop|send|top up|pamo|fi kun|fikun|ko si|fi si|fi)\b/.test(t0) || r.amount) {
+    if (/\b(save|put|keep|gather|add|deposit|drop|send|top up|pamo|fi kun|fikun|ko si|fi si|fi)\b/.test(t0) || r.amount) {
       r.intent = 'save';
       if (!r.goal) r.customName = customGoalName(raw);
       return r;
@@ -381,105 +381,105 @@
   const S = {
     welcome: {
       en: "Hello, I'm Vosa. Tell me what you want to do with your money.",
-      pcm: 'How far! Na Vosa be this. Wetin you wan do with your money today?',
+      pcm: 'How you dey? Na me be Vosa. Wetin we go do with your money today?',
       yo: 'Ẹ kú àbọ̀! Èmi ni Vosa. Kí ni o fẹ́ ṣe pẹ̀lú owó rẹ lónìí?'
     },
     greet: {
       en: "Hello! What would you like to do? You can save, check your balance or set a goal.",
-      pcm: 'I dey o! Wetin you wan do? You fit save, check your balance or set goal.',
+      pcm: 'I dey o! Wetin you wan do? You fit save money, check your balance, or set target.',
       yo: 'Ẹ n lẹ́ o! Kí ni o fẹ́ ṣe? O lè fowó pamọ́, wo iye owó rẹ, tàbí ṣètò àfojúsùn.'
     },
     help: {
       en: 'You can say: save 5,000 for rent. Send 5k to Tunde. Buy 1,000 MTN airtime. How much do I have? I want to save 200k for school fees by January. Save 10% of any money I receive. Or ask: what is a money market fund?',
-      pcm: 'You fit talk: save 5k for house rent. Send 5k give Tunde. Buy 1k MTN airtime. How much I get? I wan save 200k for school fees before January. Save 10% of any money wey I receive. Or ask: wetin be money market fund?',
+      pcm: 'You fit talk say: save 5k for house rent. Send 5k give Tunde. Buy 1k MTN card. How much I get? I wan gather 200k for school fees before January. Anytime money enter, save 10%. Or ask me: wetin be money market fund?',
       yo: 'O lè sọ pé: fi ẹgbẹ̀rún márùn-ún pamọ́ fún owó ilé. Fi ẹgbẹ̀rún márùn-ún ránṣẹ́ sí Tunde. Ra káàdì ìpè MTN ẹgbẹ̀rún kan. Èló ló wà nínú àpò mi? Tàbí kí o béèrè pé: kí ni money market fund?'
     },
     unknown: {
       en: "Sorry, I didn't catch that. Try saying: save 5,000 for rent.",
-      pcm: 'Abeg, I no hear am well. Try talk: save 5k for house rent.',
+      pcm: 'Abeg, I no catch wetin you talk. Try talk am like this: save 5k for house rent.',
       yo: 'Ẹ jọ̀ọ́, mi ò gbọ́ ọ dáadáa. Gbìyànjú kí o sọ pé: fi ẹgbẹ̀rún márùn-ún pamọ́ fún owó ilé.'
     },
-    wallet: { en: 'Your wallet has {wallet} to spend.', pcm: 'Your wallet get {wallet} wey you fit spend.', yo: '{wallet} ló wà nínú àpò owó rẹ láti ná.' },
-    lowWallet: { en: 'Your wallet only has {wallet}, so I cannot do {amt}.', pcm: 'Your wallet get only {wallet}, so I no fit do {amt}.', yo: '{wallet} nìkan ló wà nínú àpò owó rẹ, nítorí náà mi ò lè ṣe {amt}.' },
-    askSend: { en: 'How much should I send?', pcm: 'How much I go send?', yo: 'Èló ni kí n fi ránṣẹ́?' },
+    wallet: { en: 'Your wallet has {wallet} to spend.', pcm: 'You get {wallet} for your wallet wey you fit spend.', yo: '{wallet} ló wà nínú àpò owó rẹ láti ná.' },
+    lowWallet: { en: 'Your wallet only has {wallet}, so I cannot do {amt}.', pcm: 'Ah, na only {wallet} remain for your wallet. E no reach {amt}.', yo: '{wallet} nìkan ló wà nínú àpò owó rẹ, nítorí náà mi ò lè ṣe {amt}.' },
+    askSend: { en: 'How much should I send?', pcm: 'How much make I send?', yo: 'Èló ni kí n fi ránṣẹ́?' },
     askRecipient: { en: 'Who should I send it to?', pcm: 'Who I go send am give?', yo: 'Ta ni kí n fi ránṣẹ́ sí?' },
     confirmSend: {
       en: 'Send {amt} to {name}, {bank} ••{last4}? Say your secret phrase to confirm, or no to cancel.',
-      pcm: 'You wan send {amt} give {name}, {bank} ••{last4}? Talk your secret phrase make I send am, or no to cancel.',
+      pcm: 'Make I send {amt} give {name}, {bank} ••{last4}? Talk your secret phrase make I send am. If you no want again, talk no.',
       yo: 'Ṣé kí n fi {amt} ránṣẹ́ sí {name}, {bank} ••{last4}? Sọ ọ̀rọ̀ àṣírí rẹ láti fọwọ́sí, tàbí “rárá” láti fagilé.'
     },
     doneSend: {
       en: 'Sent. {name} has received {amt}. Your wallet now has {wallet}.',
-      pcm: 'E don go! {name} don collect {amt}. Your wallet remain {wallet}.',
+      pcm: 'E don go! {name} don collect {amt}. {wallet} remain for your wallet.',
       yo: 'Ó ti lọ! {name} ti gba {amt}. {wallet} ló kù nínú àpò owó rẹ.'
     },
     nudge: {
       en: ' Want to save {nudge} to {goal} too? Say yes or no.',
-      pcm: ' You wan make I save {nudge} put for {goal} too? Talk yes or no.',
+      pcm: ' Shey make I put {nudge} for {goal} join? Talk yes or no.',
       yo: ' Ṣé kí n fi {nudge} pamọ́ sínú {goal} pẹ̀lú? Sọ “bẹ́ẹ̀ni” tàbí “rárá”.'
     },
     unknownContact: {
       en: 'I cannot find {name} in your contacts. Say their 10-digit account number and bank, like: send 5,000 to 0123456789 GTBank.',
-      pcm: 'I no see {name} for your contacts. Talk the account number and bank, like: send 5k to 0123456789 GTBank.',
+      pcm: 'I no see {name} for your contacts o. Give me the account number and the bank, like: send 5k to 0123456789 GTBank.',
       yo: 'Mi ò rí {name} nínú àwọn olùbásọ̀rọ̀ rẹ. Sọ nọ́ńbà àkáǹtì rẹ̀ àti báǹkì, bíi: fi ẹgbẹ̀rún márùn-ún ránṣẹ́ sí 0123456789 GTBank.'
     },
-    needBank: { en: 'Which bank is account {acct} with?', pcm: 'Which bank be account {acct}?', yo: 'Báǹkì wo ni àkáǹtì {acct} wà?' },
-    phraseHint: { en: 'Please say your secret phrase to confirm, or no to cancel.', pcm: 'Abeg talk your secret phrase to confirm, or no to cancel.', yo: 'Jọ̀ọ́ sọ ọ̀rọ̀ àṣírí rẹ láti fọwọ́sí, tàbí “rárá” láti fagilé.' },
-    phraseWrong: { en: 'That is not your secret phrase. Try again, or say no to cancel.', pcm: 'That one no be your secret phrase. Try again, or talk no.', yo: 'Ìyẹn kọ́ ni ọ̀rọ̀ àṣírí rẹ. Gbìyànjú lẹ́ẹ̀kan sí i, tàbí sọ “rárá”.' },
-    locked: { en: 'Too many wrong tries. I cancelled it to keep your money safe.', pcm: 'You don try too many times. I cancel am make your money dey safe.', yo: 'O ti gbìyànjú ní ọ̀pọ̀ ìgbà. Mo ti fagilé e kí owó rẹ lè wà láìléwu.' },
-    secretSet: { en: 'Your secret phrase is now: {phrase}. Keep it private.', pcm: 'Your secret phrase don change to: {phrase}. No tell anybody.', yo: 'Ọ̀rọ̀ àṣírí rẹ ti di: {phrase}. Má sọ fún ẹnikẹ́ni.' },
+    needBank: { en: 'Which bank is account {acct} with?', pcm: 'Na which bank be this account {acct}?', yo: 'Báǹkì wo ni àkáǹtì {acct} wà?' },
+    phraseHint: { en: 'Please say your secret phrase to confirm, or no to cancel.', pcm: 'Abeg talk your secret phrase make I confirm am. If you no want again, talk no.', yo: 'Jọ̀ọ́ sọ ọ̀rọ̀ àṣírí rẹ láti fọwọ́sí, tàbí “rárá” láti fagilé.' },
+    phraseWrong: { en: 'That is not your secret phrase. Try again, or say no to cancel.', pcm: 'That one no be your secret phrase o. Try again, or talk no.', yo: 'Ìyẹn kọ́ ni ọ̀rọ̀ àṣírí rẹ. Gbìyànjú lẹ́ẹ̀kan sí i, tàbí sọ “rárá”.' },
+    locked: { en: 'Too many wrong tries. I cancelled it to keep your money safe.', pcm: 'You don try am too many times, so I cancel am make your money dey safe.', yo: 'O ti gbìyànjú ní ọ̀pọ̀ ìgbà. Mo ti fagilé e kí owó rẹ lè wà láìléwu.' },
+    secretSet: { en: 'Your secret phrase is now: {phrase}. Keep it private.', pcm: 'I don change your secret phrase to: {phrase}. No tell anybody o.', yo: 'Ọ̀rọ̀ àṣírí rẹ ti di: {phrase}. Má sọ fún ẹnikẹ́ni.' },
     account: {
       en: 'Your Vosa account number is {acct}, Vosa Demo Bank. People can send money to you with it.',
-      pcm: 'Your Vosa account number na {acct}, Vosa Demo Bank. People fit send you money with am.',
+      pcm: 'Your Vosa account number na {acct}, Vosa Demo Bank. Anybody fit use am send you money.',
       yo: 'Nọ́ńbà àkáǹtì Vosa rẹ ni {acct}, Vosa Demo Bank. Àwọn ènìyàn lè fi owó ránṣẹ́ sí ọ pẹ̀lú rẹ̀.'
     },
     incoming: {
       en: '{amt} just came in from {name}. Your wallet now has {wallet}.',
-      pcm: 'Alert! {amt} don enter from {name}. Your wallet don reach {wallet}.',
+      pcm: 'Alert don land! {name} send you {amt}. Your wallet don reach {wallet}.',
       yo: 'Owó wọlé! {amt} ti dé láti ọ̀dọ̀ {name}. {wallet} ló wà nínú àpò owó rẹ báyìí.'
     },
     autoSaved: {
       en: ' As you asked, I saved {pct}%, that is {save}, to {goal}.',
-      pcm: ' As you talk, I don save {pct}%, na {save}, put for {goal}.',
+      pcm: ' As you talk am, I don keep {pct}%, wey be {save}, for {goal}.',
       yo: ' Gẹ́gẹ́ bí o ṣe sọ, mo ti fi {pct}%, ìyẹn {save}, pamọ́ sínú {goal}.'
     },
     incomingNudge: {
       en: ' Want me to save 10% of it, that is {save}? Say yes or no.',
-      pcm: ' You wan make I save 10% of am, na {save}? Talk yes or no.',
+      pcm: ' Shey make I keep 10% of am, wey be {save}? Talk yes or no.',
       yo: ' Ṣé kí n fi 10% rẹ̀ pamọ́, ìyẹn {save}? Sọ “bẹ́ẹ̀ni” tàbí “rárá”.'
     },
     autosaveSet: {
       en: 'Done. From now on, I will save {pct}% of any money you receive into {goal}.',
-      pcm: 'No wahala. Anytime money enter, I go save {pct}% put for {goal}.',
+      pcm: 'No wahala. Anytime money enter, I go keep {pct}% for {goal} sharp sharp.',
       yo: 'Ó dáa. Láti ìsinsìnyí lọ, màá máa fi {pct}% nínú owó tó bá wọlé pamọ́ sínú {goal}.'
     },
-    autosaveOff: { en: 'Auto-save is off.', pcm: 'I don off auto-save.', yo: 'Mo ti pa auto-save.' },
-    askAirtime: { en: 'How much airtime?', pcm: 'How much airtime you want?', yo: 'Káàdì ìpè èló ni?' },
+    autosaveOff: { en: 'Auto-save is off.', pcm: 'I don stop auto-save.', yo: 'Mo ti pa auto-save.' },
+    askAirtime: { en: 'How much airtime?', pcm: 'How much card you wan buy?', yo: 'Káàdì ìpè èló ni?' },
     confirmAirtime: {
       en: 'Buy {amt} {net} airtime for {who}? Say yes to confirm.',
-      pcm: 'Make I buy {amt} {net} airtime for {who}? Talk yes make I do am.',
+      pcm: 'Make I buy {amt} {net} card for {who}? Talk yes make I do am.',
       yo: 'Ṣé kí n ra káàdì ìpè {net} ti {amt} fún {who}? Sọ “bẹ́ẹ̀ni” láti fọwọ́sí.'
     },
     doneAirtime: {
       en: 'Done. {amt} {net} airtime sent to {who}. Your wallet has {wallet}.',
-      pcm: 'E don land! {amt} {net} airtime don enter {who}. Wallet remain {wallet}.',
+      pcm: 'E don land! {amt} {net} card don enter {who}. {wallet} remain for your wallet.',
       yo: 'Ó ti parí! Káàdì ìpè {amt} ti wọ {who}. {wallet} ló kù nínú àpò owó rẹ.'
     },
     yourLine: { en: 'your line', pcm: 'your line', yo: 'nọ́ńbà rẹ' },
     handsfreeOn: {
       en: 'Hands-free is on. I will listen again after every reply. Say stop listening to turn it off.',
-      pcm: 'Hands-free don on. I go dey listen after every reply. Talk stop listening to off am.',
+      pcm: 'Hands-free don on. After every answer, I go dey listen. If you wan make I stop, talk “stop listening”.',
       yo: 'Hands-free ti bẹ̀rẹ̀. Màá máa gbọ́ lẹ́yìn ìdáhùn kọ̀ọ̀kan. Sọ “stop listening” láti pa á.'
     },
-    handsfreeOff: { en: 'Hands-free is off. Tap the microphone or press the space bar when you want to talk.', pcm: 'Hands-free don off. Tap the microphone or press space bar when you wan talk.', yo: 'Hands-free ti dúró. Tẹ máíkì tàbí space bar tí o bá fẹ́ sọ̀rọ̀.' },
-    askSave: { en: 'How much do you want to save?', pcm: 'How much you wan save?', yo: 'Èló ni o fẹ́ fi pamọ́?' },
+    handsfreeOff: { en: 'Hands-free is off. Tap the microphone or press the space bar when you want to talk.', pcm: 'Hands-free don off. When you wan talk, tap the mic or press space bar.', yo: 'Hands-free ti dúró. Tẹ máíkì tàbí space bar tí o bá fẹ́ sọ̀rọ̀.' },
+    askSave: { en: 'How much do you want to save?', pcm: 'How much you wan keep?', yo: 'Èló ni o fẹ́ fi pamọ́?' },
     askWithdraw: { en: 'How much do you want to withdraw?', pcm: 'How much you wan comot?', yo: 'Èló ni o fẹ́ yọ?' },
     askGoal: { en: 'How much is the goal?', pcm: 'How much be the target?', yo: 'Èló ni àfojúsùn náà?' },
     askDay: { en: 'Which day should I remind you?', pcm: 'Which day make I dey remind you?', yo: 'Ọjọ́ wo ni kí n máa rán ẹ létí?' },
     cancelled: { en: 'Okay, cancelled. Nothing changed.', pcm: 'No wahala, I don cancel am. Nothing change.', yo: 'Ó dáa, mo ti fagilé e. Kò sí ohun tó yí padà.' },
     confirmSave: {
       en: 'Save {amt} to {goal}? Say yes to confirm, or no to cancel.',
-      pcm: 'You wan put {amt} for {goal}? Talk yes make I do am, or no to cancel.',
+      pcm: 'Make I put {amt} inside {goal}? Talk yes make I do am, or talk no.',
       yo: 'Ṣé kí n fi {amt} sínú {goal}? Sọ “bẹ́ẹ̀ni” láti fọwọ́sí, tàbí “rárá” láti fagilé.'
     },
     doneSave: {
@@ -487,58 +487,58 @@
       pcm: 'E don enter! {goal} don reach {bal}{prog}.',
       yo: 'Ó ti parí! {goal} ti tó {bal} báyìí{prog}.'
     },
-    prog: { en: ', {pct}% of your {target} target', pcm: ', na {pct}% of {target}', yo: ', ìyẹn {pct}% nínú {target}' },
-    reached: { en: ' You reached your target!', pcm: ' You don hit your target!', yo: ' O ti dé àfojúsùn rẹ!' },
+    prog: { en: ', {pct}% of your {target} target', pcm: ', wey be {pct}% of your {target} target', yo: ', ìyẹn {pct}% nínú {target}' },
+    reached: { en: ' You reached your target!', pcm: ' You don hit your target! Well done o!', yo: ' O ti dé àfojúsùn rẹ!' },
     confirmGoal: {
       en: 'Create a {goal} goal of {target} by {date}? That is about {weekly} a week. Say yes to confirm.',
-      pcm: 'Make I open {goal} goal of {target} before {date}? E go be like {weekly} every week. Talk yes make I do am.',
+      pcm: 'Make I open {goal} target of {target} before {date}? You go dey keep like {weekly} every week. Talk yes make I do am.',
       yo: 'Ṣé kí n ṣí àfojúsùn {goal} ti {target} kí ó tó di {date}? Ìyẹn tó {weekly} lọ́sẹ̀. Sọ “bẹ́ẹ̀ni” láti fọwọ́sí.'
     },
     confirmGoalNoDate: {
       en: 'Create a {goal} goal of {target}? Say yes to confirm.',
-      pcm: 'Make I open {goal} goal of {target}? Talk yes make I do am.',
+      pcm: 'Make I open {goal} target of {target}? Talk yes make I do am.',
       yo: 'Ṣé kí n ṣí àfojúsùn {goal} ti {target}? Sọ “bẹ́ẹ̀ni” láti fọwọ́sí.'
     },
     doneGoal: {
       en: "Your {goal} goal is set. Let's reach {target} together.",
-      pcm: '{goal} goal don set. We go reach {target} together.',
+      pcm: 'I don open your {goal} target. We go reach {target} together, small small.',
       yo: 'A ti ṣètò àfojúsùn {goal}. A ó jọ dé {target}.'
     },
     confirmWithdraw: {
       en: 'Move {amt} from {goal} to your wallet? Say your secret phrase to confirm, or no to cancel.',
-      pcm: 'You wan comot {amt} from {goal} put for your wallet? Talk your secret phrase to confirm, or no to cancel.',
+      pcm: 'You wan comot {amt} from {goal} put for your wallet? Talk your secret phrase make I do am, or talk no.',
       yo: 'Ṣé kí n gbé {amt} láti inú {goal} lọ sí àpò owó rẹ? Sọ ọ̀rọ̀ àṣírí rẹ láti fọwọ́sí, tàbí “rárá” láti fagilé.'
     },
     doneWithdraw: {
       en: 'Done. {amt} is now in your wallet. {goal} has {bal} left.',
-      pcm: 'E don land! {amt} don enter your wallet. {goal} remain {bal}.',
+      pcm: 'E don land! {amt} don enter your wallet. {bal} remain for {goal}.',
       yo: 'Ó ti parí! {amt} ti wọ àpò owó rẹ. {bal} ló ṣẹ́kù nínú {goal}.'
     },
     insufficient: {
       en: '{goal} only has {bal}, so I cannot withdraw {amt}.',
-      pcm: '{goal} get only {bal}, so I no fit comot {amt}.',
+      pcm: 'Na only {bal} dey inside {goal}, so I no fit comot {amt}.',
       yo: '{bal} nìkan ló wà nínú {goal}, nítorí náà mi ò lè yọ {amt}.'
     },
     balanceTotal: {
       en: 'Your wallet has {wallet}, and you have {total} saved. {list}',
-      pcm: 'Your wallet get {wallet}, and your savings na {total}. {list}',
+      pcm: 'You get {wallet} for your wallet, and {total} for savings. {list}',
       yo: '{wallet} ló wà nínú àpò owó rẹ, o sì ti fi {total} pamọ́. {list}'
     },
-    balanceGoal: { en: '{goal} has {bal}{prog}.', pcm: '{goal} get {bal}{prog}.', yo: '{bal} ló wà nínú {goal}{prog}.' },
+    balanceGoal: { en: '{goal} has {bal}{prog}.', pcm: '{bal} dey inside {goal}{prog}.', yo: '{bal} ló wà nínú {goal}{prog}.' },
     goals: { en: 'You have {n} savings pots: {list}.', pcm: 'You get {n} savings pots: {list}.', yo: 'O ní àpò ìfowópamọ́ {n}: {list}.' },
     remind: {
       en: 'Okay. I will remind you to save every {day}.',
-      pcm: 'No wahala. I go dey remind you to save every {day}.',
+      pcm: 'No wahala. Every {day}, I go remind you make you save.',
       yo: 'Ó dáa. Màá máa rán ẹ létí láti fowó pamọ́ ní gbogbo ọjọ́ {day}.'
     },
     noGoal: {
       en: "You don't have a {goal} pot yet. Say: I want to save 50k for {goal} by December.",
-      pcm: 'You never open {goal} pot. Talk: I wan save 50k for {goal} before December.',
+      pcm: 'You never open {goal} pot o. Talk like this: I wan save 50k for {goal} before December.',
       yo: 'O kò tíì ní àpò {goal}. Sọ pé: mo fẹ́ fi ẹgbẹ̀rún lọ́nà àádọ́ta pamọ́ fún {goal} kí ó tó di December.'
     },
     yoNoVoice: {
       en: 'Voice input is not available here. Type below or tap an example.',
-      pcm: 'Voice no dey work for here. Type for down or tap one example.',
+      pcm: 'Voice no dey work for here. Type am or tap one example.',
       yo: 'Ohùn kò ṣiṣẹ́ níbí. Tẹ ọ̀rọ̀ sí ìsàlẹ̀ tàbí tẹ àpẹẹrẹ kan.'
     }
   };
@@ -546,32 +546,32 @@
   const EXPLAIN = {
     mmf: {
       en: 'A money market fund pools money from many people and lends it safely to the government and big companies for short periods. It usually pays more interest than a bank account, and you can take your money out quickly.',
-      pcm: 'Money market fund na where plenty people put money together, and dem lend am safely to government and big companies for short time. E dey pay better interest pass bank, and you fit collect your money quick.',
+      pcm: 'Money market fund na where plenty people gather money, and dem lend am to government and big companies for short time. E dey pay better interest pass bank, and you fit collect your money quick quick.',
       yo: 'Money market fund ni ibi tí ọ̀pọ̀ ènìyàn ti ń kó owó jọ, tí wọ́n sì ń yá ìjọba àti àwọn ilé-iṣẹ́ ńlá ní owó náà fún ìgbà kúkúrú. Èlé rẹ̀ sábà máa ń ju ti báǹkì lọ, o sì lè gba owó rẹ padà kíákíá.'
     },
     interest: {
       en: 'Interest is extra money you earn for keeping your money saved. The longer you save, the more it grows.',
-      pcm: 'Interest na extra money wey you dey gain because you keep your money. The longer you save, the more e go grow.',
+      pcm: 'Interest na the extra money wey you dey gain as you keep your money. The longer you keep am, the more e go grow.',
       yo: 'Èlé ni owó àfikún tí o ń rí gbà nítorí pé o fi owó rẹ pamọ́. Bí o bá ṣe pẹ́ tó, bẹ́ẹ̀ ni yóò ṣe pọ̀ sí i.'
     },
     inflation: {
       en: 'Inflation means prices keep going up, so the same money buys less over time. Saving where you earn interest helps your money keep its value.',
-      pcm: 'Inflation mean say price dey go up, so the same money go dey buy less as time dey go. If you save where you dey gain interest, your money no go lose value too much.',
+      pcm: 'Inflation mean say price of things dey go up, so the same money go dey buy less as time dey go. If you keep your money where e dey gain interest, e no go lose value too much.',
       yo: 'Inflation túmọ̀ sí pé iye ọjà ń gòkè, nítorí náà owó kan náà yóò máa ra nǹkan díẹ̀ bí àkókò ti ń lọ. Fífi owó pamọ́ níbi tí o ti ń jẹ èlé ń ràn án lọ́wọ́ láti má ṣe pàdánù iye rẹ̀.'
     },
     tbill: {
       en: 'Treasury bills are short loans you give to the government. They pay you back with interest after a few months, and they are very safe.',
-      pcm: 'Treasury bill na small loan wey you give government. Dem go pay you back with interest after some months, and e safe well well.',
+      pcm: 'Treasury bill na like small loan wey you give government. After some months, dem go pay you back with interest, and e safe well well.',
       yo: 'Treasury bills jẹ́ owó tí o yá ìjọba fún ìgbà kúkúrú. Wọ́n á san án padà fún ọ pẹ̀lú èlé lẹ́yìn oṣù díẹ̀, ó sì ní ààbò gan-an.'
     },
     mutual: {
       en: 'A mutual fund collects money from many people, and experts invest it in different things for you, so your risk is spread out.',
-      pcm: 'Mutual fund na where dem gather money from plenty people, then experts invest am for different things, so your risk no dey one place.',
+      pcm: 'Mutual fund na where dem gather money from plenty people, and experts go invest am for different things, so your risk no go dey one place.',
       yo: 'Mutual fund ń kó owó jọ láti ọ̀dọ̀ ọ̀pọ̀ ènìyàn, àwọn amòye á sì fi í ṣòwò ní ọ̀nà oríṣiríṣi fún ọ, kí ewu má bàa wà ní ibì kan ṣoṣo.'
     },
     emergencyfund: {
       en: 'An emergency fund is money you keep aside for surprises, like hospital bills or losing income. A good target is three months of your expenses.',
-      pcm: 'Emergency fund na money wey you keep for sudden wahala like hospital bill, or when money no dey come. Try keep like three months of your spending.',
+      pcm: 'Emergency fund na money wey you keep aside for sudden wahala, like hospital bill or if work stop. Try get like three months of your spending.',
       yo: 'Owó pàjáwìrì ni owó tí o yà sọ́tọ̀ fún ohun àìròtẹ́lẹ̀ bí owó ilé-ìwòsàn. Ó dára kí o ní iye tí o ń ná fún oṣù mẹ́ta.'
     }
   };
