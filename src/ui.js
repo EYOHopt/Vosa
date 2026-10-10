@@ -277,6 +277,9 @@
     sayPhraseThen: { en: 'Say your secret phrase, then these numbers', pcm: 'Talk your secret phrase, then these numbers', yo: 'Sọ ọ̀rọ̀ àṣírí rẹ, lẹ́yìn náà àwọn nọ́ńbà yìí' },
     numbersAria: { en: 'Numbers to say: {d}', yo: 'Nọ́ńbà tí o máa sọ: {d}' },
     chkPhrase: { en: 'Secret phrase', yo: 'Ọ̀rọ̀ àṣírí' }, chkNumbers: { en: 'New numbers', yo: 'Nọ́ńbà tuntun' }, chkVoice: { en: 'Your voice', pcm: 'Your voice', yo: 'Ohùn rẹ' },
+    kVoiceNeeded: { en: 'Voice ID needed', pcm: 'Voice ID dey needed', yo: 'Voice ID pọndandan' },
+    requireVoice: { en: 'Require Voice ID to move money', pcm: 'Make Voice ID compulsory to move money', yo: 'Voice ID pọndandan láti gbé owó' },
+    requireVoiceDesc: { en: 'Turn off only for testing', pcm: 'Off am only when you dey test', yo: 'Pa á nìkan fún ìdánwò' },
     setUpVoice: { en: 'Add Voice ID', pcm: 'Add Voice ID', yo: 'Fi Voice ID kún un' },
     voiceMatch: { en: 'voice match {p}%', yo: 'ìbámu ohùn {p}%' },
     phraseNumsPh: { en: 'Phrase and numbers', pcm: 'Phrase and numbers', yo: 'Ọ̀rọ̀ àṣírí àti nọ́ńbà' },
@@ -302,7 +305,7 @@
     return {
       lang: 'en', muted: false, handsFree: false, onboarded: false, hideBal: false, view: 'home', speed: 1, textScale: 1,
       wallet: 35000, account: '9012345678', myPhone: '08031234412', myNetwork: 'MTN',
-      secret: 'blue mango', autoSave: null, voicePrint: null, voicePrintV: 2, voiceStrict: 0.5,
+      secret: 'blue mango', autoSave: null, voicePrint: null, voicePrintV: 2, voiceStrict: 0.5, requireVoice: true,
       goals: [
         { key: 'flex', name: null, bal: 12000, target: null, deadline: null },
         { key: 'rent', name: null, bal: 40000, target: 75000, deadline: '2026-12-31' },
@@ -528,6 +531,7 @@
       row(t('secret'), t('secretDesc', { p: state.secret }), null),
       row(t('vidTitle'), !backend.voiceId ? t('vidNeedsKey') : state.voicePrint ? t('vidOn') : t('vidOff'),
         backend.voiceId ? h('button', { class: 'link', type: 'button', text: state.voicePrint ? t('redo') : t('setUp'), onClick: () => showOv('enroll', { stage: 'intro' }) }) : null),
+      backend.voiceId ? row(t('requireVoice'), t('requireVoiceDesc'), sw(state.requireVoice !== false, () => { state.requireVoice = state.requireVoice === false; persist(); render(); }, t('requireVoice'))) : null,
       voiceIdOn() ? row(t('strictness'), t('strictDesc'), seg(t('strictness'), [[0.4, t('relaxed')], [0.5, t('normal')], [0.6, t('strict')]], state.voiceStrict, (v) => { state.voiceStrict = v; persist(); render(); })) : null,
       voiceIdOn() ? row(t('removeVoice'), null, h('button', { class: 'link', type: 'button', style: 'color:var(--danger)', text: t('remove'), onClick: () => { state.voicePrint = null; persist(); render(); } })) : null));
     v.append(h('h2', { class: 'group-t', text: t('gAccess') }), h('div', { class: 'group', style: 'margin-top:0' },
@@ -1000,6 +1004,13 @@
     return fail({ tone: 'warn', icon: 'alert', k: t('kNoMoney'), title: text, actions: [okAction(), { label: t('addDemo'), fn: () => { closeOv(); incoming(50000, 'Kemi Adewale'); } }] }, text);
   }
   function confirmWith(p, text) {
+    // Money leaving the account: if Voice ID is available but not set up, set it up first
+    if (p.needsPhrase && backend.voiceId && !state.voicePrint && state.requireVoice !== false) {
+      const msg = R('needVoiceId');
+      return fail({ tone: 'warn', icon: 'lock', k: t('kVoiceNeeded'), title: msg, actions: [
+        { label: t('setUpVoice'), primary: true, fn: () => showOv('enroll', { stage: 'intro', resume: { p, text } }) },
+        { label: t('cancel'), fn: () => { closeOv(); reply(R('cancelled')); } }] }, msg);
+    }
     if (p.needsPhrase) { p.challenge = L.newChallenge(); text += R('challenge', { d: spaced(p.challenge) }); }
     pending = p; showOv('confirm'); return reply(text);
   }
@@ -1060,6 +1071,9 @@
         return reply(R('autosaveSet', { pct, goal: label(g) }));
       }
       case 'autosaveoff': state.autoSave = null; persist(); render(); return reply(R('autosaveOff'));
+      case 'voicesetup':
+        if (!backend.voiceId) return reply(t('vidNeedsKey'));
+        showOv('enroll', { stage: 'intro' }); return reply(R('voiceSetupGo'));
       case 'handsfree': setHandsFree(r.on); return reply(R(r.on ? 'handsfreeOn' : 'handsfreeOff'));
       case 'setsecret': {
         const phrase = r.phrase.replace(/[^\p{L}\p{N} ]/gu, '').trim();
@@ -1484,6 +1498,8 @@
     const leave = async () => {
       if (enrollSession) enrollSession.cancel();
       closeOv();
+      if (d.resume && state.voicePrint) return confirmWith(d.resume.p, d.resume.text);
+      if (d.resume) return reply(R('cancelled'));
       if (d.fromOnboard) reply(R('welcome'));
     };
     const sentences = h('div', { class: 'kv', style: 'padding:6px 16px' }, T.sentences[state.lang].map(s => h('p', { style: 'margin:10px 0;font-size:16px;font-weight:600;line-height:1.45', text: s })));

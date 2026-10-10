@@ -52,6 +52,8 @@ Voice ID checks that it's really the account owner speaking before money is sent
 - **Runtime:** ONNX Runtime Web 1.22 (WebAssembly), in `public/vendor/`.
 - **No outside services:** no account, no key and no CDN. Everything is served from your own Vercel site. Voices never leave the phone. The confirmation recording goes to Spitch only to read the words, so `SPITCH_API_KEY` must be set.
 
+Voice ID is **required** to send or withdraw money once Spitch is connected. If it isn't set up, Vosa stops and offers to set it up, then carries on with the transfer. You can also say "set up voice ID". For testing only, Settings → Require Voice ID can be turned off.
+
 Steps:
 
 1. On your phone: **Settings → Voice ID → Set up** (new users are offered this at the end of setup). The first time, the phone downloads about 18 MB, then keeps it.

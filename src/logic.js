@@ -342,6 +342,7 @@
     if (ctx.awaiting === 'day' && r.day != null) { r.intent = 'fill'; return r; }
 
     // hands-free on/off
+    if (/\b(voice ?id|voiceprint|voice print|my voice)\b/.test(t0) && /\b(set ?up|add|turn on|enable|start|redo|teach|learn|register|sabi)\b/.test(t0)) { r.intent = 'voicesetup'; return r; }
     if (/\b(hands ?free|stop listening|keep listening|start listening|listen continuously)\b/.test(t0)) {
       r.intent = 'handsfree'; r.on = !/\b(off|stop|disable|turn off)\b/.test(t0); return r;
     }
@@ -459,6 +460,8 @@
     askSend: { en: 'How much should I send?', pcm: 'How much make I send?', yo: 'Èló ni kí n fi ránṣẹ́?' },
     askRecipient: { en: 'Who are you sending to? Say their name, or the account number.', pcm: 'Who you wan send am give? Talk the person name, or call the account number.', yo: 'Ta ni o fẹ́ fi ránṣẹ́ sí? Sọ orúkọ rẹ̀, tàbí nọ́ńbà àkáǹtì rẹ̀.' },
     askAccount: { en: 'Okay, {bank}. What is the account number you are sending to?', pcm: 'Okay, {bank}. Call the account number where you wan send the money go.', yo: 'Ó dáa, {bank}. Sọ nọ́ńbà àkáǹtì tí o fẹ́ fi owó ránṣẹ́ sí.' },
+    needVoiceId: { en: 'For your safety, set up Voice ID before you send or withdraw money. It takes about 20 seconds.', pcm: 'Make your money dey safe: set up Voice ID first before you send or comot money. E go take like 20 seconds.', yo: 'Fún ààbò owó rẹ, ṣètò Voice ID kí o tó fi owó ránṣẹ́ tàbí yọ owó. Ó máa gba ìṣẹ́jú-àáyá 20.' },
+    voiceSetupGo: { en: 'Okay. Read the sentences on the screen out loud until the bar is full.', pcm: 'Okay. Read the lines wey dey screen out loud until the bar full.', yo: 'Ó dáa. Ka àwọn gbólóhùn tó wà lójú ìbòjú sókè títí ìlà náà yóò fi kún.' },
     askAccountNoBank: { en: 'What is the account number you are sending to?', pcm: 'Call the account number where you wan send the money go.', yo: 'Sọ nọ́ńbà àkáǹtì tí o fẹ́ fi owó ránṣẹ́ sí.' },
     notCaught: { en: "I didn't catch that.", pcm: 'I no catch am well.', yo: 'Mi ò gbọ́ ọ dáadáa.' },
     sayDigits: { en: 'Say the 10 digits slowly, one by one.', pcm: 'Call the 10 numbers slowly, one by one.', yo: 'Sọ àwọn nọ́ńbà mẹ́wàá náà díẹ̀díẹ̀, ní ọ̀kọ̀ọ̀kan.' },
