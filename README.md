@@ -22,7 +22,9 @@ Light mode, white with a light-green signature and one deep green (#0C6B35) for 
 |---|---|
 | `public/index.html` | The app (built from `src/`) |
 | `src/logic.js` | Understands what people say: amounts, goals and dates in English, Pidgin and Yorùbá. All the replies are here too. |
-| `src/ui.js` | Screen, microphone, voice replies and confirmations |
+| `src/ui.js` | Screen, microphone, voice replies, confirmations and Voice ID |
+| `public/models/voice-id.onnx` | Voice ID speaker model (WeSpeaker ResNet34, VoxCeleb) |
+| `public/vendor/` | ONNX Runtime Web, which runs the Voice ID model on the phone (MIT licence) |
 | `api/transcribe.js` | Sends a recording to Spitch and gets text back (Yorùbá speech to text) |
 | `api/speak.js` | Sends text to Spitch and gets a Yorùbá voice reply back |
 | `api/health.js` | Tells the app which services are connected |
@@ -44,18 +46,30 @@ At the bottom right of the app, you should see **"Yorùbá voice: Spitch"**. If 
 
 ### Voice ID (no extra setup)
 
-Voice ID checks that it's really the account owner speaking before money is sent or withdrawn. It uses Microsoft's open-source WavLM speaker model (`wavlm-base-plus-sv`), run on the phone by transformers.js. There's no account and no key. It works once `SPITCH_API_KEY` is set, because the confirmation recording also goes to Spitch to read the words.
+Voice ID checks that it's really the account owner speaking before money is sent or withdrawn. It runs entirely on the phone:
 
-1. On your phone: **Settings → Voice ID → Set up** (new users are offered this at the end of setup).
-2. The first time, the phone downloads the model once (about 100 MB, then cached). **Use Wi-Fi.** Do this before the pitch, not on stage.
-3. Read the three sentences until the bar is full (about 15 seconds of speech). Your voiceprint is made and kept on the phone; your voice isn't uploaded for this.
+- **Model:** WeSpeaker ResNet34, a speaker-recognition model trained on VoxCeleb (over 7,000 speakers). It's stored as `public/models/voice-id.onnx`, compressed to 6.7 MB with 8-bit weights, with no loss of accuracy in our tests.
+- **Runtime:** ONNX Runtime Web 1.22 (WebAssembly), in `public/vendor/`.
+- **No outside services:** no account, no key and no CDN. Everything is served from your own Vercel site. Voices never leave the phone. The confirmation recording goes to Spitch only to read the words, so `SPITCH_API_KEY` must be set.
+
+Steps:
+
+1. On your phone: **Settings → Voice ID → Set up** (new users are offered this at the end of setup). The first time, the phone downloads about 18 MB, then keeps it.
+2. Read the three sentences until the bar is full (about 15 seconds of speech). If it was too noisy or someone else was talking, Vosa asks you to redo it.
 
 How a transfer or withdrawal is confirmed:
 - **Secret phrase:** what you know.
 - **Three random numbers, new every time:** stops someone playing back a recording of you.
-- **Your voice:** stops someone else saying your phrase. Settings → Voice match sets how strict this is (Relaxed 80% / Normal 86% / Strict 90%).
+- **Your voice:** stops someone else saying your phrase.
 
-The receipt shows the voice match score (for example "Phrase, numbers, voice (91%)"). Try a few transfers yourself and ask a friend to try your phrase, then pick the strictness that lets you in and keeps them out. There's a fingerprint (demo) backup for noisy places.
+The voice match score is cosine similarity. Settings → Voice match sets the bar: Relaxed 40% / Normal 50% (default) / Strict 60%. In our tests with real recordings, played through Chrome's microphone into the app:
+
+| Who spoke | Voice match | Result |
+|---|---|---|
+| The owner (3 tries, including one with background noise) | 64–76% | Money sent |
+| 6 other people | 0–25% | Refused |
+
+The receipt shows the score, for example "Phrase, numbers, voice (72%)". Phones and rooms differ, so try it yourself and with a friend before the pitch. There's a fingerprint (demo) backup for noisy places.
 
 ### Optional settings
 
@@ -90,7 +104,8 @@ npm test                                    # checks the phrase understanding
 ## Things to say in the demo
 
 - "Turn on hands-free" (after this, no more tapping)
-- "Send 5k to Tunde" → "blue mango" → "yes" (accepts the savings nudge)
+- "Send 5k to Tunde" → "blue mango" plus the numbers → "yes" (accepts the savings nudge)
+- "I wan send money to GTB account" → Vosa asks for the account number → "0 1 2 3 4 5 6 7 8 9" → "5k" → phrase and numbers
 - "Save 10% of any money I receive", then tap **Simulate ₦50,000 coming in**
 - "Buy 1,000 MTN airtime" → "yes"
 - "What is my account number?"

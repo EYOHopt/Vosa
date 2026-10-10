@@ -255,7 +255,8 @@
     vidOn: { en: 'On · your voice is checked before money moves', pcm: 'On · I go check your voice before money move', yo: 'Wà · a ó ṣàyẹ̀wò ohùn rẹ kí owó tó lọ' },
     vidOff: { en: 'Not set up yet', pcm: 'You never set am', yo: 'O kò tíì ṣètò rẹ̀' },
     vidNeedsKey: { en: 'Needs the Spitch speech key on the server', pcm: 'E need the Spitch key for server', yo: 'Ó nílò kọ́kọ́rọ́ Spitch' },
-    vidDownload: { en: 'Downloading the voice model. This happens once (about 100 MB), so use Wi-Fi if you can.', pcm: 'I dey download the voice model. Na only once (like 100 MB), so use Wi-Fi if you fit.', yo: 'Mo ń gba àwòṣe ohùn sílẹ̀. Ẹ̀ẹ̀kan péré ni (nǹkan bí 100 MB), lo Wi-Fi tí o bá lè ṣe é.' },
+    vidDownload: { en: 'Downloading the voice checker. This happens once (about 18 MB).', pcm: 'I dey download the voice checker. Na only once (like 18 MB).', yo: 'Mo ń gba ohun tí ń ṣàyẹ̀wò ohùn sílẹ̀. Ẹ̀ẹ̀kan péré ni (nǹkan bí 18 MB).' },
+    enrollNoisy: { en: 'It was too noisy, or more than one person was talking. Please try again in a quiet place.', pcm: 'Noise too much, or another person dey talk join. Abeg try again for quiet place.', yo: 'Ariwo pọ̀ jù, tàbí ẹlòmíì ń sọ̀rọ̀ pẹ̀lú. Jọ̀ọ́ tún gbìyànjú níbi tí ó dákẹ́.' },
     enrollSaving: { en: 'Saving your voiceprint…', pcm: 'I dey save your voiceprint…', yo: 'Mo ń fi ohùn rẹ pamọ́…' },
     setUp: { en: 'Set up', yo: 'Ṣètò' }, redo: { en: 'Redo', yo: 'Tún ṣe' },
     strictness: { en: 'Voice match', yo: 'Ìbámu ohùn' }, strictDesc: { en: 'How closely your voice must match', pcm: 'How your voice must match reach', yo: 'Bí ohùn rẹ ṣe gbọ́dọ̀ bá a mu tó' },
@@ -301,7 +302,7 @@
     return {
       lang: 'en', muted: false, handsFree: false, onboarded: false, hideBal: false, view: 'home', speed: 1, textScale: 1,
       wallet: 35000, account: '9012345678', myPhone: '08031234412', myNetwork: 'MTN',
-      secret: 'blue mango', autoSave: null, voicePrint: null, voiceStrict: 0.86,
+      secret: 'blue mango', autoSave: null, voicePrint: null, voicePrintV: 2, voiceStrict: 0.5,
       goals: [
         { key: 'flex', name: null, bal: 12000, target: null, deadline: null },
         { key: 'rent', name: null, bal: 40000, target: 75000, deadline: '2026-12-31' },
@@ -322,8 +323,10 @@
   let state = seed();
   try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && s.goals) state = Object.assign(seed(), s); } catch (e) {}
   // Older demo versions stored a Picovoice profile; the new engine needs a fresh voiceprint.
-  if ('voiceProfile' in state) delete state.voicePrint;
-  if (!(state.voiceStrict >= 0.75)) state.voiceStrict = 0.86;
+  if ('voiceProfile' in state) delete state.voiceProfile;
+  // Voiceprints from the first open-source model (v1) don't work with the new one: ask for a fresh setup
+  if (state.voicePrint && state.voicePrintV !== 2) { state.voicePrint = null; state.voiceStrict = 0.5; }
+  if (![0.4, 0.5, 0.6].includes(state.voiceStrict)) state.voiceStrict = 0.5;
   const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
 
   let pending = null;   // {type, needsPhrase, tries, ...}
@@ -525,7 +528,7 @@
       row(t('secret'), t('secretDesc', { p: state.secret }), null),
       row(t('vidTitle'), !backend.voiceId ? t('vidNeedsKey') : state.voicePrint ? t('vidOn') : t('vidOff'),
         backend.voiceId ? h('button', { class: 'link', type: 'button', text: state.voicePrint ? t('redo') : t('setUp'), onClick: () => showOv('enroll', { stage: 'intro' }) }) : null),
-      voiceIdOn() ? row(t('strictness'), t('strictDesc'), seg(t('strictness'), [[0.8, t('relaxed')], [0.86, t('normal')], [0.9, t('strict')]], state.voiceStrict, (v) => { state.voiceStrict = v; persist(); render(); })) : null,
+      voiceIdOn() ? row(t('strictness'), t('strictDesc'), seg(t('strictness'), [[0.4, t('relaxed')], [0.5, t('normal')], [0.6, t('strict')]], state.voiceStrict, (v) => { state.voiceStrict = v; persist(); render(); })) : null,
       voiceIdOn() ? row(t('removeVoice'), null, h('button', { class: 'link', type: 'button', style: 'color:var(--danger)', text: t('remove'), onClick: () => { state.voicePrint = null; persist(); render(); } })) : null));
     v.append(h('h2', { class: 'group-t', text: t('gAccess') }), h('div', { class: 'group', style: 'margin-top:0' },
       row(t('textSize'), null, seg(t('textSize'), [[0.9, 'A', 'font-size:12px'], [1, 'A', 'font-size:15px'], [1.2, 'A', 'font-size:18px']], state.textScale, (s) => { state.textScale = s; persist(); render(); })),
@@ -940,19 +943,19 @@
     }
 
     if (r.intent === 'yes') { if (pending) return execute(); r.intent = 'unknown'; }
-    if (r.intent === 'no') { if (pending) return cancelPending(); return reply(R('cancelled')); }
+    if (r.intent === 'no') { if (pending) return cancelPending(); awaiting = null; return reply(R('cancelled')); }
     if (pending) { pending = null; if (ov && ['confirm', 'success', 'moneyin'].includes(ov.kind)) closeOv(); }
 
-    if (r.intent === 'fill' && awaiting) {
-      const base = awaiting.r;
-      if (awaiting.slot === 'amount') base.amount = r.amount;
-      if (awaiting.slot === 'day') base.day = r.day;
-      if (awaiting.slot === 'recipient') { base.contact = r.contact; base.account = r.account; base.bank = r.bank || base.bank; }
-      awaiting = null; r = base;
-    } else if (awaiting && awaiting.slot === 'bank' && r.bank) {
-      const base = awaiting.r; base.bank = r.bank; awaiting = null; r = base;
-    } else {
-      awaiting = null;
+    if (awaiting) {
+      // Vosa asked a question: keep what we already know and add the new answer to it
+      const a = awaiting;
+      if (mergeAnswer(a.r, r, a.slot)) { awaiting = null; r = a.r; }
+      else if (['unknown', 'fill', 'yes'].includes(r.intent) || r.intent === a.r.intent) {
+        a.miss = (a.miss || 0) + 1;
+        if (a.miss >= 3) { awaiting = null; return reply(R('cancelled')); }
+        const extra = (a.slot === 'account' || a.slot === 'recipient') && /\d/.test(raw) ? ' ' + R('sayDigits') : '';
+        return reply(R('notCaught') + ' ' + (a.slot === 'account' ? R('askAccountNoBank') : a.text) + extra);
+      } else awaiting = null;
     }
 
     if (r.intent === 'unknown') {
@@ -963,6 +966,21 @@
     }
     return route(r);
   }
+
+  function mergeAnswer(base, r, slot) {
+    let got = false;
+    if (slot === 'day' && r.day != null) { base.day = r.day; got = true; }
+    if (slot === 'amount' && r.amount) { base.amount = r.amount; got = true; }
+    if (base.intent === 'send') {
+      if (r.contact) { base.contact = r.contact; base.account = null; base.unknownName = null; got = true; }
+      if (r.account) { base.account = r.account; base.contact = null; base.unknownName = null; got = true; }
+      if (r.bank) { base.bank = r.bank; got = true; }
+      if (r.amount && !r.account && slot !== 'amount' && !base.amount) { base.amount = r.amount; got = true; }
+    }
+    return got;
+  }
+  // Ask a follow-up question and remember what we are waiting for
+  function ask(slot, r, key, vars) { const text = R(key, vars); awaiting = { slot, r, text }; return reply(text); }
 
   function resolveGoal(r, createIfMissing) {
     let g = findGoal(r.goal, r.customName);
@@ -990,13 +1008,13 @@
   function route(r) {
     switch (r.intent) {
       case 'save': {
-        if (!r.amount) { awaiting = { slot: 'amount', r }; return reply(R('askSave')); }
+        if (!r.amount) { return ask('amount', r, 'askSave'); }
         if (state.wallet < r.amount) return lowWallet(r.amount);
         const g = resolveGoal(r, true);
         return confirmWith({ type: 'save', amount: r.amount, goal: g }, R('confirmSave', { amt: fmt(r.amount), goal: label(g) }));
       }
       case 'withdraw': {
-        if (!r.amount) { awaiting = { slot: 'amount', r }; return reply(R('askWithdraw')); }
+        if (!r.amount) { return ask('amount', r, 'askWithdraw'); }
         const g = resolveGoal(r, false);
         if (!g) {
           const text = R('noGoal', { goal: r.goal ? L.GOALS[r.goal][state.lang] : (r.customName || '') });
@@ -1009,21 +1027,23 @@
         return confirmWith({ type: 'withdraw', amount: r.amount, goal: g, needsPhrase: true }, R('confirmWithdraw', { amt: fmt(r.amount), goal: label(g) }));
       }
       case 'send': {
+        if (!r.contact && !r.account && r.bank) return ask('account', r, 'askAccount', { bank: r.bank });
         if (!r.contact && !r.account) {
           if (r.unknownName) {
             const text = R('unknownContact', { name: r.unknownName.replace(/\b\w/g, c => c.toUpperCase()) });
             return fail({ tone: 'warn', icon: 'user', k: t('kNoContact'), title: text, actions: [okAction(), { label: t('sendMoney'), fn: () => showOv('send-form', { c: 0, amount: r.amount || 5000 }) }] }, text);
           }
-          awaiting = { slot: 'recipient', r }; return reply(R('askRecipient'));
+          return ask('recipient', r, 'askRecipient');
         }
-        if (!r.amount) { awaiting = { slot: 'amount', r }; return reply(R('askSend')); }
+        if (!r.contact && !r.bank) return ask('bank', r, 'needBank', { acct: r.account });
+        if (!r.amount) return ask('amount', r, 'askSend');
         if (state.wallet < r.amount) return lowWallet(r.amount);
         const to = r.contact ? { name: r.contact.name, bank: r.contact.bank, acct: r.contact.acct } : { name: r.account, bank: r.bank, acct: r.account };
-        if (!to.bank) { awaiting = { slot: 'bank', r }; return reply(R('needBank', { acct: r.account })); }
-        return confirmWith({ type: 'send', amount: r.amount, to, needsPhrase: true }, R('confirmSend', { amt: fmt(r.amount), name: to.name, bank: to.bank, last4: to.acct.slice(-4) }));
+        const text = r.contact ? R('confirmSend', { amt: fmt(r.amount), name: to.name, bank: to.bank, last4: to.acct.slice(-4) }) : R('confirmSendAcct', { amt: fmt(r.amount), bank: to.bank, acct: to.acct });
+        return confirmWith({ type: 'send', amount: r.amount, to, needsPhrase: true }, text);
       }
       case 'airtime': {
-        if (!r.amount) { awaiting = { slot: 'amount', r }; return reply(R('askAirtime')); }
+        if (!r.amount) { return ask('amount', r, 'askAirtime'); }
         if (state.wallet < r.amount) return lowWallet(r.amount);
         const net = r.network || state.myNetwork;
         const who = r.phone ? r.phone : R('yourLine');
@@ -1048,7 +1068,7 @@
         return reply(R('secretSet', { phrase }));
       }
       case 'goal': {
-        if (!r.amount) { awaiting = { slot: 'amount', r }; return reply(R('askGoal')); }
+        if (!r.amount) { return ask('amount', r, 'askGoal'); }
         const g = resolveGoal(r, true);
         const deadline = r.deadline || null;
         const vars = { goal: label(g), target: fmt(r.amount) };
@@ -1071,7 +1091,7 @@
         return reply(R('goals', { n: state.goals.length, list }));
       }
       case 'remind': {
-        if (r.day == null) { awaiting = { slot: 'day', r }; return reply(R('askDay')); }
+        if (r.day == null) { return ask('day', r, 'askDay'); }
         if (!state.reminders.includes(r.day)) state.reminders.push(r.day);
         persist(); render();
         return reply(R('remind', { day: L.dayLabel(r.day, state.lang) }));
@@ -1227,14 +1247,16 @@
   }
   if ('speechSynthesis' in window) { try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => {}; } catch (e) {} }
 
-  // ---------- Voice ID (open-source WavLM speaker model, runs on the phone) ----------
-  // Model: microsoft/wavlm-base-plus-sv (ONNX copy Xenova/wavlm-base-plus-sv), run by transformers.js.
-  // Downloaded once (~100 MB) and cached by the browser. No key, no account, voices never leave the phone.
-  const TJS_SRC = 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.2.0/dist/transformers.min.js';
-  const VID_MODEL = 'Xenova/wavlm-base-plus-sv';
+  // ---------- Voice ID (open-source speaker model, runs on the phone) ----------
+  // Model: WeSpeaker ResNet34 trained on VoxCeleb (thousands of speakers), int8 version, 6.7 MB.
+  // Runtime: ONNX Runtime Web (WebAssembly). Both are served from this site; no key, no account,
+  // and voices never leave the phone. Downloaded once (~18 MB in total), then kept by the browser.
+  const VID_FILES = { script: 'vendor/ort.wasm.min.js', wasm: 'vendor/ort-wasm-simd-threaded.wasm', model: 'models/voice-id.onnx' };
+  const VID_CACHE = 'vosa-voice-id-v2';
   const ENROLL_SECS = 15;      // seconds of speech needed to build a voiceprint
   const VERIFY_MIN_SECS = 1.2; // shortest speech we will score
   const VERIFY_MAX_SECS = 8;
+  const ENROLL_MIN_AGREE = 0.45; // the three enrollment slices must sound like the same person
   const vid = { engine: null, loading: null, starting: false, onProgress: null };
   let enrollSession = null;
   function toB64(bytes) { let s = ''; for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(s); }
@@ -1242,32 +1264,115 @@
   const printToB64 = (f32) => toB64(new Uint8Array(f32.buffer.slice(0)));
   const printFromB64 = (str) => new Float32Array(fromB64(str).buffer);
   function unit(v) { let n = 0; for (let i = 0; i < v.length; i++) n += v[i] * v[i]; n = Math.sqrt(n) || 1; const o = new Float32Array(v.length); for (let i = 0; i < v.length; i++) o[i] = v[i] / n; return o; }
-  function cosine(a, b) { if (!a || !b || a.length !== b.length) return null; let d = 0; for (let i = 0; i < a.length; i++) d += a[i] * b[i]; return d; }
-
+  function cosine(a, b) { if (!a || !b || a.length !== b.length) return null; let d = 0; for (let i = 0; i < a.length; i++) d += a[i] * b[i]; return Number.isFinite(d) ? d : null; }
+  // Kaldi-compatible 80-bin log-mel filterbank (what the speaker model was trained on), with mean normalisation
+  const FB = (() => {
+    const N = 400, SHIFT = 160, NFFT = 512, BINS = 80, SR = 16000;
+    const win = new Float32Array(N);
+    for (let i = 0; i < N; i++) win[i] = Math.pow(0.5 - 0.5 * Math.cos(2 * Math.PI * i / (N - 1)), 0.85);
+    const mel = (f) => 1127 * Math.log(1 + f / 700);
+    const lo = mel(20), hi = mel(SR / 2), d = (hi - lo) / (BINS + 1);
+    const banks = [];
+    for (let m = 0; m < BINS; m++) {
+      const l = lo + m * d, c = l + d, r = c + d, w = new Float32Array(NFFT / 2);
+      let first = -1, last = -1;
+      for (let i = 0; i < NFFT / 2; i++) {
+        const x = mel(i * SR / NFFT);
+        if (x > l && x < r) { w[i] = x <= c ? (x - l) / (c - l) : (r - x) / (r - c); if (first < 0) first = i; last = i; }
+      }
+      banks.push({ w, first, last });
+    }
+    const cos = new Float64Array(NFFT / 2), sin = new Float64Array(NFFT / 2);
+    for (let i = 0; i < NFFT / 2; i++) { cos[i] = Math.cos(-2 * Math.PI * i / NFFT); sin[i] = Math.sin(-2 * Math.PI * i / NFFT); }
+    const rev = new Uint16Array(NFFT);
+    for (let i = 0, bits = Math.log2(NFFT); i < NFFT; i++) { let x = i, y = 0; for (let b = 0; b < bits; b++) { y = (y << 1) | (x & 1); x >>= 1; } rev[i] = y; }
+    function fft(re, im) {
+      for (let i = 0; i < NFFT; i++) { const j = rev[i]; if (j > i) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+      for (let size = 2; size <= NFFT; size <<= 1) {
+        const half = size >> 1, step = NFFT / size;
+        for (let i = 0; i < NFFT; i += size) for (let j = 0; j < half; j++) {
+          const k = j * step, a = i + j, b = a + half;
+          const tr = re[b] * cos[k] - im[b] * sin[k], ti = re[b] * sin[k] + im[b] * cos[k];
+          re[b] = re[a] - tr; im[b] = im[a] - ti; re[a] += tr; im[a] += ti;
+        }
+      }
+    }
+    const EPS = 1.1920928955078125e-7;
+    return function fbank(x) {
+      const T = x.length < N ? 0 : 1 + Math.floor((x.length - N) / SHIFT);
+      const out = new Float32Array(T * BINS), mean = new Float64Array(BINS);
+      const re = new Float64Array(NFFT), im = new Float64Array(NFFT), fr = new Float64Array(N), pw = new Float64Array(NFFT / 2);
+      for (let t = 0; t < T; t++) {
+        let s = 0; for (let i = 0; i < N; i++) { fr[i] = x[t * SHIFT + i]; s += fr[i]; }
+        s /= N; for (let i = 0; i < N; i++) fr[i] -= s;
+        for (let i = N - 1; i > 0; i--) fr[i] -= 0.97 * fr[i - 1];
+        fr[0] -= 0.97 * fr[0];
+        re.fill(0); im.fill(0);
+        for (let i = 0; i < N; i++) re[i] = fr[i] * win[i];
+        fft(re, im);
+        for (let i = 0; i < NFFT / 2; i++) pw[i] = re[i] * re[i] + im[i] * im[i];
+        for (let m = 0; m < BINS; m++) {
+          const { w, first, last } = banks[m]; let e = 0;
+          for (let i = first; i <= last; i++) e += w[i] * pw[i];
+          const v = Math.log(Math.max(e, EPS)); out[t * BINS + m] = v; mean[m] += v;
+        }
+      }
+      for (let m = 0; m < BINS; m++) mean[m] /= T || 1;
+      for (let t = 0; t < T; t++) for (let m = 0; m < BINS; m++) out[t * BINS + m] -= mean[m];
+      return { data: out, frames: T };
+    };
+  })();
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      if (window.ort) return resolve();
+      const s = document.createElement('script'); s.src = src; s.onload = resolve; s.onerror = () => reject(new Error('Voice ID files did not load. Check your internet and try again.'));
+      document.head.append(s);
+    });
+  }
+  // Downloads a file once with progress, then keeps it in the browser's cache
+  async function fetchKept(url, onBytes) {
+    let cache = null;
+    try { cache = await caches.open(VID_CACHE); const hit = await cache.match(url); if (hit) { const b = await hit.arrayBuffer(); onBytes(b.byteLength, b.byteLength); return b; } } catch (e) { cache = null; }
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Voice ID files did not load (' + res.status + '). Check your internet and try again.');
+    const total = +res.headers.get('content-length') || 0;
+    let buf;
+    if (res.body && res.body.getReader) {
+      const reader = res.body.getReader(), parts = []; let got = 0;
+      for (;;) { const { done, value } = await reader.read(); if (done) break; parts.push(value); got += value.length; onBytes(got, total || got); }
+      const u = new Uint8Array(got); let k = 0; parts.forEach(p => { u.set(p, k); k += p.length; }); buf = u.buffer;
+    } else { buf = await res.arrayBuffer(); onBytes(buf.byteLength, buf.byteLength); }
+    try { if (cache) await cache.put(url, new Response(buf.slice(0), { headers: { 'Content-Type': 'application/octet-stream' } })); } catch (e) {}
+    return buf;
+  }
   // Loads the model once. Returns { embed(Float32Array 16 kHz) -> unit-length voiceprint }.
   function vidEngine() {
     if (vid.engine) return Promise.resolve(vid.engine);
     if (window.VOSA_TEST_EMBED) { vid.engine = { embed: async (a) => unit(await window.VOSA_TEST_EMBED(a)) }; return Promise.resolve(vid.engine); }
     if (!vid.loading) vid.loading = (async () => {
-      const tf = await import(TJS_SRC);
-      tf.env.allowLocalModels = false;
-      const files = {};
-      const progress_callback = (p) => {
-        if (!p || !p.file) return;
-        if (p.status === 'progress' && p.total) files[p.file] = [p.loaded, p.total];
-        if (p.status === 'done' && files[p.file]) files[p.file][0] = files[p.file][1];
-        let got = 0, all = 0; Object.values(files).forEach(([l, tt]) => { got += l; all += tt; });
-        if (all && vid.onProgress) vid.onProgress(Math.min(100, Math.round(got / all * 100)));
-      };
-      const processor = await tf.AutoProcessor.from_pretrained(VID_MODEL, { progress_callback });
-      const model = await tf.AutoModelForXVector.from_pretrained(VID_MODEL, { dtype: 'q8', device: 'wasm', progress_callback });
+      const prog = { wasm: [0, 11.2e6], model: [0, 6.7e6] };
+      const tick = (k) => (got, total) => { prog[k] = [got, total]; const g = prog.wasm[0] + prog.model[0], all = prog.wasm[1] + prog.model[1]; if (vid.onProgress) vid.onProgress(Math.min(99, Math.round(g / all * 100))); };
+      const [wasm, model] = await Promise.all([fetchKept(VID_FILES.wasm, tick('wasm')), fetchKept(VID_FILES.model, tick('model')), loadScript(VID_FILES.script)]);
+      const ort = window.ort;
+      ort.env.wasm.numThreads = 1;
+      ort.env.wasm.wasmPaths = new URL('vendor/', location.href).href;
+      ort.env.wasm.wasmBinary = wasm;
+      const session = await ort.InferenceSession.create(new Uint8Array(model), { executionProviders: ['wasm'], graphOptimizationLevel: 'all' });
+      const input = session.inputNames[0], output = session.outputNames[0];
+      let queue = Promise.resolve();
       vid.engine = {
-        embed: async (audio) => {
-          const inputs = await processor(audio);
-          const { embeddings } = await model(inputs);
-          return unit(Float32Array.from(embeddings.data));
+        embed: (audio) => {
+          const job = queue.then(async () => {
+            const f = FB(audio);
+            if (f.frames < 50) throw new Error('too short');
+            const res = await session.run({ [input]: new ort.Tensor('float32', f.data, [1, f.frames, 80]) });
+            return unit(Float32Array.from(res[output].data));
+          });
+          queue = job.catch(() => {});
+          return job;
         }
       };
+      if (vid.onProgress) vid.onProgress(100);
       return vid.engine;
     })().catch((e) => { vid.loading = null; throw e; });
     return vid.loading;
@@ -1286,7 +1391,8 @@
       let pos = carry;
       while (pos + ratio <= input.length) {
         let sum = 0, n = 0;
-        for (let j = Math.floor(pos); j < Math.floor(pos + ratio); j++) { sum += input[j]; n++; }
+        // pos can start just before this buffer (left over from the last one); skip those samples
+        for (let j = Math.max(0, Math.floor(pos)); j < Math.min(input.length, Math.floor(pos + ratio)); j++) { sum += input[j]; n++; }
         out.push(n ? Math.max(-1, Math.min(1, sum / n)) : 0);
         pos += ratio;
       }
@@ -1360,13 +1466,14 @@
         try {
           // Three slices of speech -> three voiceprints -> averaged into one
           const audio = col.audio(), part = Math.floor(audio.length / 3);
-          let acc = null;
-          for (let i = 0; i < 3; i++) {
-            const e = await engine.embed(audio.subarray(i * part, (i + 1) * part));
-            acc = acc || new Float32Array(e.length);
-            for (let j = 0; j < e.length; j++) acc[j] += e[j];
-          }
-          state.voicePrint = printToB64(unit(acc)); persist();
+          const prints = [];
+          for (let i = 0; i < 3; i++) prints.push(await engine.embed(audio.slice(i * part, (i + 1) * part)));
+          // If the three parts don't sound like one person (noise, TV, someone else talking), ask to redo it
+          const agree = Math.min(cosine(prints[0], prints[1]), cosine(prints[0], prints[2]), cosine(prints[1], prints[2]));
+          if (!(agree >= ENROLL_MIN_AGREE)) throw new Error(t('enrollNoisy'));
+          const acc = new Float32Array(prints[0].length);
+          prints.forEach(e => { for (let j = 0; j < e.length; j++) acc[j] += e[j]; });
+          state.voicePrint = printToB64(unit(acc)); state.voicePrintV = 2; persist();
           d.stage = 'done'; renderOv(); render();
         } catch (e) { finished = false; fail(e); }
       }, 200);

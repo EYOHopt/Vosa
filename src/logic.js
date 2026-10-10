@@ -318,6 +318,7 @@
       if (YES.test(t0)) return { intent: 'yes' };
       if (NO.test(t0)) return { intent: 'no' };
     }
+    if (ctx.awaiting && NO.test(t0) && !/\d/.test(t0)) return { intent: 'no' };
     if (!t0) return { intent: 'unknown' };
 
     const dl = parseDeadline(t0, now);
@@ -328,6 +329,15 @@
     r.day = parseDay(t0);
 
     // slot filling for a question Vosa just asked
+    if (ctx.awaiting === 'account' || ctx.awaiting === 'recipient') {
+      // Account numbers are often heard in groups ("012 345 6789") or as words ("zero one two ...")
+      const digits = spokenDigits(raw);
+      const bank = parseBank(t0);
+      if (digits.length === 10 || (digits.length === 11 && digits[0] === '0' && bank && /opay|palmpay|moniepoint|kuda/i.test(bank))) {
+        r.account = digits.length === 11 ? digits.slice(1) : digits; r.bank = bank; r.amount = null; r.intent = 'fill'; return r;
+      }
+    }
+    if (ctx.awaiting === 'bank' && parseBank(t0)) { r.bank = parseBank(t0); r.intent = 'fill'; return r; }
     if (ctx.awaiting === 'amount' && r.amount && !/\b(withdraw|balance|how much)\b/.test(t0)) { r.intent = 'fill'; return r; }
     if (ctx.awaiting === 'day' && r.day != null) { r.intent = 'fill'; return r; }
 
@@ -355,10 +365,17 @@
 
     if (/\b(airtime|recharge|card|credit for my line|top up my line|load card|kaadi ipe|kaadi|data)\b/.test(t0)) { r.intent = 'airtime'; return r; }
 
-    const sendVerb = /\b(send|transfer|pay|give|ranse|fi ranse|wire)\b/.test(t0);
-    if ((sendVerb && (r.contact || r.account || /\b(to|give|si|fun)\s+[a-z]/.test(t0)) && !/\b(save|pamo|for my (rent|school|goal))\b/.test(t0)) || (r.contact && r.amount && !/\b(save|pamo)\b/.test(t0))) {
+    // "send money", "send 5k", "transfer to a GTB account", "pay Tunde" -> send. "send 5k to my rent" -> save.
+    const sendVerb = /\b(send|transfer|wire|ranse|fi ranse)\b/.test(t0) || (/\b(pay|give)\b/.test(t0) && !/\bgive me\b/.test(t0) && (r.contact || r.account || r.bank || /\b(to|give|si|fun)\s+[a-z]/.test(t0)));
+    const saveCtx = /\b(save|pamo|savings|for my (rent|school|goal))\b/.test(t0) || (r.goal && !r.contact && !r.account && !r.bank);
+    if ((sendVerb && !saveCtx) || (r.contact && r.amount && !/\b(save|pamo)\b/.test(t0))) {
       r.intent = 'send';
-      if (!r.contact && !r.account) { const nm = t0.match(/\b(?:to|give|si)\s+([a-z]{2,20})\b/); r.unknownName = nm && !/^(my|the|me|am|him|her|them)$/.test(nm[1]) ? nm[1] : null; }
+      if (!r.contact && !r.account) {
+        const all = [...t0.matchAll(/\b(?:to|give|si)\s+([a-z]{1,20})\b/g)];
+        const nm = all.length ? all[all.length - 1] : null;
+        const generic = /^(send|transfer|pay|give|buy|save|withdraw|my|the|a|an|one|me|am|him|her|them|person|someone|somebody|account|bank|money|wallet|another|other|this|that|una|im|e|o)$/;
+        r.unknownName = nm && !generic.test(nm[1]) && !parseBank(nm[1]) && !(nm[1] in DIGIT_MAP) ? nm[1] : null;
+      }
       return r;
     }
     if (ctx.awaiting === 'recipient' && (r.contact || r.account)) { r.intent = 'fill'; return r; }
@@ -440,7 +457,16 @@
     wallet: { en: 'Your wallet has {wallet} to spend.', pcm: 'You get {wallet} for your wallet wey you fit spend.', yo: '{wallet} ló wà nínú àpò owó rẹ láti ná.' },
     lowWallet: { en: 'Your wallet only has {wallet}, so I cannot do {amt}.', pcm: 'Ah, na only {wallet} remain for your wallet. E no reach {amt}.', yo: '{wallet} nìkan ló wà nínú àpò owó rẹ, nítorí náà mi ò lè ṣe {amt}.' },
     askSend: { en: 'How much should I send?', pcm: 'How much make I send?', yo: 'Èló ni kí n fi ránṣẹ́?' },
-    askRecipient: { en: 'Who should I send it to?', pcm: 'Who I go send am give?', yo: 'Ta ni kí n fi ránṣẹ́ sí?' },
+    askRecipient: { en: 'Who are you sending to? Say their name, or the account number.', pcm: 'Who you wan send am give? Talk the person name, or call the account number.', yo: 'Ta ni o fẹ́ fi ránṣẹ́ sí? Sọ orúkọ rẹ̀, tàbí nọ́ńbà àkáǹtì rẹ̀.' },
+    askAccount: { en: 'Okay, {bank}. What is the account number you are sending to?', pcm: 'Okay, {bank}. Call the account number where you wan send the money go.', yo: 'Ó dáa, {bank}. Sọ nọ́ńbà àkáǹtì tí o fẹ́ fi owó ránṣẹ́ sí.' },
+    askAccountNoBank: { en: 'What is the account number you are sending to?', pcm: 'Call the account number where you wan send the money go.', yo: 'Sọ nọ́ńbà àkáǹtì tí o fẹ́ fi owó ránṣẹ́ sí.' },
+    notCaught: { en: "I didn't catch that.", pcm: 'I no catch am well.', yo: 'Mi ò gbọ́ ọ dáadáa.' },
+    sayDigits: { en: 'Say the 10 digits slowly, one by one.', pcm: 'Call the 10 numbers slowly, one by one.', yo: 'Sọ àwọn nọ́ńbà mẹ́wàá náà díẹ̀díẹ̀, ní ọ̀kọ̀ọ̀kan.' },
+    confirmSendAcct: {
+      en: 'Send {amt} to {bank} account {acct}? Say your secret phrase to confirm, or no to cancel.',
+      pcm: 'Make I send {amt} go {bank} account {acct}? Talk your secret phrase make I send am. If you no want again, talk no.',
+      yo: 'Ṣé kí n fi {amt} ránṣẹ́ sí àkáǹtì {bank} {acct}? Sọ ọ̀rọ̀ àṣírí rẹ láti fọwọ́sí, tàbí “rárá” láti fagilé.'
+    },
     confirmSend: {
       en: 'Send {amt} to {name}, {bank} ••{last4}? Say your secret phrase to confirm, or no to cancel.',
       pcm: 'Make I send {amt} give {name}, {bank} ••{last4}? Talk your secret phrase make I send am. If you no want again, talk no.',
