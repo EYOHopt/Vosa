@@ -342,6 +342,21 @@
     if (ctx.awaiting === 'day' && r.day != null) { r.intent = 'fill'; return r; }
 
     // hands-free on/off
+    // Trusted Circle
+    {
+      const helperNames = (ctx.helpers || []).map(n => norm(n));
+      const named = helperNames.find(n => n && new RegExp('\\b' + n + '\\b').test(t0));
+      if (/\b(remove|delete|comot|yo)\b/.test(t0) && (/\b(helper|circle|trusted)\b/.test(t0) || named)) {
+        r.intent = 'removehelper'; r.helperName = named || null; return r;
+      }
+      if (/\b(add|make|put|invite)\b/.test(t0) && /\b(helper|trusted|circle|guardian|oluranlowo)\b/.test(t0)) {
+        const m = t0.match(/\b(?:add|make|put|invite)\s+([a-z]{2,20})\b/);
+        r.intent = 'addhelper';
+        r.helperName = m && !/^(a|an|my|me|one|new|someone|somebody|helper|trusted|person|another)$/.test(m[1]) ? m[1] : null;
+        return r;
+      }
+      if (/\b(my helpers|trusted circle|who (are|be) my helpers|who (has|don|fit|can) (see|seen)|who see my account|who check(ed)? my account)\b/.test(t0)) { r.intent = 'helpers'; return r; }
+    }
     if (/\b(voice ?id|voiceprint|voice print|my voice)\b/.test(t0) && /\b(set ?up|add|turn on|enable|start|redo|teach|learn|register|sabi)\b/.test(t0)) { r.intent = 'voicesetup'; return r; }
     if (/\b(hands ?free|stop listening|keep listening|start listening|listen continuously)\b/.test(t0)) {
       r.intent = 'handsfree'; r.on = !/\b(off|stop|disable|turn off)\b/.test(t0); return r;
@@ -462,6 +477,26 @@
     askAccount: { en: 'Okay, {bank}. What is the account number you are sending to?', pcm: 'Okay, {bank}. Call the account number where you wan send the money go.', yo: 'Ó dáa, {bank}. Sọ nọ́ńbà àkáǹtì tí o fẹ́ fi owó ránṣẹ́ sí.' },
     needVoiceId: { en: 'For your safety, set up Voice ID before you send or withdraw money. It takes about 20 seconds.', pcm: 'Make your money dey safe: set up Voice ID first before you send or comot money. E go take like 20 seconds.', yo: 'Fún ààbò owó rẹ, ṣètò Voice ID kí o tó fi owó ránṣẹ́ tàbí yọ owó. Ó máa gba ìṣẹ́jú-àáyá 20.' },
     voiceSetupGo: { en: 'Okay. Read the sentences on the screen out loud until the bar is full.', pcm: 'Okay. Read the lines wey dey screen out loud until the bar full.', yo: 'Ó dáa. Ka àwọn gbólóhùn tó wà lójú ìbòjú sókè títí ìlà náà yóò fi kún.' },
+    askedHelper: {
+      en: 'This is {amt}{why}. To keep you safe, I have asked {names} to check it. I will tell you when they answer.',
+      pcm: 'This one na {amt}{why}. Make your money dey safe, I don ask {names} make dem check am. I go tell you when dem answer.',
+      yo: 'Èyí jẹ́ {amt}{why}. Fún ààbò rẹ, mo ti ní kí {names} ṣàyẹ̀wò rẹ̀. Màá sọ fún ọ nígbà tí wọ́n bá dáhùn.'
+    },
+    whyNew: { en: ' to someone new', pcm: ' to person wey you never send money before', yo: ' sí ẹni tuntun' },
+    helperApproved: { en: '{name} approved it. ', pcm: '{name} don approve am. ', yo: '{name} ti fọwọ́sí i. ' },
+    helperDeclined: { en: '{name} declined it, so the money did not move.', pcm: '{name} no gree, so the money no move.', yo: '{name} kò fọwọ́sí i, nítorí náà owó náà kò lọ.' },
+    helperTimeout: { en: '{names} did not answer in time, so I held it. The money did not move.', pcm: '{names} no answer on time, so I hold am. The money no move.', yo: '{names} kò dáhùn lásìkò, nítorí náà mo dá a dúró. Owó náà kò lọ.' },
+    helperLink: {
+      en: "I've made {name}'s helper link. Share it with them. When they tap Accept, they join your Trusted Circle.",
+      pcm: 'I don make {name} helper link. Send am give dem. When dem press Accept, dem go join your Trusted Circle.',
+      yo: 'Mo ti ṣe ìlànà olùrànlọ́wọ́ fún {name}. Fi ránṣẹ́ sí wọn. Nígbà tí wọ́n bá tẹ Accept, wọ́n á darapọ̀ mọ́ Trusted Circle rẹ.'
+    },
+    helperJoined: { en: '{name} accepted and is now your {role}.', pcm: '{name} don accept. Na your {role} dem be now.', yo: '{name} ti gbà, ó sì ti di {role} rẹ báyìí.' },
+    helpersList: { en: 'Your Trusted Circle: {list}.', pcm: 'Your Trusted Circle: {list}.', yo: 'Trusted Circle rẹ: {list}.' },
+    helpersNone: { en: 'You have no helpers yet. Say: add Bisi as my helper.', pcm: 'You never get helper. Talk say: add Bisi as my helper.', yo: 'O kò tíì ní olùrànlọ́wọ́. Sọ pé: add Bisi as my helper.' },
+    helperRemoved: { en: "I've removed {name}. They can't see or approve anything any more.", pcm: 'I don remove {name}. Dem no fit see or approve anything again.', yo: 'Mo ti yọ {name} kúrò. Wọn kò lè rí tàbí fọwọ́sí ohunkóhun mọ́.' },
+    helperViewed: { en: '{name} checked your account.', pcm: '{name} check your account.', yo: '{name} wo àkáǹtì rẹ.' },
+    helperPaid: { en: '{name} paid {amt} to {to} for you. Your wallet has {wallet}.', pcm: '{name} don pay {amt} give {to} for you. {wallet} remain for your wallet.', yo: '{name} ti san {amt} fún {to} fún ọ. {wallet} ló kù nínú àpò owó rẹ.' },
     askAccountNoBank: { en: 'What is the account number you are sending to?', pcm: 'Call the account number where you wan send the money go.', yo: 'Sọ nọ́ńbà àkáǹtì tí o fẹ́ fi owó ránṣẹ́ sí.' },
     notCaught: { en: "I didn't catch that.", pcm: 'I no catch am well.', yo: 'Mi ò gbọ́ ọ dáadáa.' },
     sayDigits: { en: 'Say the 10 digits slowly, one by one.', pcm: 'Call the 10 numbers slowly, one by one.', yo: 'Sọ àwọn nọ́ńbà mẹ́wàá náà díẹ̀díẹ̀, ní ọ̀kọ̀ọ̀kan.' },
@@ -659,7 +694,7 @@
   // Spoken form: "₦5,000" -> "5,000 naira" (Yorùbá: "5,000 náírà")
   function toSpeech(text, lang) {
     return text
-      .replace(/₦([\d,]+)/g, (_, n) => n + (lang === 'yo' ? ' náírà' : ' naira'))
+      .replace(/₦(\d[\d,]*\d|\d)/g, (_, n) => n + (lang === 'yo' ? ' náírà' : ' naira'))
       .replace(/••(\d{4})/g, (_, n) => (lang === 'yo' ? 'tó parí sí ' : 'ending ') + n.split('').join(' '))
       .replace(/\b(\d{10,11})\b/g, (n) => n.split('').join(' '))
       .replace(/%/g, lang === 'yo' ? ' nínú ọgọ́rùn-ún' : ' percent');

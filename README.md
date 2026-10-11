@@ -28,6 +28,8 @@ Light mode, white with a light-green signature and one deep green (#0C6B35) for 
 | `api/transcribe.js` | Sends a recording to Spitch and gets text back (Yorùbá speech to text) |
 | `api/speak.js` | Sends text to Spitch and gets a Yorùbá voice reply back |
 | `api/health.js` | Tells the app which services are connected |
+| `api/circle.js` | Trusted Circle: helper invites, approvals, helper payments, syncing |
+| `api/_lib.js`, `api/_account.js` | Shared server code (database, speech, SMS, account) |
 | `server.js` | Runs the app on your own computer (`npm start`) |
 
 ## Put it online (about 30 minutes, free)
@@ -72,6 +74,25 @@ The voice match score is cosine similarity. Settings → Voice match sets the ba
 | 6 other people | 0–25% | Refused |
 
 The receipt shows the score, for example "Phrase, numbers, voice (72%)". Phones and rooms differ, so try it yourself and with a friend before the pitch. There's a fingerprint (demo) backup for noisy places.
+
+### Trusted Circle (helpers instead of sharing your PIN)
+
+People who need help with money often hand their PIN to a relative or agent. With Trusted Circle they add up to 3 helpers instead, each with limited rights:
+
+| Role | Can | Can never |
+|---|---|---|
+| **Approver** | Approve or decline big or unusual transfers; see balance and activity | Move money, change the secret phrase, Voice ID or helpers |
+| **Watcher** | See balance and activity | Move or approve anything |
+| **Spender** | Pay the owner's contacts, up to a monthly limit (₦10k / ₦30k / ₦50k) | See the balance, go over the limit |
+
+A transfer waits for an approver when it is at or above the owner's limit (₦10k / ₦20k / ₦50k, default ₦20k), or ₦5,000+ to someone the owner has never paid. Saying "cancel" while waiting cancels it.
+
+Voice: "Add Bisi as my helper", "Who are my helpers?", "Who has seen my account?", "Remove Bisi".
+
+**Set up (2 minutes, free):** in Vercel, open the project → **Storage** (or **Marketplace**) → **Upstash** → **Redis** → create a free database and **connect it to this project**. Vercel adds the keys (`KV_REST_API_URL`, `KV_REST_API_TOKEN`) for you. Redeploy. In the app, Settings → Trusted Circle → Add a helper; send the link to the helper's phone; they tap Accept.
+
+Without the database, Trusted Circle still works in **demo mode**: the helper's approval appears on the same phone.
+
 
 ### Optional settings
 

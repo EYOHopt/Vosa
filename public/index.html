@@ -238,6 +238,82 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .stop { width: 64px; height: 64px; border-radius: 50%; border: 0; background: var(--primary); color: #fff; display: grid; place-items: center; }
 .lhint { margin: 0; font-size: 13.5px; color: var(--text2); }
 @media (prefers-reduced-motion: reduce) { .flash, .bar i { animation: none; transition: none; } }
+/* Trusted Circle */
+.hp-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--warn); background: var(--warn-bg); border-radius: 999px; padding: 4px 10px; align-self: flex-start; }
+.hp-req { display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--line); border-radius: 18px; padding: 16px; margin-top: 12px; }
+.hp-req.live { border: 2px solid var(--primary); background: #FAFDF9; }
+.hp-tag { font-size: 13px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: .04em; }
+.hp-amt { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+.hp-req .d, .hp-notif .d { font-size: 13px; color: var(--text2); }
+.hp-notif { display: flex; flex-direction: column; gap: 10px; border-radius: 16px; padding: 14px; background: var(--ink); color: #fff; }
+.hp-notif-h { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; color: #B9C9BF; text-transform: uppercase; letter-spacing: .04em; }
+.hp-notif .d { color: #B9C9BF; }
+.dots { display: inline-flex; gap: 3px; margin-left: 6px; vertical-align: middle; }
+.dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--primary); display: block; opacity: .35; }
+@media (prefers-reduced-motion: no-preference) { .dots i { animation: dot 1.2s infinite; } .dots i:nth-child(2) { animation-delay: .2s; } .dots i:nth-child(3) { animation-delay: .4s; } }
+@keyframes dot { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+/* ---- Bank-app layout (white cards on a soft grey page) ---- */
+:root { --page: #F1F4F2; }
+body { background: #E6EAE8; }
+.app { background: var(--page); }
+.view { padding: 0 12px 24px; }
+.view .hd { padding: 16px 4px 10px; }
+.card { background: var(--bg); border-radius: 20px; padding: 16px; margin-top: 10px; display: block; width: 100%; border: 0; text-align: left; }
+.card.top { margin-top: 0; border-radius: 0 0 24px 24px; margin-left: -12px; margin-right: -12px; width: auto; padding: 4px 20px 20px; }
+.card.top .hd { padding: 14px 0 16px; }
+.card-t { margin: 0 0 6px; font-size: 16px; font-weight: 700; }
+.card .sec-h { margin-bottom: 0; }
+.card .row:last-child { border-bottom: 0; }
+.avatar { background: var(--bg); border: 2px solid var(--brand); box-shadow: inset 0 0 0 3px var(--tint); color: var(--primary); }
+.pillbtn { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); font-weight: 600; font-size: 14px; flex: 0 0 auto; }
+.pillbtn svg:first-child { color: var(--primary); }
+.bal-lbl2 { display: block; font-size: 14px; color: var(--text2); font-weight: 500; }
+.bal-line { display: flex; align-items: center; gap: 10px; margin-top: 2px; }
+.bal-amt2 { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+.bal-amt2 small { font-size: 18px; color: var(--text2); font-weight: 700; }
+.eye2 { width: 40px; height: 40px; border-radius: 12px; border: 0; background: none; color: var(--text2); display: grid; place-items: center; }
+.acct-line { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 16px; font-weight: 600; }
+.acct-bank { font-size: 12.5px; font-weight: 700; color: var(--primary); background: var(--tint); border-radius: 6px; padding: 1px 7px; }
+.copy { width: 36px; height: 36px; border: 0; background: none; color: var(--text2); display: grid; place-items: center; border-radius: 10px; margin-left: -4px; }
+.saved-strip { margin-top: 14px; width: 100%; display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-radius: 14px; border: 0; background: var(--tint); color: var(--primary); font-size: 14px; font-weight: 600; text-align: left; }
+.saved-strip b { color: var(--ink); font-size: 15px; }
+.saved-strip .tag { font-size: 12px; font-weight: 700; background: var(--bg); border-radius: 6px; padding: 2px 7px; }
+.saved-strip .chev { margin-left: auto; display: grid; }
+.acts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-top: 18px; }
+.act { border: 0; background: none; display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; padding: 0; min-height: 84px; color: var(--ink); }
+.act .ring { width: 60px; height: 60px; border-radius: 50%; background: #F3FAF1; border: 1.5px solid #BFE3B6; color: var(--primary); display: grid; place-items: center; }
+.banner { position: relative; overflow: hidden; margin-top: 10px; border-radius: 20px; padding: 18px; background: linear-gradient(120deg, #0C6B35 0%, #18934A 60%, #34B262 100%); color: #fff; display: flex; gap: 8px; }
+.banner-txt { position: relative; z-index: 1; flex: 1; min-width: 0; }
+.banner h2 { margin: 0; font-size: 21px; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; max-width: 14ch; }
+.banner p { margin: 6px 0 14px; font-size: 14px; color: #E2F4DD; }
+.banner-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.bpill { display: inline-flex; align-items: center; gap: 6px; min-height: 42px; padding: 0 16px; border-radius: 999px; border: 0; background: var(--ink); color: #fff; font-weight: 700; font-size: 14px; }
+.bpill.on { background: #fff; color: var(--primary); }
+.banner-art { position: absolute; right: 14px; top: 14px; display: flex; align-items: center; gap: 5px; height: 44px; opacity: .3; }
+.banner-art i { display: block; width: 6px; max-height: 44px; border-radius: 999px; background: #fff; }
+.qgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
+.qtile { display: flex; align-items: center; gap: 6px; min-height: 56px; padding: 6px; border-radius: 16px; border: 1px solid var(--line); background: #FAFBFA; font-weight: 600; font-size: 13.5px; line-height: 1.25; text-align: left; word-break: normal; overflow-wrap: normal; hyphens: none; }
+.qtile .qi { width: 34px; height: 34px; }
+@media (max-width: 400px) { .qtile { flex-direction: column; justify-content: center; text-align: center; padding: 10px 4px; min-height: 84px; } }
+.qi { width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); color: var(--primary); display: grid; place-items: center; flex: 0 0 auto; }
+.rowcard { display: flex; align-items: center; gap: 12px; min-height: 72px; }
+.rc-mid { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.rc-mid b { font-size: 15px; font-weight: 600; }
+.rc-mid span { font-size: 13px; color: var(--text2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rowcard .chev { color: var(--text2); display: grid; }
+.exrow { display: flex; gap: 10px; overflow-x: auto; padding: 6px 16px 4px 0; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.exrow::-webkit-scrollbar { display: none; }
+.excard { flex: 0 0 168px; scroll-snap-align: start; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 14px; border-radius: 16px; border: 0; text-align: left; min-height: 132px; }
+.excard b { font-size: 15px; line-height: 1.25; }
+.excard span:last-child { font-size: 13px; color: var(--text2); }
+.excard .qi { background: rgba(255,255,255,.7); border: 0; }
+.excard.t1 { background: #E8F6E5; } .excard.t2 { background: #FFF4E0; } .excard.t2 .qi { color: var(--warn); }
+.excard.t3 { background: #E7F0FB; } .excard.t3 .qi { color: #1F5FA8; } .excard.t4 { background: #F3ECFA; } .excard.t4 .qi { color: #6A3FA0; }
+/* other pages: same card language */
+.group { background: var(--bg); border: 0; }
+.summary div { background: var(--bg); }
+.view > .summary { margin-top: 0; }
+.dock { box-shadow: 0 -1px 0 var(--line); border-top: 0; }
 </style>
 
 <div class="app" id="app">
@@ -628,6 +704,21 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     if (ctx.awaiting === 'day' && r.day != null) { r.intent = 'fill'; return r; }
 
     // hands-free on/off
+    // Trusted Circle
+    {
+      const helperNames = (ctx.helpers || []).map(n => norm(n));
+      const named = helperNames.find(n => n && new RegExp('\\b' + n + '\\b').test(t0));
+      if (/\b(remove|delete|comot|yo)\b/.test(t0) && (/\b(helper|circle|trusted)\b/.test(t0) || named)) {
+        r.intent = 'removehelper'; r.helperName = named || null; return r;
+      }
+      if (/\b(add|make|put|invite)\b/.test(t0) && /\b(helper|trusted|circle|guardian|oluranlowo)\b/.test(t0)) {
+        const m = t0.match(/\b(?:add|make|put|invite)\s+([a-z]{2,20})\b/);
+        r.intent = 'addhelper';
+        r.helperName = m && !/^(a|an|my|me|one|new|someone|somebody|helper|trusted|person|another)$/.test(m[1]) ? m[1] : null;
+        return r;
+      }
+      if (/\b(my helpers|trusted circle|who (are|be) my helpers|who (has|don|fit|can) (see|seen)|who see my account|who check(ed)? my account)\b/.test(t0)) { r.intent = 'helpers'; return r; }
+    }
     if (/\b(voice ?id|voiceprint|voice print|my voice)\b/.test(t0) && /\b(set ?up|add|turn on|enable|start|redo|teach|learn|register|sabi)\b/.test(t0)) { r.intent = 'voicesetup'; return r; }
     if (/\b(hands ?free|stop listening|keep listening|start listening|listen continuously)\b/.test(t0)) {
       r.intent = 'handsfree'; r.on = !/\b(off|stop|disable|turn off)\b/.test(t0); return r;
@@ -748,6 +839,26 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     askAccount: { en: 'Okay, {bank}. What is the account number you are sending to?', pcm: 'Okay, {bank}. Call the account number where you wan send the money go.', yo: 'Ó dáa, {bank}. Sọ nọ́ńbà àkáǹtì tí o fẹ́ fi owó ránṣẹ́ sí.' },
     needVoiceId: { en: 'For your safety, set up Voice ID before you send or withdraw money. It takes about 20 seconds.', pcm: 'Make your money dey safe: set up Voice ID first before you send or comot money. E go take like 20 seconds.', yo: 'Fún ààbò owó rẹ, ṣètò Voice ID kí o tó fi owó ránṣẹ́ tàbí yọ owó. Ó máa gba ìṣẹ́jú-àáyá 20.' },
     voiceSetupGo: { en: 'Okay. Read the sentences on the screen out loud until the bar is full.', pcm: 'Okay. Read the lines wey dey screen out loud until the bar full.', yo: 'Ó dáa. Ka àwọn gbólóhùn tó wà lójú ìbòjú sókè títí ìlà náà yóò fi kún.' },
+    askedHelper: {
+      en: 'This is {amt}{why}. To keep you safe, I have asked {names} to check it. I will tell you when they answer.',
+      pcm: 'This one na {amt}{why}. Make your money dey safe, I don ask {names} make dem check am. I go tell you when dem answer.',
+      yo: 'Èyí jẹ́ {amt}{why}. Fún ààbò rẹ, mo ti ní kí {names} ṣàyẹ̀wò rẹ̀. Màá sọ fún ọ nígbà tí wọ́n bá dáhùn.'
+    },
+    whyNew: { en: ' to someone new', pcm: ' to person wey you never send money before', yo: ' sí ẹni tuntun' },
+    helperApproved: { en: '{name} approved it. ', pcm: '{name} don approve am. ', yo: '{name} ti fọwọ́sí i. ' },
+    helperDeclined: { en: '{name} declined it, so the money did not move.', pcm: '{name} no gree, so the money no move.', yo: '{name} kò fọwọ́sí i, nítorí náà owó náà kò lọ.' },
+    helperTimeout: { en: '{names} did not answer in time, so I held it. The money did not move.', pcm: '{names} no answer on time, so I hold am. The money no move.', yo: '{names} kò dáhùn lásìkò, nítorí náà mo dá a dúró. Owó náà kò lọ.' },
+    helperLink: {
+      en: "I've made {name}'s helper link. Share it with them. When they tap Accept, they join your Trusted Circle.",
+      pcm: 'I don make {name} helper link. Send am give dem. When dem press Accept, dem go join your Trusted Circle.',
+      yo: 'Mo ti ṣe ìlànà olùrànlọ́wọ́ fún {name}. Fi ránṣẹ́ sí wọn. Nígbà tí wọ́n bá tẹ Accept, wọ́n á darapọ̀ mọ́ Trusted Circle rẹ.'
+    },
+    helperJoined: { en: '{name} accepted and is now your {role}.', pcm: '{name} don accept. Na your {role} dem be now.', yo: '{name} ti gbà, ó sì ti di {role} rẹ báyìí.' },
+    helpersList: { en: 'Your Trusted Circle: {list}.', pcm: 'Your Trusted Circle: {list}.', yo: 'Trusted Circle rẹ: {list}.' },
+    helpersNone: { en: 'You have no helpers yet. Say: add Bisi as my helper.', pcm: 'You never get helper. Talk say: add Bisi as my helper.', yo: 'O kò tíì ní olùrànlọ́wọ́. Sọ pé: add Bisi as my helper.' },
+    helperRemoved: { en: "I've removed {name}. They can't see or approve anything any more.", pcm: 'I don remove {name}. Dem no fit see or approve anything again.', yo: 'Mo ti yọ {name} kúrò. Wọn kò lè rí tàbí fọwọ́sí ohunkóhun mọ́.' },
+    helperViewed: { en: '{name} checked your account.', pcm: '{name} check your account.', yo: '{name} wo àkáǹtì rẹ.' },
+    helperPaid: { en: '{name} paid {amt} to {to} for you. Your wallet has {wallet}.', pcm: '{name} don pay {amt} give {to} for you. {wallet} remain for your wallet.', yo: '{name} ti san {amt} fún {to} fún ọ. {wallet} ló kù nínú àpò owó rẹ.' },
     askAccountNoBank: { en: 'What is the account number you are sending to?', pcm: 'Call the account number where you wan send the money go.', yo: 'Sọ nọ́ńbà àkáǹtì tí o fẹ́ fi owó ránṣẹ́ sí.' },
     notCaught: { en: "I didn't catch that.", pcm: 'I no catch am well.', yo: 'Mi ò gbọ́ ọ dáadáa.' },
     sayDigits: { en: 'Say the 10 digits slowly, one by one.', pcm: 'Call the 10 numbers slowly, one by one.', yo: 'Sọ àwọn nọ́ńbà mẹ́wàá náà díẹ̀díẹ̀, ní ọ̀kọ̀ọ̀kan.' },
@@ -945,7 +1056,7 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
   // Spoken form: "₦5,000" -> "5,000 naira" (Yorùbá: "5,000 náírà")
   function toSpeech(text, lang) {
     return text
-      .replace(/₦([\d,]+)/g, (_, n) => n + (lang === 'yo' ? ' náírà' : ' naira'))
+      .replace(/₦(\d[\d,]*\d|\d)/g, (_, n) => n + (lang === 'yo' ? ' náírà' : ' naira'))
       .replace(/••(\d{4})/g, (_, n) => (lang === 'yo' ? 'tó parí sí ' : 'ending ') + n.split('').join(' '))
       .replace(/\b(\d{10,11})\b/g, (n) => n.split('').join(' '))
       .replace(/%/g, lang === 'yo' ? ' nínú ọgọ́rùn-ún' : ' percent');
@@ -995,7 +1106,14 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     heart: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
     gift: '<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18M12 8S10 3 7.5 4.5 9 8 12 8zM12 8s2-5 4.5-3.5S15 8 12 8z"/>',
     car: '<path d="M5 17h14v-5l-2-5H7l-2 5z"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/>',
-    wallet: '<rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M16 15h2"/>'
+    wallet: '<rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M16 15h2"/>',
+    copy: '<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/>',
+    dots: '<circle cx="6" cy="12" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="18" cy="12" r="1.3" fill="currentColor"/>',
+    down: '<path d="M7 10l5 5 5-5"/>',
+    receipt: '<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h3"/>',
+    target: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 12h.01"/>',
+    callp: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+    spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/>'
   };
   function icon(name, size, sw) {
     const s = document.createElement('span');
@@ -1175,7 +1293,24 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     hfReady: { en: 'Hands-free is on', pcm: 'Hands-free dey on', yo: 'Hands-free wà' },
     langName: { en: 'EN', pcm: 'PCM', yo: 'YO' },
     every: { en: 'Reminder: every', yo: 'Ìrántí: gbogbo ọjọ́' },
-    hi: { en: 'Hi, Bisi', pcm: 'How far, Bisi', yo: 'Ẹ n lẹ́, Bisi' },
+    hi: { en: 'Hello, {n}', pcm: 'How far, {n}', yo: 'Ẹ n lẹ́, {n}' },
+    walletBalLbl: { en: 'Wallet balance', pcm: 'Wallet balance', yo: 'Owó inú àpò' },
+    savedStrip: { en: 'Saved', pcm: 'Savings', yo: 'Ìfowópamọ́' },
+    copyAcct: { en: 'Copy account number', yo: 'Da nọ́ńbà àkáǹtì kọ' },
+    qMore: { en: 'More', pcm: 'More', yo: 'Míràn' },
+    bannerT: { en: 'Just talk. Vosa does the rest.', pcm: 'Just talk. Vosa go do the rest.', yo: 'Kàn sọ̀rọ̀. Vosa á ṣe ìyókù.' },
+    bannerS: { en: 'Say “{ex}”', pcm: 'Talk “{ex}”', yo: 'Sọ pé “{ex}”' },
+    tapTalk: { en: 'Tap to talk', pcm: 'Press to talk', yo: 'Tẹ láti sọ̀rọ̀' },
+    hfOn: { en: 'Hands-free on', pcm: 'Hands-free on', yo: 'Hands-free wà' },
+    quick: { en: 'Quick access', pcm: 'Quick access', yo: 'Ọ̀nà kíákíá' },
+    qGoal: { en: 'New goal', pcm: 'New target', yo: 'Àfojúsùn tuntun' },
+    qHelpers: { en: 'Helpers', pcm: 'Helpers', yo: 'Olùrànlọ́wọ́' },
+    txHistory: { en: 'Transaction history', pcm: 'Transaction history', yo: 'Ìtàn owó' },
+    explore: { en: 'Explore', pcm: 'Explore', yo: 'Ṣàwárí' },
+    exCircleT: { en: 'Never share your PIN', pcm: 'No share your PIN again', yo: 'Má fi PIN rẹ hàn mọ́' }, exCircleS: { en: 'Add a trusted helper', pcm: 'Add helper wey you trust', yo: 'Fi olùrànlọ́wọ́ kún un' },
+    exMmfT: { en: 'Grow your savings', pcm: 'Make your money grow', yo: 'Mú owó rẹ dàgbà' }, exMmfS: { en: 'What is a money market fund?', pcm: 'Wetin be money market fund?', yo: 'Kí ni money market fund?' },
+    exAutoT: { en: 'Save without thinking', pcm: 'Save without stress', yo: 'Fowó pamọ́ láìronú' }, exAutoS: { en: 'Auto-save money you receive', pcm: 'Auto-save money wey enter', yo: 'Fi owó tó wọlé pamọ́ fúnra rẹ̀' },
+    moreT: { en: 'More', yo: 'Míràn' }, mAcct: { en: 'Account details', pcm: 'Account details', yo: 'Àlàyé àkáǹtì' }, mMoneyIn: { en: 'Receive money (demo)', pcm: 'Collect money (demo)', yo: 'Gba owó (ìdánwò)' },
     gM: { en: 'Good morning', pcm: 'Good morning o', yo: 'Ẹ kú àárọ̀' }, gA: { en: 'Good afternoon', pcm: 'Good afternoon o', yo: 'Ẹ kú ọ̀sán' }, gE: { en: 'Good evening', pcm: 'Good evening o', yo: 'Ẹ kú alẹ́' },
     showBal: { en: 'Show balance', yo: 'Fi iye owó hàn' }, hideBal: { en: 'Hide balance', yo: 'Fi iye owó pamọ́' },
     qSave: { en: 'Save', yo: 'Fi pamọ́' }, qSend: { en: 'Send', yo: 'Fi ránṣẹ́' }, qAirtime: { en: 'Airtime', yo: 'Káàdì ìpè' }, qWithdraw: { en: 'Withdraw', pcm: 'Comot', yo: 'Yọ owó' },
@@ -1233,6 +1368,62 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     sayPhraseThen: { en: 'Say your secret phrase, then these numbers', pcm: 'Talk your secret phrase, then these numbers', yo: 'Sọ ọ̀rọ̀ àṣírí rẹ, lẹ́yìn náà àwọn nọ́ńbà yìí' },
     numbersAria: { en: 'Numbers to say: {d}', yo: 'Nọ́ńbà tí o máa sọ: {d}' },
     chkPhrase: { en: 'Secret phrase', yo: 'Ọ̀rọ̀ àṣírí' }, chkNumbers: { en: 'New numbers', yo: 'Nọ́ńbà tuntun' }, chkVoice: { en: 'Your voice', pcm: 'Your voice', yo: 'Ohùn rẹ' },
+    gCircle: { en: 'Trusted Circle', yo: 'Trusted Circle' },
+    circleDesc: { en: 'Helpers can watch your account or approve big transfers, so you never have to share your PIN. They can never change your secret phrase or Voice ID.', pcm: 'Helpers fit watch your account or approve big transfer, so you no go need share your PIN. Dem no fit change your secret phrase or Voice ID.', yo: 'Àwọn olùrànlọ́wọ́ lè máa wo àkáǹtì rẹ tàbí fọwọ́sí owó ńlá, kí o má baà fi PIN rẹ hàn ẹnikẹ́ni. Wọn kò lè yí ọ̀rọ̀ àṣírí tàbí Voice ID rẹ padà.' },
+    circleDescShort: { en: 'People you trust, without sharing your PIN', pcm: 'People wey you trust, no need to share PIN', yo: 'Àwọn tí o fọkàn tán, láìfi PIN hàn' },
+    addHelper: { en: 'Add a helper', pcm: 'Add helper', yo: 'Fi olùrànlọ́wọ́ kún un' }, add: { en: 'Add', yo: 'Fi kún' },
+    roleWatcher: { en: 'Watcher', yo: 'Olùwòye' }, roleApprover: { en: 'Approver', yo: 'Olùfọwọ́sí' }, roleSpender: { en: 'Spender', yo: 'Olùsanwó' },
+    roleWatcherD: { en: 'Sees your balance and activity. Gets alerts.', pcm: 'E go see your balance and wetin you do. E go dey get alert.', yo: 'Ó máa rí iye owó rẹ àti ohun tí o ṣe.' },
+    roleApproverD: { en: 'Approves or declines big or unusual transfers.', pcm: 'E go approve or reject big or strange transfer.', yo: 'Ó máa fọwọ́sí tàbí kọ owó ńlá tàbí àjèjì.' },
+    roleSpenderD: { en: 'Can pay for you, up to a monthly limit.', pcm: 'E fit pay for you, but no pass the monthly limit.', yo: 'Ó lè sanwó fún ọ, títí dé ààlà oṣù kan.' },
+    stInvited: { en: 'Waiting to accept', pcm: 'Never accept', yo: 'Kò tíì gbà' }, stActive: { en: 'Active', pcm: 'Active', yo: 'Ó ń ṣiṣẹ́' },
+    approveOver: { en: 'Ask approval from', pcm: 'Ask approval from', yo: 'Béèrè ìfọwọ́sí láti' },
+    approveOverD: { en: 'Also for ₦5,000+ to someone new', pcm: 'Plus ₦5,000+ to new person', yo: 'Àti ₦5,000+ sí ẹni tuntun' },
+    whoChecked: { en: 'Who checked my account', pcm: 'Who check my account', yo: 'Ta ló wo àkáǹtì mi' },
+    noChecks: { en: 'Nobody this week', pcm: 'Nobody this week', yo: 'Kò sí ẹnikẹ́ni lọ́sẹ̀ yìí' },
+    logView: { en: '{n} checked your account', yo: '{n} wo àkáǹtì rẹ' }, logApproved: { en: '{n} approved a transfer', yo: '{n} fọwọ́sí owó kan' }, logDeclined: { en: '{n} declined a transfer', yo: '{n} kọ owó kan' },
+    demoModeT: { en: 'Demo mode', yo: 'Ìdánwò' },
+    circleDemo: { en: 'Approvals show on this phone. Add the free database in Vercel to use a real second phone.', pcm: 'Approval go show for this phone. Add the free database for Vercel to use another phone.', yo: 'Ìfọwọ́sí máa hàn lórí fóònù yìí. Fi database ọ̀fẹ́ kún un ní Vercel láti lo fóònù kejì.' },
+    helperName: { en: "Helper's name", pcm: 'Helper name', yo: 'Orúkọ olùrànlọ́wọ́' },
+    helperPhone: { en: "Helper's phone (optional, to text them the link)", pcm: 'Helper phone number (optional, to SMS dem the link)', yo: 'Nọ́ńbà fóònù olùrànlọ́wọ́ (tí o bá fẹ́)' },
+    yourName: { en: 'Your name (what they will see)', pcm: 'Your name (wetin dem go see)', yo: 'Orúkọ rẹ (ohun tí wọ́n máa rí)' },
+    monthlyLimit: { en: 'Monthly limit', pcm: 'Monthly limit', yo: 'Ààlà oṣù' },
+    whatCanTheyDo: { en: 'What can they do?', pcm: 'Wetin dem fit do?', yo: 'Kí ni wọ́n lè ṣe?' },
+    neverT: { en: 'Helpers can never', pcm: 'Helpers no fit', yo: 'Àwọn olùrànlọ́wọ́ kò lè' },
+    neverB: { en: 'Change your secret phrase, Voice ID or helpers. You hear about everything they do.', pcm: 'Change your secret phrase, Voice ID or helpers. You go hear everything wey dem do.', yo: 'Yí ọ̀rọ̀ àṣírí, Voice ID tàbí àwọn olùrànlọ́wọ́ rẹ padà. Wàá gbọ́ gbogbo ohun tí wọ́n bá ṣe.' },
+    createLink: { en: 'Create helper link', pcm: 'Make helper link', yo: 'Ṣe ìlànà olùrànlọ́wọ́' },
+    needName: { en: "Please enter the helper's name.", pcm: 'Abeg put the helper name.', yo: 'Jọ̀ọ́ kọ orúkọ olùrànlọ́wọ́.' },
+    helperErr: { en: 'Could not create the link. Check your internet and try again.', pcm: 'I no fit make the link. Check your network, try again.', yo: 'Mi ò lè ṣe ìlànà náà. Ṣàyẹ̀wò íńtánẹ́ẹ̀tì rẹ.' },
+    helperLinkT: { en: "{n}'s helper link", yo: 'Ìlànà {n}' },
+    linkInfo: { en: 'Send this link to {n}. They open it on their phone and tap Accept. Only share it with {n}.', pcm: 'Send this link give {n}. Dem go open am for their phone, press Accept. Na only {n} you go give am.', yo: 'Fi ìlànà yìí ránṣẹ́ sí {n}. Wọ́n máa ṣí i lórí fóònù wọn, wọ́n á sì tẹ Accept. {n} nìkan ni kí o fi ránṣẹ́ sí.' },
+    shareMsg: { en: '{me} added you as a trusted helper on Vosa. Open this link to accept: {link}' },
+    someone: { en: 'Someone' },
+    smsSent: { en: 'We also sent it to {n} by SMS.', pcm: 'We don SMS am give {n} too.', yo: 'A tún fi SMS ránṣẹ́ sí {n}.' },
+    shareLink: { en: 'Share link', pcm: 'Share link', yo: 'Pín ìlànà' }, whatsapp: { en: 'Send on WhatsApp', pcm: 'Send am for WhatsApp', yo: 'Fi ránṣẹ́ lórí WhatsApp' },
+    copyLink: { en: 'Copy link', yo: 'Da ìlànà kọ' }, copied: { en: 'Copied', yo: 'A ti dà á kọ' },
+    removeQ: { en: 'Remove {n}?', pcm: 'Remove {n}?', yo: 'Yọ {n} kúrò?' },
+    removeB: { en: "They won't be able to see or approve anything any more.", pcm: 'Dem no go fit see or approve anything again.', yo: 'Wọn kò ní lè rí tàbí fọwọ́sí ohunkóhun mọ́.' },
+    maxHelpers: { en: 'You can have up to 3 helpers', yo: 'O lè ní olùrànlọ́wọ́ mẹ́ta' },
+    waitingFor: { en: 'Waiting for {n}', pcm: 'We dey wait for {n}', yo: 'A ń dúró de {n}' },
+    waitBodyT: { en: 'Asked for approval', pcm: 'We don ask for approval', yo: 'A ti béèrè ìfọwọ́sí' },
+    waitBody: { en: '{n} can approve or decline it on their phone. The money has not moved.', pcm: '{n} fit approve or reject am for their phone. The money never move.', yo: '{n} lè fọwọ́sí tàbí kọ̀ ọ́ lórí fóònù wọn. Owó náà kò tíì lọ.' },
+    cancelTransfer: { en: 'Cancel transfer', pcm: 'Cancel the transfer', yo: 'Fagilé owó náà' },
+    demoPhone: { en: "{n}'s phone (demo)", yo: 'Fóònù {n} (ìdánwò)' },
+    demoAsk: { en: 'Approve {a} to {to}?', pcm: 'Approve {a} to {to}?', yo: 'Fọwọ́sí {a} sí {to}?' },
+    offlineDemo: { en: "Couldn't reach the server, so this is shown here instead.", yo: 'Kò sí ìsopọ̀, nítorí náà ó hàn níbí.' },
+    approve: { en: 'Approve', pcm: 'Approve', yo: 'Fọwọ́sí' }, decline: { en: 'Decline', pcm: 'Reject', yo: 'Kọ̀ ọ́' },
+    newRecipient: { en: 'New recipient', pcm: 'New person', yo: 'Ẹni tuntun' },
+    approvedBy: { en: 'Approved by {n}', pcm: '{n} approve am', yo: '{n} fọwọ́sí i' },
+    sendTo: { en: 'To', pcm: 'To', yo: 'Sí' }, and: { en: 'and', pcm: 'and', yo: 'àti' }, month: { en: 'month', yo: 'oṣù' },
+    didSend: { en: '{amt} was sent to {n}', pcm: '{amt} don go {n}', yo: 'a fi {amt} ránṣẹ́ sí {n}' },
+    didSave: { en: '{amt} was saved to {g}', pcm: '{amt} don enter {g}', yo: 'a fi {amt} pamọ́ sínú {g}' },
+    didWithdraw: { en: '{amt} was moved from {g}', pcm: '{amt} don comot from {g}', yo: 'a yọ {amt} láti inú {g}' },
+    didAirtime: { en: '{amt} airtime was bought', pcm: '{amt} card don enter', yo: 'a ra káàdì ìpè {amt}' },
+    link: { en: 'Link', pcm: 'Connect', yo: 'So pọ̀' }, unlink: { en: 'Unlink', pcm: 'Disconnect', yo: 'Yọ ọ́' },
+    needsDb: { en: 'Needs the free database in Vercel', pcm: 'E need the free database for Vercel', yo: 'Ó nílò database ọ̀fẹ́ ní Vercel' },
+    helperFormGo: { en: "Okay. Choose what {n} can do, then tap Create helper link.", pcm: 'Okay. Choose wetin {n} fit do, then press Make helper link.', yo: 'Ó dáa. Yan ohun tí {n} lè ṣe, lẹ́yìn náà tẹ Ṣe ìlànà olùrànlọ́wọ́.' },
+    yourHelper: { en: 'your helper', pcm: 'your helper', yo: 'olùrànlọ́wọ́ rẹ' },
+    whichHelper: { en: 'Which helper? Say: remove, then their name.', pcm: 'Which helper? Talk: remove, then the name.', yo: 'Olùrànlọ́wọ́ wo? Sọ pé: remove, lẹ́yìn náà orúkọ wọn.' },
     kVoiceNeeded: { en: 'Voice ID needed', pcm: 'Voice ID dey needed', yo: 'Voice ID pọndandan' },
     requireVoice: { en: 'Require Voice ID to move money', pcm: 'Make Voice ID compulsory to move money', yo: 'Voice ID pọndandan láti gbé owó' },
     requireVoiceDesc: { en: 'Turn off only for testing', pcm: 'Off am only when you dey test', yo: 'Pa á nìkan fún ìdánwò' },
@@ -1262,6 +1453,7 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
       lang: 'en', muted: false, handsFree: false, onboarded: false, hideBal: false, view: 'home', speed: 1, textScale: 1,
       wallet: 35000, account: '9012345678', myPhone: '08031234412', myNetwork: 'MTN',
       secret: 'blue mango', autoSave: null, voicePrint: null, voicePrintV: 2, voiceStrict: 0.5, requireVoice: true,
+      ownerId: null, myName: 'Ade Bello', helpers: [], approveOver: 20000, circleLog: [], seenEvents: [],
       goals: [
         { key: 'flex', name: null, bal: 12000, target: null, deadline: null },
         { key: 'rent', name: null, bal: 40000, target: 75000, deadline: '2026-12-31' },
@@ -1286,7 +1478,10 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
   // Voiceprints from the first open-source model (v1) don't work with the new one: ask for a fresh setup
   if (state.voicePrint && state.voicePrintV !== 2) { state.voicePrint = null; state.voiceStrict = 0.5; }
   if (![0.4, 0.5, 0.6].includes(state.voiceStrict)) state.voiceStrict = 0.5;
-  const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+  // A private id for this account on the server (Trusted Circle). Never shown to anyone.
+  if (!state.ownerId) state.ownerId = Array.from(crypto.getRandomValues(new Uint8Array(24))).map(b => b.toString(16).padStart(2, '0')).join('');
+  if (!Array.isArray(state.helpers)) state.helpers = [];
+  const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} try { scheduleSync(); } catch (e) {} };
 
   let pending = null;   // {type, needsPhrase, tries, ...}
   let awaiting = null;  // {slot, r}
@@ -1377,48 +1572,86 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
   function renderHome() {
     const v = $('v-home'); v.textContent = '';
     const hr = new Date().getHours();
-    v.append(h('div', { class: 'hd' },
-      h('div', { class: 'hd-left' }, h('span', { class: 'avatar', 'aria-hidden': 'true', text: 'BA' }),
-        h('div', { style: 'min-width:0' }, h('p', { class: 'hi', text: t('hi') }), h('p', { class: 'hi-sub', text: t(hr < 12 ? 'gM' : hr < 17 ? 'gA' : 'gE') }))),
-      h('div', { class: 'hd-actions' },
-        h('button', { class: 'iconbtn', type: 'button', 'aria-label': t('language') + ': ' + { en: 'English', pcm: 'Pidgin', yo: 'Yorùbá' }[state.lang], onClick: cycleLang }, icon('globe', 18), t('langName')),
-        h('button', { class: 'iconbtn' + (state.handsFree ? ' on' : ''), type: 'button', 'aria-pressed': String(state.handsFree), 'aria-label': t('handsFree'), title: t('handsFree'), onClick: toggleHF }, icon('wave', 18)))));
-
+    const first = (state.myName || 'Ade').split(' ')[0];
+    const initials = (state.myName || 'Ade').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
     const hidden = state.hideBal;
-    const tags = h('div', { class: 'bal-tags' });
-    if (state.autoSave) tags.append(h('span', { text: t('autoSave') + ' ' + state.autoSave.pct + '%' }));
-    for (const d of state.reminders) tags.append(h('span', { text: t('every') + ' ' + L.dayLabel(d, state.lang) }));
-    v.append(h('section', { class: 'bal', 'aria-label': t('total') },
-      h('div', { class: 'bal-top' }, h('span', { class: 'bal-lbl', text: t('total') }),
-        h('button', { class: 'eye', type: 'button', 'aria-label': hidden ? t('showBal') : t('hideBal'), onClick: () => { state.hideBal = !state.hideBal; persist(); render(); } }, icon(hidden ? 'eyeoff' : 'eye', 18))),
-      h('div', { class: 'bal-amt num' }, hidden ? '₦ • • • • •' : amtWithKobo(total())),
-      tags.children.length ? tags : null,
-      h('div', { class: 'bal-row' },
-        h('div', null, h('span', { text: t('wallet') }), h('b', { class: 'num', text: hidden ? '₦ • • • •' : naira(state.wallet) })),
-        h('div', { style: 'text-align:right' }, h('span', { text: t('acct') }), h('b', { class: 'num', text: state.account.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3') })))));
+    const langLabel = { en: 'English', pcm: 'Pidgin', yo: 'Yorùbá' }[state.lang];
 
-    const qa = (ic, k, fn) => h('button', { type: 'button', onClick: fn }, h('span', { class: 'tile' }, icon(ic, 24)), t(k));
-    v.append(h('div', { class: 'qa' },
-      qa('potplus', 'qSave', () => showOv('pick', { mode: 'save', ref: null, amount: 5000 })),
-      qa('send', 'qSend', () => showOv('send-form', { c: 0, amount: 5000 })),
-      qa('phone', 'qAirtime', () => showOv('airtime-form', { net: state.myNetwork, amount: 1000, other: false, phone: '' })),
-      qa('out', 'qWithdraw', () => showOv('pick', { mode: 'withdraw', ref: null, amount: 2000 }))));
+    // 1. Header + balance + main actions (one white card, like a bank app's top panel)
+    const copyBtn = h('button', { class: 'copy', type: 'button', 'aria-label': t('copyAcct'), onClick: async (e) => {
+      try { await navigator.clipboard.writeText(state.account); } catch (err) {}
+      const b = e.currentTarget; b.textContent = ''; b.append(icon('check', 16, 2.4)); announce(t('copied'));
+      setTimeout(() => { b.textContent = ''; b.append(icon('copy', 16)); }, 1500);
+    } }, icon('copy', 16));
+    const act = (ic, k, fn) => h('button', { class: 'act', type: 'button', onClick: fn }, h('span', { class: 'ring' }, icon(ic, 22)), t(k));
+    v.append(h('section', { class: 'card top' },
+      h('div', { class: 'hd' },
+        h('div', { class: 'hd-left' }, h('span', { class: 'avatar', 'aria-hidden': 'true' }, h('span', { text: initials })),
+          h('div', { style: 'min-width:0' }, h('p', { class: 'hi', text: t('hi', { n: first }) }), h('p', { class: 'hi-sub', text: t(hr < 12 ? 'gM' : hr < 17 ? 'gA' : 'gE') }))),
+        h('button', { class: 'pillbtn', type: 'button', 'aria-label': t('language') + ': ' + langLabel, onClick: cycleLang }, icon('globe', 16), langLabel, icon('down', 16))),
+      h('span', { class: 'bal-lbl2', text: t('walletBalLbl') }),
+      h('div', { class: 'bal-line' },
+        h('span', { class: 'bal-amt2 num' }, hidden ? '*****' : amtWithKobo(state.wallet)),
+        h('button', { class: 'eye2', type: 'button', 'aria-label': hidden ? t('showBal') : t('hideBal'), onClick: () => { state.hideBal = !state.hideBal; persist(); render(); } }, icon(hidden ? 'eyeoff' : 'eye', 20))),
+      h('div', { class: 'acct-line' }, h('span', { class: 'num', text: state.account }), h('span', { class: 'acct-bank', text: 'Vosa' }), copyBtn),
+      h('button', { class: 'saved-strip', type: 'button', onClick: () => go('pots') },
+        icon('pot', 18), h('span', { text: t('savedStrip') }), h('b', { class: 'num', text: hidden ? '*****' : naira(total()) }),
+        state.autoSave ? h('span', { class: 'tag', text: t('autoSave') + ' ' + state.autoSave.pct + '%' }) : null,
+        h('span', { class: 'chev' }, icon('chev', 16))),
+      h('div', { class: 'acts' },
+        act('send', 'qSend', () => showOv('send-form', { c: 0, amount: 5000 })),
+        act('potplus', 'qSave', () => showOv('pick', { mode: 'save', ref: null, amount: 5000 })),
+        act('out', 'qWithdraw', () => showOv('pick', { mode: 'withdraw', ref: null, amount: 2000 })),
+        act('dots', 'qMore', () => showOv('more')))));
 
-    v.append(h('button', { class: 'voice', type: 'button', onClick: () => { micDenied = false; startListening(); } },
-      h('span', { class: 'vm' }, icon('mic', 22)),
-      h('div', null, h('b', { text: t('voiceT') }), h('span', { text: t('voiceS', { ex: EXAMPLES[state.lang][0] }) })),
-      h('span', { class: 'chev' }, icon('chev', 20))));
-    v.append(h('button', { class: 'link', type: 'button', style: 'align-self:flex-start;margin-top:4px', onClick: () => showOv('type'), text: t('whatSay') }));
+    // 2. Voice banner (the "promo" slot)
+    v.append(h('section', { class: 'banner', 'aria-label': t('voiceT') },
+      h('div', { class: 'banner-txt' },
+        h('h2', { text: t('bannerT') }),
+        h('p', { text: t('bannerS', { ex: EXAMPLES[state.lang][1] || EXAMPLES[state.lang][0] }) }),
+        h('div', { class: 'banner-btns' },
+          h('button', { class: 'bpill', type: 'button', onClick: () => { micDenied = false; startListening(); } }, icon('mic', 16), t('tapTalk')),
+          h('button', { class: 'bpill' + (state.handsFree ? ' on' : ''), type: 'button', 'aria-pressed': String(state.handsFree), onClick: toggleHF }, icon('wave', 16), state.handsFree ? t('hfOn') : t('handsFree')))),
+      h('div', { class: 'banner-art', 'aria-hidden': 'true' }, [18, 34, 52, 30, 60, 42, 24].map(x => h('i', { style: 'height:' + x + 'px' })))));
 
-    const pots = state.goals.slice(0, 3);
-    v.append(h('section', { class: 'sec', 'aria-labelledby': 'h-sav' },
-      h('div', { class: 'sec-h' }, h('h2', { id: 'h-sav', text: t('yourSavings') }), h('button', { class: 'more', type: 'button', onClick: () => go('pots'), text: t('seeAll2') })),
-      h('div', null, pots.map(g => potRow(g, false)))));
+    // 3. Quick access
+    const qa = (ic, k, fn) => h('button', { class: 'qtile', type: 'button', onClick: fn }, h('span', { class: 'qi' }, icon(ic, 20)), t(k));
+    v.append(h('section', { class: 'card' }, h('h2', { class: 'card-t', text: t('quick') }),
+      h('div', { class: 'qgrid' },
+        qa('phone', 'qAirtime', () => showOv('airtime-form', { net: state.myNetwork, amount: 1000, other: false, phone: '' })),
+        qa('target', 'qGoal', () => showOv('goal-form', { key: 'school', amount: 200000, month: 3 })),
+        qa('shield', 'qHelpers', () => (state.helpers || []).length ? go('settings') : showOv('helper-form', {})))));
 
-    const recent = state.activity.slice(0, 3);
-    v.append(h('section', { class: 'sec', 'aria-labelledby': 'h-rec' },
-      h('div', { class: 'sec-h' }, h('h2', { id: 'h-rec', text: t('recent') }), h('button', { class: 'more', type: 'button', onClick: () => go('activity'), text: t('seeAll2') })),
-      recent.length ? h('div', null, recent.map(actRow)) : h('p', { class: 'empty', text: t('noActivity') })));
+    // 4. Savings (Vosa is savings-first)
+    v.append(h('section', { class: 'card', 'aria-labelledby': 'h-sav' },
+      h('div', { class: 'sec-h' }, h('h2', { class: 'card-t', id: 'h-sav', text: t('yourSavings') }), h('button', { class: 'more', type: 'button', onClick: () => go('pots'), text: t('seeAll2') })),
+      h('div', null, state.goals.slice(0, 3).map(g => potRow(g, false)))));
+
+    // 5. Transaction history
+    const last = state.activity[0];
+    v.append(h('button', { class: 'card rowcard', type: 'button', onClick: () => go('activity') },
+      h('span', { class: 'qi' }, icon('receipt', 20)),
+      h('span', { class: 'rc-mid' }, h('b', { text: t('txHistory') }), last ? h('span', { text: actRow(last).querySelector('.mid b').textContent + ' · ' + naira(last.amt) }) : null),
+      h('span', { class: 'chev' }, icon('chev', 18))));
+
+    // 6. Explore
+    const ex = (ic, tk, sk, tone, fn) => h('button', { class: 'excard ' + tone, type: 'button', onClick: fn }, h('span', { class: 'qi' }, icon(ic, 20)), h('b', { text: t(tk) }), h('span', { text: t(sk) }));
+    v.append(h('section', { class: 'card', style: 'padding-right:0' }, h('h2', { class: 'card-t', text: t('explore') }),
+      h('div', { class: 'exrow' },
+        ex('shield', 'exCircleT', 'exCircleS', 't1', () => showOv('helper-form', {})),
+        ex('spark', 'exMmfT', 'exMmfS', 't3', () => { handle(L.EXPLAIN.mmf ? 'what is a money market fund' : 'help', { via: 'text' }); }),
+        ex('in', 'exAutoT', 'exAutoS', 't4', () => handle('save 10% of any money I receive', { via: 'text' })))));
+  }
+
+  function ovMore(el) {
+    const row = (ic, label, fn) => h('button', { class: 'ex', type: 'button', onClick: () => { closeOv(); fn(); } }, h('span', { class: 'ei' }, icon(ic, 20)), label);
+    sheetWrap(el, [sheetHead(t('moreT')),
+      h('div', null,
+        row('phone', t('qAirtime'), () => showOv('airtime-form', { net: state.myNetwork, amount: 1000, other: false, phone: '' })),
+        row('target', t('qGoal'), () => showOv('goal-form', { key: 'school', amount: 200000, month: 3 })),
+        row('wallet', t('mAcct'), () => handle('what is my account number', { via: 'text' })),
+        row('shield', t('gCircle'), () => go('settings')),
+        row('in', t('mMoneyIn'), () => incoming(50000, 'Kemi Adewale')))]);
   }
 
   function renderPots() {
@@ -1429,7 +1662,7 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     v.append(h('div', { class: 'summary' },
       h('div', null, h('span', { text: t('total') }), h('b', { class: 'num', text: naira(total()) })),
       h('div', null, h('span', { text: t('savedMonth') }), h('b', { class: 'num', text: naira(savedMonth) }))));
-    v.append(h('div', { style: 'margin-top:8px' }, state.goals.map(g => potRow(g, true))));
+    v.append(h('section', { class: 'card' }, state.goals.map(g => potRow(g, true))));
     v.append(h('p', { class: 'empty', style: 'text-align:center', text: t('orSayGoal') }));
   }
 
@@ -1447,7 +1680,7 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     const sign = kind === 'in' ? '+' : kind === 'out' ? '−' : '';
     const tile = h('span', { class: 'gtile', style: 'background:' + tileStyle[0] + ';color:' + tileStyle[1], 'aria-hidden': 'true' }, icon(tileIc, 20));
     return h('div', { class: 'row' }, tile,
-      h('div', { class: 'mid' }, h('b', { text: title }), h('span', { text: [time, a.detail].filter(Boolean).join(' · ') })),
+      h('div', { class: 'mid' }, h('b', { text: title }), h('span', { text: [time, a.detail, a.by ? t('byHelper', { n: a.by }) : null].filter(Boolean).join(' · ') })),
       h('div', { class: 'end' }, h('b', { class: 'num' + (kind === 'in' ? ' in' : ''), text: sign + naira(a.amt) }), h('span', { text: { in: t('lIn'), out: t('lOut'), saved: t('lSaved') }[kind] })));
   }
 
@@ -1463,8 +1696,8 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     if (!state.activity.length) { v.append(h('p', { class: 'empty', text: t('noActivity') })); return; }
     const today = new Date(); today.setHours(0, 0, 0, 0);
     const a1 = state.activity.filter(a => a.at >= +today), a2 = state.activity.filter(a => a.at < +today);
-    if (a1.length) { v.append(h('h2', { class: 'day', text: t('today') }), h('div', null, a1.map(actRow))); }
-    if (a2.length) { v.append(h('h2', { class: 'day', text: t('earlier') }), h('div', null, a2.map(actRow))); }
+    if (a1.length) { v.append(h('section', { class: 'card' }, h('h2', { class: 'card-t', text: t('today') }), h('div', null, a1.map(actRow)))); }
+    if (a2.length) { v.append(h('section', { class: 'card' }, h('h2', { class: 'card-t', text: t('earlier') }), h('div', null, a2.map(actRow)))); }
   }
 
   function seg(labelText, options, current, onPick) {
@@ -1490,6 +1723,7 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
       backend.voiceId ? row(t('requireVoice'), t('requireVoiceDesc'), sw(state.requireVoice !== false, () => { state.requireVoice = state.requireVoice === false; persist(); render(); }, t('requireVoice'))) : null,
       voiceIdOn() ? row(t('strictness'), t('strictDesc'), seg(t('strictness'), [[0.4, t('relaxed')], [0.5, t('normal')], [0.6, t('strict')]], state.voiceStrict, (v) => { state.voiceStrict = v; persist(); render(); })) : null,
       voiceIdOn() ? row(t('removeVoice'), null, h('button', { class: 'link', type: 'button', style: 'color:var(--danger)', text: t('remove'), onClick: () => { state.voicePrint = null; persist(); render(); } })) : null));
+    v.append(h('h2', { class: 'group-t', text: t('gCircle') }), settingsCircle(row));
     v.append(h('h2', { class: 'group-t', text: t('gAccess') }), h('div', { class: 'group', style: 'margin-top:0' },
       row(t('textSize'), null, seg(t('textSize'), [[0.9, 'A', 'font-size:12px'], [1, 'A', 'font-size:15px'], [1.2, 'A', 'font-size:18px']], state.textScale, (s) => { state.textScale = s; persist(); render(); })),
       row(t('srTips'), null, h('button', { class: 'link', type: 'button', text: t('open'), onClick: () => showOv('sheet', { tone: 'ok', icon: 'speaker', title: t('srTips'), body: t('srBody'), actions: [{ label: t('ok'), primary: true, fn: closeOv }] }) }))));
@@ -1556,7 +1790,7 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     if (!ov) { fresh.hidden = true; fresh.removeAttribute('role'); return; }
     fresh.hidden = false;
     fresh.setAttribute('role', 'dialog'); fresh.setAttribute('aria-modal', 'true');
-    const b = { confirm: ovConfirm, success: ovSuccess, moneyin: ovMoneyIn, sheet: ovSheet, type: ovType, pick: ovPick, 'goal-form': ovGoalForm, 'send-form': ovSendForm, 'airtime-form': ovAirtimeForm, pot: ovPot, amount: ovAmountCompat, onboard: ovOnboard, enroll: ovEnroll }[ov.kind];
+    const b = { confirm: ovConfirm, success: ovSuccess, moneyin: ovMoneyIn, sheet: ovSheet, type: ovType, pick: ovPick, 'goal-form': ovGoalForm, 'send-form': ovSendForm, 'airtime-form': ovAirtimeForm, pot: ovPot, amount: ovAmountCompat, onboard: ovOnboard, enroll: ovEnroll, more: ovMore, approval: ovApproval, 'helper-form': ovHelperForm, 'helper-link': ovHelperLink, 'circle-log': ovCircleLog }[ov.kind];
     if (!b) { fresh.hidden = true; return; }
     b(fresh, ov.data);
     const focusEl = fresh.querySelector('h1, h2');
@@ -1872,7 +2106,11 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     if (ov && ['success', 'moneyin', 'sheet', 'pot', 'amount', 'goal-form', 'send-form', 'airtime-form'].includes(ov.kind) && !(pending && pending.type === 'nudge')) closeOv();
     maybeSwitch(raw);
     renderTalk();
-    let r = L.understand(raw, { pending: !!pending, awaiting: awaiting && awaiting.slot, contacts: state.contacts });
+    let r = L.understand(raw, { pending: !!pending, awaiting: awaiting && awaiting.slot, contacts: state.contacts, helpers: (state.helpers || []).map(x => x.name) });
+    if (cloud.waiting) {
+      if (/\b(no|cancel|stop|forget am|leave am|rara|fagile)\b/.test(L.norm(raw))) return cancelApproval();
+      return reply(t('waitBody', { n: cloud.waiting.names }));
+    }
 
     if (phraseMode) {
       if (r.intent === 'no' && !isPhrase) return cancelPending();
@@ -2027,6 +2265,27 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
         return reply(R('autosaveSet', { pct, goal: label(g) }));
       }
       case 'autosaveoff': state.autoSave = null; persist(); render(); return reply(R('autosaveOff'));
+      case 'addhelper': {
+        if ((state.helpers || []).length >= 3) return reply(t('maxHelpers'));
+        const nm = r.helperName ? capName(r.helperName) : '';
+        showOv('helper-form', { name: nm });
+        return reply(t('helperFormGo', { n: nm || t('yourHelper') }));
+      }
+      case 'helpers': {
+        const hs = state.helpers || [];
+        if (!hs.length) return reply(R('helpersNone'));
+        const list = hs.map(x => x.name + ', ' + roleName(x.role).toLowerCase() + (x.status !== 'active' ? ' (' + t('stInvited').toLowerCase() + ')' : '')).join('; ');
+        const seen = [...new Set((state.circleLog || []).filter(e => e.kind === 'view' && Date.now() - e.at < 7 * 864e5).map(e => e.name))];
+        go('settings');
+        return reply(R('helpersList', { list }) + (seen.length ? ' ' + seen.map(n => R('helperViewed', { name: n })).join(' ') : ''));
+      }
+      case 'removehelper': {
+        const hs = state.helpers || [];
+        const hp = r.helperName ? hs.find(x => L.norm(x.name) === r.helperName || L.norm(x.name).split(' ')[0] === r.helperName) : hs.length === 1 ? hs[0] : null;
+        if (!hp) return reply(hs.length ? t('whichHelper') : R('helpersNone'));
+        removeHelper(hp);
+        return reply(R('helperRemoved', { name: hp.name }));
+      }
       case 'voicesetup':
         if (!backend.voiceId) return reply(t('vidNeedsKey'));
         showOv('enroll', { stage: 'intro' }); return reply(R('voiceSetupGo'));
@@ -2109,9 +2368,12 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     }
     if (p.type === 'send') {
       if (state.wallet < p.amount) return lowWallet(p.amount);
+      // Trusted Circle: big or unusual transfers wait for a helper's approval
+      if (!p.approved) { const info = approversFor(p); if (info.list.length) return askApproval(p, info); }
       state.wallet -= p.amount;
       logAct({ kind: 'send', n: p.to.name, amt: p.amount, detail: p.to.bank + ' •••• ' + p.to.acct.slice(-4) });
-      let msg = R('doneSend', { name: p.to.name, amt: fmt(p.amount), wallet: fmt(state.wallet) });
+      let msg = (p.approvedBy ? R('helperApproved', { name: p.approvedBy }) : '') + R('doneSend', { name: p.to.name, amt: fmt(p.amount), wallet: fmt(state.wallet) });
+      if (p.approvedBy) p.verified = [p.verified, t('approvedBy', { n: p.approvedBy })].filter(Boolean).join(' · ');
       const nudge = roundTo(p.amount * 0.1, 500);
       const flex = findGoal('flex') || state.goals[0];
       if (p.amount >= 2000 && state.wallet >= nudge * 3 && flex) {
@@ -2173,7 +2435,7 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
   }
 
   // ---------- speech out ----------
-  const backend = { ok: false, sttYo: false, ttsYo: false, ttsEn: false, ttsPcm: false, voiceId: false };
+  const backend = { ok: false, sttYo: false, ttsYo: false, ttsEn: false, ttsPcm: false, voiceId: false, db: false, sms: false };
   let audioEl = null, warnedYo = false, speakToken = 0;
   function stopSpeaking() {
     speakToken++;
@@ -2669,7 +2931,421 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
   $('kbd').addEventListener('click', () => showOv('type'));
   document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => go(b.dataset.view)));
 
+  // ---------- Trusted Circle ----------
+  // The phone keeps the main copy of the account. When a helper is set up, Vosa uploads a
+  // snapshot after each change and checks every few seconds for things that happened elsewhere
+  // (a helper's decision, a payment by a helper).
+  const ROLE_ICON = { watcher: 'eye', approver: 'shield', spender: 'wallet' };
+  const roleName = (r) => t('role' + r[0].toUpperCase() + r.slice(1));
+  const helperBy = (token) => (state.helpers || []).find(x => x.token === token);
+  const capName = (s) => String(s || '').trim().replace(/\s+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  const joinNames = (a) => a.length <= 1 ? (a[0] || '') : a.slice(0, -1).join(', ') + ' ' + t('and') + ' ' + a[a.length - 1];
+  const cloud = { timer: null, syncing: false, dirty: false, pollTimer: null, waiting: null };
+  const cloudOn = () => backend.db && ((state.helpers || []).some(x => !x.local));
+
+  async function circleApi(action, body, get) {
+    const url = 'api/circle?action=' + action + (get ? '&' + new URLSearchParams(body) : '');
+    const r = await fetch(url, get ? { cache: 'no-store' } : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ action }, body)) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { const e = new Error(j.message || j.error || ('HTTP ' + r.status)); e.code = j.error; throw e; }
+    return j;
+  }
+  async function sha256(s) {
+    if (!(window.crypto && crypto.subtle)) return null;
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+  async function snapshot() {
+    // The secret phrase never leaves the phone as text: only a fingerprint (hash),.
+    const words = L.norm(state.secret).split(/\s+/).filter(Boolean);
+    return {
+      name: state.myName || 'Vosa user', lang: state.lang, wallet: state.wallet, account: state.account, myPhone: state.myPhone, myNetwork: state.myNetwork,
+      goals: state.goals.map(g => ({ key: g.key, name: g.name, bal: g.bal, target: g.target, deadline: g.deadline })),
+      contacts: state.contacts, activity: state.activity.slice(0, 12),
+      secretHash: await sha256(words.join(' ')), secretWords: words.length,
+      approveOver: state.approveOver,
+      helpers: (state.helpers || []).filter(x => !x.local).map(x => ({ token: x.token }))
+    };
+  }
+  function scheduleSync() {
+    if (!cloudOn()) return;
+    clearTimeout(cloud.timer);
+    cloud.timer = setTimeout(() => { syncNow(); }, 1200);
+  }
+  async function syncNow() {
+    if (!cloudOn()) return;
+    if (cloud.syncing) { cloud.dirty = true; return; }
+    cloud.syncing = true;
+    try {
+      const j = await circleApi('sync', { ownerId: state.ownerId, snap: await snapshot() });
+      if (!j.ok && j.events) applyEvents(j.events); // apply what happened elsewhere first, then upload again
+    } catch (e) { /* offline: try again on the next change or poll */ }
+    finally { cloud.syncing = false; if (cloud.dirty) { cloud.dirty = false; scheduleSync(); } }
+  }
+  function startPolling(ms) {
+    clearInterval(cloud.pollTimer);
+    cloud.pollTimer = setInterval(pollNow, ms || 4000);
+  }
+  async function pollNow() {
+    const w = cloud.waiting;
+    if (w && !w.sim && Date.now() - w.started > 10 * 60e3) return resolveApproval('timeout');
+    if (!cloudOn() || (document.hidden && !w)) return;
+    try {
+      const j = await circleApi('poll', { ownerId: state.ownerId }, true);
+      if (j.events && j.events.length) applyEvents(j.events);
+      if (cloud.waiting && cloud.waiting.id) {
+        const rq = (j.reqs || []).find(x => x.id === cloud.waiting.id);
+        if (rq && rq.status !== 'pending') resolveApproval(rq.status, rq.by);
+      }
+      let changed = false;
+      for (const hs of j.helpers || []) {
+        const hh = helperBy(hs.token);
+        if (hh && hs.status !== 'removed' && hh.status !== hs.status) { hh.status = hs.status; changed = true; }
+        if (hh && hs.lastView && hs.lastView !== hh.lastView) { hh.lastView = hs.lastView; changed = true; }
+      }
+      if (changed) { persist(); if (state.view === 'settings') render(); }
+    } catch (e) { /* offline */ }
+  }
+  function logCircle(e) { state.circleLog = [e].concat(state.circleLog || []).slice(0, 30); }
+  function applyEvents(events) {
+    const seen = state.seenEvents || (state.seenEvents = []);
+    const msgs = [], ids = [];
+    for (const ev of events) {
+      ids.push(ev.id);
+      if (seen.includes(ev.id)) continue;
+      seen.push(ev.id);
+      if (ev.type === 'tx') { const m = applyRemoteTx(ev.tx); if (m) msgs.push(m); }
+      else if (ev.type === 'view') logCircle({ kind: 'view', name: ev.name, at: ev.at });
+      else if (ev.type === 'helper') {
+        const hh = helperBy(ev.token);
+        if (hh && hh.status !== ev.status) { hh.status = ev.status; msgs.push(R('helperJoined', { name: hh.name, role: roleName(hh.role).toLowerCase() })); }
+      } else if (ev.type === 'decision') {
+        logCircle({ kind: ev.status, name: ev.by, at: ev.at });
+        if (ev.origin === 'app' && cloud.waiting && cloud.waiting.id === ev.reqId) resolveApproval(ev.status, ev.by);
+      }
+    }
+    state.seenEvents = seen.slice(-80);
+    persist(); render();
+    circleApi('ack', { ownerId: state.ownerId, ids }).then(() => scheduleSync()).catch(() => {});
+    if (msgs.length) reply(msgs.join(' '));
+  }
+  // A money movement made away from the phone: by a helper with spending rights.
+  function applyRemoteTx(tx) {
+    const amt = Math.round(tx.amount || 0);
+    const via = 'helper';
+    if (tx.type === 'send' || tx.type === 'airtime') state.wallet = Math.max(0, state.wallet - amt);
+    let g = null;
+    if (tx.type === 'save' || tx.type === 'withdraw') {
+      g = findRef(tx.goal || { key: 'flex' }) || findGoal('flex');
+      if (!g) return null;
+      if (tx.type === 'save') { state.wallet -= amt; g.bal += amt; } else { g.bal = Math.max(0, g.bal - amt); state.wallet += amt; }
+    }
+    const base = { amt, via, by: tx.by || null };
+    if (tx.type === 'send') logAct(Object.assign(base, { kind: 'send', n: tx.to.name, detail: tx.to.bank + ' •••• ' + String(tx.to.acct).slice(-4) }));
+    if (tx.type === 'airtime') logAct(Object.assign(base, { kind: 'airtime', n: tx.net, detail: tx.who }));
+    if (tx.type === 'save') logAct(Object.assign(base, { kind: 'save', g: gref(g) }));
+    if (tx.type === 'withdraw') logAct(Object.assign(base, { kind: 'move', g: gref(g) }));
+    return R('helperPaid', { name: tx.by, amt: fmt(amt), to: tx.to ? tx.to.name : '', wallet: fmt(state.wallet) });
+  }
+
+  // ----- approvals -----
+  function approversFor(p) {
+    const ap = (state.helpers || []).filter(x => x.role === 'approver' && x.status === 'active');
+    const known = state.contacts.some(c => c.acct === p.to.acct) || state.activity.some(a => a.kind === 'send' && a.n === p.to.name);
+    if (!ap.length) return { list: [], isNew: !known };
+    const big = p.amount >= (state.approveOver || 20000);
+    const isNewBig = !known && p.amount >= 5000;
+    return { list: big || isNewBig ? ap : [], isNew: !known };
+  }
+  async function askApproval(p, info) {
+    const names = joinNames(info.list.map(x => x.name));
+    const live = backend.db && info.list.some(x => !x.local);
+    cloud.waiting = { id: null, p, names, started: Date.now(), sim: !live, isNew: info.isNew };
+    showOv('approval');
+    reply(R('askedHelper', { amt: fmt(p.amount), why: info.isNew ? R('whyNew') : '', names }));
+    if (!live) return;
+    try {
+      await syncNow();
+      const j = await circleApi('request', { ownerId: state.ownerId, req: { amount: p.amount, to: p.to, kind: 'send', newRecipient: info.isNew } });
+      if (cloud.waiting && cloud.waiting.p === p) cloud.waiting.id = j.id;
+      startPolling(2000);
+    } catch (e) {
+      if (cloud.waiting && cloud.waiting.p === p) { cloud.waiting.sim = true; cloud.waiting.offline = true; renderOv(); }
+    }
+  }
+  function resolveApproval(status, by) {
+    const w = cloud.waiting;
+    if (!w) return;
+    cloud.waiting = null;
+    startPolling();
+    if (status === 'cancelled') return;
+    const name = by || w.names;
+    if (status === 'approved') { w.p.approved = true; w.p.approvedBy = name; pending = w.p; return execute(); }
+    const text = status === 'declined' ? R('helperDeclined', { name }) : R('helperTimeout', { names: w.names });
+    return fail({ tone: 'err', icon: 'shield', title: text, actions: [okAction()] }, text);
+  }
+  function cancelApproval() {
+    const w = cloud.waiting;
+    if (!w) return closeOv();
+    cloud.waiting = null; startPolling();
+    if (w.id) circleApi('cancel', { ownerId: state.ownerId, reqId: w.id }).catch(() => {});
+    closeOv(); reply(R('cancelled'));
+  }
+  function ovApproval(el) {
+    const w = cloud.waiting;
+    if (!w) { el.hidden = true; return; }
+    const p = w.p;
+    const to = p.to.name + ' · ' + p.to.bank + ' ••' + String(p.to.acct).slice(-4);
+    const kids = [sheetHead(t('waitingFor', { n: w.names }), cancelApproval),
+      h('div', { class: 'big-amt' }, h('span', { text: t('sendTo') + ' ' + to }), h('b', { class: 'num', text: fmt(p.amount) })),
+      w.isNew ? h('div', { class: 'checks' }, h('span', { class: 'hp-chip' }, icon('alert', 14), t('newRecipient'))) : null,
+      vsay()];
+    if (w.sim) {
+      // Demo mode (no database yet): the helper's phone is shown here instead.
+      kids.push(h('div', { class: 'hp-notif', role: 'group', 'aria-label': t('demoPhone', { n: w.names }) },
+        h('div', { class: 'hp-notif-h' }, icon('phone', 16), h('span', { text: t('demoPhone', { n: w.names }) })),
+        h('b', { text: t('demoAsk', { a: fmt(p.amount), to: p.to.name }) }),
+        w.offline ? h('span', { class: 'd', text: t('offlineDemo') }) : null,
+        h('div', { class: 'row2' },
+          h('button', { class: 'btn d', type: 'button', onClick: () => resolveApproval('declined', w.names.split(/,| and /)[0]) }, t('decline')),
+          h('button', { class: 'btn p', type: 'button', onClick: () => resolveApproval('approved', w.names.split(/,| and /)[0]) }, t('approve')))));
+    } else {
+      kids.push(h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon('shield', 18)),
+        h('div', null, h('b', null, t('waitBodyT'), h('span', { class: 'dots', 'aria-hidden': 'true' }, h('i'), h('i'), h('i'))), h('span', { text: t('waitBody', { n: w.names }) }))));
+    }
+    kids.push(h('button', { class: 'btn s', type: 'button', onClick: cancelApproval, text: t('cancelTransfer') }));
+    sheetWrap(el, kids, () => {});
+  }
+
+  // ----- managing helpers -----
+  const randHex = (n) => Array.from(crypto.getRandomValues(new Uint8Array(n))).map(b => b.toString(16).padStart(2, '0')).join('');
+  function ovHelperForm(el, d) {
+    d.role = d.role || 'approver'; d.limit = d.limit || 30000;
+    if (d.myName == null) d.myName = state.myName || '';
+    const field = (id, labelText, key, attrs) => h('div', null, h('label', { class: 'lbl', for: id, text: labelText }),
+      h('input', Object.assign({ class: 'field', id, value: d[key] || '', onInput: (e) => { d[key] = e.target.value; } }, attrs || {})));
+    const roles = h('div', { role: 'radiogroup', 'aria-label': t('whatCanTheyDo'), style: 'display:flex;flex-direction:column;gap:8px' },
+      ['approver', 'watcher', 'spender'].map(r => h('button', { class: 'lang-row', type: 'button', role: 'radio', 'aria-checked': String(d.role === r), onClick: () => { d.role = r; renderOv(); } },
+        h('span', { class: 'gtile', style: 'background:var(--tint);color:var(--primary);width:40px;height:40px' }, icon(ROLE_ICON[r], 20)),
+        h('div', { style: 'flex:1;min-width:0' }, h('b', { text: roleName(r) }), h('span', { text: t('role' + r[0].toUpperCase() + r.slice(1) + 'D') })),
+        h('span', { class: 'radio', 'aria-hidden': 'true' }))));
+    const err = d.err ? h('p', { class: 'tries', role: 'alert', text: d.err }) : null;
+    pageWrap(el, t('addHelper'), closeOv, [
+      h('p', { style: 'margin:0;color:var(--text2)', text: t('circleDesc') }),
+      field('hf-name', t('helperName'), 'name', { autocomplete: 'off', placeholder: 'Bisi' }),
+      h('div', null, h('span', { class: 'lbl', text: t('whatCanTheyDo') }), roles),
+      d.role === 'spender' ? h('div', null, h('span', { class: 'lbl', text: t('monthlyLimit') }),
+        seg(t('monthlyLimit'), [[10000, '₦10k'], [30000, '₦30k'], [50000, '₦50k']], d.limit, (v) => { d.limit = v; renderOv(); })) : null,
+      backend.db ? field('hf-phone', t('helperPhone'), 'phone', { type: 'tel', inputmode: 'tel', autocomplete: 'off', placeholder: '0803 000 0000' }) : null,
+      field('hf-me', t('yourName'), 'myName', { autocomplete: 'name', placeholder: 'Mama Ade' }),
+      err,
+      h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon('lock', 18)), h('div', null, h('b', { text: t('neverT') }), h('span', { text: t('neverB') })))],
+      [h('button', { class: 'btn p', type: 'button', disabled: d.busy ? true : null, onClick: () => submitHelper(d) }, icon('shield', 20), d.busy ? t('working') : t('createLink'))]);
+  }
+  async function submitHelper(d) {
+    const name = capName(d.name);
+    if (!name) { d.err = t('needName'); return renderOv(); }
+    const hp = { token: randHex(16), name, role: d.role, limit: d.role === 'spender' ? d.limit : null, phone: (d.phone || '').trim() || null, status: backend.db ? 'invited' : 'active', local: !backend.db, created: Date.now() };
+    if (d.myName && d.myName.trim()) state.myName = capName(d.myName);
+    if (backend.db) {
+      d.busy = true; d.err = null; renderOv();
+      try {
+        const j = await circleApi('invite', { ownerId: state.ownerId, ownerName: state.myName || '', helper: hp });
+        hp.link = j.link; hp.sms = !!j.sms;
+      } catch (e) { d.busy = false; d.err = t('helperErr') + ' (' + e.message + ')'; return renderOv(); }
+    }
+    state.helpers = (state.helpers || []).concat(hp);
+    persist(); syncNow(); startPolling(); render();
+    if (!backend.db) {
+      const text = R('helperJoined', { name, role: roleName(hp.role).toLowerCase() });
+      return fail({ tone: 'ok', icon: 'shield', title: text, body: t('circleDemo'), actions: [okAction()] }, text);
+    }
+    showOv('helper-link', { token: hp.token });
+    return reply(R('helperLink', { name }));
+  }
+  function ovHelperLink(el, d) {
+    const hp = helperBy(d.token);
+    if (!hp) { closeOv(); return; }
+    const msg = t('shareMsg', { me: state.myName || t('someone'), link: hp.link });
+    const copy = async () => { try { await navigator.clipboard.writeText(hp.link); d.copied = true; renderOv(); } catch (e) { const f = document.getElementById('hl-link'); if (f) { f.select(); } } };
+    pageWrap(el, t('helperLinkT', { n: hp.name }), closeOv, [
+      h('div', { class: 'done', style: 'padding-top:16px' }, h('span', { class: 'ok' }, icon(ROLE_ICON[hp.role], 30)), h('h1', { text: hp.name + ' · ' + roleName(hp.role) })),
+      h('p', { style: 'margin:0;color:var(--text2)', text: t('linkInfo', { n: hp.name }) }),
+      h('input', { class: 'field', id: 'hl-link', readonly: true, value: hp.link, 'aria-label': t('helperLinkT', { n: hp.name }), onFocus: (e) => e.target.select() }),
+      hp.sms ? h('p', { class: 'heard', text: t('smsSent', { n: hp.name }) }) : null,
+      navigator.share ? h('button', { class: 'btn p', type: 'button', onClick: () => navigator.share({ title: 'Vosa', text: msg }).catch(() => {}) }, icon('send', 20), t('shareLink')) : null,
+      h('a', { class: 'btn o', href: 'https://wa.me/?text=' + encodeURIComponent(msg), target: '_blank', rel: 'noopener', style: 'text-decoration:none' }, t('whatsapp')),
+      h('button', { class: 'btn s', type: 'button', onClick: copy }, d.copied ? t('copied') : t('copyLink'))],
+      [h('button', { class: 'btn p', type: 'button', onClick: () => { closeOv(); go('settings'); }, text: t('done') })]);
+  }
+  function removeHelper(hp) {
+    state.helpers = (state.helpers || []).filter(x => x.token !== hp.token);
+    if (!hp.local && backend.db) circleApi('remove', { ownerId: state.ownerId, token: hp.token }).catch(() => {});
+    persist(); syncNow(); render();
+  }
+  function confirmRemoveHelper(hp) {
+    showOv('sheet', { tone: 'warn', icon: 'user', title: t('removeQ', { n: hp.name }), body: t('removeB'), actions: [
+      { label: t('cancel'), fn: closeOv },
+      { label: t('remove'), primary: true, fn: () => { removeHelper(hp); closeOv(); reply(R('helperRemoved', { name: hp.name })); } }] });
+  }
+  function circleSummary() {
+    const recent = (state.circleLog || []).filter(e => Date.now() - e.at < 7 * 864e5).slice(0, 8);
+    return recent.map(e => {
+      const d = new Date(e.at);
+      const when = d.toLocaleDateString([], { weekday: 'short' }) + ' ' + d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      return t(e.kind === 'view' ? 'logView' : e.kind === 'approved' ? 'logApproved' : 'logDeclined', { n: e.name }) + ' · ' + when;
+    });
+  }
+  function ovCircleLog(el) {
+    const lines = circleSummary();
+    sheetWrap(el, [sheetHead(t('whoChecked')),
+      lines.length ? h('div', { class: 'kv' }, lines.map(l => h('div', null, h('span', { text: l })))) : h('p', { class: 'empty', text: t('noChecks') }),
+      h('button', { class: 'btn p', type: 'button', onClick: closeOv, text: t('ok') })]);
+  }
+  function settingsCircle(row) {
+    const hs = state.helpers || [];
+    const rows = hs.map(hp => row(hp.name, roleName(hp.role) + (hp.limit ? ' (' + fmt(hp.limit) + '/' + t('month') + ')' : '') + ' · ' + (hp.status === 'active' ? t('stActive') : t('stInvited')),
+      h('div', { style: 'display:flex;gap:14px;flex:0 0 auto' },
+        hp.link && hp.status !== 'active' ? h('button', { class: 'link', type: 'button', text: t('shareLink'), onClick: () => showOv('helper-link', { token: hp.token }) }) : null,
+        h('button', { class: 'link', type: 'button', style: 'color:var(--danger)', text: t('remove'), onClick: () => confirmRemoveHelper(hp) }))));
+    return h('div', { class: 'group', style: 'margin-top:0' },
+      row(t('gCircle'), t('circleDescShort'), null),
+      rows,
+      row(t('addHelper'), hs.length >= 3 ? t('maxHelpers') : null, hs.length >= 3 ? null : h('button', { class: 'link', type: 'button', text: t('add'), onClick: () => showOv('helper-form', {}) })),
+      hs.some(x => x.role === 'approver') ? row(t('approveOver'), t('approveOverD'), seg(t('approveOver'), [[10000, '₦10k'], [20000, '₦20k'], [50000, '₦50k']], state.approveOver, (v) => { state.approveOver = v; persist(); render(); })) : null,
+      hs.length ? row(t('whoChecked'), circleSummary()[0] || t('noChecks'), h('button', { class: 'link', type: 'button', text: t('open'), onClick: () => showOv('circle-log') })) : null,
+      !backend.db ? row(t('demoModeT'), t('circleDemo'), null) : null);
+  }
+
+  // ----- the helper's own page: open a link like vosa.vercel.app/?helper=… -----
+  function helperApp(token) {
+    document.title = 'Vosa Helper';
+    const app = $('app');
+    app.textContent = '';
+    const root = h('main', { class: 'views', id: 'hp' });
+    app.append(root, h('div', { class: 'sr', id: 'announce', 'aria-live': 'assertive' }));
+    let data = null, lastJson = '', seenReq = new Set(), msg = '', form = { contact: null, amount: '', note: '' }, busy = false;
+    const post = async (action, body) => {
+      const r = await fetch('api/circle', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ action, token }, body)) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.message || 'Something went wrong');
+      return j;
+    };
+    function alertNew() {
+      try { navigator.vibrate && navigator.vibrate([250, 120, 250]); } catch (e) {}
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        [0, 0.25].forEach(at => { const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = 880; g.gain.value = 0.15; o.connect(g); g.connect(ctx.destination); o.start(ctx.currentTime + at); o.stop(ctx.currentTime + at + 0.15); });
+      } catch (e) {}
+      document.title = '(1) Approval needed · Vosa';
+    }
+    async function load() {
+      try {
+        const r = await fetch('api/circle?action=helper&token=' + encodeURIComponent(token), { cache: 'no-store' });
+        const j = await r.json().catch(() => ({}));
+        data = r.ok ? j : { error: j.message || 'This helper link is not working.' };
+      } catch (e) { if (!data) data = { error: 'Can’t reach Vosa. Check your internet connection.' }; }
+      const pend = (data.requests || []).filter(x => x.status === 'pending');
+      let fresh = false;
+      pend.forEach(x => { if (!seenReq.has(x.id)) { seenReq.add(x.id); fresh = true; } });
+      if (fresh && lastJson) alertNew();
+      if (!pend.length) document.title = 'Vosa Helper';
+      const js = JSON.stringify(data);
+      if (js !== lastJson) { lastJson = js; draw(); }
+    }
+    const when = (ms) => { const d = new Date(ms); return d.toLocaleDateString([], { day: 'numeric', month: 'short' }) + ', ' + d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); };
+    function actLine(a) {
+      const who = a.by ? ' · by ' + a.by : '';
+      const title = a.kind === 'send' ? 'Sent to ' + (a.n || (a.to && a.to.name) || '') : a.kind === 'in' ? 'Received from ' + a.n : a.kind === 'airtime' ? 'Airtime' : a.kind === 'move' || a.kind === 'withdraw' ? 'Moved from savings' : 'Saved';
+      const sign = a.kind === 'in' || a.kind === 'move' || a.kind === 'withdraw' ? '+' : a.kind === 'save' ? '' : '−';
+      return h('div', { class: 'row' }, h('div', { class: 'mid' }, h('b', { text: title }), h('span', { text: when(a.at) + who })), h('div', { class: 'end' }, h('b', { class: 'num', text: sign + L.fmt(a.amt) })));
+    }
+    function draw() {
+      root.textContent = '';
+      const v = h('section', { class: 'view' });
+      v.append(h('div', { class: 'hd' }, h('div', { class: 'hd-left' }, logoMark(40), h('div', null, h('p', { class: 'hi', text: 'Vosa Helper' }), h('p', { class: 'hi-sub', text: 'Trusted Circle' })))));
+      if (!data) { v.append(h('p', { class: 'empty', text: 'Loading…' })); root.append(v); return; }
+      if (data.error) { v.append(h('div', { class: 'lockrow', role: 'alert' }, h('span', { class: 'lk', style: 'background:var(--danger)' }, icon('alert', 18)), h('div', null, h('b', { text: 'Link not working' }), h('span', { text: data.error })))); root.append(v); return; }
+      const hp = data.helper;
+      const roleT = { watcher: 'Watcher', approver: 'Approver', spender: 'Spender' }[hp.role];
+      const can = { watcher: 'See their balance and activity.', approver: 'Approve or decline their big or unusual transfers. See their balance and activity.', spender: 'Pay for them, up to ' + L.fmt(hp.limit || 0) + ' a month.' }[hp.role];
+      if (hp.status !== 'active') {
+        v.append(h('div', { class: 'done', style: 'padding-top:24px' }, h('span', { class: 'ok' }, icon(ROLE_ICON[hp.role], 30)),
+          h('h1', { text: hp.ownerName + ' added you as their ' + roleT.toLowerCase() }),
+          h('p', { style: 'margin:0;color:var(--text2)', text: 'Vosa is a voice banking app. ' + hp.ownerName + ' wants you in their Trusted Circle, so they never have to share their PIN.' })),
+          h('div', { style: 'display:flex;flex-direction:column;gap:10px;margin-top:20px' },
+            h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon('check', 18)), h('div', null, h('b', { text: 'You can' }), h('span', { text: can }))),
+            h('div', { class: 'lockrow' }, h('span', { class: 'lk', style: 'background:var(--danger)' }, icon('x', 18)), h('div', null, h('b', { text: 'You can never' }), h('span', { text: 'Move their money without them, or change their secret phrase or Voice ID.' })))),
+          h('div', { style: 'display:flex;flex-direction:column;gap:10px;margin-top:20px' },
+            h('button', { class: 'btn p', type: 'button', onClick: async () => { try { await post('accept', {}); lastJson = ''; await load(); } catch (e) { alert(e.message); } } }, icon('check', 20), 'Accept'),
+            msg ? h('p', { class: 'heard', text: msg }) : null));
+        root.append(v); return;
+      }
+      v.append(h('p', { style: 'margin:0 0 12px;color:var(--text2)', text: 'You’re helping ' + hp.ownerName + ' as their ' + roleT.toLowerCase() + '.' }));
+      if (hp.role === 'approver') {
+        const reqs = data.requests || [];
+        if (!reqs.length) v.append(h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon('shield', 18)), h('div', null, h('b', { text: 'Nothing to approve' }), h('span', { text: 'Keep this page open. You’ll get a buzz here' + ' when ' + hp.ownerName + ' needs you.' }))));
+        reqs.forEach(r => {
+          const to = r.to ? r.to.name + (r.to.bank ? ' · ' + r.to.bank + ' ••' + String(r.to.acct || '').slice(-4) : '') : '';
+          const card = h('div', { class: 'hp-req' + (r.status === 'pending' ? ' live' : ''), role: 'group', 'aria-label': 'Transfer request' },
+            h('span', { class: 'hp-tag', text: r.status === 'pending' ? 'Approval needed' : r.status === 'approved' ? 'You approved this' : r.status === 'declined' ? 'You declined this' : r.status }),
+            h('b', { class: 'num hp-amt', text: L.fmt(r.amount) }),
+            h('span', { text: hp.ownerName + ' wants to send this to ' + to }),
+            r.newRecipient ? h('span', { class: 'hp-chip' }, icon('alert', 14), 'New recipient: they have never paid this person') : null,
+            h('span', { class: 'd', text: when(r.created) }),
+            r.status === 'pending' ? h('div', { class: 'row2' },
+              h('button', { class: 'btn d', type: 'button', disabled: busy ? true : null, onClick: () => decide(r.id, 'decline') }, icon('x', 20), 'Decline'),
+              h('button', { class: 'btn p', type: 'button', disabled: busy ? true : null, onClick: () => decide(r.id, 'approve') }, icon('check', 20), 'Approve')) : null,
+            r.status === 'pending' ? h('span', { class: 'd', text: 'Not sure? Call ' + hp.ownerName + ' first. Scammers often pressure people to send money fast.' }) : null);
+          v.append(card);
+        });
+      }
+      if (data.account) {
+        const a = data.account;
+        const saved = a.goals.reduce((x, g) => x + g.bal, 0);
+        v.append(h('div', { class: 'bal', style: 'margin-top:16px' }, h('div', { class: 'bal-top' }, h('span', { class: 'bal-lbl', text: hp.ownerName + '’s wallet' })),
+          h('div', { class: 'bal-amt num', text: L.fmt(a.wallet) }),
+          h('div', { class: 'bal-row' }, h('div', null, h('span', { text: 'Savings' }), h('b', { class: 'num', text: L.fmt(saved) })), h('div', null, h('span', { text: 'Updated' }), h('b', { text: a.updatedAt ? when(a.updatedAt) : '—' })))));
+        if (a.activity && a.activity.length) v.append(h('div', { class: 'sec' }, h('div', { class: 'sec-h' }, h('h2', { text: 'Recent activity' })), a.activity.map(actLine)));
+      }
+      if (data.spend) {
+        const s = data.spend;
+        v.append(h('div', { class: 'sec' }, h('div', { class: 'sec-h' }, h('h2', { text: 'Pay for ' + hp.ownerName })),
+          h('p', { class: 'heard', text: 'Left this month: ' + L.fmt(s.left) + ' of ' + L.fmt(s.limit) }),
+          h('span', { class: 'lbl', text: 'Who to pay' }),
+          h('div', { class: 'choice two', role: 'radiogroup' }, s.contacts.map(c => h('button', { class: 'opt', type: 'button', role: 'radio', 'aria-checked': String(form.contact === c.name), onClick: () => { form.contact = c.name; draw(); } }, c.name))),
+          h('label', { class: 'lbl', for: 'hp-amt', style: 'margin-top:12px', text: 'Amount (₦)' }),
+          h('input', { class: 'field', id: 'hp-amt', inputmode: 'numeric', value: form.amount, onInput: (e) => { form.amount = e.target.value.replace(/[^\d]/g, ''); } }),
+          h('label', { class: 'lbl', for: 'hp-note', style: 'margin-top:12px', text: 'What is it for? (optional)' }),
+          h('input', { class: 'field', id: 'hp-note', value: form.note, onInput: (e) => { form.note = e.target.value; } }),
+          msg ? h('p', { class: 'heard', role: 'status', style: 'margin-top:10px', text: msg }) : null,
+          h('button', { class: 'btn p', type: 'button', style: 'margin-top:12px', disabled: busy ? true : null, onClick: pay }, icon('send', 20), 'Pay')));
+      }
+      v.append(h('p', { class: 'heard', style: 'margin-top:24px', text: 'You can never change ' + hp.ownerName + '’s secret phrase or Voice ID. ' + hp.ownerName + ' hears about everything you do, and can remove you at any time.' }));
+      root.append(v);
+    }
+    async function decide(id, decision) {
+      busy = true; draw();
+      try { await post('decide', { reqId: id, decision }); } catch (e) { alert(e.message); }
+      busy = false; lastJson = ''; await load();
+    }
+    async function pay() {
+      if (!form.contact || !Number(form.amount)) { msg = 'Pick who to pay and enter an amount.'; return draw(); }
+      busy = true; draw();
+      try {
+        const j = await post('spend', { contact: form.contact, amount: Number(form.amount), note: form.note });
+        msg = 'Paid ' + L.fmt(Number(form.amount)) + ' to ' + form.contact + '. ' + data.helper.ownerName + ' will be told. Left this month: ' + L.fmt(j.left) + '.';
+        form = { contact: null, amount: '', note: '' };
+      } catch (e) { msg = e.message; }
+      busy = false; lastJson = ''; await load();
+    }
+    load();
+    setInterval(load, 3000);
+  }
+
   // ---------- start ----------
+  const helperToken = new URLSearchParams(location.search).get('helper');
+  if (helperToken) { helperApp(helperToken); return; }
   lastReply = R('welcome');
   render();
   if (!state.onboarded) showOv('onboard', { step: 1 });
@@ -2680,7 +3356,9 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
       const j = await res.json();
       if (!j || j.service !== 'vosa') return;
       backend.ok = !!j.spitch; backend.sttYo = !!j.spitch; backend.ttsYo = !!j.spitch; backend.ttsEn = !!j.voiceEn; backend.ttsPcm = !!j.spitch; backend.voiceId = !!j.spitch;
+      backend.db = !!j.db; backend.sms = !!j.sms;
       if (state.view === 'settings') render();
+      if (cloudOn()) { syncNow(); startPolling(); }
     } catch (e) { /* no server: browser-only mode */ }
   })();
 })();

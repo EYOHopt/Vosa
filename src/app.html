@@ -229,6 +229,82 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .stop { width: 64px; height: 64px; border-radius: 50%; border: 0; background: var(--primary); color: #fff; display: grid; place-items: center; }
 .lhint { margin: 0; font-size: 13.5px; color: var(--text2); }
 @media (prefers-reduced-motion: reduce) { .flash, .bar i { animation: none; transition: none; } }
+/* Trusted Circle */
+.hp-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--warn); background: var(--warn-bg); border-radius: 999px; padding: 4px 10px; align-self: flex-start; }
+.hp-req { display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--line); border-radius: 18px; padding: 16px; margin-top: 12px; }
+.hp-req.live { border: 2px solid var(--primary); background: #FAFDF9; }
+.hp-tag { font-size: 13px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: .04em; }
+.hp-amt { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+.hp-req .d, .hp-notif .d { font-size: 13px; color: var(--text2); }
+.hp-notif { display: flex; flex-direction: column; gap: 10px; border-radius: 16px; padding: 14px; background: var(--ink); color: #fff; }
+.hp-notif-h { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; color: #B9C9BF; text-transform: uppercase; letter-spacing: .04em; }
+.hp-notif .d { color: #B9C9BF; }
+.dots { display: inline-flex; gap: 3px; margin-left: 6px; vertical-align: middle; }
+.dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--primary); display: block; opacity: .35; }
+@media (prefers-reduced-motion: no-preference) { .dots i { animation: dot 1.2s infinite; } .dots i:nth-child(2) { animation-delay: .2s; } .dots i:nth-child(3) { animation-delay: .4s; } }
+@keyframes dot { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+/* ---- Bank-app layout (white cards on a soft grey page) ---- */
+:root { --page: #F1F4F2; }
+body { background: #E6EAE8; }
+.app { background: var(--page); }
+.view { padding: 0 12px 24px; }
+.view .hd { padding: 16px 4px 10px; }
+.card { background: var(--bg); border-radius: 20px; padding: 16px; margin-top: 10px; display: block; width: 100%; border: 0; text-align: left; }
+.card.top { margin-top: 0; border-radius: 0 0 24px 24px; margin-left: -12px; margin-right: -12px; width: auto; padding: 4px 20px 20px; }
+.card.top .hd { padding: 14px 0 16px; }
+.card-t { margin: 0 0 6px; font-size: 16px; font-weight: 700; }
+.card .sec-h { margin-bottom: 0; }
+.card .row:last-child { border-bottom: 0; }
+.avatar { background: var(--bg); border: 2px solid var(--brand); box-shadow: inset 0 0 0 3px var(--tint); color: var(--primary); }
+.pillbtn { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); font-weight: 600; font-size: 14px; flex: 0 0 auto; }
+.pillbtn svg:first-child { color: var(--primary); }
+.bal-lbl2 { display: block; font-size: 14px; color: var(--text2); font-weight: 500; }
+.bal-line { display: flex; align-items: center; gap: 10px; margin-top: 2px; }
+.bal-amt2 { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+.bal-amt2 small { font-size: 18px; color: var(--text2); font-weight: 700; }
+.eye2 { width: 40px; height: 40px; border-radius: 12px; border: 0; background: none; color: var(--text2); display: grid; place-items: center; }
+.acct-line { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 16px; font-weight: 600; }
+.acct-bank { font-size: 12.5px; font-weight: 700; color: var(--primary); background: var(--tint); border-radius: 6px; padding: 1px 7px; }
+.copy { width: 36px; height: 36px; border: 0; background: none; color: var(--text2); display: grid; place-items: center; border-radius: 10px; margin-left: -4px; }
+.saved-strip { margin-top: 14px; width: 100%; display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-radius: 14px; border: 0; background: var(--tint); color: var(--primary); font-size: 14px; font-weight: 600; text-align: left; }
+.saved-strip b { color: var(--ink); font-size: 15px; }
+.saved-strip .tag { font-size: 12px; font-weight: 700; background: var(--bg); border-radius: 6px; padding: 2px 7px; }
+.saved-strip .chev { margin-left: auto; display: grid; }
+.acts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-top: 18px; }
+.act { border: 0; background: none; display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; padding: 0; min-height: 84px; color: var(--ink); }
+.act .ring { width: 60px; height: 60px; border-radius: 50%; background: #F3FAF1; border: 1.5px solid #BFE3B6; color: var(--primary); display: grid; place-items: center; }
+.banner { position: relative; overflow: hidden; margin-top: 10px; border-radius: 20px; padding: 18px; background: linear-gradient(120deg, #0C6B35 0%, #18934A 60%, #34B262 100%); color: #fff; display: flex; gap: 8px; }
+.banner-txt { position: relative; z-index: 1; flex: 1; min-width: 0; }
+.banner h2 { margin: 0; font-size: 21px; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; max-width: 14ch; }
+.banner p { margin: 6px 0 14px; font-size: 14px; color: #E2F4DD; }
+.banner-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.bpill { display: inline-flex; align-items: center; gap: 6px; min-height: 42px; padding: 0 16px; border-radius: 999px; border: 0; background: var(--ink); color: #fff; font-weight: 700; font-size: 14px; }
+.bpill.on { background: #fff; color: var(--primary); }
+.banner-art { position: absolute; right: 14px; top: 14px; display: flex; align-items: center; gap: 5px; height: 44px; opacity: .3; }
+.banner-art i { display: block; width: 6px; max-height: 44px; border-radius: 999px; background: #fff; }
+.qgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
+.qtile { display: flex; align-items: center; gap: 6px; min-height: 56px; padding: 6px; border-radius: 16px; border: 1px solid var(--line); background: #FAFBFA; font-weight: 600; font-size: 13.5px; line-height: 1.25; text-align: left; word-break: normal; overflow-wrap: normal; hyphens: none; }
+.qtile .qi { width: 34px; height: 34px; }
+@media (max-width: 400px) { .qtile { flex-direction: column; justify-content: center; text-align: center; padding: 10px 4px; min-height: 84px; } }
+.qi { width: 40px; height: 40px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); color: var(--primary); display: grid; place-items: center; flex: 0 0 auto; }
+.rowcard { display: flex; align-items: center; gap: 12px; min-height: 72px; }
+.rc-mid { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.rc-mid b { font-size: 15px; font-weight: 600; }
+.rc-mid span { font-size: 13px; color: var(--text2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rowcard .chev { color: var(--text2); display: grid; }
+.exrow { display: flex; gap: 10px; overflow-x: auto; padding: 6px 16px 4px 0; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.exrow::-webkit-scrollbar { display: none; }
+.excard { flex: 0 0 168px; scroll-snap-align: start; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 14px; border-radius: 16px; border: 0; text-align: left; min-height: 132px; }
+.excard b { font-size: 15px; line-height: 1.25; }
+.excard span:last-child { font-size: 13px; color: var(--text2); }
+.excard .qi { background: rgba(255,255,255,.7); border: 0; }
+.excard.t1 { background: #E8F6E5; } .excard.t2 { background: #FFF4E0; } .excard.t2 .qi { color: var(--warn); }
+.excard.t3 { background: #E7F0FB; } .excard.t3 .qi { color: #1F5FA8; } .excard.t4 { background: #F3ECFA; } .excard.t4 .qi { color: #6A3FA0; }
+/* other pages: same card language */
+.group { background: var(--bg); border: 0; }
+.summary div { background: var(--bg); }
+.view > .summary { margin-top: 0; }
+.dock { box-shadow: 0 -1px 0 var(--line); border-top: 0; }
 </style>
 
 <div class="app" id="app">
