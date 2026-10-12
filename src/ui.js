@@ -451,9 +451,9 @@
 
   // ---------- rendering ----------
   const GOAL_STYLE = {
-    rent: ['#E8F6E5', '#0C6B35', 'home'], school: ['#E8EFFD', '#1F4FBF', 'book'], business: ['#FFF4E0', '#8A5200', 'bag'],
+    rent: ['#E8F6E5', '#1F9D55', 'home'], school: ['#E8EFFD', '#1F4FBF', 'book'], business: ['#FFF4E0', '#8A5200', 'bag'],
     emergency: ['#FDEEEC', '#B42318', 'shield'], travel: ['#EEEFFD', '#4338CA', 'plane'], phone: ['#F1F3F2', '#3F4D45', 'phone'],
-    wedding: ['#FCEEF5', '#A3245F', 'heart'], christmas: ['#E8F6E5', '#0C6B35', 'gift'], car: ['#F1F3F2', '#3F4D45', 'car'],
+    wedding: ['#FCEEF5', '#A3245F', 'heart'], christmas: ['#E8F6E5', '#1F9D55', 'gift'], car: ['#F1F3F2', '#3F4D45', 'car'],
     flex: ['#F1F3F2', '#3F4D45', 'wallet'], custom: ['#F3EEFD', '#5B2BB5', 'pot']
   };
   function goalTile(g) {
@@ -465,7 +465,7 @@
   function logoMark(size, dark) {
     const s = document.createElement('span');
     s.style.display = 'inline-grid';
-    s.innerHTML = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="' + (dark ? '#FFFFFF' : '#0C6B35') + '"/><g stroke="' + (dark ? '#0C6B35' : '#FFFFFF') + '" stroke-width="2.6" stroke-linecap="round"><path d="M10 13v6"/><path d="M16 9v14"/><path d="M22 12v8"/></g></svg>';
+    s.innerHTML = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="' + (dark ? '#FFFFFF' : '#CC4A0A') + '"/><g stroke="' + (dark ? '#CC4A0A' : '#FFFFFF') + '" stroke-width="2.6" stroke-linecap="round"><path d="M10 13v6"/><path d="M16 9v14"/><path d="M22 12v8"/></g></svg>';
     return s;
   }
   const naira = (n) => fmt(n);
@@ -603,11 +603,11 @@
     const g = a.g ? (findRef(a.g) || a.g) : null;
     const gl = g ? (g.name || (L.GOALS[g.key] || L.GOALS.flex)[state.lang]) : '';
     let title, kind, tileIc, tileStyle = ['#F1F3F2', '#3F4D45'];
-    if (a.kind === 'in') { title = t('actIn', { n: a.n }); kind = 'in'; tileIc = 'in'; tileStyle = ['#E8F6E5', '#0C6B35']; }
+    if (a.kind === 'in') { title = t('actIn', { n: a.n }); kind = 'in'; tileIc = 'in'; tileStyle = ['#E8F6E5', '#1F9D55']; }
     else if (a.kind === 'send') { title = t('actSent', { n: a.n }); kind = 'out'; tileIc = 'send'; }
     else if (a.kind === 'airtime') { title = t('actAirtime', { n: a.n }); kind = 'out'; tileIc = 'phone'; }
-    else if (a.kind === 'move') { title = t('actMoved', { g: gl }); kind = 'in'; tileIc = 'out'; tileStyle = ['#E8F6E5', '#0C6B35']; }
-    else { title = t(a.sub === 'auto' ? 'actAuto' : 'actSaved', { g: gl }); kind = 'saved'; tileIc = 'potplus'; tileStyle = ['#E8F6E5', '#0C6B35']; }
+    else if (a.kind === 'move') { title = t('actMoved', { g: gl }); kind = 'in'; tileIc = 'out'; tileStyle = ['#E8F6E5', '#1F9D55']; }
+    else { title = t(a.sub === 'auto' ? 'actAuto' : 'actSaved', { g: gl }); kind = 'saved'; tileIc = 'potplus'; tileStyle = ['#E8F6E5', '#1F9D55']; }
     const d = new Date(a.at);
     const time = d.toLocaleDateString([], { day: 'numeric', month: 'short' }) + ', ' + d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
     const sign = kind === 'in' ? '+' : kind === 'out' ? '−' : '';

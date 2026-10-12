@@ -7,10 +7,11 @@
 :root {
   --bg: #FFFFFF;
   --surface: #F5F7F6;      /* inputs, list wells */
-  --tint: #E8F6E5;         /* light green: icon tiles, highlights */
-  --tint-2: #D5EFD0;       /* text on the deep-green card */
-  --brand: #18934A;        /* icons, progress */
-  --primary: #0C6B35;      /* buttons and the balance card (6.6:1 with white) */
+  --tint: #FFEDE1;         /* light orange: avatar, highlights */
+  --green: #1F9D55; --green-bg: #E8F6E5; /* light green: savings and money-in */
+  --tint-2: #FFE3D3;       /* text on the orange card */
+  --brand: #1F9D55;        /* icons, progress (light green) */
+  --primary: #CC4A0A;      /* Paga-style orange: buttons and the balance card (4.6:1 with white) */
   --ink: #0E1B14;
   --text2: #5F6E65;        /* secondary text (5.4:1) */
   --line: #EBEFEC;
@@ -127,7 +128,7 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .tab { display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 52px; justify-content: center; border: 0; background: none; font-size: 12px; font-weight: 600; color: var(--text2); }
 .tab[aria-current="page"] { color: var(--primary); }
 .mic-wrap { display: flex; justify-content: center; margin-top: -26px; }
-.mic { width: 64px; height: 64px; border-radius: 50%; border: 4px solid var(--bg); background: var(--primary); color: #fff; display: grid; place-items: center; box-shadow: 0 4px 12px rgba(12,107,53,.28); }
+.mic { width: 64px; height: 64px; border-radius: 50%; border: 4px solid var(--bg); background: var(--primary); color: #fff; display: grid; place-items: center; box-shadow: 0 4px 12px rgba(204,74,10,.30); }
 
 /* buttons */
 .btn { min-height: 54px; border-radius: 14px; border: 0; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 0 18px; width: 100%; }
@@ -272,11 +273,11 @@ body { background: #E6EAE8; }
 .saved-strip .chev { margin-left: auto; display: grid; }
 .acts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-top: 18px; }
 .act { border: 0; background: none; display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; padding: 0; min-height: 84px; color: var(--ink); }
-.act .ring { width: 60px; height: 60px; border-radius: 50%; background: #F3FAF1; border: 1.5px solid #BFE3B6; color: var(--primary); display: grid; place-items: center; }
-.banner { position: relative; overflow: hidden; margin-top: 10px; border-radius: 20px; padding: 18px; background: linear-gradient(120deg, #0C6B35 0%, #18934A 60%, #34B262 100%); color: #fff; display: flex; gap: 8px; }
+.act .ring { width: 60px; height: 60px; border-radius: 50%; background: #FFF3EA; border: 1.5px solid #F8C9A8; color: var(--primary); display: grid; place-items: center; }
+.banner { position: relative; overflow: hidden; margin-top: 10px; border-radius: 20px; padding: 18px; background: linear-gradient(120deg, #CC4A0A 0%, #E0651E 60%, #F0873F 100%); color: #fff; display: flex; gap: 8px; }
 .banner-txt { position: relative; z-index: 1; flex: 1; min-width: 0; }
 .banner h2 { margin: 0; font-size: 21px; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; max-width: 14ch; }
-.banner p { margin: 6px 0 14px; font-size: 14px; color: #E2F4DD; }
+.banner p { margin: 6px 0 14px; font-size: 14px; color: #FFE9DC; }
 .banner-btns { display: flex; flex-wrap: wrap; gap: 8px; }
 .bpill { display: inline-flex; align-items: center; gap: 6px; min-height: 42px; padding: 0 16px; border-radius: 999px; border: 0; background: var(--ink); color: #fff; font-weight: 700; font-size: 14px; }
 .bpill.on { background: #fff; color: var(--primary); }
@@ -298,7 +299,7 @@ body { background: #E6EAE8; }
 .excard b { font-size: 15px; line-height: 1.25; }
 .excard span:last-child { font-size: 13px; color: var(--text2); }
 .excard .qi { background: rgba(255,255,255,.7); border: 0; }
-.excard.t1 { background: #E8F6E5; } .excard.t2 { background: #FFF4E0; } .excard.t2 .qi { color: var(--warn); }
+.excard.t1 { background: #E8F6E5; } .excard.t1 .qi { color: var(--green); } .excard.t2 { background: #FFF4E0; } .excard.t2 .qi { color: var(--warn); }
 .excard.t3 { background: #E7F0FB; } .excard.t3 .qi { color: #1F5FA8; } .excard.t4 { background: #F3ECFA; } .excard.t4 .qi { color: #6A3FA0; }
 /* other pages: same card language */
 .group { background: var(--bg); border: 0; }
