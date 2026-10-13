@@ -102,6 +102,16 @@ Without the database, Trusted Circle still works in **demo mode**: the helper's 
 | `SPITCH_VOICE_PCM` | Pidgin voice. The default is `ufoma`; Spitch also has `boma`, `tega` and `justice`. |
 | `SPITCH_VOICE_EN` | Optional default English voice (`lucy`, `lina`, `john`, `jude`, `henry`, `kani`, `kingsley`, `remi`). People can also pick a voice in Settings → Vosa's voice → Which voice, and hear a sample. Spoken replies are cached on the phone, so a sentence said before costs no credit. |
 
+### Voice Promise (your own voice protects your savings)
+
+When you set a savings goal, Vosa offers to record a short promise in your own voice ("This is for Tolu's school fees. Don't let me touch it before January."). If you later try to take money out before the goal is reached, Vosa plays your promise back and asks: "Is this an emergency?"
+
+- **No:** nothing moves. "Your money stays safe."
+- **Yes, with a trusted helper:** you confirm as usual, then your approver must approve it. Their page tells them to call you first and ask what the emergency is.
+- **Yes, with no helper:** Vosa holds the amount for 24 hours, then lets it through.
+
+Say "record a promise for rent", "play my promise", or use the Voice Promise row on a goal's page. Recordings never leave the phone. It is the ajo witness, digitised: a soft commitment that still lets real emergencies through.
+
 ## How voice works
 
 | Language | Hearing you | Talking back |

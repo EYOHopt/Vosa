@@ -86,15 +86,20 @@ async function createRequest(ownerId, acct, r, base) {
   if (!approvers.length) return { ok: false, error: 'no_approver' };
   const id = okToken(r.id) ? r.id : rid(8);
   const reqs = await getReqs(ownerId);
+  const kind = r.kind === 'withdraw' ? 'withdraw' : 'send';
   reqs[id] = {
-    id, origin: r.origin === 'call' ? 'call' : 'app', amount: Math.round(Number(r.amount) || 0), to: r.to || null, kind: r.kind || 'send',
+    id, origin: 'app', amount: Math.round(Number(r.amount) || 0), to: r.to || null, kind,
+    goalName: kind === 'withdraw' ? String(r.goalName || 'savings').slice(0, 40) : null, emergency: kind === 'withdraw' ? !!r.emergency : false,
     newRecipient: !!r.newRecipient, approvers: approvers.map(a => a.token), status: 'pending', created: Date.now(), tx: r.tx || null
   };
   await saveReqs(ownerId, reqs);
   const naira = '₦' + reqs[id].amount.toLocaleString('en-NG');
   const toLine = r.to ? r.to.name + (r.to.bank ? ', ' + r.to.bank : '') : 'someone';
+  const msg = kind === 'withdraw'
+    ? `Vosa: ${acct.name} wants to take ${naira} out of their ${reqs[id].goalName} savings early (they said it's an emergency). Call them if unsure. Approve or decline: ${base}/?helper=`
+    : `Vosa: ${acct.name} wants to send ${naira} to ${toLine}. Approve or decline: ${base}/?helper=`;
   for (const a of approvers) {
-    if (a.phone) await sendSms(a.phone, `Vosa: ${acct.name} wants to send ${naira} to ${toLine}. Approve or decline: ${base}/?helper=${a.token}`);
+    if (a.phone) await sendSms(a.phone, msg + a.token);
   }
   return { ok: true, id, approvers: approvers.map(a => a.name) };
 }

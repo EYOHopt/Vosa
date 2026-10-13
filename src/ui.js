@@ -25,6 +25,7 @@
     plus: '<path d="M12 5v14M5 12h14"/>',
     send: '<path d="M4 12l16-8-6 16-3-7z"/>',
     stop: '<rect x="6" y="6" width="12" height="12" rx="3" fill="currentColor" stroke="none"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
     micoff: '<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M3 3l18 18"/>',
     finger: '<path d="M12 11v4M8.5 8.5a5 5 0 0 1 8.5 3.5v2M7 12v1a5 5 0 0 0 1 3M12 4a8 8 0 0 1 8 8v1M4 12a8 8 0 0 1 3-6.2"/>',
     user: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
@@ -221,6 +222,20 @@
     lIn: { en: 'In', yo: 'Wọlé' }, lOut: { en: 'Out', yo: 'Jáde' }, lSaved: { en: 'Saved', yo: 'Pamọ́' },
     switched: { en: 'Switched to English', pcm: 'I don switch to Pidgin', yo: 'Mo ti yí padà sí Yorùbá' },
     noYoVoice: { en: 'Yorùbá voice replies need the speech service. Showing text.', pcm: 'Yorùbá voice need the speech service. I go show am as text.', yo: 'Ohùn Yorùbá nílò iṣẹ́ ohùn. Mo ń fi ọ̀rọ̀ hàn.' },
+    promiseT: { en: 'Voice Promise', pcm: 'Voice Promise', yo: 'Ìlérí Ohùn' },
+    promiseRow: { en: 'Recorded {d}', pcm: 'Recorded {d}', yo: 'A gbà á sílẹ̀ {d}' }, promiseNoneRow: { en: 'Protect this money with your own voice', pcm: 'Protect this money with your own voice', yo: 'Dáàbò bo owó yìí pẹ̀lú ohùn rẹ' },
+    promiseRec: { en: 'Record', pcm: 'Record', yo: 'Gbà sílẹ̀' }, promiseRedo: { en: 'Record again', pcm: 'Record again', yo: 'Tún gbà sílẹ̀' }, promiseKeep: { en: 'Keep this promise', pcm: 'Keep this promise', yo: 'Pa ìlérí yìí mọ́' },
+    promisePlayBtn: { en: 'Play', pcm: 'Play', yo: 'Gbọ́' }, promiseAgain: { en: 'Play again', pcm: 'Play again', yo: 'Tún gbọ́' },
+    promiseRecording: { en: 'Recording… tap Stop when you finish', pcm: 'E dey record… press Stop when you finish', yo: 'Ń gbà sílẹ̀… tẹ Dúró tí o bá parí' },
+    promiseTooShort: { en: 'That was too short. Please say a full sentence.', pcm: 'E too short. Abeg talk full sentence.', yo: 'Ó kúrú jù. Jọ̀wọ́ sọ gbólóhùn kíkún.' },
+    promiseReview: { en: 'Here is what you said. Keep it, or record again.', pcm: 'Na wetin you talk be this. Keep am, or record again.', yo: 'Èyí ni ohun tí o sọ. Pa á mọ́, tàbí tún gbà sílẹ̀.' },
+    yourPromise: { en: 'Your promise for {g}', pcm: 'Your promise for {g}', yo: 'Ìlérí rẹ fún {g}' },
+    promiseQ: { en: 'Is this an emergency?', pcm: 'Na emergency?', yo: 'Ṣé pàjáwìrì ni?' },
+    yesEmergency: { en: 'Yes, it’s an emergency', pcm: 'Yes, na emergency', yo: 'Bẹ́ẹ̀ni, pàjáwìrì ni' }, noKeep: { en: 'No, keep it saved', pcm: 'No, keep am', yo: 'Rárá, pa á mọ́' },
+    takeOutOf: { en: 'Take out of {g}', pcm: 'Comot from {g}', yo: 'Yọ kúrò nínú {g}' }, emergencyChip: { en: 'Said it’s an emergency', pcm: 'Talk say na emergency', yo: 'Sọ pé pàjáwìrì ni' },
+    demoAskW: { en: '{n} wants to take {a} out of {g} early. They said it’s an emergency.', pcm: '{n} wan comot {a} from {g} before time. Dem talk say na emergency.', yo: '{n} fẹ́ yọ {a} kúrò nínú {g} ní kùtùkùtù. Wọ́n sọ pé pàjáwìrì ni.' },
+    recordPromiseBtn: { en: 'Record a Voice Promise', pcm: 'Record Voice Promise', yo: 'Gba Ìlérí Ohùn sílẹ̀' }, notNow: { en: 'Not now', pcm: 'Not now', yo: 'Kì í ṣe báyìí' },
+    promiseWhy: { en: 'Like a witness at ajo: you promise in your own voice, and Vosa plays it back if you ever try to break it. Emergencies always go through.', pcm: 'Like witness for ajo: you promise with your own voice, and Vosa go play am back if you try break am. Emergency go always pass.', yo: 'Bí ẹlẹ́rìí nínú àjọ: o ṣèlérí pẹ̀lú ohùn rẹ, Vosa yóò sì tún gbé e sọ tí o bá fẹ́ dà á. Pàjáwìrì máa ń kọjá nígbà gbogbo.' },
     voiceLbl: { en: 'Vosa’s voice', pcm: 'Vosa voice', yo: 'Ohùn Vosa' },
     voiceD: { en: 'Spitch is a natural Nigerian voice (uses Spitch credit; repeated replies are free). Phone uses the built-in voice.', pcm: 'Spitch na natural Naija voice (e dey use Spitch credit; reply wey e don talk before na free). Phone na the built-in voice.', yo: 'Spitch jẹ́ ohùn Nàìjíríà tó dára (ó ń lo krẹ́dìtì Spitch). Fóònù ń lo ohùn inú fóònù.' },
     whichVoice: { en: 'Which voice', pcm: 'Which voice', yo: 'Ohùn wo' },
@@ -737,7 +752,7 @@
     if (!ov) { fresh.hidden = true; fresh.removeAttribute('role'); return; }
     fresh.hidden = false;
     fresh.setAttribute('role', 'dialog'); fresh.setAttribute('aria-modal', 'true');
-    const b = { confirm: ovConfirm, success: ovSuccess, moneyin: ovMoneyIn, sheet: ovSheet, type: ovType, pick: ovPick, 'goal-form': ovGoalForm, 'send-form': ovSendForm, 'airtime-form': ovAirtimeForm, pot: ovPot, amount: ovAmountCompat, onboard: ovOnboard, enroll: ovEnroll, more: ovMore, approval: ovApproval, 'helper-form': ovHelperForm, 'helper-link': ovHelperLink, 'circle-log': ovCircleLog }[ov.kind];
+    const b = { confirm: ovConfirm, success: ovSuccess, moneyin: ovMoneyIn, sheet: ovSheet, type: ovType, pick: ovPick, 'goal-form': ovGoalForm, 'send-form': ovSendForm, 'airtime-form': ovAirtimeForm, pot: ovPot, amount: ovAmountCompat, onboard: ovOnboard, enroll: ovEnroll, more: ovMore, approval: ovApproval, 'helper-form': ovHelperForm, 'helper-link': ovHelperLink, 'circle-log': ovCircleLog, promise: ovPromise }[ov.kind];
     if (!b) { fresh.hidden = true; return; }
     b(fresh, ov.data);
     const focusEl = fresh.querySelector('h1, h2');
@@ -812,8 +827,12 @@
       d.sub ? h('span', { style: 'color:var(--text2);font-size:14px', text: d.sub }) : null),
       kv([[t('walletBal'), fmt(state.wallet)], [t('date'), nowLabel()], d.verified ? [t('verifiedBy'), d.verified] : null, [t('reference'), d.ref || (d.ref = ref())]])];
     if (pending && pending.type === 'nudge') body.push(nudgeCard(t('nudgeQ', { a: fmt(pending.amount), g: label(pending.goal) })));
-    el.append(h('div', { class: 'pg' }, h('div', { class: 'pg-body' }, body),
-      h('div', { class: 'pg-foot' }, h('button', { class: 'btn p', type: 'button', onClick: () => { pending = null; closeOv(); go('home'); }, text: t('done') }))));
+    if (d.promiseRef) body.push(h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon('mic', 18)), h('div', null, h('b', { text: t('promiseT') }), h('span', { text: t('promiseWhy') }))));
+    const foot = d.promiseRef
+      ? [h('button', { class: 'btn p', type: 'button', onClick: () => { pending = null; showOv('promise', { ref: d.promiseRef, stage: 'intro' }); } }, icon('mic', 20), t('recordPromiseBtn')),
+         h('button', { class: 'btn s', type: 'button', onClick: () => { pending = null; closeOv(); go('pots'); }, text: t('notNow') })]
+      : [h('button', { class: 'btn p', type: 'button', onClick: () => { pending = null; closeOv(); go('home'); }, text: t('done') })];
+    el.append(h('div', { class: 'pg' }, h('div', { class: 'pg-body' }, body), h('div', { class: 'pg-foot' }, foot)));
   }
 
   function ovMoneyIn(el, d) {
@@ -952,6 +971,11 @@
       h('div', { class: 'summary' },
         h('div', null, h('span', { text: t('deadline') }), h('b', { text: dl ? L.dateLabel(dl) : t('noDeadline') }), dl ? h('span', { text: t('weeksLeft', { n: weeksUntil(dl) }) }) : null),
         h('div', null, h('span', { text: t('saveEach') }), h('b', { class: 'num', text: st && st.weekly ? fmt(st.weekly) : '—' }), st ? h('span', { class: 'pill-s ' + st.cls, style: 'margin-top:4px', text: st.cls ? t('behindShort') : t('onTrackShort') }) : null)),
+      g.target && navigator.mediaDevices && window.MediaRecorder ? h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon('mic', 18)),
+        h('div', { style: 'flex:1;min-width:0' }, h('b', { text: t('promiseT') }), h('span', { text: g.promise ? t('promiseRow', { d: new Date(g.promise.at).toLocaleDateString('en-NG', { day: 'numeric', month: 'short' }) }) : t('promiseNoneRow') })),
+        h('div', { style: 'display:flex;gap:4px;flex:0 0 auto' },
+          g.promise ? h('button', { class: 'link', type: 'button', text: t('promisePlayBtn'), onClick: () => { showOv('promise', { ref: d.ref, stage: 'listen', back: d.ref }); setTimeout(() => playPromise(g), 300); } }) : null,
+          h('button', { class: 'link', type: 'button', text: g.promise ? t('promiseRedo') : t('promiseRec'), onClick: () => showOv('promise', { ref: d.ref, stage: 'intro', back: d.ref }) }))) : null,
       h('section', null, h('h2', { class: 'day', style: 'margin:4px 0 0', text: t('history') }),
         hist.length ? h('div', null, hist.slice(0, 5).map(actRow)) : h('p', { class: 'empty', text: t('noHistory') }))],
       [h('div', { class: 'row2' },
@@ -1037,7 +1061,9 @@
   const okAction = () => ({ label: t('ok'), primary: true, fn: closeOv });
 
   function cancelPending() {
-    pending = null; closeOv();
+    const p = pending; pending = null; closeOv();
+    if (p && p.type === 'promiseq') return reply(R('promiseKept', { goal: label(p.goal) }));
+    if (p && p.type === 'promise-offer') return reply(R('cancelled'));
     reply(R('cancelled'));
   }
 
@@ -1176,7 +1202,23 @@
           const text = R('insufficient', { goal: label(g), bal: fmt(g.bal), amt: fmt(r.amount) });
           return fail({ tone: 'warn', icon: 'alert', k: t('kNoMoney'), title: text, actions: [okAction()] }, text);
         }
-        return confirmWith({ type: 'withdraw', amount: r.amount, goal: g, needsPhrase: true }, R('confirmWithdraw', { amt: fmt(r.amount), goal: label(g) }));
+        const gate = promiseGate(g, r.amount);
+        if (gate === 'play') return startPromiseGate(g, r.amount);
+        if (gate === 'wait') { const text = R('promiseWaiting', { amt: fmt(g.hold.amount), goal: label(g), when: timeLabel(g.hold.until) }); return fail({ tone: 'warn', icon: 'clock', k: t('promiseT'), title: text, actions: [okAction()] }, text); }
+        const extra = gate === 'ready' ? R('promiseReady') + ' ' : '';
+        return confirmWith({ type: 'withdraw', amount: r.amount, goal: g, needsPhrase: true, promiseOk: true }, extra + R('confirmWithdraw', { amt: fmt(r.amount), goal: label(g) }));
+      }
+      case 'promise': {
+        const withTarget = state.goals.filter(x => x.target);
+        let g = (r.goal || r.customName) ? findGoal(r.goal, r.customName) : (withTarget.length === 1 ? withTarget[0] : null);
+        if (!g) { const text = R('promiseWhich'); return fail({ tone: 'ok', icon: 'mic', k: t('promiseT'), title: text, actions: withTarget.slice(0, 3).map(x => ({ label: label(x), fn: () => { closeOv(); routeUI({ intent: 'promise', goal: x.name ? null : x.key, customName: x.name || null, play: r.play }); } })).concat([{ label: t('cancel'), fn: closeOv }]) }, text); }
+        if (r.play) {
+          if (!g.promise) return reply(R('promiseNone', { goal: label(g) }));
+          showOv('promise', { ref: gref(g), stage: 'listen' }); setTimeout(() => playPromise(g), 300);
+          return reply(R('promisePlay', { goal: label(g) }));
+        }
+        showOv('promise', { ref: gref(g), stage: 'intro' });
+        return reply(R('promiseIntro'));
       }
       case 'send': {
         if (!r.contact && !r.account && r.bank) return ask('account', r, 'askAccount', { bank: r.bank });
@@ -1294,24 +1336,45 @@
       state.wallet -= p.amount; g.bal += p.amount;
       logAct({ kind: 'save', g: gref(g), amt: p.amount });
       let msg = R('doneSave', { goal: label(g), bal: fmt(g.bal), prog: progVars(g) });
-      if (g.target && g.bal >= g.target) msg += R('reached');
+      if (g.target && g.bal >= g.target) { msg += R('reached'); if (g.promise) { msg += R('promiseReached'); setTimeout(() => playPromise(g), 400); } }
       flashGoal = g; persist(); render();
       showOv('success', { title: t('savedTo', { g: label(g) }), amount: p.amount, sub: g.target ? Math.min(100, Math.round(g.bal / g.target * 100)) + '% ' + t('of') + ' ' + fmt(g.target) : fmt(g.bal) });
       return reply(msg);
     }
     if (p.type === 'withdraw') {
-      g.bal -= p.amount; state.wallet += p.amount;
+      if (p.emergency && !p.approved) {
+        const ap = (state.helpers || []).filter(x => x.role === 'approver' && x.status === 'active');
+        if (ap.length) return askApproval(p, { list: ap, isNew: false, kind: 'withdraw' });
+      }
+      g.bal -= p.amount; state.wallet += p.amount; delete g.hold;
+      if (p.approvedBy) p.verified = [p.verified, t('approvedBy', { n: p.approvedBy })].filter(Boolean).join(' · ');
       logAct({ kind: 'move', g: gref(g), amt: p.amount });
       persist(); render();
       showOv('success', { title: t('moved'), amount: p.amount, sub: label(g) + ': ' + fmt(g.bal), verified: p.verified });
-      return reply(R('doneWithdraw', { amt: fmt(p.amount), goal: label(g), bal: fmt(g.bal) }));
+      return reply((p.approvedBy ? R('helperApproved', { name: p.approvedBy }) : '') + R('doneWithdraw', { amt: fmt(p.amount), goal: label(g), bal: fmt(g.bal) }));
     }
     if (p.type === 'goal') {
       g.target = p.target;
       g.deadline = p.deadline ? ymd(p.deadline) : null;
       flashGoal = g; persist(); go('pots');
-      showOv('success', { title: t('goalSet'), amount: p.target, sub: label(g) + (p.deadline ? ' · ' + L.dateLabel(p.deadline) : '') });
+      const canRecord = !!(navigator.mediaDevices && window.MediaRecorder);
+      showOv('success', { title: t('goalSet'), amount: p.target, sub: label(g) + (p.deadline ? ' · ' + L.dateLabel(p.deadline) : ''), promiseRef: canRecord && !g.promise ? gref(g) : null });
+      if (canRecord && !g.promise) { pending = { type: 'promise-offer', goal: g }; return reply(R('doneGoal', { goal: label(g), target: fmt(g.target) }) + R('promiseOffer')); }
       return reply(R('doneGoal', { goal: label(g), target: fmt(g.target) }));
+    }
+    if (p.type === 'promise-offer') { showOv('promise', { ref: gref(g), stage: 'intro' }); return reply(R('promiseIntro')); }
+    if (p.type === 'promiseq') {
+      // "Yes, it's an emergency": a helper must approve, then the usual confirmation. No helper: hold it for 24 hours.
+      closeOv();
+      const ap = (state.helpers || []).filter(x => x.role === 'approver' && x.status === 'active');
+      if (ap.length) {
+        const names = joinNames(ap.map(x => x.name));
+        return confirmWith({ type: 'withdraw', amount: p.amount, goal: g, needsPhrase: true, emergency: true, promiseOk: true }, R('promiseHelper', { names }) + ' ' + R('confirmWithdraw', { amt: fmt(p.amount), goal: label(g) }));
+      }
+      g.hold = { amount: p.amount, until: Date.now() + 24 * 3600e3 };
+      persist(); render();
+      const text = R('promiseHold', { amt: fmt(p.amount), when: timeLabel(g.hold.until) });
+      return fail({ tone: 'warn', icon: 'clock', k: t('promiseT'), title: text, actions: [okAction(), { label: t('addHelper'), fn: () => showOv('helper-form', {}) }] }, text);
     }
     if (p.type === 'send') {
       if (state.wallet < p.amount) return lowWallet(p.amount);
@@ -2061,13 +2124,16 @@
   async function askApproval(p, info) {
     const names = joinNames(info.list.map(x => x.name));
     const live = backend.db && info.list.some(x => !x.local);
-    cloud.waiting = { id: null, p, names, started: Date.now(), sim: !live, isNew: info.isNew };
+    cloud.waiting = { id: null, p, names, started: Date.now(), sim: !live, isNew: info.isNew, kind: info.kind || 'send' };
     showOv('approval');
-    reply(R('askedHelper', { amt: fmt(p.amount), why: info.isNew ? R('whyNew') : '', names }));
+    if (p.type === 'withdraw') reply(R('askedHelperW', { amt: fmt(p.amount), goal: label(p.goal), names }));
+    else reply(R('askedHelper', { amt: fmt(p.amount), why: info.isNew ? R('whyNew') : '', names }));
     if (!live) return;
     try {
       await syncNow();
-      const j = await circleApi('request', { ownerId: state.ownerId, req: { amount: p.amount, to: p.to, kind: 'send', newRecipient: info.isNew } });
+      const req = p.type === 'withdraw' ? { amount: p.amount, to: null, kind: 'withdraw', goal: gref(p.goal), goalName: label(p.goal, 'en'), emergency: true }
+        : { amount: p.amount, to: p.to, kind: 'send', newRecipient: info.isNew };
+      const j = await circleApi('request', { ownerId: state.ownerId, req });
       if (cloud.waiting && cloud.waiting.p === p) cloud.waiting.id = j.id;
       startPolling(2000);
     } catch (e) {
@@ -2096,16 +2162,18 @@
     const w = cloud.waiting;
     if (!w) { el.hidden = true; return; }
     const p = w.p;
-    const to = p.to.name + ' · ' + p.to.bank + ' ••' + String(p.to.acct).slice(-4);
+    const isW = p.type === 'withdraw';
+    const to = isW ? '' : p.to.name + ' · ' + p.to.bank + ' ••' + String(p.to.acct).slice(-4);
     const kids = [sheetHead(t('waitingFor', { n: w.names }), cancelApproval),
-      h('div', { class: 'big-amt' }, h('span', { text: t('sendTo') + ' ' + to }), h('b', { class: 'num', text: fmt(p.amount) })),
+      h('div', { class: 'big-amt' }, h('span', { text: isW ? t('takeOutOf', { g: label(p.goal) }) : t('sendTo') + ' ' + to }), h('b', { class: 'num', text: fmt(p.amount) })),
       w.isNew ? h('div', { class: 'checks' }, h('span', { class: 'hp-chip' }, icon('alert', 14), t('newRecipient'))) : null,
+      isW ? h('div', { class: 'checks' }, h('span', { class: 'hp-chip' }, icon('alert', 14), t('emergencyChip'))) : null,
       vsay()];
     if (w.sim) {
       // Demo mode (no database yet): the helper's phone is shown here instead.
       kids.push(h('div', { class: 'hp-notif', role: 'group', 'aria-label': t('demoPhone', { n: w.names }) },
         h('div', { class: 'hp-notif-h' }, icon('phone', 16), h('span', { text: t('demoPhone', { n: w.names }) })),
-        h('b', { text: t('demoAsk', { a: fmt(p.amount), to: p.to.name }) }),
+        h('b', { text: isW ? t('demoAskW', { n: state.myName || t('someone'), a: fmt(p.amount), g: label(p.goal) }) : t('demoAsk', { a: fmt(p.amount), to: p.to.name }) }),
         w.offline ? h('span', { class: 'd', text: t('offlineDemo') }) : null,
         h('div', { class: 'row2' },
           h('button', { class: 'btn d', type: 'button', onClick: () => resolveApproval('declined', w.names.split(/,| and /)[0]) }, t('decline')),
@@ -2116,6 +2184,116 @@
     }
     kids.push(h('button', { class: 'btn s', type: 'button', onClick: cancelApproval, text: t('cancelTransfer') }));
     sheetWrap(el, kids, () => {});
+  }
+
+  // ---------- Voice Promise ----------
+  // The person records, in their own voice, why a savings goal matters. If they later try to take money out
+  // before the goal is reached, Vosa plays it back and asks whether it is an emergency. Emergencies go to a
+  // trusted helper to approve (who can phone them first); without a helper the money is held for 24 hours.
+  // Recordings stay on the phone.
+  const PROMISE_MAX = 20, PROMISE_MIN = 1.5;
+  let promiseRec = null, promiseAudio = null;
+  const timeLabel = (ms) => new Date(ms).toLocaleString('en-NG', { weekday: 'short', hour: 'numeric', minute: '2-digit' });
+  function promiseGate(g, amount) {
+    const reached = g.target && g.bal >= g.target;
+    const past = g.deadline && parseYmd(g.deadline) < new Date();
+    if (g.hold) { if (Date.now() >= g.hold.until) return 'ready'; return 'wait'; }
+    if (!g.promise || reached || past) return null;
+    return 'play';
+  }
+  function startPromiseGate(g, amount) {
+    pending = { type: 'promiseq', goal: g, amount };
+    showOv('promise', { ref: gref(g), stage: 'gate', amount });
+    setTimeout(() => playPromise(g), 600);
+    return reply(R('promiseGate', { amt: fmt(amount), goal: label(g) }) + R('promiseAsk'));
+  }
+  function promiseUrl(g) {
+    const bin = atob(g.promise.data); const u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
+    return URL.createObjectURL(new Blob([u], { type: g.promise.type }));
+  }
+  function stopPromise() { if (promiseAudio) { try { promiseAudio.pause(); } catch (e) {} promiseAudio = null; } }
+  async function playPromise(g) {
+    if (!g || !g.promise) return;
+    stopSpeaking(); stopPromise();
+    const a = new Audio(promiseUrl(g)); promiseAudio = a;
+    const el = document.getElementById('promise-wave'); if (el) el.classList.add('live');
+    await new Promise((resolve) => { a.onended = resolve; a.onerror = resolve; a.play().catch(resolve); });
+    if (el) el.classList.remove('live');
+    if (promiseAudio === a) promiseAudio = null;
+  }
+  async function recordPromise(d) {
+    let stream;
+    try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+    catch (e) { micDenied = true; closeOv(); return voiceUnavailable(); }
+    stopSpeaking();
+    const type = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg'].find(x => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(x)) || '';
+    const mr = new MediaRecorder(stream, type ? { mimeType: type } : undefined);
+    const chunks = []; const started = Date.now();
+    mr.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+    const done = new Promise((resolve) => { mr.onstop = resolve; });
+    promiseRec = { stop: () => { if (mr.state === 'recording') mr.stop(); }, cancel: () => { mr.discard = true; if (mr.state === 'recording') mr.stop(); } };
+    d.stage = 'rec'; d.secs = 0; renderOv();
+    const tick = setInterval(() => { d.secs = Math.round((Date.now() - started) / 1000); const el = document.getElementById('promise-secs'); if (el) el.textContent = d.secs + 's'; if (d.secs >= PROMISE_MAX) promiseRec.stop(); }, 250);
+    try { mr.start(); } catch (e) { clearInterval(tick); stream.getTracks().forEach(t => t.stop()); d.stage = 'intro'; d.err = t('voiceErr'); return renderOv(); }
+    await done;
+    clearInterval(tick); stream.getTracks().forEach(t => t.stop());
+    promiseRec = null;
+    if (mr.discard) return;
+    const secs = (Date.now() - started) / 1000;
+    const blob = new Blob(chunks, { type: mr.mimeType || type || 'audio/webm' });
+    if (secs < PROMISE_MIN || blob.size < 1500) { d.stage = 'intro'; d.err = t('promiseTooShort'); return renderOv(); }
+    const b64 = await new Promise((resolve) => { const fr = new FileReader(); fr.onload = () => resolve(String(fr.result).split(',')[1]); fr.readAsDataURL(blob); });
+    d.draft = { data: b64, type: blob.type, at: Date.now(), secs: Math.round(secs) };
+    d.stage = 'review'; d.err = null; renderOv();
+    const g = findRef(d.ref); const tmp = { promise: d.draft };
+    setTimeout(() => playPromise(tmp), 300);
+  }
+  function ovPromise(el, d) {
+    const g = findRef(d.ref);
+    if (!g) return closeOv();
+    const leave = () => { if (promiseRec) promiseRec.cancel(); stopPromise(); closeOv(); if (d.back) showOv('pot', { ref: d.back }); };
+    const wave = h('div', { id: 'promise-wave', class: 'pwave', 'aria-hidden': 'true' }, [1, 2, 3, 4, 5, 6, 7].map(() => h('i')));
+    if (d.stage === 'gate') {
+      const answer = (yes) => { if (!pending || pending.type !== 'promiseq') return; stopPromise(); if (yes) { lastHeard = t('yesEmergency'); execute(); } else cancelPending(); };
+      return pageWrap(el, t('yourPromise', { g: label(g) }), null, [
+        h('div', { class: 'done', style: 'padding-top:8px' }, h('span', { class: 'ok' }, icon('mic', 30)), h('h1', { text: t('takeOutOf', { g: label(g) }) }), h('span', { class: 'amt num', text: fmt(d.amount) })),
+        h('div', { class: 'lockrow', style: 'flex-direction:column;align-items:stretch;gap:10px' }, h('div', { style: 'display:flex;align-items:center;gap:12px' }, h('span', { class: 'lk' }, icon('speaker', 18)), h('div', { style: 'flex:1' }, h('b', { text: t('yourPromise', { g: label(g) }) }), h('span', { text: t('promiseRow', { d: new Date(g.promise.at).toLocaleDateString('en-NG', { day: 'numeric', month: 'short' }) }) })),
+          h('button', { class: 'link', type: 'button', text: t('promiseAgain'), onClick: () => playPromise(g) })), wave),
+        h('h2', { style: 'margin:8px 0 0;font-size:22px;font-weight:800;letter-spacing:-0.02em;text-align:center', text: t('promiseQ') }),
+        vsay()],
+        [h('div', { class: 'row2' }, h('button', { class: 'btn s', type: 'button', onClick: () => answer(false), text: t('noKeep') }), h('button', { class: 'btn d', type: 'button', onClick: () => answer(true), text: t('yesEmergency') }))]);
+    }
+    if (d.stage === 'listen') {
+      return pageWrap(el, t('yourPromise', { g: label(g) }), leave, [
+        h('div', { class: 'done', style: 'padding-top:8px' }, h('span', { class: 'ok' }, icon('speaker', 30)), h('h1', { text: label(g) }), h('span', { style: 'color:var(--text2);font-size:14px', text: t('promiseRow', { d: new Date(g.promise.at).toLocaleDateString('en-NG', { day: 'numeric', month: 'short' }) }) })),
+        wave],
+        [h('button', { class: 'btn p', type: 'button', onClick: () => playPromise(g) }, icon('speaker', 20), t('promiseAgain')),
+         h('button', { class: 'btn s', type: 'button', onClick: () => { stopPromise(); d.stage = 'intro'; renderOv(); }, text: t('promiseRedo') }),
+         h('button', { class: 'btn s', type: 'button', onClick: leave, text: t('done') })]);
+    }
+    if (d.stage === 'rec') {
+      return pageWrap(el, t('promiseT'), leave, [
+        h('h2', { style: 'margin:4px 0 0;font-size:22px;font-weight:800;letter-spacing:-0.02em', text: t('promiseRecording') }),
+        h('div', { style: 'display:flex;align-items:center;gap:14px' }, Object.assign(wave, { className: 'pwave live' }), h('b', { id: 'promise-secs', class: 'num', style: 'font-size:22px', text: (d.secs || 0) + 's' })),
+        h('p', { class: 'heard', text: R('promiseIntro') })],
+        [h('button', { class: 'btn p', type: 'button', onClick: () => promiseRec && promiseRec.stop() }, icon('stop', 20), t('stopLbl')), h('button', { class: 'btn s', type: 'button', onClick: leave, text: t('cancel') })]);
+    }
+    if (d.stage === 'review') {
+      const tmp = { promise: d.draft };
+      const keep = () => { stopPromise(); g.promise = d.draft; persist(); render(); closeOv(); if (d.back) showOv('pot', { ref: d.back }); reply(R('promiseSaved', { goal: label(g) })); };
+      return pageWrap(el, t('promiseT'), leave, [
+        h('h2', { style: 'margin:4px 0 0;font-size:22px;font-weight:800;letter-spacing:-0.02em', text: t('promiseReview') }),
+        h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon('speaker', 18)), h('div', { style: 'flex:1' }, h('b', { text: t('yourPromise', { g: label(g) }) }), h('span', { text: d.draft.secs + 's' })), h('button', { class: 'link', type: 'button', text: t('promiseAgain'), onClick: () => playPromise(tmp) })),
+        wave],
+        [h('button', { class: 'btn p', type: 'button', onClick: keep }, icon('check', 20), t('promiseKeep')), h('button', { class: 'btn s', type: 'button', onClick: () => recordPromise(d), text: t('promiseRedo') })]);
+    }
+    // intro
+    return pageWrap(el, t('promiseT'), leave, [
+      h('div', { class: 'done', style: 'padding-top:8px' }, h('span', { class: 'ok' }, icon('mic', 30)), h('h1', { text: label(g) }), h('span', { style: 'color:var(--text2);font-size:14px', text: g.target ? fmt(g.target) + (g.deadline ? ' · ' + L.dateLabel(parseYmd(g.deadline)) : '') : '' })),
+      h('p', { style: 'margin:0;color:var(--text2)', text: t('promiseWhy') }),
+      h('div', { class: 'vsay' }, h('span', { style: 'flex:0 0 auto' }, logoMark(22)), h('p', { text: R('promiseIntro') }), h('button', { type: 'button', 'aria-label': t('replayAria'), onClick: () => speak(R('promiseIntro'), state.lang, true) }, icon('speaker', 20))),
+      d.err ? h('p', { class: 'tries', role: 'alert', text: d.err }) : null],
+      [h('button', { class: 'btn p', type: 'button', onClick: () => recordPromise(d) }, icon('mic', 20), t('promiseRec')), h('button', { class: 'btn s', type: 'button', onClick: leave, text: g.promise ? t('cancel') : t('notNow') })]);
   }
 
   // ----- managing helpers -----
@@ -2304,13 +2482,14 @@
           const card = h('div', { class: 'hp-req' + (r.status === 'pending' ? ' live' : ''), role: 'group', 'aria-label': 'Transfer request' },
             h('span', { class: 'hp-tag', text: r.status === 'pending' ? 'Approval needed' : r.status === 'approved' ? 'You approved this' : r.status === 'declined' ? 'You declined this' : r.status }),
             h('b', { class: 'num hp-amt', text: L.fmt(r.amount) }),
-            h('span', { text: hp.ownerName + ' wants to send this to ' + to }),
+            h('span', { text: r.kind === 'withdraw' ? hp.ownerName + ' wants to take this out of their ' + (r.goalName || 'savings') + ' savings early.' : hp.ownerName + ' wants to send this to ' + to }),
+            r.kind === 'withdraw' && r.emergency ? h('span', { class: 'hp-chip' }, icon('alert', 14), 'They said it’s an emergency') : null,
             r.newRecipient ? h('span', { class: 'hp-chip' }, icon('alert', 14), 'New recipient: they have never paid this person') : null,
             h('span', { class: 'd', text: when(r.created) }),
             r.status === 'pending' ? h('div', { class: 'row2' },
               h('button', { class: 'btn d', type: 'button', disabled: busy ? true : null, onClick: () => decide(r.id, 'decline') }, icon('x', 20), 'Decline'),
               h('button', { class: 'btn p', type: 'button', disabled: busy ? true : null, onClick: () => decide(r.id, 'approve') }, icon('check', 20), 'Approve')) : null,
-            r.status === 'pending' ? h('span', { class: 'd', text: 'Not sure? Call ' + hp.ownerName + ' first. Scammers often pressure people to send money fast.' }) : null);
+            r.status === 'pending' ? h('span', { class: 'd', text: r.kind === 'withdraw' ? 'Not sure? Call ' + hp.ownerName + ' first and ask what the emergency is. They recorded a promise to keep this money saved.' : 'Not sure? Call ' + hp.ownerName + ' first. Scammers often pressure people to send money fast.' }) : null);
           v.append(card);
         });
       }

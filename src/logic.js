@@ -419,6 +419,12 @@
       if (/\b(my helpers|trusted circle|who (are|be) my helpers|who (has|don|fit|can) (see|seen)|who see my account|who check(ed)? my account)\b/.test(t0)) { r.intent = 'helpers'; return r; }
     }
     if (/\b(voice ?id|voiceprint|voice print|my voice)\b/.test(t0) && /\b(set ?up|add|turn on|enable|start|redo|teach|learn|register|sabi)\b/.test(t0)) { r.intent = 'voicesetup'; return r; }
+    // Voice Promise: "record a promise for rent", "play my promise", "add a promise to school fees"
+    if (/\b(promise|promis|ileri)\b/.test(t0)) {
+      r.intent = 'promise'; r.play = /\b(play|hear|listen|replay|gbo)\b/.test(t0) && !/\b(record|add|make|new|redo|change)\b/.test(t0);
+      r.goal = detectGoal(t0); if (!r.goal) { const m = t0.match(/\b(?:for|to|on|fun|si)\s+(?:my\s+)?([a-z][a-z ]{1,24})$/); r.customName = m ? customGoalName(m[1]) : null; }
+      return r;
+    }
     if (/\b(hands ?free|stop listening|keep listening|start listening|listen continuously)\b/.test(t0)) {
       r.intent = 'handsfree'; r.on = !/\b(off|stop|disable|turn off)\b/.test(t0); return r;
     }
@@ -563,6 +569,41 @@
     helperViewed: { en: '{name} checked your account.', pcm: '{name} check your account.', yo: '{name} wo àkáǹtì rẹ.' },
     helperPaid: { en: '{name} paid {amt} to {to} for you. Your wallet has {wallet}.', pcm: '{name} don pay {amt} give {to} for you. {wallet} remain for your wallet.', yo: '{name} ti san {amt} fún {to} fún ọ. {wallet} ló kù nínú àpò owó rẹ.' },
     askAccountNoBank: { en: 'What is the account number you are sending to?', pcm: 'Call the account number where you wan send the money go.', yo: 'Sọ nọ́ńbà àkáǹtì tí o fẹ́ fi owó ránṣẹ́ sí.' },
+    promiseOffer: {
+      en: ' Would you like to record a promise in your own voice? If you ever try to take this money out early, I will play it back to you. Say yes or no.',
+      pcm: ' You wan record promise with your own voice? If you later try comot this money before time, I go play am back for you. Talk yes or no.',
+      yo: ' Ṣé o fẹ́ gba ìlérí sílẹ̀ pẹ̀lú ohùn ara rẹ? Tí o bá gbìyànjú láti yọ owó yìí ní kùtùkùtù, màá tún gbé e sọ fún ọ. Sọ bẹ́ẹ̀ni tàbí rárá.'
+    },
+    promiseIntro: {
+      en: 'After the beep, say why this money matters, in your own words. For example: “This is for Tolu’s school fees. Don’t let me touch it before January.”',
+      pcm: 'After the beep, talk why this money matter, with your own words. Like: “Na for Tolu school fees. No let me touch am before January.”',
+      yo: 'Lẹ́yìn ìró náà, sọ ìdí tí owó yìí fi ṣe pàtàkì, ní ọ̀rọ̀ ara rẹ. Bí àpẹẹrẹ: “Owó ilé ìwé Tolu nìyí. Má jẹ́ kí n fọwọ́ kàn án kí January tó dé.”'
+    },
+    promiseSaved: { en: 'Your promise for {goal} is saved. I will remind you with your own voice if you ever try to take it out early.', pcm: 'I don keep your promise for {goal}. I go remind you with your own voice if you try comot am before time.', yo: 'Mo ti pa ìlérí rẹ fún {goal} mọ́. Màá rán ọ létí pẹ̀lú ohùn ara rẹ tí o bá fẹ́ yọ ọ́ ní kùtùkùtù.' },
+    promiseNone: { en: 'There is no promise for {goal} yet. Say “record a promise for {goal}” to add one.', pcm: 'No promise for {goal} yet. Talk “record promise for {goal}” to add one.', yo: 'Kò sí ìlérí fún {goal} síbẹ̀. Sọ pé “gba ìlérí sílẹ̀ fún {goal}”.' },
+    promiseWhich: { en: 'Which savings is the promise for?', pcm: 'Which savings the promise be for?', yo: 'Fún ìfowópamọ́ wo ni ìlérí náà?' },
+    promisePlay: { en: 'Here is the promise you made for {goal}.', pcm: 'Na the promise wey you make for {goal} be this.', yo: 'Èyí ni ìlérí tí o ṣe fún {goal}.' },
+    promiseGate: {
+      en: 'Before I take {amt} out of {goal}, listen to what you told me.',
+      pcm: 'Before I comot {amt} from {goal}, listen to wetin you tell me.',
+      yo: 'Kí n tó yọ {amt} kúrò nínú {goal}, gbọ́ ohun tí o sọ fún mi.'
+    },
+    promiseAsk: { en: ' Is this an emergency? Say yes or no.', pcm: ' Na emergency? Talk yes or no.', yo: ' Ṣé pàjáwìrì ni? Sọ bẹ́ẹ̀ni tàbí rárá.' },
+    promiseKept: { en: 'Okay. Your money stays safe in {goal}. Well done for keeping your promise.', pcm: 'Okay. Your money dey safe inside {goal}. Well done, you keep your promise.', yo: 'Ó dára. Owó rẹ wà láìléwu nínú {goal}. Kú iṣẹ́ fún pípa ìlérí rẹ mọ́.' },
+    promiseHelper: {
+      en: 'Since it is an emergency, I will ask {names} to approve it. They may call you first. Confirm with your secret phrase, then I will send the request.',
+      pcm: 'Since na emergency, I go ask {names} to approve am. Dem fit call you first. Confirm with your secret phrase, then I go send the request.',
+      yo: 'Níwọ̀n bí ó ti jẹ́ pàjáwìrì, màá béèrè lọ́wọ́ {names} láti fọwọ́ sí i. Wọ́n lè pè ọ́ ná. Jẹ́rìí pẹ̀lú ọ̀rọ̀ àṣírí rẹ, màá sì fi ìbéèrè náà ránṣẹ́.'
+    },
+    promiseHold: {
+      en: 'You have no helper yet, so I will hold {amt} for 24 hours. Ask me again after {when} and it will be ready. Adding a trusted helper lets emergencies go through faster.',
+      pcm: 'You never get helper, so I go hold {amt} for 24 hours. Ask me again after {when} and e go ready. If you add helper wey you trust, emergency go pass faster.',
+      yo: 'O kò tíì ní olùrànlọ́wọ́, nítorí náà màá dá {amt} dúró fún wákàtí 24. Tún béèrè lẹ́yìn {when}, yóò sì ṣetán. Fífi olùrànlọ́wọ́ kún un máa ń jẹ́ kí pàjáwìrì yára kọjá.'
+    },
+    promiseWaiting: { en: 'Your {amt} from {goal} will be ready after {when}.', pcm: 'Your {amt} from {goal} go ready after {when}.', yo: 'Owó {amt} rẹ láti inú {goal} yóò ṣetán lẹ́yìn {when}.' },
+    promiseReady: { en: 'The 24 hours have passed, so this one goes through.', pcm: 'The 24 hours don pass, so this one go pass.', yo: 'Wákàtí 24 ti kọjá, nítorí náà èyí yóò kọjá.' },
+    askedHelperW: { en: 'I have asked {names} to approve taking {amt} out of {goal}. They may call you first. I will tell you when they answer.', pcm: 'I don ask {names} make dem approve to comot {amt} from {goal}. Dem fit call you first. I go tell you when dem answer.', yo: 'Mo ti béèrè lọ́wọ́ {names} láti fọwọ́ sí yíyọ {amt} kúrò nínú {goal}. Wọ́n lè pè ọ́ ná. Màá sọ fún ọ nígbà tí wọ́n bá dáhùn.' },
+    promiseReached: { en: ' You kept your promise.', pcm: ' You keep your promise.', yo: ' O pa ìlérí rẹ mọ́.' },
     voiceSample: { en: 'Hello, I am {v}. I can help you save money, send money, and keep your savings safe. Just talk to me.', pcm: 'Hello, na {v} be this. I fit help you save money, send money, and keep your savings safe. Just talk to me.', yo: 'Báwo, {v} ni mí. Mo lè ràn ọ́ lọ́wọ́ láti fi owó pamọ́, fi owó ránṣẹ́, kí n sì dáàbò bo owó rẹ. Kàn bá mi sọ̀rọ̀.' },
     notCaught: { en: "I didn't catch that.", pcm: 'I no catch am well.', yo: 'Mi ò gbọ́ ọ dáadáa.' },
     sayDigits: { en: 'Say the 10 digits slowly, one by one.', pcm: 'Call the 10 numbers slowly, one by one.', yo: 'Sọ àwọn nọ́ńbà mẹ́wàá náà díẹ̀díẹ̀, ní ọ̀kọ̀ọ̀kan.' },

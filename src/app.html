@@ -37,6 +37,15 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .views { flex: 1; overflow-y: auto; }
 .view { display: flex; flex-direction: column; padding: 0 20px 24px; }
 
+/* Voice Promise waveform */
+.pwave { display: flex; align-items: center; justify-content: center; gap: 5px; height: 44px; }
+.pwave i { width: 6px; height: 10px; border-radius: 3px; background: var(--tint-2); transition: height .2s; }
+.pwave.live i { background: var(--primary); animation: pw 1s ease-in-out infinite; }
+.pwave.live i:nth-child(2) { animation-delay: .1s; } .pwave.live i:nth-child(3) { animation-delay: .2s; } .pwave.live i:nth-child(4) { animation-delay: .3s; }
+.pwave.live i:nth-child(5) { animation-delay: .4s; } .pwave.live i:nth-child(6) { animation-delay: .5s; } .pwave.live i:nth-child(7) { animation-delay: .6s; }
+@keyframes pw { 0%, 100% { height: 10px; } 50% { height: 38px; } }
+@media (prefers-reduced-motion: reduce) { .pwave.live i { animation: none; height: 24px; } }
+
 /* page header */
 .hd { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 0 12px; }
 .hd-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
@@ -240,6 +249,7 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .hp-notif { display: flex; flex-direction: column; gap: 10px; border-radius: 16px; padding: 14px; background: var(--ink); color: #fff; }
 .hp-notif-h { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; color: #B9C9BF; text-transform: uppercase; letter-spacing: .04em; }
 .hp-notif .d { color: #B9C9BF; }
+.hp-notif .btn.d { background: rgba(255,255,255,.14); color: #fff; }
 .dots { display: inline-flex; gap: 3px; margin-left: 6px; vertical-align: middle; }
 .dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--primary); display: block; opacity: .35; }
 @media (prefers-reduced-motion: no-preference) { .dots i { animation: dot 1.2s infinite; } .dots i:nth-child(2) { animation-delay: .2s; } .dots i:nth-child(3) { animation-delay: .4s; } }
