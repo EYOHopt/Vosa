@@ -1,5 +1,5 @@
 // Text -> speech using Spitch, so Vosa can answer out loud in Yorùbá and Pidgin.
-// POST {text, lang, speed} from the app.
+// POST or GET {text, lang, speed, voice} from the app. GET replies are cacheable, so a sentence said twice costs one Spitch call.
 const { readBody, query, speech } = require('./_lib');
 
 module.exports = async (req, res) => {
@@ -9,8 +9,8 @@ module.exports = async (req, res) => {
     const body = req.method === 'GET' ? query(req) : await readBody(req);
     const text = String(body.text || '').slice(0, 600);
     if (!text) return res.status(400).json({ error: 'No text' });
-    const lang = ['yo', 'pcm'].includes(body.lang) ? body.lang : 'en';
-    const out = await speech(text, lang, body.speed);
+    const lang = ['yo', 'pcm', 'ha', 'ig'].includes(body.lang) ? body.lang : 'en';
+    const out = await speech(text, lang, body.speed, body.voice);
     res.setHeader('Content-Type', out.type);
     res.setHeader('Cache-Control', req.method === 'GET' ? 'public, max-age=86400' : 'no-store');
     res.status(200).send(out.audio);

@@ -100,7 +100,7 @@ Without the database, Trusted Circle still works in **demo mode**: the helper's 
 |---|---|
 | `SPITCH_VOICE_YO` | Yorùbá voice. The default is `sade`; Spitch also lists `segun`, `femi` and `funmi`. |
 | `SPITCH_VOICE_PCM` | Pidgin voice. The default is `ufoma`; Spitch also has `boma`, `tega` and `justice`. |
-| `SPITCH_VOICE_EN` | Set this (for example `lucy` or `john`) to use a Spitch voice for English and Pidgin replies instead of the phone's built-in voice. |
+| `SPITCH_VOICE_EN` | Optional default English voice (`lucy`, `lina`, `john`, `jude`, `henry`, `kani`, `kingsley`, `remi`). People can also pick a voice in Settings → Vosa's voice → Which voice, and hear a sample. Spoken replies are cached on the phone, so a sentence said before costs no credit. |
 
 ## How voice works
 

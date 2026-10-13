@@ -221,6 +221,11 @@
     lIn: { en: 'In', yo: 'Wọlé' }, lOut: { en: 'Out', yo: 'Jáde' }, lSaved: { en: 'Saved', yo: 'Pamọ́' },
     switched: { en: 'Switched to English', pcm: 'I don switch to Pidgin', yo: 'Mo ti yí padà sí Yorùbá' },
     noYoVoice: { en: 'Yorùbá voice replies need the speech service. Showing text.', pcm: 'Yorùbá voice need the speech service. I go show am as text.', yo: 'Ohùn Yorùbá nílò iṣẹ́ ohùn. Mo ń fi ọ̀rọ̀ hàn.' },
+    voiceLbl: { en: 'Vosa’s voice', pcm: 'Vosa voice', yo: 'Ohùn Vosa' },
+    voiceD: { en: 'Spitch is a natural Nigerian voice (uses Spitch credit; repeated replies are free). Phone uses the built-in voice.', pcm: 'Spitch na natural Naija voice (e dey use Spitch credit; reply wey e don talk before na free). Phone na the built-in voice.', yo: 'Spitch jẹ́ ohùn Nàìjíríà tó dára (ó ń lo krẹ́dìtì Spitch). Fóònù ń lo ohùn inú fóònù.' },
+    whichVoice: { en: 'Which voice', pcm: 'Which voice', yo: 'Ohùn wo' },
+    whichVoiceD: { en: 'Pick one, then tap Hear it.', pcm: 'Pick one, then press Hear am.', yo: 'Yan ọ̀kan, kí o tẹ Gbọ́ ọ.' },
+    hearIt: { en: 'Hear it', pcm: 'Hear am', yo: 'Gbọ́ ọ' },
     hearLbl: { en: 'How Vosa hears you', pcm: 'How Vosa dey hear you', yo: 'Bí Vosa ṣe ń gbọ́ ọ' },
     hearD: { en: 'Phone is free. Spitch understands Nigerian accents and Pidgin better, but uses your Spitch credit.', pcm: 'Phone na free. Spitch sabi Naija accent and Pidgin pass, but e dey use your Spitch credit.', yo: 'Fóònù jẹ́ ọ̀fẹ́. Spitch gbọ́ ohùn Nàìjíríà dáradára, ṣùgbọ́n ó ń lo krẹ́dìtì Spitch rẹ.' },
     hearPhone: { en: 'Phone', pcm: 'Phone', yo: 'Fóònù' },
@@ -389,6 +394,7 @@
     const now = Date.now();
     return {
       lang: 'en', muted: false, handsFree: false, onboarded: false, hideBal: false, view: 'home', speed: 1, textScale: 1,
+      voiceEngine: 'spitch', voices: {},
       wallet: 35000, account: '9012345678', myPhone: '08031234412', myNetwork: 'MTN',
       secret: 'blue mango', autoSave: null, voicePrint: null, voicePrintV: 2, voiceStrict: 0.5, requireVoice: true,
       ownerId: null, myName: 'Ade Bello', helpers: [], approveOver: 20000, circleLog: [], seenEvents: [],
@@ -651,6 +657,8 @@
     const row = (title, desc, control) => h('div', { class: 'set' }, h('div', { style: 'min-width:0' }, h('b', { text: title }), desc ? h('span', { class: 'd', text: desc }) : null), control);
     v.append(h('h2', { class: 'group-t', text: t('gVoice') }), h('div', { class: 'group', style: 'margin-top:0' },
       row(t('language'), null, seg(t('language'), [['en', 'EN'], ['pcm', 'PCM'], ['yo', 'YO']], state.lang, (l) => setLang(l))),
+      backend.ok ? row(t('voiceLbl'), t('voiceD'), seg(t('voiceLbl'), [['spitch', 'Spitch'], ['phone', t('hearPhone')]], state.voiceEngine === 'phone' ? 'phone' : 'spitch', (v) => { state.voiceEngine = v; persist(); render(); })) : null,
+      backend.ok && state.voiceEngine !== 'phone' && backend.voices && backend.voices[state.lang] ? voicePicker(row) : null,
       row(t('voiceSpeed'), null, seg(t('voiceSpeed'), [[0.85, t('slow')], [1, t('normal')], [1.15, t('fast')]], state.speed, (s) => { state.speed = s; persist(); render(); })),
       row(t('handsFree'), t('hfDesc'), sw(state.handsFree, toggleHF, t('handsFree'))),
       row(t('sound'), t('soundDesc'), sw(!state.muted, () => { state.muted = !state.muted; if (state.muted) stopSpeaking(); persist(); render(); }, t('sound')))));
@@ -1374,29 +1382,44 @@
   }
 
   // ---------- speech out ----------
-  const backend = { ok: false, sttYo: false, ttsYo: false, ttsEn: false, ttsPcm: false, voiceId: false, db: false, sms: false };
+  const backend = { ok: false, sttYo: false, ttsYo: false, ttsEn: false, ttsPcm: false, voiceId: false, db: false, sms: false, voices: null };
   let audioEl = null, warnedYo = false, speakToken = 0;
   function stopSpeaking() {
     speakToken++;
     try { window.speechSynthesis && speechSynthesis.cancel(); } catch (e) {}
     if (audioEl) { audioEl.pause(); audioEl = null; }
   }
+  // Spoken audio is kept by the browser, so a sentence Vosa has said before costs no Spitch credit.
+  const SPEECH_CACHE = 'vosa-speech-v1';
+  async function fetchSpeech(spoken, lang, voice) {
+    const url = 'api/speak?' + new URLSearchParams({ text: spoken, lang, speed: String(state.speed), voice: voice || '' });
+    let cache = null;
+    try { cache = window.caches ? await caches.open(SPEECH_CACHE) : null; } catch (e) { cache = null; }
+    if (cache) { const hit = await cache.match(url); if (hit) return hit.blob(); }
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('speak ' + res.status);
+    if (cache) { try { await cache.put(url, res.clone()); } catch (e) {} }
+    return res.blob();
+  }
+  const chosenVoice = (lang) => (state.voices || {})[lang] || null;
+  function wantsServerVoice(lang) {
+    if (state.voiceEngine === 'phone') return lang === 'yo' && backend.ttsYo && !phoneHasYoruba();
+    return (lang === 'yo' && backend.ttsYo) || (lang === 'pcm' && backend.ttsPcm) || (lang === 'en' && backend.ttsEn) || (['ha', 'ig'].includes(lang) && backend.ok);
+  }
+  function phoneHasYoruba() { try { return speechSynthesis.getVoices().some(x => /^yo/i.test(x.lang)); } catch (e) { return false; } }
   async function speak(text, lang, force) {
     if (!text || (state.muted && !force)) return;
     stopSpeaking();
     const my = speakToken;
     const spoken = L.toSpeech(text, lang);
-    const useServer = (lang === 'yo' && backend.ttsYo) || (lang === 'pcm' && backend.ttsPcm) || (lang === 'en' && backend.ttsEn);
-    if (useServer) {
+    if (wantsServerVoice(lang)) {
       try {
-        const res = await fetch('api/speak', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: spoken, lang, speed: state.speed }) });
-        if (!res.ok) throw new Error('speak ' + res.status);
-        const blob = await res.blob();
+        const blob = await fetchSpeech(spoken, lang, chosenVoice(lang));
         if (my !== speakToken) return;
         audioEl = new Audio(URL.createObjectURL(blob));
         await new Promise((resolve) => { audioEl.onended = resolve; audioEl.onerror = resolve; audioEl.play().catch(resolve); });
         return;
-      } catch (e) { /* fall back to the browser voice */ }
+      } catch (e) { /* fall back to the phone's voice */ }
     }
     if (!('speechSynthesis' in window)) return;
     const voices = speechSynthesis.getVoices();
@@ -1405,11 +1428,14 @@
       v = voices.find(x => /^yo/i.test(x.lang));
       if (!v) { if (!warnedYo) { warnedYo = true; status(t('noYoVoice')); } return; }
     } else {
-      v = voices.find(x => /en-NG/i.test(x.lang)) || voices.find(x => /en-(GB|ZA|KE|GH)/i.test(x.lang)) || voices.find(x => /^en/i.test(x.lang));
+      // Prefer the phone's most natural English voice: Nigerian, then other African/British, then any; "natural"/"enhanced" ones first.
+      const en = voices.filter(x => /^en/i.test(x.lang));
+      const rank = (x) => (/en-NG/i.test(x.lang) ? 0 : /en-(GB|ZA|KE|GH)/i.test(x.lang) ? 1 : 2) * 10 + (/natural|enhanced|premium|neural|wavenet/i.test(x.name) ? 0 : /google|samantha|daniel|karen|moira|serena/i.test(x.name) ? 1 : 2);
+      v = en.sort((a, b) => rank(a) - rank(b))[0];
     }
     const u = new SpeechSynthesisUtterance(spoken);
     if (v) { u.voice = v; u.lang = v.lang; }
-    u.rate = state.speed;
+    u.rate = state.speed; u.pitch = 1;
     await new Promise((resolve) => {
       u.onend = resolve; u.onerror = resolve;
       setTimeout(resolve, Math.min(30000, 1500 + spoken.length * 90 / state.speed));
@@ -2177,6 +2203,19 @@
       lines.length ? h('div', { class: 'kv' }, lines.map(l => h('div', null, h('span', { text: l })))) : h('p', { class: 'empty', text: t('noChecks') }),
       h('button', { class: 'btn p', type: 'button', onClick: closeOv, text: t('ok') })]);
   }
+  function voicePicker(row) {
+    const lang = state.lang, list = backend.voices[lang] || [];
+    const cur = chosenVoice(lang) || list[0];
+    const cap = (n) => n.charAt(0).toUpperCase() + n.slice(1);
+    const sample = (v) => speak(R('voiceSample', { v: cap(v) }), lang, true);
+    const pick = seg(t('whichVoice'), list.map(n => [n, cap(n)]), cur, (v) => { state.voices = Object.assign({}, state.voices, { [lang]: v }); persist(); render(); sample(v); });
+    pick.style.width = '100%';
+    return h('div', { class: 'set', style: 'flex-direction:column;align-items:stretch;gap:10px' },
+      h('div', { style: 'display:flex;justify-content:space-between;align-items:center;gap:12px' },
+        h('div', { style: 'min-width:0' }, h('b', { text: t('whichVoice') }), h('span', { class: 'd', text: t('whichVoiceD') })),
+        h('button', { class: 'link', type: 'button', text: t('hearIt'), onClick: () => sample(cur) })),
+      pick);
+  }
   function settingsCircle(row) {
     const hs = state.helpers || [];
     const rows = hs.map(hp => row(hp.name, roleName(hp.role) + (hp.limit ? ' (' + fmt(hp.limit) + '/' + t('month') + ')' : '') + ' · ' + (hp.status === 'active' ? t('stActive') : t('stInvited')),
@@ -2330,7 +2369,7 @@
       if (!res.ok) return;
       const j = await res.json();
       if (!j || j.service !== 'vosa') return;
-      backend.ok = !!j.spitch; backend.sttYo = !!j.spitch; backend.ttsYo = !!j.spitch; backend.ttsEn = !!j.voiceEn; backend.ttsPcm = !!j.spitch; backend.voiceId = !!j.spitch;
+      backend.ok = !!j.spitch; backend.sttYo = !!j.spitch; backend.ttsYo = !!j.spitch; backend.ttsEn = !!j.voiceEn; backend.ttsPcm = !!j.spitch; backend.voiceId = !!j.spitch; backend.voices = j.voices || null;
       backend.db = !!j.db; backend.sms = !!j.sms;
       if (state.view === 'settings') render();
       if (cloudOn()) { syncNow(); startPolling(); }

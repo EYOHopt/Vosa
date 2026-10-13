@@ -563,6 +563,7 @@
     helperViewed: { en: '{name} checked your account.', pcm: '{name} check your account.', yo: '{name} wo àkáǹtì rẹ.' },
     helperPaid: { en: '{name} paid {amt} to {to} for you. Your wallet has {wallet}.', pcm: '{name} don pay {amt} give {to} for you. {wallet} remain for your wallet.', yo: '{name} ti san {amt} fún {to} fún ọ. {wallet} ló kù nínú àpò owó rẹ.' },
     askAccountNoBank: { en: 'What is the account number you are sending to?', pcm: 'Call the account number where you wan send the money go.', yo: 'Sọ nọ́ńbà àkáǹtì tí o fẹ́ fi owó ránṣẹ́ sí.' },
+    voiceSample: { en: 'Hello, I am {v}. I can help you save money, send money, and keep your savings safe. Just talk to me.', pcm: 'Hello, na {v} be this. I fit help you save money, send money, and keep your savings safe. Just talk to me.', yo: 'Báwo, {v} ni mí. Mo lè ràn ọ́ lọ́wọ́ láti fi owó pamọ́, fi owó ránṣẹ́, kí n sì dáàbò bo owó rẹ. Kàn bá mi sọ̀rọ̀.' },
     notCaught: { en: "I didn't catch that.", pcm: 'I no catch am well.', yo: 'Mi ò gbọ́ ọ dáadáa.' },
     sayDigits: { en: 'Say the 10 digits slowly, one by one.', pcm: 'Call the 10 numbers slowly, one by one.', yo: 'Sọ àwọn nọ́ńbà mẹ́wàá náà díẹ̀díẹ̀, ní ọ̀kọ̀ọ̀kan.' },
     confirmSendAcct: {

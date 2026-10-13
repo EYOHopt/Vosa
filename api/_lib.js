@@ -74,21 +74,30 @@ async function transcribe(audio, type, lang) {
   if (!r.ok) { const e = new Error('Speech service error ' + r.status + ': ' + raw.slice(0, 200)); e.status = r.status; throw e; }
   return (JSON.parse(raw).text || '').trim();
 }
-function voiceFor(lang) {
-  return lang === 'yo' ? (process.env.SPITCH_VOICE_YO || 'sade')
-    : lang === 'pcm' ? (process.env.SPITCH_VOICE_PCM || 'ufoma')
-    : (process.env.SPITCH_VOICE_EN || 'lucy');
+// Spitch voices the app may ask for, by language. The first is the default.
+const VOICES = {
+  en: ['lucy', 'lina', 'john', 'jude', 'henry', 'kani', 'kingsley', 'remi'],
+  pcm: ['ufoma', 'boma', 'tega', 'justice'],
+  yo: ['sade', 'funmi', 'segun', 'femi'],
+  ha: ['hasan', 'amina', 'zainab', 'aliyu'],
+  ig: ['obinna', 'ngozi', 'amara', 'ebuka']
+};
+function voiceFor(lang, wanted) {
+  const list = VOICES[lang] || VOICES.en;
+  if (wanted && list.includes(String(wanted).toLowerCase())) return String(wanted).toLowerCase();
+  const env = { yo: process.env.SPITCH_VOICE_YO, pcm: process.env.SPITCH_VOICE_PCM, en: process.env.SPITCH_VOICE_EN, ha: process.env.SPITCH_VOICE_HA, ig: process.env.SPITCH_VOICE_IG }[lang];
+  return env || list[0];
 }
-async function speech(text, lang, speed) {
+async function speech(text, lang, speed, voice) {
   const key = process.env.SPITCH_API_KEY;
   if (!key) throw new Error('SPITCH_API_KEY is not set');
   const call = (language) => fetch(SPITCH + '/v1/speech', {
     method: 'POST',
     headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json', Accept: 'audio/*' },
-    body: JSON.stringify({ text, voice: voiceFor(lang), language, format: 'mp3', speed: Math.min(1.2, Math.max(0.7, Number(speed) || 1)) })
+    body: JSON.stringify({ text, voice: voiceFor(lang, voice), language, format: 'mp3', speed: Math.min(1.2, Math.max(0.7, Number(speed) || 1)) })
   });
   // Pidgin: try the Pidgin code first; if Spitch rejects it, the Pidgin voice reads it as English text.
-  let r = await call(lang === 'yo' || lang === 'pcm' ? lang : 'en');
+  let r = await call(['yo', 'pcm', 'ha', 'ig'].includes(lang) ? lang : 'en');
   if (!r.ok && lang === 'pcm') r = await call('en');
   if (!r.ok) { const e = new Error('Speech service error ' + r.status + ': ' + (await r.text()).slice(0, 200)); e.status = r.status; throw e; }
   return { audio: Buffer.from(await r.arrayBuffer()), type: r.headers.get('content-type') || 'audio/mpeg' };
@@ -122,4 +131,4 @@ const sha = (s) => crypto.createHash('sha256').update(String(s)).digest('hex');
 const rid = (n) => crypto.randomBytes(n || 12).toString('hex');
 const okToken = (t) => typeof t === 'string' && /^[a-f0-9]{16,64}$/.test(t);
 
-module.exports = { readBody, query, baseUrl, hasDb, store, transcribe, speech, hasSms, sendSms, e164, sha, rid, okToken };
+module.exports = { VOICES, readBody, query, baseUrl, hasDb, store, transcribe, speech, hasSms, sendSms, e164, sha, rid, okToken };
