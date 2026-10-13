@@ -112,6 +112,14 @@ When you set a savings goal, Vosa offers to record a short promise in your own v
 
 Say "record a promise for rent", "play my promise", or use the Voice Promise row on a goal's page. Recordings never leave the phone. It is the ajo witness, digitised: a soft commitment that still lets real emergencies through.
 
+### Install it like an app
+
+Open the site on the phone, then: Android Chrome → menu → **Add to Home screen**; iPhone Safari → Share → **Add to Home Screen**. Vosa then opens full-screen with its own icon.
+
+### Languages
+
+English, Nigerian Pidgin, Yorùbá, Hausa and Igbo. Vosa switches automatically when you speak another language. English and Pidgin can be heard by the phone itself; Yorùbá, Hausa and Igbo are heard and spoken through Spitch (needs the key). Hausa and Igbo are a first version: the everyday flows (save, send, withdraw, balance, airtime, goals, confirmation, Voice Promise) are translated and the rest falls back to English. A fluent speaker should review the `ha:` and `ig:` lines in `src/logic.js` and `src/ui.js`.
+
 ## How voice works
 
 | Language | Hearing you | Talking back |

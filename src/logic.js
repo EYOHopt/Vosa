@@ -10,6 +10,7 @@
       .replace(/₦/g, ' naira ').replace(/%/g, ' percent ')
       .normalize('NFD').replace(/[̀-ͯ]/g, '')
       .toLowerCase()
+      .replace(/ɗ/g, 'd').replace(/ƙ/g, 'k').replace(/ɓ/g, 'b').replace(/ƴ/g, 'y').replace(/ʼ/g, '')
       .replace(/[’'`]/g, '')
       .replace(/(\d),(?=\d{3}\b)/g, '$1')
       .replace(/[^a-z0-9.\s]/g, ' ')
@@ -133,8 +134,73 @@
     return found && total >= 50 ? total : null;
   }
 
+  // Hausa: "dubu biyar" = 5,000; "dubu ashirin da biyar" = 25,000; "dari biyar" = 500; "dubu dari" = 100,000
+  const HA_UNITS = { daya: 1, biyu: 2, uku: 3, hudu: 4, biyar: 5, shida: 6, bakwai: 7, takwas: 8, tara: 9, goma: 10, ashirin: 20, talatin: 30, arbain: 40, hamsin: 50, sittin: 60, sabain: 70, tamanin: 80, casain: 90, dari: 100 };
+  const HA_BIG = { dubu: 1e3, miliyan: 1e6, milyan: 1e6 };
+  function hausaSmall(tokens, i) {
+    let v = 0, found = false;
+    if (tokens[i] === 'naira') i++;
+    while (i < tokens.length) {
+      const w = tokens[i];
+      if (w === 'dari') { found = true; i++; if (tokens[i] in HA_UNITS && tokens[i] !== 'dari') { v += 100 * HA_UNITS[tokens[i]]; i++; } else v += 100; if (tokens[i] === 'da' && tokens[i + 1] in HA_UNITS) { i++; continue; } break; }
+      if (w in HA_UNITS) { v += HA_UNITS[w]; found = true; i++; if (tokens[i] === 'da' && tokens[i + 1] in HA_UNITS) { i++; continue; } break; }
+      break;
+    }
+    return [found ? v : null, i];
+  }
+  function hausaAmount(tokens) {
+    let total = 0, found = false;
+    for (let i = 0; i < tokens.length; i++) {
+      const w = tokens[i];
+      if (w in HA_BIG) {
+        found = true;
+        let [mult, j] = hausaSmall(tokens, i + 1);
+        if (mult == null && tokens[i - 1] in HA_UNITS) mult = HA_UNITS[tokens[i - 1]];
+        total += HA_BIG[w] * (mult || 1); i = (mult != null ? j : i + 1) - 1;
+        if (tokens[i + 1] === 'da') { const [rest, k] = hausaSmall(tokens, i + 2); if (rest != null) { total += rest; i = k - 1; } }
+      } else if (w === 'dari') {
+        found = true;
+        const [mult, j] = hausaSmall(tokens, i + 1);
+        total += 100 * (mult || 1); i = (mult != null ? j : i + 1) - 1;
+      }
+    }
+    return found && total >= 50 ? total : null;
+  }
+  // Igbo: "puku ise" = 5,000; "puku iri abuo na ise" = 25,000; "nari ise" = 500; "nde" = million
+  const IG_UNITS = { otu: 1, abuo: 2, ato: 3, ano: 4, ise: 5, isii: 6, asaa: 7, asato: 8, itoolu: 9, itolu: 9, iri: 10 };
+  const IG_BIG = { puku: 1e3, nde: 1e6 };
+  function igboSmall(tokens, i) {
+    let v = 0, found = false;
+    if (tokens[i] === 'naira') i++;
+    while (i < tokens.length) {
+      const w = tokens[i];
+      if (w === 'nari') { found = true; i++; if (tokens[i] in IG_UNITS && tokens[i] !== 'iri') { v += 100 * IG_UNITS[tokens[i]]; i++; } else v += 100; if (tokens[i] === 'na' && (tokens[i + 1] in IG_UNITS)) { i++; continue; } break; }
+      if (w === 'iri') { found = true; i++; if (tokens[i] in IG_UNITS && tokens[i] !== 'iri') { v += 10 * IG_UNITS[tokens[i]]; i++; } else v += 10; if (tokens[i] === 'na' && tokens[i + 1] in IG_UNITS) { i++; continue; } break; }
+      if (w in IG_UNITS) { v += IG_UNITS[w]; found = true; i++; break; }
+      break;
+    }
+    return [found ? v : null, i];
+  }
+  function igboAmount(tokens) {
+    let total = 0, found = false;
+    for (let i = 0; i < tokens.length; i++) {
+      const w = tokens[i];
+      if (w in IG_BIG) {
+        found = true;
+        let [mult, j] = igboSmall(tokens, i + 1);
+        total += IG_BIG[w] * (mult || 1); i = (mult != null ? j : i + 1) - 1;
+        if (tokens[i + 1] === 'na') { const [rest, k] = igboSmall(tokens, i + 2); if (rest != null) { total += rest; i = k - 1; } }
+      } else if (w === 'nari') {
+        found = true;
+        const [mult, j] = igboSmall(tokens, i + 1);
+        total += 100 * (mult || 1); i = (mult != null ? j : i + 1) - 1;
+      }
+    }
+    return found && total >= 50 ? total : null;
+  }
   function parseAmount(t) {
-    return digitAmount(t) || yorubaAmount(t.split(' ')) || englishAmount(t.split(' '));
+    const toks = t.split(' ');
+    return digitAmount(t) || yorubaAmount(toks) || hausaAmount(toks) || igboAmount(toks) || englishAmount(toks);
   }
 
   // ---------- dates ----------
@@ -142,11 +208,15 @@
   const MON_SHORT = { jan: 0, feb: 1, mar: 2, apr: 3, jun: 5, jul: 6, aug: 7, sep: 8, sept: 8, oct: 9, nov: 10, dec: 11 };
   const YO_MONTHS = { sere: 0, erele: 1, erena: 2, igbe: 3, ebibi: 4, okudu: 5, agemo: 6, owewe: 8, owara: 9, belu: 10, ope: 11 };
 
+  const HA_MONTHS = { janairu: 0, fabrairu: 1, maris: 2, afrilu: 3, mayu: 4, yuni: 5, yuli: 6, agusta: 7, satumba: 8, oktoba: 9, nuwamba: 10, disamba: 11 };
+  const IG_MONTHS = { jenuwari: 0, jenuari: 0, febuwari: 1, febrụwarị: 1, machi: 2, maachi: 2, eprel: 3, epreel: 3, mee: 4, juun: 5, jun: 5, julai: 6, julaị: 6, ogost: 7, ọgọst: 7, septemba: 8, oktoba: 9, novemba: 10, disemba: 11 };
   function monthIndex(w) {
     let i = MONTHS.indexOf(w);
     if (i >= 0) return i;
     if (w in MON_SHORT) return MON_SHORT[w];
     if (w in YO_MONTHS) return YO_MONTHS[w];
+    if (w in HA_MONTHS) return HA_MONTHS[w];
+    if (w in IG_MONTHS) return IG_MONTHS[w];
     return -1;
   }
 
@@ -177,7 +247,7 @@
       return out(d, m[0]);
     }
     if ((m = t.match(/\bnext month\b/))) { const d = new Date(now); d.setMonth(d.getMonth() + 1); return out(d, m[0]); }
-    const re = /\b(by|before|in|till|until|for|reach|latest|ni|titi di|ki o to di|osu)\s+(?:end of |the end of )?([a-z]+)(?:\s+(\d{4}))?\b/g;
+    const re = /\b(by|before|in|till|until|for|reach|latest|ni|titi di|ki o to di|osu|kafin|zuwa|tupu|ruo|na)\s+(?:end of |the end of |watan |ọnwa |onwa )?([a-z]+)(?:\s+(\d{4}))?\b/g;
     while ((m = re.exec(t))) {
       const mi = monthIndex(m[2]);
       if (mi < 0) continue;
@@ -216,27 +286,27 @@
 
   // ---------- goals ----------
   const GOALS = {
-    flex: { en: 'Flexible savings', pcm: 'Flexible savings', yo: 'Àpò ìfowópamọ́' },
-    rent: { en: 'Rent', pcm: 'House rent', yo: 'Owó ilé' },
-    school: { en: 'School fees', pcm: 'School fees', yo: 'Owó ilé-ìwé' },
-    emergency: { en: 'Emergency fund', pcm: 'Emergency money', yo: 'Owó pàjáwìrì' },
-    business: { en: 'Business', pcm: 'Business money', yo: 'Owó òwò' },
-    travel: { en: 'Travel', pcm: 'Japa money', yo: 'Ìrìn-àjò' },
-    phone: { en: 'New phone', pcm: 'New phone', yo: 'Fóònù tuntun' },
-    wedding: { en: 'Wedding', pcm: 'Wedding', yo: 'Ìgbéyàwó' },
-    christmas: { en: 'Christmas', pcm: 'Christmas', yo: 'Kérésìmesì' },
-    car: { en: 'Car', pcm: 'Motor', yo: 'Ọkọ̀' }
+    flex: { en: 'Flexible savings', pcm: 'Flexible savings', yo: 'Àpò ìfowópamọ́', ha: 'Ajiyar kyauta', ig: 'Nchekwa nnwere onwe' },
+    rent: { en: 'Rent', pcm: 'House rent', yo: 'Owó ilé', ha: 'Kuɗin haya', ig: 'Ụgwọ ụlọ' },
+    school: { en: 'School fees', pcm: 'School fees', yo: 'Owó ilé-ìwé', ha: 'Kuɗin makaranta', ig: 'Ụgwọ akwụkwọ' },
+    emergency: { en: 'Emergency fund', pcm: 'Emergency money', yo: 'Owó pàjáwìrì', ha: 'Kuɗin gaggawa', ig: 'Ego mberede' },
+    business: { en: 'Business', pcm: 'Business money', yo: 'Owó òwò', ha: 'Kasuwanci', ig: 'Azụmahịa' },
+    travel: { en: 'Travel', pcm: 'Japa money', yo: 'Ìrìn-àjò', ha: 'Tafiya', ig: 'Njem' },
+    phone: { en: 'New phone', pcm: 'New phone', yo: 'Fóònù tuntun', ha: 'Sabuwar waya', ig: 'Ekwentị ọhụrụ' },
+    wedding: { en: 'Wedding', pcm: 'Wedding', yo: 'Ìgbéyàwó', ha: 'Aure', ig: 'Agbamakwụkwọ' },
+    christmas: { en: 'Christmas', pcm: 'Christmas', yo: 'Kérésìmesì', ha: 'Kirsimeti', ig: 'Ekeresimesi' },
+    car: { en: 'Car', pcm: 'Motor', yo: 'Ọkọ̀', ha: 'Mota', ig: 'Ụgbọ ala' }
   };
   const GOAL_RE = [
-    ['school', /\b(school|fees|tuition|ile iwe|iwe omo|university|exam)\b/],
-    ['rent', /\b(rent|house|ile|landlord|shelter)\b/],
-    ['emergency', /\b(emergency|pajawiri|rainy day|hospital)\b/],
-    ['business', /\b(business|shop|goods|okoowo|owo|oja|capital|market)\b(?! market fund)/],
-    ['travel', /\b(japa|travel|visa|abroad|irin ajo|trip)\b/],
-    ['phone', /\b(phone|laptop|foonu|iphone|gadget)\b/],
-    ['wedding', /\b(wedding|igbeyawo|owambe|marriage)\b/],
-    ['christmas', /\b(christmas|keresimesi|xmas|festive|sallah|salah|ileya)\b/],
-    ['car', /\b(car|motor|moto|okada|keke|oko)\b/],
+    ['school', /\b(school|fees|tuition|ile iwe|iwe omo|university|exam|makaranta|akwukwo|ulo akwukwo)\b/],
+    ['rent', /\b(rent|house|ile|landlord|shelter|haya|kudin haya|ugwo ulo|ulo)\b/],
+    ['emergency', /\b(emergency|pajawiri|rainy day|hospital|gaggawa|mberede)\b/],
+    ['business', /\b(business|shop|goods|okoowo|owo|oja|capital|market|kasuwanci|sanaa|kasuwa|azumahia|ahia)\b(?! market fund)/],
+    ['travel', /\b(japa|travel|visa|abroad|irin ajo|trip|tafiya|njem)\b/],
+    ['phone', /\b(phone|laptop|foonu|iphone|gadget|waya|ekwenti)\b/],
+    ['wedding', /\b(wedding|igbeyawo|owambe|marriage|aure|agbamakwukwo)\b/],
+    ['christmas', /\b(christmas|keresimesi|xmas|festive|sallah|salah|ileya|kirsimeti|ekeresimesi|krismas)\b/],
+    ['car', /\b(car|motor|moto|okada|keke|oko|mota|ugbo ala|ugboala)\b/],
     ['flex', /\b(flexible|free savings|wallet|apo|savings account|general)\b/]
   ];
   function detectGoal(t) {
@@ -305,7 +375,7 @@
   }
   // Collapses the parts of a name that speech recognition confuses: doubled letters, vowel swaps, soft endings.
   const soundKey = (w) => w.replace(/ph/g, 'f').replace(/ck/g, 'k').replace(/c(?=[eiy])/g, 's').replace(/c/g, 'k').replace(/[aeiouy]+/g, 'a').replace(/(.)\1+/g, '$1');
-  const COMMON = /^(send|transfer|pay|give|buy|save|withdraw|take|keep|put|move|check|show|tell|make|comot|collect|bring|remove|cancel|stop|start|help|hello|balance|much|what|which|where|when|have|from|into|about|some|your|their|dey|wan|dem|them|then|than|also|just|again|only|every|money|mine|my|the|a|an|one|me|am|him|her|them|person|someone|account|bank|money|wallet|rent|school|fees|goal|naira|thousand|hundred|card|airtime|data|please|abeg|wan|want|for|from|into|and|with|this|that|now|today|tomorrow|mama|papa|aunty|uncle|brother|sister|boss|madam|oga|baba|iya)$/;
+  const COMMON = /^(send|transfer|pay|give|buy|save|withdraw|take|keep|put|move|check|show|tell|make|comot|collect|bring|remove|cancel|stop|start|help|hello|balance|much|what|which|where|when|have|from|into|about|some|your|their|dey|wan|dem|them|then|than|also|just|again|only|every|money|mine|maka|nye|ego|puku|nari|akpa|ugwo|ulo|akwukwo|biko|nke|ndi|ihe|kaadi|zuta|tupu|chekwaa|chekwa|debe|zipu|ziga|wepu|kudi|kudin|dubu|dari|naira|haya|daga|zuwa|kafin|wannan|kake|kana|nake|sayi|kati|katin|ajiye|adana|aika|tura|cire|walat|gida|yanzu|sannu|ndewo|kedu|my|the|a|an|one|me|am|him|her|them|person|someone|account|bank|money|wallet|rent|school|fees|goal|naira|thousand|hundred|card|airtime|data|please|abeg|wan|want|for|from|into|and|with|this|that|now|today|tomorrow|mama|papa|aunty|uncle|brother|sister|boss|madam|oga|baba|iya)$/;
   function findContact(t, contacts) {
     contacts = contacts || [];
     for (const c of contacts) {
@@ -366,8 +436,8 @@
   const challengeOk = (raw, challenge) => spokenDigits(raw).includes(challenge);
 
   // ---------- understanding ----------
-  const YES = /^(yes|yeah|yea|yep|yup|ok|okay|confirm|sure|do it|go ahead|correct|na so|oya|do am|abeg do am|make e be|e do|sharp|beeni|bee ni|en|o daa|o dara|mo gba|ti gba|bee ni o)\b/;
-  const NO = /^(no|nope|cancel|stop|dont|do not|abeg no|leave am|forget am|no do am|no wahala no|rara|ma se|fi sile|fagile|bee ko)\b/;
+  const YES = /^(yes|yeah|yea|yep|yup|ok|okay|confirm|sure|do it|go ahead|correct|na so|oya|do am|abeg do am|make e be|e do|sharp|beeni|bee ni|en|o daa|o dara|mo gba|ti gba|bee ni o|eh|i|to|haka ne|na yarda|ee|eeh|o di mma|odi mma|kwado)\b/;
+  const NO = /^(no|nope|cancel|stop|dont|do not|abeg no|leave am|forget am|no do am|no wahala no|rara|ma se|fi sile|fagile|bee ko|aa|a a|soke|kada|mba|kagbuo|kwusi)\b/;
 
   function understand(raw, ctx) {
     ctx = ctx || {};
@@ -446,11 +516,11 @@
       r.intent = /\b(stop|off|cancel|disable|no more)\b/.test(t0) ? 'autosaveoff' : 'autosave'; return r;
     }
 
-    if (/\b(airtime|recharge|card|credit for my line|top up my line|load card|kaadi ipe|kaadi|data)\b/.test(t0)) { r.intent = 'airtime'; return r; }
+    if (/\b(airtime|recharge|card|credit for my line|top up my line|load card|kaadi ipe|kaadi|data|kati|katin|kati waya)\b/.test(t0)) { r.intent = 'airtime'; return r; }
 
     // "send money", "send 5k", "transfer to a GTB account", "pay Tunde" -> send. "send 5k to my rent" -> save.
-    const sendVerb = /\b(send|transfer|wire|ranse|fi ranse)\b/.test(t0) || (/\b(pay|give)\b/.test(t0) && !/\bgive me\b/.test(t0) && (r.contact || r.account || r.bank || /\b(to|give|si|fun)\s+[a-z]/.test(t0)));
-    const saveCtx = /\b(save|pamo|savings|for my (rent|school|goal))\b/.test(t0) || (r.goal && !r.contact && !r.account && !r.bank);
+    const sendVerb = /\b(send|transfer|wire|ranse|fi ranse|aika|aiko|tura|zipu|zipuo|ziga|zie|zitere)\b/.test(t0) || (/\b(pay|give)\b/.test(t0) && !/\bgive me\b/.test(t0) && (r.contact || r.account || r.bank || /\b(to|give|si|fun)\s+[a-z]/.test(t0)));
+    const saveCtx = /\b(save|pamo|savings|for my (rent|school|goal)|ajiye|adana|chekwaa|chekwa|debe|dobe)\b/.test(t0) || (r.goal && !r.contact && !r.account && !r.bank);
     if ((sendVerb && !saveCtx) || (r.contact && r.amount && !/\b(save|pamo)\b/.test(t0))) {
       r.intent = 'send';
       if (!r.contact && !r.account) {
@@ -463,19 +533,19 @@
     }
     if (ctx.awaiting === 'recipient' && (r.contact || r.account)) { r.intent = 'fill'; return r; }
 
-    if (/\b(help|what can you do|wetin you fit do|how e dey work|how does this work|ran mi lowo|kini o le se|ki lo le se)\b/.test(t0)) { r.intent = 'help'; return r; }
+    if (/\b(help|what can you do|wetin you fit do|how e dey work|how does this work|ran mi lowo|kini o le se|ki lo le se|taimako|taimaka|enyemaka|nyere m aka)\b/.test(t0)) { r.intent = 'help'; return r; }
 
     const term = TERMS.find(([, re]) => re.test(t0));
     if (term && (EXPLAIN_TRIGGER.test(t0) || /\?/.test(raw) || !['interest', 'emergencyfund'].includes(term[0])) && !r.amount) {
       r.intent = 'explain'; r.term = term[0]; return r;
     }
 
-    if (/\b(withdraw|take out|takeout|comot|cash out|remove|collect|bring out|yo owo|yo kuro|yo jade|gba owo|mu owo|yo)\b/.test(t0) || /\btake\b.*\bout\b/.test(t0)) { r.intent = 'withdraw'; return r; }
+    if (/\b(withdraw|take out|takeout|comot|cash out|remove|collect|bring out|yo owo|yo kuro|yo jade|gba owo|mu owo|yo|cire|fitar|fito da|wepu|wepuo|weputa|nweta)\b/.test(t0) || /\btake\b.*\bout\b/.test(t0)) { r.intent = 'withdraw'; return r; }
 
     if (/\b(remind|reminder|remember me|ranti|ran mi leti|leti)\b/.test(t0)) { r.intent = 'remind'; return r; }
 
-    const wantsGoal = /\b(goal|target|afojusun|plan)\b/.test(t0) ||
-      (r.deadline && /\b(want|wan|wanna|need|fe|plan|go save|dey save|save up|gather)\b/.test(t0)) ||
+    const wantsGoal = /\b(goal|target|afojusun|plan|buri|burin|manufa|ebumnuche|mgbaru)\b/.test(t0) ||
+      (r.deadline && /\b(want|wan|wanna|need|fe|plan|go save|dey save|save up|gather|ina son|son|achoro|choro)\b/.test(t0)) ||
       (/\bsave up\b|\bsaving up\b|\bsaving towards\b|\bsave towards\b/.test(t0) && !r.amount);
     if (wantsGoal && !/\b(how much|balance|elo|melo)\b/.test(t0)) {
       r.intent = 'goal';
@@ -483,18 +553,18 @@
       return r;
     }
 
-    if (/\b(wallet|spend money|apo owo)\b/.test(t0) && /\b(how much|balance|elo|melo|check|wetin)\b/.test(t0)) { r.intent = 'wallet'; return r; }
-    if (/\b(balance|how much|how far (with|my|for)|wetin (i|dey|remain)|i get how much|elo|melo|iye owo|owo melo|how my money|check|what do i have|what i get|how many)\b/.test(t0)) { r.intent = 'balance'; return r; }
+    if (/\b(wallet|spend money|apo owo|walat|akpa ego)\b/.test(t0) && /\b(how much|balance|elo|melo|check|wetin|nawa|ole)\b/.test(t0)) { r.intent = 'wallet'; return r; }
+    if (/\b(balance|how much|how far (with|my|for)|wetin (i|dey|remain)|i get how much|elo|melo|iye owo|owo melo|how my money|check|what do i have|what i get|how many|nawa|kudi nawa|duba|ego ole|ole|lelee)\b/.test(t0)) { r.intent = 'balance'; return r; }
 
     if (/\b(my goals|all goals|goals|list|show me|afojusun mi|gbogbo)\b/.test(t0) && !r.amount) { r.intent = 'goals'; return r; }
 
-    if (/\b(save|put|keep|gather|add|deposit|drop|send|top up|pamo|fi kun|fikun|ko si|fi si|fi)\b/.test(t0) || r.amount) {
+    if (/\b(save|put|keep|gather|add|deposit|drop|send|top up|pamo|fi kun|fikun|ko si|fi si|fi|ajiye|adana|tara|sa|chekwaa|chekwa|debe|dobe|zoo|tinye)\b/.test(t0) || r.amount) {
       r.intent = 'save';
       if (!r.goal) r.customName = customGoalName(raw);
       return r;
     }
 
-    if (/\b(hello|hi|hey|how far|good morning|good afternoon|good evening|bawo|e kaaro|e kaasan|e kaale|pele)\b/.test(t0)) { r.intent = 'greet'; return r; }
+    if (/\b(hello|hi|hey|how far|good morning|good afternoon|good evening|bawo|e kaaro|e kaasan|e kaale|pele|sannu|ina kwana|ina wuni|barka|ndewo|kedu|nnoo|ututu oma|ehihie oma|mgbede oma)\b/.test(t0)) { r.intent = 'greet'; return r; }
 
     // Just a goal name ("rent", "school fees"): tell them how that goal is doing
     if (r.goal && t0.split(' ').length <= 4) { r.intent = 'balance'; return r; }
@@ -516,6 +586,7 @@
     return (d.getDate() !== 1 ? d.getDate() + ' ' : '') + MONTH_LABEL[d.getMonth()] + (sameYear ? '' : ' ' + d.getFullYear());
   }
   function dayLabel(day, lang) {
+    if (!DAY_LABEL[lang]) lang = 'en';
     if (day === 'payday') return { en: 'payday', pcm: 'salary day', yo: 'owó oṣù' }[lang];
     return DAY_LABEL[lang][day];
   }
@@ -790,6 +861,66 @@
     }
   };
 
+  // Hausa and Igbo replies for the everyday flows. Anything not listed here falls back to English.
+  // First version: a fluent speaker should review these before launch.
+  const HA_IG = {
+    welcome: { ha: 'Sannu, ni ce Vosa. Faɗa mini abin da kake son yi da kuɗinka.', ig: 'Ndewo, abụ m Vosa. Gwa m ihe ị chọrọ iji ego gị mee.' },
+    greet: { ha: 'Sannu! Me kake son yi? Za ka iya ajiye kuɗi, duba kuɗinka, ko saita buri.', ig: 'Ndewo! Gịnị ka ị chọrọ ime? Ị nwere ike chekwaa ego, lelee ego gị, ma ọ bụ tọọ ebumnuche.' },
+    help: { ha: 'Za ka iya cewa: ajiye naira dubu biyar don haya. Aika dubu biyar ga Tunde. Sayi katin MTN na dubu ɗaya. Kuɗi nawa nake da shi? Ina son ajiye dubu ɗari biyu don kuɗin makaranta kafin Janairu.', ig: 'Ị nwere ike ịsị: chekwaa puku naira ise maka ụgwọ ụlọ. Zipu puku ise nye Tunde. Zụta kaadị MTN puku naira. Ego ole ka m nwere? Achọrọ m ichekwa puku narị abụọ maka ụgwọ akwụkwọ tupu Jenụwarị.' },
+    unknown: { ha: 'Yi haƙuri, ban gane ba. Gwada cewa: ajiye naira dubu biyar don haya.', ig: 'Ndo, aghọtaghị m. Nwaa ịsị: chekwaa puku naira ise maka ụgwọ ụlọ.' },
+    notCaught: { ha: 'Ban gane ba.', ig: 'Aghọtaghị m.' },
+    wallet: { ha: 'Walat ɗinka yana da {wallet} don kashewa.', ig: 'Akpa ego gị nwere {wallet} iji mefuo.' },
+    lowWallet: { ha: 'Walat ɗinka yana da {wallet} kawai, don haka ba zan iya yin {amt} ba.', ig: 'Akpa ego gị nwere naanị {wallet}, ya mere enweghị m ike ime {amt}.' },
+    askSend: { ha: 'Nawa zan aika?', ig: 'Ego ole ka m ga-ezipu?' },
+    askRecipient: { ha: 'Ga wa kake aikawa? Faɗi sunansa, ko lambar asusu.', ig: 'Onye ka ị na-ezigara? Kwuo aha ya, ma ọ bụ nọmba akaụntụ.' },
+    confirmSend: { ha: 'A aika {amt} ga {name}, {bank} ••{last4}? Faɗi kalmar sirrinka don tabbatarwa, ko a’a don sokewa.', ig: 'Zipu {amt} nye {name}, {bank} ••{last4}? Kwuo okwu nzuzo gị iji kwado, ma ọ bụ mba iji kagbuo.' },
+    doneSend: { ha: 'An aika. {name} ya karɓi {amt}. Yanzu walat ɗinka yana da {wallet}.', ig: 'Ezipụla ya. {name} anatala {amt}. Akpa ego gị nwere {wallet} ugbu a.' },
+    askSave: { ha: 'Nawa kake son ajiyewa?', ig: 'Ego ole ka ị chọrọ ichekwa?' },
+    confirmSave: { ha: 'A ajiye {amt} a {goal}? Ka ce eh don tabbatarwa, ko a’a don sokewa.', ig: 'Chekwaa {amt} na {goal}? Sị ee iji kwado, ma ọ bụ mba iji kagbuo.' },
+    doneSave: { ha: 'An gama. Yanzu {goal} yana da {bal}{prog}.', ig: 'Emeela. {goal} nwere {bal} ugbu a{prog}.' },
+    prog: { ha: ', kashi {pct} cikin ɗari na burinka na {target}', ig: ', pasent {pct} nke ebumnuche gị {target}' },
+    reached: { ha: ' Ka cimma burinka!', ig: ' I ruola ebumnuche gị!' },
+    askWithdraw: { ha: 'Nawa kake son cirewa?', ig: 'Ego ole ka ị chọrọ iwepụ?' },
+    confirmWithdraw: { ha: 'A mayar da {amt} daga {goal} zuwa walat ɗinka? Faɗi kalmar sirrinka don tabbatarwa, ko a’a don sokewa.', ig: 'Bugharịa {amt} site na {goal} gaa n’akpa ego gị? Kwuo okwu nzuzo gị iji kwado, ma ọ bụ mba iji kagbuo.' },
+    doneWithdraw: { ha: 'An gama. {amt} yanzu yana cikin walat ɗinka. {goal} ya rage {bal}.', ig: 'Emeela. {amt} dị n’akpa ego gị ugbu a. {goal} fọdụrụ {bal}.' },
+    insufficient: { ha: '{goal} yana da {bal} kawai, don haka ba zan iya cire {amt} ba.', ig: '{goal} nwere naanị {bal}, ya mere enweghị m ike iwepụ {amt}.' },
+    balanceTotal: { ha: 'Walat ɗinka yana da {wallet}, kuma ka ajiye {total}. {list}', ig: 'Akpa ego gị nwere {wallet}, i chekwakwara {total}. {list}' },
+    balanceGoal: { ha: '{goal} yana da {bal}{prog}.', ig: '{goal} nwere {bal}{prog}.' },
+    goals: { ha: 'Kana da asusun ajiya {n}: {list}.', ig: 'Ị nwere akpa nchekwa {n}: {list}.' },
+    askGoal: { ha: 'Nawa ne burin?', ig: 'Ego ole bụ ebumnuche ahụ?' },
+    confirmGoal: { ha: 'A ƙirƙiri burin {goal} na {target} kafin {date}? Wato kusan {weekly} a mako. Ka ce eh don tabbatarwa.', ig: 'Mepụta ebumnuche {goal} nke {target} tupu {date}? Nke ahụ bụ ihe dị ka {weekly} kwa izu. Sị ee iji kwado.' },
+    confirmGoalNoDate: { ha: 'A ƙirƙiri burin {goal} na {target}? Ka ce eh don tabbatarwa.', ig: 'Mepụta ebumnuche {goal} nke {target}? Sị ee iji kwado.' },
+    doneGoal: { ha: 'An saita burin {goal}. Mu cimma {target} tare.', ig: 'Etọọla ebumnuche {goal} gị. Ka anyị rute {target} ọnụ.' },
+    cancelled: { ha: 'To, an soke. Babu abin da ya canza.', ig: 'Ọ dị mma, akagbuola ya. Ọ dịghị ihe gbanwere.' },
+    challenge: { ha: ' Bayan kalmar sirrinka, faɗi waɗannan lambobi: {d}.', ig: ' Mgbe i kwuchara okwu nzuzo gị, kwuo nọmba ndị a: {d}.' },
+    phraseHint: { ha: 'Don Allah faɗi kalmar sirrinka don tabbatarwa, ko a’a don sokewa.', ig: 'Biko kwuo okwu nzuzo gị iji kwado, ma ọ bụ mba iji kagbuo.' },
+    phraseWrong: { ha: 'Wannan ba kalmar sirrinka ba ce. Sake gwadawa, ko ka ce a’a don sokewa.', ig: 'Nke ahụ abụghị okwu nzuzo gị. Nwaa ọzọ, ma ọ bụ sị mba iji kagbuo.' },
+    digitsWrong: { ha: 'Lambobin ba su yi daidai ba. Faɗi kalmar sirrinka, sannan waɗannan sababbin lambobi: {d}.', ig: 'Nọmba ndị ahụ adabaghị. Kwuo okwu nzuzo gị, wee kwuo nọmba ọhụrụ ndị a: {d}.' },
+    voiceWrong: { ha: 'Wannan ba kamar muryarka ba ce, don haka ban motsa kuɗin ba. Sake gwadawa da waɗannan lambobi: {d}.', ig: 'Nke ahụ adịghị ka olu gị, ya mere ebugharịghị m ego ahụ. Nwaa ọzọ na nọmba ndị a: {d}.' },
+    sayAloud: { ha: 'Voice ID yana kunne, don haka faɗa da baki maimakon rubutu. Ko ka yi amfani da yatsa.', ig: 'Voice ID gbanyere, biko kwuo ya n’olu kama ide ya. Ma ọ bụ jiri mkpịsị aka gị.' },
+    askAirtime: { ha: 'Katin nawa?', ig: 'Kaadị ego ole?' },
+    confirmAirtime: { ha: 'A sayi katin {net} na {amt} don {who}? Ka ce eh don tabbatarwa.', ig: 'Zụta kaadị {net} nke {amt} maka {who}? Sị ee iji kwado.' },
+    doneAirtime: { ha: 'An gama. An aika katin {net} na {amt} zuwa {who}. Walat ɗinka yana da {wallet}.', ig: 'Emeela. Ezipụla kaadị {net} nke {amt} nye {who}. Akpa ego gị nwere {wallet}.' },
+    locked: { ha: 'Kuskure da yawa. Na soke shi don kare kuɗinka.', ig: 'Mmehie dị ọtụtụ. Akagbuola m ya iji chebe ego gị.' },
+    nudge: { ha: ' Kana son ajiye {nudge} a {goal} ma? Ka ce eh ko a’a.', ig: ' Ị chọrọ ichekwakwa {nudge} na {goal}? Sị ee ma ọ bụ mba.' },
+    promiseOffer: { ha: ' Kana son yin alƙawari da muryarka? Idan ka yi ƙoƙarin cire wannan kuɗi da wuri, zan sake kunna maka shi. Ka ce eh ko a’a.', ig: ' Ị chọrọ ikwe nkwa n’olu gị? Ọ bụrụ na ị gbalịa iwepụ ego a n’oge na-erubeghị, m ga-akpọghachi gị ya. Sị ee ma ọ bụ mba.' },
+    promiseIntro: { ha: 'Bayan ƙara, faɗi dalilin da wannan kuɗi ke da muhimmanci, da kalmominka. Misali: “Na kuɗin makarantar Tolu ne. Kada ka bar ni in taɓa shi kafin Janairu.”', ig: 'Mgbe ụda ahụ gasịrị, kwuo ihe mere ego a ji dị mkpa, n’okwu gị. Ọmụmaatụ: “Ọ bụ maka ụgwọ akwụkwọ Tolu. Ekwela ka m metụ ya tupu Jenụwarị.”' },
+    promiseGate: { ha: 'Kafin in cire {amt} daga {goal}, ka saurari abin da ka faɗa mini.', ig: 'Tupu m ewepụ {amt} na {goal}, gee ntị n’ihe ị gwara m.' },
+    promiseAsk: { ha: ' Gaggawa ce? Ka ce eh ko a’a.', ig: ' Ọ bụ ihe mberede? Sị ee ma ọ bụ mba.' },
+    promiseKept: { ha: 'To. Kuɗinka ya tsare a {goal}. Madalla da cika alƙawarinka.', ig: 'Ọ dị mma. Ego gị nọ na nchekwa na {goal}. I meela maka idebe nkwa gị.' },
+    promiseSaved: { ha: 'An ajiye alƙawarinka na {goal}. Zan tunatar da kai da muryarka idan ka yi ƙoƙarin cirewa da wuri.', ig: 'Echekwala nkwa gị maka {goal}. M ga-eji olu gị chetara gị ma ọ bụrụ na ị gbalịa iwepụ ya n’oge na-erubeghị.' },
+    promiseReached: { ha: ' Ka cika alƙawarinka.', ig: ' I debere nkwa gị.' },
+    askedHelper: { ha: 'Wannan {amt} ne{why}. Don kare ka, na nemi {names} ya duba. Zan faɗa maka idan ya amsa.', ig: 'Nke a bụ {amt}{why}. Iji chebe gị, arịọla m {names} ka ọ lelee ya. M ga-agwa gị mgbe ọ zara.' },
+    whyNew: { ha: ' ga wanda ba ka taɓa biya ba', ig: ' nye onye ị na-akwụbeghị ụgwọ mbụ' },
+    helperApproved: { ha: '{name} ya amince. ', ig: '{name} kwadoro ya. ' },
+    helperDeclined: { ha: '{name} ya ƙi, don haka kuɗin bai motsa ba.', ig: '{name} jụrụ ya, ya mere ego ahụ agaghị.' },
+    handsfreeOn: { ha: 'Hands-free yana kunne. Zan sake saurara bayan kowace amsa. Ka ce daina saurara don kashewa.', ig: 'Hands-free gbanyere. M ga-ege ntị ọzọ mgbe ọ bụla m zachara. Sị kwụsị ige ntị iji gbanyụọ ya.' },
+    handsfreeOff: { ha: 'Hands-free a kashe yake. Taɓa makirufo lokacin da kake son magana.', ig: 'Hands-free gbanyụrụ. Pịa ígwè olu mgbe ị chọrọ ikwu okwu.' },
+    account: { ha: 'Lambar asusun Vosa ɗinka ita ce {acct}, Vosa Demo Bank. Mutane za su iya aika maka kuɗi da ita.', ig: 'Nọmba akaụntụ Vosa gị bụ {acct}, Vosa Demo Bank. Ndị mmadụ nwere ike iji ya zitere gị ego.' },
+    voiceSample: { ha: 'Sannu, ni ce {v}. Zan iya taimaka maka ka ajiye kuɗi, ka aika kuɗi, kuma in kare ajiyarka. Kawai ka yi magana da ni.', ig: 'Ndewo, abụ m {v}. Enwere m ike inyere gị aka ichekwa ego, izipu ego, na ichebe nchekwa gị. Naanị gwa m okwu.' }
+  };
+  for (const k in HA_IG) if (S[k]) Object.assign(S[k], HA_IG[k]);
+
   function fill(tpl, vars) {
     return tpl.replace(/\{(\w+)\}/g, (_, k) => (vars[k] != null ? vars[k] : ''));
   }
@@ -801,8 +932,8 @@
   // Spoken form: "₦5,000" -> "5,000 naira" (Yorùbá: "5,000 náírà")
   function toSpeech(text, lang) {
     return text
-      .replace(/₦(\d[\d,]*\d|\d)/g, (_, n) => n + (lang === 'yo' ? ' náírà' : ' naira'))
-      .replace(/••(\d{4})/g, (_, n) => (lang === 'yo' ? 'tó parí sí ' : 'ending ') + n.split('').join(' '))
+      .replace(/₦(\d[\d,]*\d|\d)/g, (_, n) => (lang === 'ha' || lang === 'ig' ? 'naira ' + n : n + (lang === 'yo' ? ' náírà' : ' naira')))
+      .replace(/••(\d{4})/g, (_, n) => (lang === 'yo' ? 'tó parí sí ' : lang === 'ha' ? 'mai ƙarewa da ' : lang === 'ig' ? 'nke na-ejedebe na ' : 'ending ') + n.split('').join(' '))
       .replace(/\b(\d{10,11})\b/g, (n) => n.split('').join(' '))
       .replace(/%/g, lang === 'yo' ? ' nínú ọgọ́rùn-ún' : ' percent');
   }

@@ -1,4 +1,10 @@
 <title>Vosa</title>
+<meta name="theme-color" content="#CC4A0A">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Vosa">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap">
@@ -24,7 +30,7 @@
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body { margin: 0; background: #EEF1EF; color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
-:root[lang="yo"] body { font-family: var(--font-yo); line-height: 1.6; }
+:root[lang="yo"] body, :root[lang="ha"] body, :root[lang="ig"] body { font-family: var(--font-yo); line-height: 1.6; }
 button, input, select { font: inherit; color: inherit; }
 button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
@@ -36,6 +42,12 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 @media (min-width: 480px) { .app { box-shadow: 0 0 0 1px var(--line); } }
 .views { flex: 1; overflow-y: auto; }
 .view { display: flex; flex-direction: column; padding: 0 20px 24px; }
+
+/* demo-mode notice */
+.notice { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: var(--warn-bg); color: var(--warn); font-size: 14px; line-height: 1.4; }
+.notice svg { flex: 0 0 auto; margin-top: 2px; }
+.notice b { display: block; color: inherit; }
+.notice span { color: #6B4A12; }
 
 /* Voice Promise waveform */
 .pwave { display: flex; align-items: center; justify-content: center; gap: 5px; height: 44px; }
@@ -96,10 +108,10 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .row .end { text-align: right; flex: 0 0 auto; }
 .row .end b { display: block; font-size: 15px; font-weight: 700; }
 .row .end span { font-size: 13px; color: var(--text2); }
-.row .end .in { color: var(--primary); }
+.row .end .in { color: #15803D; }
 .bar { height: 6px; border-radius: 999px; background: var(--surface); overflow: hidden; }
 .bar i { display: block; height: 100%; background: var(--brand); border-radius: 999px; transition: width .5s ease; }
-.pill-s { display: inline-block; white-space: nowrap; font-size: 12.5px; font-weight: 600; border-radius: 6px; padding: 2px 8px; background: var(--tint); color: var(--primary); }
+.pill-s { display: inline-block; white-space: nowrap; font-size: 12.5px; font-weight: 600; border-radius: 6px; padding: 2px 8px; background: var(--green-bg); color: #15803D; }
 .pill-s.behind { background: var(--warn-bg); color: var(--warn); }
 .empty { color: var(--text2); font-size: 14px; padding: 12px 0; margin: 0; }
 .flash { animation: flash 1.2s ease; }

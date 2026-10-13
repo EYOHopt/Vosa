@@ -236,6 +236,7 @@
     demoAskW: { en: '{n} wants to take {a} out of {g} early. They said it’s an emergency.', pcm: '{n} wan comot {a} from {g} before time. Dem talk say na emergency.', yo: '{n} fẹ́ yọ {a} kúrò nínú {g} ní kùtùkùtù. Wọ́n sọ pé pàjáwìrì ni.' },
     recordPromiseBtn: { en: 'Record a Voice Promise', pcm: 'Record Voice Promise', yo: 'Gba Ìlérí Ohùn sílẹ̀' }, notNow: { en: 'Not now', pcm: 'Not now', yo: 'Kì í ṣe báyìí' },
     promiseWhy: { en: 'Like a witness at ajo: you promise in your own voice, and Vosa plays it back if you ever try to break it. Emergencies always go through.', pcm: 'Like witness for ajo: you promise with your own voice, and Vosa go play am back if you try break am. Emergency go always pass.', yo: 'Bí ẹlẹ́rìí nínú àjọ: o ṣèlérí pẹ̀lú ohùn rẹ, Vosa yóò sì tún gbé e sọ tí o bá fẹ́ dà á. Pàjáwìrì máa ń kọjá nígbà gbogbo.' },
+    needsSpitchLang: { en: 'Hausa and Igbo voice need the Spitch key on the server. You can type for now.', ha: 'Muryar Hausa tana buƙatar Spitch a sabar. Za ka iya rubutu yanzu.', ig: 'Olu Igbo chọrọ Spitch na sava. Ị nwere ike ide ugbu a.' },
     voiceLbl: { en: 'Vosa’s voice', pcm: 'Vosa voice', yo: 'Ohùn Vosa' },
     voiceD: { en: 'Spitch is a natural Nigerian voice (uses Spitch credit; repeated replies are free). Phone uses the built-in voice.', pcm: 'Spitch na natural Naija voice (e dey use Spitch credit; reply wey e don talk before na free). Phone na the built-in voice.', yo: 'Spitch jẹ́ ohùn Nàìjíríà tó dára (ó ń lo krẹ́dìtì Spitch). Fóònù ń lo ohùn inú fóònù.' },
     whichVoice: { en: 'Which voice', pcm: 'Which voice', yo: 'Ohùn wo' },
@@ -341,6 +342,7 @@
     noChecks: { en: 'Nobody this week', pcm: 'Nobody this week', yo: 'Kò sí ẹnikẹ́ni lọ́sẹ̀ yìí' },
     logView: { en: '{n} checked your account', yo: '{n} wo àkáǹtì rẹ' }, logApproved: { en: '{n} approved a transfer', yo: '{n} fọwọ́sí owó kan' }, logDeclined: { en: '{n} declined a transfer', yo: '{n} kọ owó kan' },
     demoModeT: { en: 'Demo mode', yo: 'Ìdánwò' },
+    demoBanner: { en: 'No link will be made yet: the helper will appear on this phone instead. To invite a real person on their own phone, add the free Upstash Redis database in Vercel and redeploy.', pcm: 'No link go show for now: the helper go appear for this phone. To invite real person for their own phone, add the free Upstash Redis database for Vercel and redeploy.', yo: 'Kò ní sí ìjápọ̀ síbẹ̀: olùrànlọ́wọ́ náà yóò hàn lórí fóònù yìí. Láti pe ẹni gidi lórí fóònù tiwọn, fi database Upstash Redis ọ̀fẹ́ kún Vercel kí o sì tún gbé e jáde.' },
     circleDemo: { en: 'Approvals show on this phone. Add the free database in Vercel to use a real second phone.', pcm: 'Approval go show for this phone. Add the free database for Vercel to use another phone.', yo: 'Ìfọwọ́sí máa hàn lórí fóònù yìí. Fi database ọ̀fẹ́ kún un ní Vercel láti lo fóònù kejì.' },
     helperName: { en: "Helper's name", pcm: 'Helper name', yo: 'Orúkọ olùrànlọ́wọ́' },
     helperPhone: { en: "Helper's phone (optional, to text them the link)", pcm: 'Helper phone number (optional, to SMS dem the link)', yo: 'Nọ́ńbà fóònù olùrànlọ́wọ́ (tí o bá fẹ́)' },
@@ -398,8 +400,32 @@
   const EXAMPLES = {
     en: ['Save 5,000 for rent', 'Send 5k to Tunde', 'How much do I have?', 'Buy 1,000 MTN airtime', 'Save 10% of any money I receive', 'I want to save 200k for school fees by January', 'Withdraw 3,000 from rent', 'What is a money market fund?'],
     pcm: ['Abeg keep 2k for my house rent', 'Send 3k give Mama', 'How much I get?', 'Buy 500 Airtel card', 'Anytime money enter, save 10%', 'I wan gather 500k for japa before December', 'Comot 2k from my house rent', 'Wetin be inflation?'],
+    ha: ['Ajiye dubu biyar don kuɗin haya', 'Aika dubu biyar ga Tunde', 'Kuɗi nawa nake da shi?', 'Sayi katin MTN na dubu ɗaya', 'Ina son ajiye dubu ɗari biyu don kuɗin makaranta kafin Janairu', 'Cire dubu uku daga haya'],
+    ig: ['Chekwaa puku ise maka ụgwọ ụlọ', 'Zipu puku ise nye Tunde', 'Ego ole ka m nwere?', 'Zụta kaadị MTN puku', 'Achọrọ m ichekwa puku narị abụọ maka ụgwọ akwụkwọ tupu Jenụwarị', 'Wepụ puku atọ na ụgwọ ụlọ'],
     yo: ['Fi ẹgbẹ̀rún márùn-ún pamọ́ fún owó ilé', 'Èló ló wà nínú àpò mi?', 'Fi ẹgbẹ̀rún méjì ránṣẹ́ sí Mama', 'Ra káàdì ìpè MTN ẹgbẹ̀rún kan', 'Mo fẹ́ fi ẹgbẹ̀rún lọ́nà igba pamọ́ fún owó ilé-ìwé kí ó tó di January', 'Yọ ẹgbẹ̀rún méjì kúrò nínú owó ilé', 'Kí ni èlé?']
   };
+  // Hausa and Igbo for the main screens. Anything not listed falls back to English. First version: needs a fluent speaker's review.
+  const T_HA_IG = {
+    greetM: { ha: 'Barka da safiya, {n}.', ig: 'Ụtụtụ ọma, {n}.' }, greetA: { ha: 'Barka da rana, {n}.', ig: 'Ehihie ọma, {n}.' }, greetE: { ha: 'Barka da yamma, {n}.', ig: 'Mgbede ọma, {n}.' },
+    hi: { ha: 'Sannu, {n}', ig: 'Ndewo, {n}' }, tHome: { ha: 'Gida', ig: 'Ụlọ' }, tPots: { ha: 'Ajiya', ig: 'Nchekwa' }, tAct: { ha: 'Ayyuka', ig: 'Omume' }, tSet: { ha: 'Saituna', ig: 'Ntọala' },
+    gM: { ha: 'Barka da safiya', ig: 'Ụtụtụ ọma' }, gA: { ha: 'Barka da rana', ig: 'Ehihie ọma' }, gE: { ha: 'Barka da yamma', ig: 'Mgbede ọma' },
+    walletBalLbl: { ha: 'Kuɗin walat', ig: 'Ego akpa' }, walletBal: { ha: 'Kuɗin walat', ig: 'Ego akpa' }, savedStrip: { ha: 'An ajiye', ig: 'Echekwara' }, total: { ha: 'Jimillar ajiya', ig: 'Mkpokọta nchekwa' },
+    qSave: { ha: 'Ajiye', ig: 'Chekwaa' }, qSend: { ha: 'Aika', ig: 'Zipu' }, qWithdraw: { ha: 'Cire', ig: 'Wepụ' }, qMore: { ha: 'Ƙari', ig: 'Ọzọ' }, qAirtime: { ha: 'Kati', ig: 'Kaadị' }, qGoal: { ha: 'Sabon buri', ig: 'Ebumnuche ọhụrụ' }, qHelpers: { ha: 'Mataimaka', ig: 'Ndị enyemaka' },
+    bannerT: { ha: 'Kawai ka yi magana. Vosa zai yi sauran.', ig: 'Naanị kwuo okwu. Vosa ga-eme ndị ọzọ.' }, bannerS: { ha: 'Ka ce “{ex}”', ig: 'Sị “{ex}”' }, tapTalk: { ha: 'Taɓa ka yi magana', ig: 'Pịa ka ị kwuo' }, hfOn: { ha: 'Hands-free yana kunne', ig: 'Hands-free dị' },
+    quick: { ha: 'Hanyoyi masu sauri', ig: 'Ụzọ ngwa ngwa' }, yourSavings: { ha: 'Ajiyarka', ig: 'Nchekwa gị' }, seeAll2: { ha: 'Duba duka', ig: 'Lee ha niile' }, txHistory: { ha: 'Tarihin kuɗi', ig: 'Akụkọ ego' }, explore: { ha: 'Bincika', ig: 'Nyochaa' },
+    pots: { ha: 'Asusun ajiya', ig: 'Akpa nchekwa' }, newGoal: { ha: 'Sabon burin ajiya', ig: 'Ebumnuche nchekwa ọhụrụ' }, activity: { ha: 'Ayyuka', ig: 'Ihe omume' }, today: { ha: 'Yau', ig: 'Taa' }, earlier: { ha: 'A baya', ig: 'Na mbụ' },
+    settings: { ha: 'Saituna', ig: 'Ntọala' }, language: { ha: 'Harshe', ig: 'Asụsụ' }, voiceSpeed: { ha: 'Saurin murya', ig: 'Ọsọ olu' }, slow: { ha: 'A hankali', ig: 'Nwayọọ' }, normal: { ha: 'Daidai', ig: 'Nkịtị' }, fast: { ha: 'Da sauri', ig: 'Ngwa ngwa' },
+    handsFree: { ha: 'Hands-free', ig: 'Hands-free' }, sound: { ha: 'Amsoshi da murya', ig: 'Azịza n’olu' }, secret: { ha: 'Kalmar sirri', ig: 'Okwu nzuzo' }, gVoice: { ha: 'Murya da harshe', ig: 'Olu na asụsụ' },
+    listening: { ha: 'Ina saurara…', ig: 'Ana m ege ntị…' }, working: { ha: 'Ina aiki a kai…', ig: 'Ana m arụ ya…' }, youSaying: { ha: 'Kana cewa', ig: 'Ị na-ekwu' }, cancel: { ha: 'Soke', ig: 'Kagbuo' }, ok: { ha: 'To', ig: 'Ọ dị mma' }, tryAgain: { ha: 'Sake gwadawa', ig: 'Nwaa ọzọ' }, typeInstead: { ha: 'Rubuta maimakon', ig: 'Dee ya kama' },
+    yesSave: { ha: 'Eh, ajiye {a}', ig: 'Ee, chekwaa {a}' }, yesBuy: { ha: 'Eh, sayi {a}', ig: 'Ee, zụta {a}' }, yesCreate: { ha: 'Eh, ƙirƙiri buri', ig: 'Ee, mepụta ebumnuche' }, noCancel: { ha: 'A’a, soke', ig: 'Mba, kagbuo' },
+    sayPhrase: { ha: 'Faɗi kalmar sirrinka', ig: 'Kwuo okwu nzuzo gị' }, confirmT: { ha: 'Tabbatar', ig: 'Kwado' }, savedTo: { ha: 'An ajiye a {g}', ig: 'Echekwara na {g}' }, sentTo: { ha: 'An aika ga {n}', ig: 'Ezipụrụ {n}' }, moved: { ha: 'An mayar zuwa walat ɗinka', ig: 'Ebugharịrị gaa n’akpa ego gị' }, goalSet: { ha: 'An ƙirƙiri buri', ig: 'Emepụtara ebumnuche' },
+    welcomeH: { ha: 'Barka da zuwa Vosa', ig: 'Nnọọ na Vosa' }, welcomeT: { ha: 'Idan za ka iya magana, za ka iya ajiya.', ig: 'Ọ bụrụ na ị nwere ike ikwu okwu, ị nwere ike ichekwa ego.' }, cont: { ha: 'Ci gaba', ig: 'Gaa n’ihu' },
+    chooseLang: { ha: 'Sannu, ni ce Vosa. Wane harshe kake so? Taɓa ko ka faɗi Turanci, Pidgin, Yarbanci, Hausa ko Igbo.', ig: 'Ndewo, abụ m Vosa. Asụsụ ole ka ị chọrọ? Pịa ma ọ bụ kwuo Bekee, Pidgin, Yoruba, Hausa ma ọ bụ Igbo.' },
+    kDidnt: { ha: 'Ban gane ba', ig: 'Aghọtaghị m' }, switched: { ha: 'An koma Hausa', ig: 'Agbanweela gaa Igbo' }, langName: { ha: 'HA', ig: 'IG' },
+    promiseT: { ha: 'Alƙawarin Murya', ig: 'Nkwa Olu' }, promiseQ: { ha: 'Gaggawa ce?', ig: 'Ọ bụ ihe mberede?' }, yesEmergency: { ha: 'Eh, gaggawa ce', ig: 'Ee, ọ bụ mberede' }, noKeep: { ha: 'A’a, a bar shi', ig: 'Mba, debe ya' },
+    approve: { ha: 'Amince', ig: 'Kwado' }, decline: { ha: 'Ƙi', ig: 'Jụ' }, recipient: { ha: 'Mai karɓa', ig: 'Onye nnata' }, amount: { ha: 'Adadi', ig: 'Ego ole' }
+  };
+  for (const k in T_HA_IG) if (T[k]) Object.assign(T[k], T_HA_IG[k]);
   const t = (k, vars) => { const e = T[k]; const s = e ? (e[state.lang] || e.en) : k; return vars ? L.fill(s, vars) : s; };
   const R = (key, vars) => L.say(key, state.lang, vars);
 
@@ -426,7 +452,12 @@
       ],
       reminders: [],
       activity: [
-        { kind: 'save', g: { key: 'rent', name: null }, amt: 5000, at: now - 2 * 864e5, sub: 'voice' }
+        { kind: 'save', g: { key: 'rent', name: null }, amt: 5000, at: now - 2 * 864e5, sub: 'voice' },
+        { kind: 'airtime', n: 'MTN', amt: 1000, detail: '0803 ••• 1234', at: now - 3 * 864e5 },
+        { kind: 'send', n: 'Mama', amt: 10000, detail: 'OPay •••• 7788', at: now - 4 * 864e5 },
+        { kind: 'in', n: 'Kemi Adewale', amt: 50000, at: now - 5 * 864e5 },
+        { kind: 'save', g: { key: 'school', name: null }, amt: 20000, at: now - 5 * 864e5, sub: 'auto' },
+        { kind: 'send', n: 'Tunde', amt: 5000, detail: 'GTBank •••• 4521', at: now - 9 * 864e5 }
       ]
     };
   }
@@ -451,7 +482,7 @@
   let flashGoal = null;
   let typing = false;
 
-  const label = (g, lang) => g.name || L.GOALS[g.key][lang || state.lang];
+  const label = (g, lang) => g.name || (L.GOALS[g.key][lang || state.lang] || L.GOALS[g.key].en);
   const findGoal = (key, name) => state.goals.find(g => (key && g.key === key && !g.name) || (name && g.name && g.name.toLowerCase() === String(name).toLowerCase()));
   const total = () => state.goals.reduce((a, g) => a + g.bal, 0);
   const gref = (g) => ({ key: g.key, name: g.name });
@@ -534,7 +565,7 @@
     const first = (state.myName || 'Ade').split(' ')[0];
     const initials = (state.myName || 'Ade').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
     const hidden = state.hideBal;
-    const langLabel = { en: 'English', pcm: 'Pidgin', yo: 'Yorùbá' }[state.lang];
+    const langLabel = { en: 'English', pcm: 'Pidgin', yo: 'Yorùbá', ha: 'Hausa', ig: 'Igbo' }[state.lang];
 
     // 1. Header + balance + main actions (one white card, like a bank app's top panel)
     const copyBtn = h('button', { class: 'copy', type: 'button', 'aria-label': t('copyAcct'), onClick: async (e) => {
@@ -627,7 +658,7 @@
 
   function actRow(a) {
     const g = a.g ? (findRef(a.g) || a.g) : null;
-    const gl = g ? (g.name || (L.GOALS[g.key] || L.GOALS.flex)[state.lang]) : '';
+    const gl = g ? (g.name || (L.GOALS[g.key] || L.GOALS.flex)[state.lang] || (L.GOALS[g.key] || L.GOALS.flex).en) : '';
     let title, kind, tileIc, tileStyle = ['#F1F3F2', '#3F4D45'];
     if (a.kind === 'in') { title = t('actIn', { n: a.n }); kind = 'in'; tileIc = 'in'; tileStyle = ['#E8F6E5', '#1F9D55']; }
     else if (a.kind === 'send') { title = t('actSent', { n: a.n }); kind = 'out'; tileIc = 'send'; }
@@ -650,7 +681,7 @@
     const inW = state.activity.filter(a => a.at >= weekAgo && (a.kind === 'in')).reduce((s, a) => s + a.amt, 0);
     const outW = state.activity.filter(a => a.at >= weekAgo && (a.kind === 'send' || a.kind === 'airtime')).reduce((s, a) => s + a.amt, 0);
     v.append(h('div', { class: 'summary' },
-      h('div', null, h('span', { text: t('inWeek') }), h('b', { class: 'num', style: 'color:var(--primary)', text: '+' + naira(inW) })),
+      h('div', null, h('span', { text: t('inWeek') }), h('b', { class: 'num', style: 'color:#15803D', text: '+' + naira(inW) })),
       h('div', null, h('span', { text: t('outWeek') }), h('b', { class: 'num', text: '−' + naira(outW) }))));
     if (!state.activity.length) { v.append(h('p', { class: 'empty', text: t('noActivity') })); return; }
     const today = new Date(); today.setHours(0, 0, 0, 0);
@@ -671,7 +702,7 @@
     v.append(pageHead(t('settings')));
     const row = (title, desc, control) => h('div', { class: 'set' }, h('div', { style: 'min-width:0' }, h('b', { text: title }), desc ? h('span', { class: 'd', text: desc }) : null), control);
     v.append(h('h2', { class: 'group-t', text: t('gVoice') }), h('div', { class: 'group', style: 'margin-top:0' },
-      row(t('language'), null, seg(t('language'), [['en', 'EN'], ['pcm', 'PCM'], ['yo', 'YO']], state.lang, (l) => setLang(l))),
+      row(t('language'), null, seg(t('language'), [['en', 'EN'], ['pcm', 'PCM'], ['yo', 'YO'], ['ha', 'HA'], ['ig', 'IG']], state.lang, (l) => setLang(l))),
       backend.ok ? row(t('voiceLbl'), t('voiceD'), seg(t('voiceLbl'), [['spitch', 'Spitch'], ['phone', t('hearPhone')]], state.voiceEngine === 'phone' ? 'phone' : 'spitch', (v) => { state.voiceEngine = v; persist(); render(); })) : null,
       backend.ok && state.voiceEngine !== 'phone' && backend.voices && backend.voices[state.lang] ? voicePicker(row) : null,
       row(t('voiceSpeed'), null, seg(t('voiceSpeed'), [[0.85, t('slow')], [1, t('normal')], [1.15, t('fast')]], state.speed, (s) => { state.speed = s; persist(); render(); })),
@@ -708,7 +739,7 @@
 
   function go(view) { state.view = view; persist(); render(); $('views').scrollTop = 0; }
   function setLang(l) { state.lang = l; persist(); stopSpeaking(); render(); if (ov) renderOv(); }
-  function cycleLang() { const order = ['en', 'pcm', 'yo']; setLang(order[(order.indexOf(state.lang) + 1) % 3]); }
+  function cycleLang() { const order = ['en', 'pcm', 'yo', 'ha', 'ig']; setLang(order[(order.indexOf(state.lang) + 1) % order.length]); }
   function toggleHF() { const on = !state.handsFree; setHandsFree(on); reply(R(on ? 'handsfreeOn' : 'handsfreeOff')); }
   function status(s) { if (s) announce(s); }
   function announce(s) { const a = $('announce'); a.textContent = ''; setTimeout(() => { a.textContent = s; }, 30); }
@@ -993,9 +1024,9 @@
           h('div', { class: 'vsay' }, h('span', { style: 'flex:0 0 auto' }, logoMark(22)), h('p', { text: t('chooseLang') }),
             h('button', { type: 'button', 'aria-label': t('replayAria'), onClick: () => speak(t('chooseLang'), state.lang, true) }, icon('speaker', 20))),
           h('div', { role: 'radiogroup', 'aria-label': t('language'), style: 'display:flex;flex-direction:column;gap:10px' },
-            [['en', 'English', 'Save 5,000 for rent'], ['pcm', 'Pidgin', 'Abeg keep 5k for my house rent'], ['yo', 'Yorùbá', 'Fi ẹgbẹ̀rún márùn-ún pamọ́']].map(([code, name, ex]) =>
+            [['en', 'English', 'Save 5,000 for rent'], ['pcm', 'Pidgin', 'Abeg keep 5k for my house rent'], ['yo', 'Yorùbá', 'Fi ẹgbẹ̀rún márùn-ún pamọ́'], ['ha', 'Hausa', 'Ajiye dubu biyar don haya'], ['ig', 'Igbo', 'Chekwaa puku ise maka ụgwọ ụlọ']].map(([code, name, ex]) =>
               h('button', { class: 'lang-row', type: 'button', role: 'radio', 'aria-checked': String(state.lang === code), onClick: () => { setLang(code); speak(t('chooseLang'), code, true); } },
-                h('div', null, h('b', { text: name }), h('span', { lang: code === 'yo' ? 'yo' : null, text: ex })), h('span', { class: 'radio', 'aria-hidden': 'true' }))))),
+                h('div', null, h('b', { text: name }), h('span', { lang: ['yo', 'ha', 'ig'].includes(code) ? code : null, text: ex })), h('span', { class: 'radio', 'aria-hidden': 'true' }))))),
         h('div', { class: 'pg-foot' }, h('button', { class: 'btn p', type: 'button', onClick: () => showOv('onboard', { step: 2, hf: true }), text: t('cont') }))));
     } else {
       const opt = (on, title, desc, val) => h('button', { class: 'lang-row', type: 'button', role: 'radio', 'aria-checked': String(on), onClick: () => { d.hf = val; renderOv(); } },
@@ -1011,9 +1042,15 @@
   // ---------- language auto-detect ----------
   function detectLang(raw) {
     const n = L.norm(raw);
-    if (/[ẹọṣẸỌṢ]/.test(raw) || (n.match(/\b(pamo|egberun|elo|melo|owo|kini|nibo|mi|fun|ni|wa|nino|yo|fi|beeni|rara|ranti|leti|afojusun|mo|fe|ile|ranse|si|ra|kaadi)\b/g) || []).length >= 2) return 'yo';
-    if ((n.match(/\b(wetin|abeg|dey|wan|comot|una|fit|na|don|oya|wahala|abi|sef|sabi|make i|give)\b/g) || []).length >= 1 && !/\bgive me\b/.test(n)) return 'pcm';
-    if ((n.match(/\b(the|is|do|have|what|want|how|my|please|from|for|much|to|any)\b/g) || []).length >= 2) return 'en';
+    const count = (re) => (n.match(re) || []).length;
+    const ig = count(/\b(chekwaa|chekwa|debe|zipu|ziga|wepu|wepuo|ego|ole|puku|nari|ise|abuo|ato|ano|iri|ugwo|ulo|akwukwo|ndewo|kedu|enyemaka|achoro|maka|nye|kaadi|biko|nke|ka m|zuta|tupu|mberede)\b/g);
+    const ha = count(/\b(ajiye|adana|aika|tura|cire|nawa|kudi|kudin|dubu|dari|biyar|biyu|uku|hudu|goma|ashirin|haya|makaranta|sannu|taimako|ina son|zan|kake|kana|don|ga|kati|katin|walat|sayi|kafin|gaggawa)\b/g);
+    const yo = count(/\b(pamo|egberun|elo|melo|owo|kini|nibo|mi|fun|ni|wa|nino|yo|fi|beeni|rara|ranti|leti|afojusun|mo|fe|ile|ranse|si|ra|kaadi)\b/g);
+    if (/[ụị]/.test(raw) || (ig >= 2 && ig > ha && ig > yo)) return 'ig';
+    if (/[ẹṣ]/.test(raw) || (yo >= 2 && yo >= ha && yo >= ig)) return 'yo';
+    if (ha >= 2) return 'ha';
+    if (count(/\b(wetin|abeg|dey|wan|comot|una|fit|na|don|oya|wahala|abi|sef|sabi|make i|give)\b/g) >= 1 && !/\bgive me\b/.test(n)) return 'pcm';
+    if (count(/\b(the|is|do|have|what|want|how|my|please|from|for|much|to|any)\b/g) >= 2) return 'en';
     return null;
   }
   function maybeSwitch(raw) {
@@ -1040,7 +1077,7 @@
       const r = { intent: j.intent, amount: j.amount || null, goal: L.GOALS[j.goal] ? j.goal : null, customName: j.customName || null, day: (j.day ?? null), term: j.term || null, pct: j.pct || null, network: j.network || null };
       if (j.recipient) { r.contact = state.contacts.find(c => [c.name].concat(c.aliases).some(a => a.toLowerCase() === String(j.recipient).toLowerCase())) || null; if (!r.contact) r.unknownName = j.recipient; }
       if (j.deadlineMonth) { const now = new Date(); let d = new Date(now.getFullYear(), j.deadlineMonth - 1, 1); if (d - now < 14 * 864e5) d = new Date(now.getFullYear() + 1, j.deadlineMonth - 1, 1); r.deadline = d; }
-      if (j.lang && ['en', 'pcm', 'yo'].includes(j.lang) && j.lang !== state.lang) { state.lang = j.lang; persist(); render(); }
+      if (j.lang && ['en', 'pcm', 'yo', 'ha', 'ig'].includes(j.lang) && j.lang !== state.lang) { state.lang = j.lang; persist(); render(); }
       return r;
     } catch (e) {
       if (e && e.code === 'not_granted') sampleFn = null;
@@ -1466,10 +1503,10 @@
   }
   const chosenVoice = (lang) => (state.voices || {})[lang] || null;
   function wantsServerVoice(lang) {
-    if (state.voiceEngine === 'phone') return lang === 'yo' && backend.ttsYo && !phoneHasYoruba();
+    if (state.voiceEngine === 'phone') return ['yo', 'ha', 'ig'].includes(lang) && backend.ok && !phoneHasVoice(lang);
     return (lang === 'yo' && backend.ttsYo) || (lang === 'pcm' && backend.ttsPcm) || (lang === 'en' && backend.ttsEn) || (['ha', 'ig'].includes(lang) && backend.ok);
   }
-  function phoneHasYoruba() { try { return speechSynthesis.getVoices().some(x => /^yo/i.test(x.lang)); } catch (e) { return false; } }
+  function phoneHasVoice(lang) { try { return speechSynthesis.getVoices().some(x => new RegExp('^' + lang, 'i').test(x.lang)); } catch (e) { return false; } }
   async function speak(text, lang, force) {
     if (!text || (state.muted && !force)) return;
     stopSpeaking();
@@ -1487,8 +1524,8 @@
     if (!('speechSynthesis' in window)) return;
     const voices = speechSynthesis.getVoices();
     let v;
-    if (lang === 'yo') {
-      v = voices.find(x => /^yo/i.test(x.lang));
+    if (lang === 'yo' || lang === 'ha' || lang === 'ig') {
+      v = voices.find(x => new RegExp('^' + lang, 'i').test(x.lang));
       if (!v) { if (!warnedYo) { warnedYo = true; status(t('noYoVoice')); } return; }
     } else {
       // Prefer the phone's most natural English voice: Nigerian, then other African/British, then any; "natural"/"enhanced" ones first.
@@ -1748,7 +1785,7 @@
       if (d.resume) return reply(R('cancelled'));
       if (d.fromOnboard) reply(R('welcome'));
     };
-    const sentences = h('div', { class: 'kv', style: 'padding:6px 16px' }, T.sentences[state.lang].map(s => h('p', { style: 'margin:10px 0;font-size:16px;font-weight:600;line-height:1.45', text: s })));
+    const sentences = h('div', { class: 'kv', style: 'padding:6px 16px' }, (T.sentences[state.lang] || T.sentences.en).map(s => h('p', { style: 'margin:10px 0;font-size:16px;font-weight:600;line-height:1.45', text: s })));
     if (d.stage === 'done') {
       return pageWrap(el, t('vidTitle'), leave, [
         h('div', { class: 'done' }, h('span', { class: 'ok' }, icon('check', 30, 2.4)), h('h1', { text: t('enrollDoneT') }), h('p', { style: 'margin:0;color:var(--text2)', text: t('enrollDoneB') }))],
@@ -1788,7 +1825,7 @@
   function engineText() {
     const parts = [];
     parts.push(SR && !(state.hearSpitch && backend.ok) ? 'English/Pidgin: phone' : (backend.ok ? 'English/Pidgin: Spitch' : 'English/Pidgin: typing only'));
-    parts.push(backend.sttYo ? 'Yorùbá: Spitch' : 'Yorùbá: typing (connect Spitch for voice)');
+    parts.push(backend.sttYo ? 'Yorùbá, Hausa, Igbo: Spitch' : 'Yorùbá, Hausa, Igbo: typing (connect Spitch for voice)');
     if (backend.ttsPcm) parts.push('Pidgin replies: Spitch');
     return parts.join(' · ');
   }
@@ -1811,7 +1848,8 @@
     $('mic').classList.toggle('live', on);
     showListen(on ? 'listen' : null);
   }
-  function canListen() { return !micDenied && ((state.lang === 'yo' && backend.sttYo) || SR || backend.ok); }
+  const spitchLang = () => ['yo', 'ha', 'ig'].includes(state.lang);
+  function canListen() { return !micDenied && (spitchLang() ? backend.ok : (SR || backend.ok)); }
 
   function startListening() {
     if (listening || vid.starting) return;
@@ -1822,7 +1860,7 @@
       return vidEngine().then((engine) => { vid.starting = false; startRecording({ verify: engine }); })
         .catch(() => { vid.starting = false; status(t('vidErrShort')); startRecording(); });
     }
-    if (state.lang === 'yo' && backend.sttYo) return startRecording();
+    if (spitchLang()) { if (backend.ok) return startRecording(); status(t('needsSpitchLang')); return showOv('type'); }
     if (SR && !(state.hearSpitch && backend.ok)) return startBrowserSR();
     if (backend.ok) return startRecording();
     voiceUnavailable();
@@ -1882,7 +1920,7 @@
       emptyRuns = 0;
       showListen('work'); busy = true;
       try {
-        const lang = state.lang === 'yo' ? 'yo' : 'en';
+        const lang = spitchLang() ? state.lang : 'en';
         const res = await fetch('api/transcribe?lang=' + lang, { method: 'POST', headers: { 'Content-Type': blob.type.split(';')[0] }, body: blob });
         const j = await res.json();
         if (!res.ok || !j.text) throw new Error(j.error || 'no text');
@@ -2311,6 +2349,7 @@
     const err = d.err ? h('p', { class: 'tries', role: 'alert', text: d.err }) : null;
     pageWrap(el, t('addHelper'), closeOv, [
       h('p', { style: 'margin:0;color:var(--text2)', text: t('circleDesc') }),
+      !backend.db ? h('div', { class: 'notice', role: 'note' }, icon('alert', 18), h('div', null, h('b', { text: t('demoModeT') }), h('span', { text: t('demoBanner') }))) : null,
       field('hf-name', t('helperName'), 'name', { autocomplete: 'off', placeholder: 'Bisi' }),
       h('div', null, h('span', { class: 'lbl', text: t('whatCanTheyDo') }), roles),
       d.role === 'spender' ? h('div', null, h('span', { class: 'lbl', text: t('monthlyLimit') }),
