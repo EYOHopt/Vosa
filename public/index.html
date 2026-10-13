@@ -874,6 +874,7 @@ body { background: #E6EAE8; }
       if (/\b(my helpers|trusted circle|who (are|be) my helpers|who (has|don|fit|can) (see|seen)|who see my account|who check(ed)? my account)\b/.test(t0)) { r.intent = 'helpers'; return r; }
     }
     if (/\b(voice ?id|voiceprint|voice print|my voice)\b/.test(t0) && /\b(set ?up|add|turn on|enable|start|redo|teach|learn|register|sabi)\b/.test(t0)) { r.intent = 'voicesetup'; return r; }
+    if (/\b(last receipt|my receipt|read (me )?(my |the )?receipt|last transaction|last payment|what did i (just )?do|what was (my|the) last|wetin i do last|last thing i do|iwe owo mi|idunadura (mi )?to koja)\b/.test(t0)) { r.intent = 'receipt'; return r; }
     // Voice Promise: "record a promise for rent", "play my promise", "add a promise to school fees"
     if (/\b(promise|promis|ileri)\b/.test(t0)) {
       r.intent = 'promise'; r.play = /\b(play|hear|listen|replay|gbo)\b/.test(t0) && !/\b(record|add|make|new|redo|change)\b/.test(t0);
@@ -1060,6 +1061,29 @@ body { background: #E6EAE8; }
     promiseReady: { en: 'The 24 hours have passed, so this one goes through.', pcm: 'The 24 hours don pass, so this one go pass.', yo: 'Wákàtí 24 ti kọjá, nítorí náà èyí yóò kọjá.' },
     askedHelperW: { en: 'I have asked {names} to approve taking {amt} out of {goal}. They may call you first. I will tell you when they answer.', pcm: 'I don ask {names} make dem approve to comot {amt} from {goal}. Dem fit call you first. I go tell you when dem answer.', yo: 'Mo ti béèrè lọ́wọ́ {names} láti fọwọ́ sí yíyọ {amt} kúrò nínú {goal}. Wọ́n lè pè ọ́ ná. Màá sọ fún ọ nígbà tí wọ́n bá dáhùn.' },
     promiseReached: { en: ' You kept your promise.', pcm: ' You keep your promise.', yo: ' O pa ìlérí rẹ mọ́.' },
+    receiptNone: { en: 'You have not done anything yet.', pcm: 'You never do anything yet.', yo: 'O kò tíì ṣe ohunkóhun.' },
+    receipt: {
+      en: 'Your last transaction: {when}, {what}{how}. Reference {ref}.',
+      pcm: 'Your last transaction: {when}, {what}{how}. Reference na {ref}.',
+      yo: 'Ìdúnàdúrà rẹ tó kọjá: {when}, {what}{how}. Nọ́ńbà ìtọ́kasí {ref}.'
+    },
+    rSend: { en: 'you sent {amt} to {n} at {bank}', pcm: 'you send {amt} give {n} for {bank}', yo: 'o fi {amt} ránṣẹ́ sí {n} ní {bank}' },
+    rSave: { en: 'you saved {amt} to {g}', pcm: 'you keep {amt} for {g}', yo: 'o fi {amt} pamọ́ sí {g}' },
+    rMove: { en: 'you moved {amt} from {g} to your wallet', pcm: 'you comot {amt} from {g} go your wallet', yo: 'o gbé {amt} láti {g} sí àpò rẹ' },
+    rAirtime: { en: 'you bought {amt} {n} airtime', pcm: 'you buy {amt} {n} card', yo: 'o ra káàdì ìpè {n} {amt}' },
+    rIn: { en: 'you received {amt} from {n}', pcm: '{n} send you {amt}', yo: 'o gba {amt} láti ọ̀dọ̀ {n}' },
+    rHow: { en: ', verified with {v}', pcm: ', verified with {v}', yo: ', tí a fọwọ́ sí pẹ̀lú {v}' },
+    promiseRuleQ: {
+      en: ' If you ever need this money in an emergency, what should I do? Say: just confirm, ask my helper, or hold for 24 hours.',
+      pcm: ' If emergency come and you need this money, wetin I go do? Talk: just confirm, ask my helper, or hold am for 24 hours.',
+      yo: ' Tí pàjáwìrì bá dé tí o sì nílò owó yìí, kí ni kí n ṣe? Sọ pé: kàn jẹ́rìí, béèrè lọ́wọ́ olùrànlọ́wọ́ mi, tàbí dá a dúró fún wákàtí 24.'
+    },
+    promiseRuleSet: { en: 'Okay. In an emergency I will {rule}. You can change this on the goal’s page.', pcm: 'Okay. If emergency come, I go {rule}. You fit change am for the goal page.', yo: 'Ó dára. Nínú pàjáwìrì màá {rule}. O lè yí i padà lójú ewé èròngbà náà.' },
+    ruleConfirm: { en: 'let it through once you confirm', pcm: 'let am pass once you confirm', yo: 'jẹ́ kí ó kọjá tí o bá jẹ́rìí' },
+    ruleHelper: { en: 'ask your helper first', pcm: 'ask your helper first', yo: 'béèrè lọ́wọ́ olùrànlọ́wọ́ rẹ ná' },
+    ruleWait: { en: 'hold it for 24 hours', pcm: 'hold am for 24 hours', yo: 'dá a dúró fún wákàtí 24' },
+    promiseOwn: { en: 'Since it is an emergency, confirm and it is yours.', pcm: 'Since na emergency, confirm am and e be your own.', yo: 'Níwọ̀n bí ó ti jẹ́ pàjáwìrì, jẹ́rìí, tìrẹ ni.' },
+    promiseWait: { en: 'Since it is an emergency, I will hold {amt} for 24 hours as you asked. Ask me again after {when}.', pcm: 'Since na emergency, I go hold {amt} for 24 hours as you talk. Ask me again after {when}.', yo: 'Níwọ̀n bí ó ti jẹ́ pàjáwìrì, màá dá {amt} dúró fún wákàtí 24 bí o ti béèrè. Tún béèrè lẹ́yìn {when}.' },
     voiceSample: { en: 'Hello, I am {v}. I can help you save money, send money, and keep your savings safe. Just talk to me.', pcm: 'Hello, na {v} be this. I fit help you save money, send money, and keep your savings safe. Just talk to me.', yo: 'Báwo, {v} ni mí. Mo lè ràn ọ́ lọ́wọ́ láti fi owó pamọ́, fi owó ránṣẹ́, kí n sì dáàbò bo owó rẹ. Kàn bá mi sọ̀rọ̀.' },
     notCaught: { en: "I didn't catch that.", pcm: 'I no catch am well.', yo: 'Mi ò gbọ́ ọ dáadáa.' },
     sayDigits: { en: 'Say the 10 digits slowly, one by one.', pcm: 'Call the 10 numbers slowly, one by one.', yo: 'Sọ àwọn nọ́ńbà mẹ́wàá náà díẹ̀díẹ̀, ní ọ̀kọ̀ọ̀kan.' },
@@ -1472,7 +1496,13 @@ body { background: #E6EAE8; }
     imListening: { en: "I'm listening…", pcm: 'I dey listen…', yo: 'Mo ń gbọ́…' },
     typePhrase: { en: 'or type it below', pcm: 'or type am for down', yo: 'tàbí kọ ọ́ sí ìsàlẹ̀' },
     triesLeft: { en: '{n} tries left', pcm: '{n} tries remain', yo: 'Ìgbìyànjú {n} ló kù' },
-    fingerprint: { en: 'Use fingerprint (demo)', yo: 'Lo ìka (àpẹẹrẹ)' },
+    fingerprint: { en: 'Use phone unlock', pcm: 'Use phone unlock', yo: 'Lo ìṣí fóònù' },
+    phoneLockT: { en: 'Phone unlock for big transfers', pcm: 'Phone unlock for big transfer', yo: 'Ìṣí fóònù fún owó ńlá' },
+    phoneLockD: { en: 'Optional extra lock: your phone’s fingerprint or face is also asked for transfers at or above your approval limit. Leave it off if you cannot use it.', pcm: 'Extra lock wey you fit choose: your phone fingerprint or face go also dey asked for transfer wey reach your approval limit. Leave am off if you no fit use am.', yo: 'Ìtìpa àfikún: ìka tàbí ojú fóònù rẹ ni a tún máa béèrè fún owó tó tó ààlà rẹ. Fi í sílẹ̀ tí o kò bá lè lò ó.' },
+    phoneLockNo: { en: 'This phone has no fingerprint or face unlock available to the browser.', pcm: 'This phone no get fingerprint or face unlock wey browser fit use.', yo: 'Fóònù yìí kò ní ìka tàbí ojú tí ẹ̀rọ ìkíri lè lò.' },
+    phoneLockSet: { en: 'Phone unlock is on for big transfers.', pcm: 'Phone unlock don on for big transfer.', yo: 'Ìṣí fóònù ti wà fún owó ńlá.' },
+    phoneLockFail: { en: 'Phone unlock did not succeed. Try again, or cancel.', pcm: 'Phone unlock no work. Try again or cancel.', yo: 'Ìṣí fóònù kò ṣàṣeyọrí. Tún gbìyànjú tàbí fagilé.' },
+    phoneLockAsk: { en: 'This is a big transfer, so your phone will also ask for your fingerprint or face.', pcm: 'Na big transfer, so your phone go also ask for your fingerprint or face.', yo: 'Owó ńlá nìyí, fóònù rẹ yóò tún béèrè ìka tàbí ojú rẹ.' },
     listenYesNo: { en: 'Listening for “yes” or “no”', pcm: 'I dey wait for “yes” or “no”', yo: 'Mo ń gbọ́ “bẹ́ẹ̀ni” tàbí “rárá”' },
     savedTo: { en: 'Saved to {g}', pcm: 'E don enter {g}', yo: 'Ó ti wọ {g}' },
     sentTo: { en: 'Sent to {n}', pcm: 'E don reach {n}', yo: 'Ó ti dé ọ̀dọ̀ {n}' },
@@ -1551,6 +1581,13 @@ body { background: #E6EAE8; }
     switched: { en: 'Switched to English', pcm: 'I don switch to Pidgin', yo: 'Mo ti yí padà sí Yorùbá' },
     noYoVoice: { en: 'Yorùbá voice replies need the speech service. Showing text.', pcm: 'Yorùbá voice need the speech service. I go show am as text.', yo: 'Ohùn Yorùbá nílò iṣẹ́ ohùn. Mo ń fi ọ̀rọ̀ hàn.' },
     promiseT: { en: 'Voice Promise', pcm: 'Voice Promise', yo: 'Ìlérí Ohùn' },
+    ruleT: { en: 'In an emergency', pcm: 'If emergency come', yo: 'Nínú pàjáwìrì' },
+    ruleQ: { en: 'If you ever need this money in an emergency, what should Vosa do?', pcm: 'If emergency come and you need this money, wetin Vosa go do?', yo: 'Tí pàjáwìrì bá dé tí o sì nílò owó yìí, kí ni kí Vosa ṣe?' },
+    ruleConfirmT: { en: 'Just confirm', pcm: 'Just confirm', yo: 'Kàn jẹ́rìí' }, ruleConfirmD: { en: 'Your secret phrase and Voice ID are enough. Full independence.', pcm: 'Your secret phrase and Voice ID dey enough. Na you dey control am.', yo: 'Ọ̀rọ̀ àṣírí àti Voice ID rẹ ti tó.' },
+    ruleHelperT: { en: 'Ask my helper', pcm: 'Ask my helper', yo: 'Béèrè lọ́wọ́ olùrànlọ́wọ́ mi' }, ruleHelperD: { en: 'Your approver says yes first. They may call you. Like a witness at ajo.', pcm: 'Your approver go talk yes first. Dem fit call you. Like witness for ajo.', yo: 'Olùfọwọ́sí rẹ yóò sọ bẹ́ẹ̀ni ná. Bí ẹlẹ́rìí nínú àjọ.' },
+    ruleWaitT: { en: 'Hold for 24 hours', pcm: 'Hold am for 24 hours', yo: 'Dá a dúró fún wákàtí 24' }, ruleWaitD: { en: 'Nobody else involved. You get a day to think.', pcm: 'Nobody else dey involved. You get one day to think.', yo: 'Kò sí ẹlòmíràn. O ní ọjọ́ kan láti ronú.' },
+    ruleNeedsHelper: { en: 'Add an approver first. Until then this works like “Hold for 24 hours”.', pcm: 'Add approver first. Until then e go work like “Hold am for 24 hours”.', yo: 'Fi olùfọwọ́sí kún un ná. Títí di ìgbà náà yóò ṣiṣẹ́ bí “Dá a dúró fún wákàtí 24”.' },
+    saveRule: { en: 'Save', pcm: 'Save', yo: 'Pa mọ́' }, change: { en: 'Change', pcm: 'Change', yo: 'Yí padà' },
     promiseRow: { en: 'Recorded {d}', pcm: 'Recorded {d}', yo: 'A gbà á sílẹ̀ {d}' }, promiseNoneRow: { en: 'Protect this money with your own voice', pcm: 'Protect this money with your own voice', yo: 'Dáàbò bo owó yìí pẹ̀lú ohùn rẹ' },
     promiseRec: { en: 'Record', pcm: 'Record', yo: 'Gbà sílẹ̀' }, promiseRedo: { en: 'Record again', pcm: 'Record again', yo: 'Tún gbà sílẹ̀' }, promiseKeep: { en: 'Keep this promise', pcm: 'Keep this promise', yo: 'Pa ìlérí yìí mọ́' },
     promisePlayBtn: { en: 'Play', pcm: 'Play', yo: 'Gbọ́' }, promiseAgain: { en: 'Play again', pcm: 'Play again', yo: 'Tún gbọ́' },
@@ -1643,7 +1680,7 @@ body { background: #E6EAE8; }
     enrollT: { en: 'Teach Vosa your voice', pcm: 'Make Vosa sabi your voice', yo: 'Kọ́ Vosa ní ohùn rẹ' },
     enrollIntro: { en: 'Read these sentences out loud in your normal voice. Keep reading until the bar is full. It takes about 20 seconds.', pcm: 'Read these lines out for your normal voice. Continue until the bar full. E go take like 20 seconds.', yo: 'Ka àwọn gbólóhùn yìí sókè ní ohùn rẹ déédé. Máa kà á títí ìlà náà yóò fi kún. Ó máa gba ìṣẹ́jú-àáyá 20.' },
     enrollPrivT: { en: 'Stays on this phone', pcm: 'E dey only for this phone', yo: 'Ó wà lórí fóònù yìí nìkan' },
-    enrollPriv: { en: 'Your voiceprint is made and stored on this phone. Your voice is not sent anywhere.', pcm: 'Na this phone dey keep your voiceprint. We no dey send your voice go anywhere.', yo: 'Fóònù yìí ni a ti ṣe ohùn rẹ, ibẹ̀ náà ni ó wà. A kì í fi ohùn rẹ ránṣẹ́ sí ibikíbi.' },
+    enrollPriv: { en: 'Your voiceprint is made and kept on this phone and never leaves it. What you say is sent to Spitch only to be understood, and is not kept.', pcm: 'Na this phone dey make and keep your voiceprint; e no dey comot. Wetin you talk dey go Spitch only make e understand am, and e no dey keep am.', yo: 'Fóònù yìí ni a ti ṣe àmì ohùn rẹ, ibẹ̀ náà ni ó wà. Ohun tí o sọ ni a ń fi ránṣẹ́ sí Spitch kí ó lè gbọ́ ọ nìkan, a kì í pa á mọ́.' },
     start: { en: 'Start', pcm: 'Start', yo: 'Bẹ̀rẹ̀' }, skip: { en: 'Skip for now', pcm: 'Skip am for now', yo: 'Fò ó fún báyìí' },
     enrollRec: { en: 'Listening… keep reading', pcm: 'I dey hear you… continue to read', yo: 'Mo ń gbọ́… máa kà á lọ' },
     enrollKeep: { en: 'Read the lines again from the top if you finish before the bar is full.', pcm: 'If you finish before the bar full, start again from the top.', yo: 'Tí o bá parí kí ìlà tó kún, tún un kà láti òkè.' },
@@ -1722,7 +1759,7 @@ body { background: #E6EAE8; }
     verifiedBy: { en: 'Verified with', pcm: 'Checked with', yo: 'A fi ṣàyẹ̀wò' },
     verifyAll: { en: 'Phrase, numbers, voice ({p}%)', yo: 'Ọ̀rọ̀, nọ́ńbà, ohùn ({p}%)' },
     verifyNoVoice: { en: 'Phrase and numbers', yo: 'Ọ̀rọ̀ àti nọ́ńbà' },
-    verifyFp: { en: 'Fingerprint (demo)', yo: 'Ìka (àpẹẹrẹ)' },
+    verifyFp: { en: 'Phone unlock', pcm: 'Phone unlock', yo: 'Ìṣí fóònù' },
     welcomeH: { en: 'Welcome to Vosa', pcm: 'Welcome to Vosa', yo: 'Ẹ kú àbọ̀ sí Vosa' }
   };
   const EXAMPLES = {
@@ -2042,6 +2079,7 @@ body { background: #E6EAE8; }
         backend.voiceId ? h('button', { class: 'link', type: 'button', text: state.voicePrint ? t('redo') : t('setUp'), onClick: () => showOv('enroll', { stage: 'intro' }) }) : null),
       backend.voiceId ? row(t('requireVoice'), t('requireVoiceDesc'), sw(state.requireVoice !== false, () => { state.requireVoice = state.requireVoice === false; persist(); render(); }, t('requireVoice'))) : null,
       voiceIdOn() ? row(t('strictness'), t('strictDesc'), seg(t('strictness'), [[0.4, t('relaxed')], [0.5, t('normal')], [0.6, t('strict')]], state.voiceStrict, (v) => { state.voiceStrict = v; persist(); render(); })) : null,
+      row(t('phoneLockT'), t('phoneLockD'), sw(phoneLockOn(), () => { if (phoneLockOn()) { state.phoneLock = false; state.passkeyId = null; persist(); render(); } else phoneLockEnable(); }, t('phoneLockT'))),
       voiceIdOn() ? row(t('removeVoice'), null, h('button', { class: 'link', type: 'button', style: 'color:var(--danger)', text: t('remove'), onClick: () => { state.voicePrint = null; persist(); render(); } })) : null));
     v.append(h('h2', { class: 'group-t', text: t('gCircle') }), settingsCircle(row));
     v.append(h('h2', { class: 'group-t', text: t('gAccess') }), h('div', { class: 'group', style: 'margin-top:0' },
@@ -2160,7 +2198,7 @@ body { background: #E6EAE8; }
         h('input', { class: 'field', id: 'phrase-in', type: 'password', placeholder: t('phraseNumsPh'), autocomplete: 'off' }),
         h('button', { class: 'btn p', type: 'submit', text: t('confirmBtn') })));
       else kids.push(h('button', { class: 'btn p', type: 'button', onClick: () => { micDenied = false; startListening(); } }, icon('mic', 20), t('speakNow')));
-      kids.push(h('button', { class: 'btn o', type: 'button', onClick: () => { lastHeard = t('fingerprint'); pending.verified = t('verifyFp'); execute(); } }, icon('finger', 20), t('fingerprint')));
+      if (phoneLockOn()) kids.push(h('button', { class: 'btn o', type: 'button', onClick: async () => { const p = pending; const ok = await phoneLockVerify(); if (pending !== p) return; if (!ok) return reply(t('phoneLockFail')); lastHeard = t('fingerprint'); p.phoneOk = true; p.verified = t('verifyFp'); execute(); } }, icon('finger', 20), t('fingerprint')));
     } else {
       kids.push(h('button', { class: 'btn p', type: 'button', onClick: () => { lastHeard = t('yesShort'); execute(); } }, yes || t('yesShort')));
       kids.push(h('p', { class: 'heard', style: 'text-align:center;margin-top:-6px', text: t('listenYesNo') }));
@@ -2332,9 +2370,12 @@ body { background: #E6EAE8; }
         h('div', null, h('span', { text: t('saveEach') }), h('b', { class: 'num', text: st && st.weekly ? fmt(st.weekly) : '—' }), st ? h('span', { class: 'pill-s ' + st.cls, style: 'margin-top:4px', text: st.cls ? t('behindShort') : t('onTrackShort') }) : null)),
       g.target && navigator.mediaDevices && window.MediaRecorder ? h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon('mic', 18)),
         h('div', { style: 'flex:1;min-width:0' }, h('b', { text: t('promiseT') }), h('span', { text: g.promise ? t('promiseRow', { d: new Date(g.promise.at).toLocaleDateString('en-NG', { day: 'numeric', month: 'short' }) }) : t('promiseNoneRow') })),
-        h('div', { style: 'display:flex;gap:4px;flex:0 0 auto' },
+        h('div', { style: 'display:flex;gap:14px;flex:0 0 auto' },
           g.promise ? h('button', { class: 'link', type: 'button', text: t('promisePlayBtn'), onClick: () => { showOv('promise', { ref: d.ref, stage: 'listen', back: d.ref }); setTimeout(() => playPromise(g), 300); } }) : null,
           h('button', { class: 'link', type: 'button', text: g.promise ? t('promiseRedo') : t('promiseRec'), onClick: () => showOv('promise', { ref: d.ref, stage: 'intro', back: d.ref }) }))) : null,
+      g.promise ? h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon(ruleOf(g) === 'confirm' ? 'check' : ruleOf(g) === 'wait' ? 'clock' : 'shield', 18)),
+        h('div', { style: 'flex:1;min-width:0' }, h('b', { text: t('ruleT') }), h('span', { text: t('rule' + cap(ruleOf(g)) + 'T') })),
+        h('button', { class: 'link', type: 'button', text: t('change'), onClick: () => showOv('promise', { ref: d.ref, stage: 'rule', rule: ruleOf(g), back: d.ref }) })) : null,
       h('section', null, h('h2', { class: 'day', style: 'margin:4px 0 0', text: t('history') }),
         hist.length ? h('div', null, hist.slice(0, 5).map(actRow)) : h('p', { class: 'empty', text: t('noHistory') }))],
       [h('div', { class: 'row2' },
@@ -2429,6 +2470,7 @@ body { background: #E6EAE8; }
     const p = pending; pending = null; closeOv();
     if (p && p.type === 'promiseq') return reply(R('promiseKept', { goal: label(p.goal) }));
     if (p && p.type === 'promise-offer') return reply(R('cancelled'));
+    if (p && p.type === 'promiserule') return setPromiseRule(p.goal, p.goal.promiseRule || (hasApprover() ? 'helper' : 'confirm'));
     reply(R('cancelled'));
   }
 
@@ -2445,6 +2487,11 @@ body { background: #E6EAE8; }
     maybeSwitch(raw);
     renderTalk();
     let r = L.understand(raw, { pending: !!pending, awaiting: awaiting && awaiting.slot, contacts: state.contacts, helpers: (state.helpers || []).map(x => x.name) });
+    if (pending && pending.type === 'promiserule') {
+      const rule = promiseRuleFrom(raw);
+      if (rule) { const g = pending.goal; pending = null; closeOv(); return setPromiseRule(g, rule); }
+      return reply(R('promiseRuleQ').trim());
+    }
     if (cloud.waiting) {
       if (/\b(no|cancel|stop|forget am|leave am|rara|fagile)\b/.test(L.norm(raw))) return cancelApproval();
       return reply(t('waitBody', { n: cloud.waiting.names }));
@@ -2463,7 +2510,7 @@ body { background: #E6EAE8; }
       }
       if (isPhrase && digitsOk && voiceOk) {
         pending.verified = voiceIdOn() ? t('verifyAll', { p: Math.round(opts.voice.score * 100) }) : t('verifyNoVoice');
-        return execute();
+        return phoneLockThenExecute();
       }
       pending.tries = (pending.tries || 0) + 1;
       if (pending.tries >= 3) {
@@ -2640,6 +2687,18 @@ body { background: #E6EAE8; }
         removeHelper(hp);
         return reply(R('helperRemoved', { name: hp.name }));
       }
+      case 'receipt': {
+        const a = state.activity[0];
+        if (!a) return reply(R('receiptNone'));
+        const when = new Date(a.at).toLocaleString('en-NG', { weekday: 'long', hour: 'numeric', minute: '2-digit' });
+        const gl = a.g ? (a.g.name || (L.GOALS[a.g.key] || L.GOALS.flex)[state.lang] || (L.GOALS[a.g.key] || L.GOALS.flex).en) : '';
+        const what = a.kind === 'send' ? R('rSend', { amt: fmt(a.amt), n: a.n, bank: (a.detail || '').split(' ••••')[0] })
+          : a.kind === 'airtime' ? R('rAirtime', { amt: fmt(a.amt), n: a.n })
+          : a.kind === 'in' ? R('rIn', { amt: fmt(a.amt), n: a.n })
+          : a.kind === 'move' ? R('rMove', { amt: fmt(a.amt), g: gl }) : R('rSave', { amt: fmt(a.amt), g: gl });
+        const how = a.verified ? R('rHow', { v: a.verified }) : '';
+        return reply(R('receipt', { when, what, how, ref: a.ref || '—' }));
+      }
       case 'voicesetup':
         if (!backend.voiceId) return reply(t('vidNeedsKey'));
         showOv('enroll', { stage: 'intro' }); return reply(R('voiceSetupGo'));
@@ -2699,11 +2758,12 @@ body { background: #E6EAE8; }
     if (p.type === 'save' || p.type === 'nudge') {
       if (state.wallet < p.amount) return lowWallet(p.amount);
       state.wallet -= p.amount; g.bal += p.amount;
-      logAct({ kind: 'save', g: gref(g), amt: p.amount });
+      const rf = ref();
+      logAct({ kind: 'save', g: gref(g), amt: p.amount, ref: rf });
       let msg = R('doneSave', { goal: label(g), bal: fmt(g.bal), prog: progVars(g) });
       if (g.target && g.bal >= g.target) { msg += R('reached'); if (g.promise) { msg += R('promiseReached'); setTimeout(() => playPromise(g), 400); } }
       flashGoal = g; persist(); render();
-      showOv('success', { title: t('savedTo', { g: label(g) }), amount: p.amount, sub: g.target ? Math.min(100, Math.round(g.bal / g.target * 100)) + '% ' + t('of') + ' ' + fmt(g.target) : fmt(g.bal) });
+      showOv('success', { title: t('savedTo', { g: label(g) }), amount: p.amount, sub: g.target ? Math.min(100, Math.round(g.bal / g.target * 100)) + '% ' + t('of') + ' ' + fmt(g.target) : fmt(g.bal), ref: rf });
       return reply(msg);
     }
     if (p.type === 'withdraw') {
@@ -2713,9 +2773,10 @@ body { background: #E6EAE8; }
       }
       g.bal -= p.amount; state.wallet += p.amount; delete g.hold;
       if (p.approvedBy) p.verified = [p.verified, t('approvedBy', { n: p.approvedBy })].filter(Boolean).join(' · ');
-      logAct({ kind: 'move', g: gref(g), amt: p.amount });
+      const rf = ref();
+      logAct({ kind: 'move', g: gref(g), amt: p.amount, ref: rf, verified: p.verified });
       persist(); render();
-      showOv('success', { title: t('moved'), amount: p.amount, sub: label(g) + ': ' + fmt(g.bal), verified: p.verified });
+      showOv('success', { title: t('moved'), amount: p.amount, sub: label(g) + ': ' + fmt(g.bal), verified: p.verified, ref: rf });
       return reply((p.approvedBy ? R('helperApproved', { name: p.approvedBy }) : '') + R('doneWithdraw', { amt: fmt(p.amount), goal: label(g), bal: fmt(g.bal) }));
     }
     if (p.type === 'goal') {
@@ -2729,24 +2790,29 @@ body { background: #E6EAE8; }
     }
     if (p.type === 'promise-offer') { showOv('promise', { ref: gref(g), stage: 'intro' }); return reply(R('promiseIntro')); }
     if (p.type === 'promiseq') {
-      // "Yes, it's an emergency": a helper must approve, then the usual confirmation. No helper: hold it for 24 hours.
+      // "Yes, it's an emergency": follow the rule the owner chose when they recorded the promise.
       closeOv();
+      const rule = ruleOf(g);
       const ap = (state.helpers || []).filter(x => x.role === 'approver' && x.status === 'active');
-      if (ap.length) {
+      if (rule === 'confirm') {
+        return confirmWith({ type: 'withdraw', amount: p.amount, goal: g, needsPhrase: true, promiseOk: true }, R('promiseOwn') + ' ' + R('confirmWithdraw', { amt: fmt(p.amount), goal: label(g) }));
+      }
+      if (rule === 'helper' && ap.length) {
         const names = joinNames(ap.map(x => x.name));
         return confirmWith({ type: 'withdraw', amount: p.amount, goal: g, needsPhrase: true, emergency: true, promiseOk: true }, R('promiseHelper', { names }) + ' ' + R('confirmWithdraw', { amt: fmt(p.amount), goal: label(g) }));
       }
       g.hold = { amount: p.amount, until: Date.now() + 24 * 3600e3 };
       persist(); render();
-      const text = R('promiseHold', { amt: fmt(p.amount), when: timeLabel(g.hold.until) });
-      return fail({ tone: 'warn', icon: 'clock', k: t('promiseT'), title: text, actions: [okAction(), { label: t('addHelper'), fn: () => showOv('helper-form', {}) }] }, text);
+      const text = rule === 'wait' ? R('promiseWait', { amt: fmt(p.amount), when: timeLabel(g.hold.until) }) : R('promiseHold', { amt: fmt(p.amount), when: timeLabel(g.hold.until) });
+      return fail({ tone: 'warn', icon: 'clock', k: t('promiseT'), title: text, actions: rule === 'wait' ? [okAction()] : [okAction(), { label: t('addHelper'), fn: () => showOv('helper-form', {}) }] }, text);
     }
     if (p.type === 'send') {
       if (state.wallet < p.amount) return lowWallet(p.amount);
       // Trusted Circle: big or unusual transfers wait for a helper's approval
       if (!p.approved) { const info = approversFor(p); if (info.list.length) return askApproval(p, info); }
       state.wallet -= p.amount;
-      logAct({ kind: 'send', n: p.to.name, amt: p.amount, detail: p.to.bank + ' •••• ' + p.to.acct.slice(-4) });
+      const rf = ref();
+      logAct({ kind: 'send', n: p.to.name, amt: p.amount, detail: p.to.bank + ' •••• ' + p.to.acct.slice(-4), ref: rf, verified: p.verified });
       let msg = (p.approvedBy ? R('helperApproved', { name: p.approvedBy }) : '') + R('doneSend', { name: p.to.name, amt: fmt(p.amount), wallet: fmt(state.wallet) });
       if (p.approvedBy) p.verified = [p.verified, t('approvedBy', { n: p.approvedBy })].filter(Boolean).join(' · ');
       const nudge = roundTo(p.amount * 0.1, 500);
@@ -2756,16 +2822,17 @@ body { background: #E6EAE8; }
         pending = { type: 'nudge', amount: nudge, goal: flex };
       }
       persist(); render();
-      showOv('success', { title: t('sentTo', { n: p.to.name }), amount: p.amount, sub: p.to.bank + ' •••• ' + p.to.acct.slice(-4), verified: p.verified });
+      showOv('success', { title: t('sentTo', { n: p.to.name }), amount: p.amount, sub: p.to.bank + ' •••• ' + p.to.acct.slice(-4), verified: p.verified, ref: rf });
       return reply(msg);
     }
     if (p.type === 'airtime') {
       if (state.wallet < p.amount) return lowWallet(p.amount);
       state.wallet -= p.amount;
       const who = /^\d+$/.test(p.who) ? masked(p.who) : masked(state.myPhone);
-      logAct({ kind: 'airtime', n: p.net, amt: p.amount, detail: who });
+      const rf = ref();
+      logAct({ kind: 'airtime', n: p.net, amt: p.amount, detail: who, ref: rf });
       persist(); render();
-      showOv('success', { title: t('airtimeSent'), amount: p.amount, sub: p.net + ' · ' + who });
+      showOv('success', { title: t('airtimeSent'), amount: p.amount, sub: p.net + ' · ' + who, ref: rf });
       return reply(R('doneAirtime', { amt: fmt(p.amount), net: p.net, who: p.who, wallet: fmt(state.wallet) }));
     }
   }
@@ -3334,6 +3401,7 @@ body { background: #E6EAE8; }
       { label: t('ok'), fn: closeOv }] });
   }
 
+  if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) window.vosaSay = (text) => handle(text, { via: 'voice' });
   $('mic').addEventListener('click', () => {
     if (listening) {
       if (rec) { try { rec.stop(); } catch (e) {} }
@@ -3552,12 +3620,70 @@ body { background: #E6EAE8; }
     sheetWrap(el, kids, () => {});
   }
 
+  // ---------- Phone unlock (optional extra lock) ----------
+  // Uses the phone's own fingerprint or face through the browser (WebAuthn, platform authenticator).
+  // Checked on the phone only; this prototype does not verify the signature on a server.
+  const b64u = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  const unb64u = (str) => { const b = atob(str.replace(/-/g, '+').replace(/_/g, '/')); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u.buffer; };
+  async function phoneLockAvailable() {
+    try { return !!(window.PublicKeyCredential && await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()); } catch (e) { return false; }
+  }
+  async function phoneLockEnable() {
+    if (!(await phoneLockAvailable())) { status(t('phoneLockNo')); return false; }
+    try {
+      const uid = crypto.getRandomValues(new Uint8Array(16));
+      const cred = await navigator.credentials.create({ publicKey: {
+        challenge: crypto.getRandomValues(new Uint8Array(32)), rp: { name: 'Vosa' },
+        user: { id: uid, name: 'vosa-user', displayName: state.myName || 'Vosa user' },
+        pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
+        authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required', residentKey: 'preferred' }, timeout: 60000 } });
+      state.passkeyId = b64u(cred.rawId); state.phoneLock = true; persist(); render();
+      status(t('phoneLockSet')); return true;
+    } catch (e) { status(t('phoneLockFail')); return false; }
+  }
+  async function phoneLockVerify() {
+    if (!state.passkeyId) return false;
+    try {
+      const a = await navigator.credentials.get({ publicKey: { challenge: crypto.getRandomValues(new Uint8Array(32)), allowCredentials: [{ type: 'public-key', id: unb64u(state.passkeyId) }], userVerification: 'required', timeout: 60000 } });
+      return !!a;
+    } catch (e) { return false; }
+  }
+  const phoneLockOn = () => !!(state.phoneLock && state.passkeyId);
+  const needsPhoneLock = (p) => phoneLockOn() && (p.type === 'send' || p.type === 'withdraw') && p.amount >= (state.approveOver || 20000) && !p.phoneOk;
+  // Runs the phone unlock when a big transfer requires it, then carries on.
+  async function phoneLockThenExecute() {
+    const p = pending;
+    if (!p || !needsPhoneLock(p)) return execute();
+    status(t('phoneLockAsk'));
+    const ok = await phoneLockVerify();
+    if (pending !== p) return;
+    if (!ok) { return reply(R('phraseHint').replace(/\.$/, '') + '. ' + t('phoneLockFail')); }
+    p.phoneOk = true; p.verified = [p.verified, t('verifyFp')].filter(Boolean).join(' · ');
+    return execute();
+  }
+
   // ---------- Voice Promise ----------
   // The person records, in their own voice, why a savings goal matters. If they later try to take money out
   // before the goal is reached, Vosa plays it back and asks whether it is an emergency. Emergencies go to a
   // trusted helper to approve (who can phone them first); without a helper the money is held for 24 hours.
   // Recordings stay on the phone.
   const PROMISE_MAX = 20, PROMISE_MIN = 1.5;
+  const speakBtn = () => h('button', { class: 'btn o', type: 'button', onClick: () => { micDenied = false; startListening(); } }, icon('mic', 20), t('speakNow'));
+  const cap = (x) => x.charAt(0).toUpperCase() + x.slice(1);
+  const hasApprover = () => (state.helpers || []).some(x => x.role === 'approver' && x.status === 'active');
+  const ruleOf = (g) => g.promiseRule || 'helper';
+  function setPromiseRule(g, rule) {
+    g.promiseRule = rule; persist(); render();
+    return reply(R('promiseRuleSet', { rule: R(rule === 'confirm' ? 'ruleConfirm' : rule === 'wait' ? 'ruleWait' : 'ruleHelper') }));
+  }
+  // Hears the answer to "what should I do in an emergency?"
+  function promiseRuleFrom(raw) {
+    const n = L.norm(raw);
+    if (/\b(helper|approver|ask|bisi|witness|olurank|oluranlowo|beere)\b/.test(n)) return 'helper';
+    if (/\b(hold|wait|24|twenty four|tomorrow|day|duro|cool)\b/.test(n)) return 'wait';
+    if (/\b(confirm|just|me|myself|my own|alone|independ|jeri|kan)\b/.test(n)) return 'confirm';
+    return null;
+  }
   let promiseRec = null, promiseAudio = null;
   const timeLabel = (ms) => new Date(ms).toLocaleString('en-NG', { weekday: 'short', hour: 'numeric', minute: '2-digit' });
   function promiseGate(g, amount) {
@@ -3627,7 +3753,7 @@ body { background: #E6EAE8; }
           h('button', { class: 'link', type: 'button', text: t('promiseAgain'), onClick: () => playPromise(g) })), wave),
         h('h2', { style: 'margin:8px 0 0;font-size:22px;font-weight:800;letter-spacing:-0.02em;text-align:center', text: t('promiseQ') }),
         vsay()],
-        [h('div', { class: 'row2' }, h('button', { class: 'btn s', type: 'button', onClick: () => answer(false), text: t('noKeep') }), h('button', { class: 'btn d', type: 'button', onClick: () => answer(true), text: t('yesEmergency') }))]);
+        [speakBtn(), h('div', { class: 'row2' }, h('button', { class: 'btn s', type: 'button', onClick: () => answer(false), text: t('noKeep') }), h('button', { class: 'btn d', type: 'button', onClick: () => answer(true), text: t('yesEmergency') }))]);
     }
     if (d.stage === 'listen') {
       return pageWrap(el, t('yourPromise', { g: label(g) }), leave, [
@@ -3636,6 +3762,20 @@ body { background: #E6EAE8; }
         [h('button', { class: 'btn p', type: 'button', onClick: () => playPromise(g) }, icon('speaker', 20), t('promiseAgain')),
          h('button', { class: 'btn s', type: 'button', onClick: () => { stopPromise(); d.stage = 'intro'; renderOv(); }, text: t('promiseRedo') }),
          h('button', { class: 'btn s', type: 'button', onClick: leave, text: t('done') })]);
+    }
+    if (d.stage === 'rule') {
+      const opts = [['confirm', 'check'], ['helper', 'shield'], ['wait', 'clock']];
+      const choose = (r) => { d.rule = r; renderOv(); };
+      const save = () => { setPromiseRule(g, d.rule); closeOv(); if (d.back) showOv('pot', { ref: d.back }); };
+      return pageWrap(el, t('ruleT'), () => { if (pending && pending.type === 'promiserule') pending = null; save(); }, [
+        h('h2', { style: 'margin:4px 0 0;font-size:22px;font-weight:800;letter-spacing:-0.02em', text: t('ruleQ') }),
+        h('div', { role: 'radiogroup', 'aria-label': t('ruleT'), style: 'display:flex;flex-direction:column;gap:8px' }, opts.map(([r, ic]) =>
+          h('button', { class: 'lang-row', type: 'button', role: 'radio', 'aria-checked': String(d.rule === r), onClick: () => choose(r) },
+            h('span', { class: 'gtile', style: 'background:var(--tint);color:var(--primary);width:40px;height:40px' }, icon(ic, 20)),
+            h('div', { style: 'flex:1;min-width:0' }, h('b', { text: t('rule' + cap(r) + 'T') }), h('span', { text: t('rule' + cap(r) + 'D') + (r === 'helper' && !hasApprover() ? ' ' + t('ruleNeedsHelper') : '') })),
+            h('span', { class: 'radio', 'aria-hidden': 'true' })))),
+        vsay()],
+        [h('div', { class: 'row2' }, speakBtn(), h('button', { class: 'btn p', type: 'button', onClick: () => { if (pending && pending.type === 'promiserule') pending = null; save(); }, text: t('saveRule') }))]);
     }
     if (d.stage === 'rec') {
       return pageWrap(el, t('promiseT'), leave, [
@@ -3646,7 +3786,7 @@ body { background: #E6EAE8; }
     }
     if (d.stage === 'review') {
       const tmp = { promise: d.draft };
-      const keep = () => { stopPromise(); g.promise = d.draft; persist(); render(); closeOv(); if (d.back) showOv('pot', { ref: d.back }); reply(R('promiseSaved', { goal: label(g) })); };
+      const keep = () => { stopPromise(); g.promise = d.draft; persist(); render(); d.stage = 'rule'; d.rule = g.promiseRule || (hasApprover() ? 'helper' : 'confirm'); renderOv(); pending = { type: 'promiserule', goal: g }; reply(R('promiseSaved', { goal: label(g) }) + R('promiseRuleQ')); };
       return pageWrap(el, t('promiseT'), leave, [
         h('h2', { style: 'margin:4px 0 0;font-size:22px;font-weight:800;letter-spacing:-0.02em', text: t('promiseReview') }),
         h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon('speaker', 18)), h('div', { style: 'flex:1' }, h('b', { text: t('yourPromise', { g: label(g) }) }), h('span', { text: d.draft.secs + 's' })), h('button', { class: 'link', type: 'button', text: t('promiseAgain'), onClick: () => playPromise(tmp) })),

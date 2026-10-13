@@ -489,6 +489,7 @@
       if (/\b(my helpers|trusted circle|who (are|be) my helpers|who (has|don|fit|can) (see|seen)|who see my account|who check(ed)? my account)\b/.test(t0)) { r.intent = 'helpers'; return r; }
     }
     if (/\b(voice ?id|voiceprint|voice print|my voice)\b/.test(t0) && /\b(set ?up|add|turn on|enable|start|redo|teach|learn|register|sabi)\b/.test(t0)) { r.intent = 'voicesetup'; return r; }
+    if (/\b(last receipt|my receipt|read (me )?(my |the )?receipt|last transaction|last payment|what did i (just )?do|what was (my|the) last|wetin i do last|last thing i do|iwe owo mi|idunadura (mi )?to koja)\b/.test(t0)) { r.intent = 'receipt'; return r; }
     // Voice Promise: "record a promise for rent", "play my promise", "add a promise to school fees"
     if (/\b(promise|promis|ileri)\b/.test(t0)) {
       r.intent = 'promise'; r.play = /\b(play|hear|listen|replay|gbo)\b/.test(t0) && !/\b(record|add|make|new|redo|change)\b/.test(t0);
@@ -675,6 +676,29 @@
     promiseReady: { en: 'The 24 hours have passed, so this one goes through.', pcm: 'The 24 hours don pass, so this one go pass.', yo: 'Wákàtí 24 ti kọjá, nítorí náà èyí yóò kọjá.' },
     askedHelperW: { en: 'I have asked {names} to approve taking {amt} out of {goal}. They may call you first. I will tell you when they answer.', pcm: 'I don ask {names} make dem approve to comot {amt} from {goal}. Dem fit call you first. I go tell you when dem answer.', yo: 'Mo ti béèrè lọ́wọ́ {names} láti fọwọ́ sí yíyọ {amt} kúrò nínú {goal}. Wọ́n lè pè ọ́ ná. Màá sọ fún ọ nígbà tí wọ́n bá dáhùn.' },
     promiseReached: { en: ' You kept your promise.', pcm: ' You keep your promise.', yo: ' O pa ìlérí rẹ mọ́.' },
+    receiptNone: { en: 'You have not done anything yet.', pcm: 'You never do anything yet.', yo: 'O kò tíì ṣe ohunkóhun.' },
+    receipt: {
+      en: 'Your last transaction: {when}, {what}{how}. Reference {ref}.',
+      pcm: 'Your last transaction: {when}, {what}{how}. Reference na {ref}.',
+      yo: 'Ìdúnàdúrà rẹ tó kọjá: {when}, {what}{how}. Nọ́ńbà ìtọ́kasí {ref}.'
+    },
+    rSend: { en: 'you sent {amt} to {n} at {bank}', pcm: 'you send {amt} give {n} for {bank}', yo: 'o fi {amt} ránṣẹ́ sí {n} ní {bank}' },
+    rSave: { en: 'you saved {amt} to {g}', pcm: 'you keep {amt} for {g}', yo: 'o fi {amt} pamọ́ sí {g}' },
+    rMove: { en: 'you moved {amt} from {g} to your wallet', pcm: 'you comot {amt} from {g} go your wallet', yo: 'o gbé {amt} láti {g} sí àpò rẹ' },
+    rAirtime: { en: 'you bought {amt} {n} airtime', pcm: 'you buy {amt} {n} card', yo: 'o ra káàdì ìpè {n} {amt}' },
+    rIn: { en: 'you received {amt} from {n}', pcm: '{n} send you {amt}', yo: 'o gba {amt} láti ọ̀dọ̀ {n}' },
+    rHow: { en: ', verified with {v}', pcm: ', verified with {v}', yo: ', tí a fọwọ́ sí pẹ̀lú {v}' },
+    promiseRuleQ: {
+      en: ' If you ever need this money in an emergency, what should I do? Say: just confirm, ask my helper, or hold for 24 hours.',
+      pcm: ' If emergency come and you need this money, wetin I go do? Talk: just confirm, ask my helper, or hold am for 24 hours.',
+      yo: ' Tí pàjáwìrì bá dé tí o sì nílò owó yìí, kí ni kí n ṣe? Sọ pé: kàn jẹ́rìí, béèrè lọ́wọ́ olùrànlọ́wọ́ mi, tàbí dá a dúró fún wákàtí 24.'
+    },
+    promiseRuleSet: { en: 'Okay. In an emergency I will {rule}. You can change this on the goal’s page.', pcm: 'Okay. If emergency come, I go {rule}. You fit change am for the goal page.', yo: 'Ó dára. Nínú pàjáwìrì màá {rule}. O lè yí i padà lójú ewé èròngbà náà.' },
+    ruleConfirm: { en: 'let it through once you confirm', pcm: 'let am pass once you confirm', yo: 'jẹ́ kí ó kọjá tí o bá jẹ́rìí' },
+    ruleHelper: { en: 'ask your helper first', pcm: 'ask your helper first', yo: 'béèrè lọ́wọ́ olùrànlọ́wọ́ rẹ ná' },
+    ruleWait: { en: 'hold it for 24 hours', pcm: 'hold am for 24 hours', yo: 'dá a dúró fún wákàtí 24' },
+    promiseOwn: { en: 'Since it is an emergency, confirm and it is yours.', pcm: 'Since na emergency, confirm am and e be your own.', yo: 'Níwọ̀n bí ó ti jẹ́ pàjáwìrì, jẹ́rìí, tìrẹ ni.' },
+    promiseWait: { en: 'Since it is an emergency, I will hold {amt} for 24 hours as you asked. Ask me again after {when}.', pcm: 'Since na emergency, I go hold {amt} for 24 hours as you talk. Ask me again after {when}.', yo: 'Níwọ̀n bí ó ti jẹ́ pàjáwìrì, màá dá {amt} dúró fún wákàtí 24 bí o ti béèrè. Tún béèrè lẹ́yìn {when}.' },
     voiceSample: { en: 'Hello, I am {v}. I can help you save money, send money, and keep your savings safe. Just talk to me.', pcm: 'Hello, na {v} be this. I fit help you save money, send money, and keep your savings safe. Just talk to me.', yo: 'Báwo, {v} ni mí. Mo lè ràn ọ́ lọ́wọ́ láti fi owó pamọ́, fi owó ránṣẹ́, kí n sì dáàbò bo owó rẹ. Kàn bá mi sọ̀rọ̀.' },
     notCaught: { en: "I didn't catch that.", pcm: 'I no catch am well.', yo: 'Mi ò gbọ́ ọ dáadáa.' },
     sayDigits: { en: 'Say the 10 digits slowly, one by one.', pcm: 'Call the 10 numbers slowly, one by one.', yo: 'Sọ àwọn nọ́ńbà mẹ́wàá náà díẹ̀díẹ̀, ní ọ̀kọ̀ọ̀kan.' },

@@ -52,7 +52,7 @@ Voice ID checks that it's really the account owner speaking before money is sent
 
 - **Model:** WeSpeaker ResNet34, a speaker-recognition model trained on VoxCeleb (over 7,000 speakers). It's stored as `public/models/voice-id.onnx`, compressed to 6.7 MB with 8-bit weights, with no loss of accuracy in our tests.
 - **Runtime:** ONNX Runtime Web 1.22 (WebAssembly), in `public/vendor/`.
-- **No outside services:** no account, no key and no CDN. Everything is served from your own Vercel site. Voices never leave the phone. The confirmation recording goes to Spitch only to read the words, so `SPITCH_API_KEY` must be set.
+- **No outside services:** no account, no key and no CDN. Everything is served from your own Vercel site. The voiceprint never leaves the phone. The confirmation recording goes to Spitch only to be turned into words and is not kept, so `SPITCH_API_KEY` must be set.
 
 Voice ID is **required** to send or withdraw money once Spitch is connected. If it isn't set up, Vosa stops and offers to set it up, then carries on with the transfer. You can also say "set up voice ID". For testing only, Settings → Require Voice ID can be turned off.
 
@@ -107,14 +107,21 @@ Without the database, Trusted Circle still works in **demo mode**: the helper's 
 When you set a savings goal, Vosa offers to record a short promise in your own voice ("This is for Tolu's school fees. Don't let me touch it before January."). If you later try to take money out before the goal is reached, Vosa plays your promise back and asks: "Is this an emergency?"
 
 - **No:** nothing moves. "Your money stays safe."
-- **Yes, with a trusted helper:** you confirm as usual, then your approver must approve it. Their page tells them to call you first and ask what the emergency is.
-- **Yes, with no helper:** Vosa holds the amount for 24 hours, then lets it through.
+- **Yes:** Vosa follows the rule the owner chose when recording the promise, and can change on the goal's page: **Just confirm** (secret phrase and Voice ID are enough: full independence), **Ask my helper** (the approver says yes first; their page tells them to call and ask what the emergency is), or **Hold for 24 hours** (nobody else involved). The owner decides who, if anyone, has a say.
 
 Say "record a promise for rent", "play my promise", or use the Voice Promise row on a goal's page. Recordings never leave the phone. It is the ajo witness, digitised: a soft commitment that still lets real emergencies through.
 
 ### Install it like an app
 
 Open the site on the phone, then: Android Chrome → menu → **Add to Home screen**; iPhone Safari → Share → **Add to Home Screen**. Vosa then opens full-screen with its own icon.
+
+### Phone unlock (optional extra lock)
+
+Settings → Security → **Phone unlock for big transfers**. When on, transfers at or above the approval limit also ask for the phone's own fingerprint or face (WebAuthn). It is off by default and never required: someone who cannot use a fingerprint or face loses nothing. In this prototype the check happens on the phone only; a production build would verify it on the server.
+
+### Spoken receipts
+
+Say "read my last receipt" or "what was my last transaction" and Vosa reads out the time, what happened, how it was verified and the reference number.
 
 ### Languages
 
