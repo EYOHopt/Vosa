@@ -1992,6 +1992,27 @@
     return best;
   }
 
+  // Joins the pieces the phone heard into one sentence without repeating words.
+  // Chrome on Android often re-sends everything heard so far with each update ("comot", "comot 5k",
+  // "comot 5k from house rent"), so a piece that starts with what we already have replaces it,
+  // and overlapping words at the joins are only kept once.
+  function mergeHeard(pieces) {
+    let acc = '';
+    for (const raw of pieces) {
+      const seg = String(raw || '').trim();
+      if (!seg) continue;
+      const a = acc.toLowerCase(), b = seg.toLowerCase();
+      if (!acc || b.startsWith(a) || b.replace(/\s/g, '').startsWith(a.replace(/\s/g, ''))) { acc = seg; continue; }
+      if (a.endsWith(b) || a.replace(/\s/g, '').endsWith(b.replace(/\s/g, ''))) continue;
+      const aw = acc.split(/\s+/), bw = seg.split(/\s+/);
+      let k = Math.min(aw.length, bw.length);
+      for (; k > 0; k--) if (aw.slice(-k).join(' ').toLowerCase() === bw.slice(0, k).join(' ').toLowerCase()) break;
+      acc = aw.concat(bw.slice(k)).join(' ');
+    }
+    // A word stuck on repeat ("comot comot comot") is the phone, not the person. Numbers are left alone.
+    return acc.replace(/\b([a-zÀ-ɏḀ-ỿ']{3,})(?:\s+\1\b)+/gi, '$1');
+  }
+
   let srRetries = 0;
   function startBrowserSR() {
     const r = new SR();
@@ -2000,23 +2021,25 @@
     r.interimResults = true;
     r.maxAlternatives = 5;
     r.continuous = true; // keep listening through short pauses; we end it ourselves after silence
-    const finals = [];           // one entry per final result: the list of alternatives
+    const finals = [];           // finals[i] = the alternatives for result i (kept by position, never appended twice)
     let interim = '', gotError = false, sawSpeech = false, silence = null, hardStop = null;
     const endSoon = (ms) => { clearTimeout(silence); silence = setTimeout(() => { try { r.stop(); } catch (e) {} }, ms); };
+    const heardSoFar = () => mergeHeard(finals.filter(Boolean).map(a => a[0]).concat(interim ? [interim] : []));
     r.onresult = (e) => {
       interim = '';
-      for (let i = e.resultIndex; i < e.results.length; i++) {
+      // Read every result by its position: some phones send the whole list again with each update.
+      for (let i = 0; i < e.results.length; i++) {
         const res = e.results[i];
+        if (!res || !res.length) continue;
         if (res.isFinal) {
           const alts = [];
           for (let k = 0; k < res.length; k++) { const tx = (res[k].transcript || '').trim(); if (tx && !alts.includes(tx)) alts.push(tx); }
-          if (alts.length) finals.push(alts);
-        } else interim += res[0].transcript;
+          if (alts.length) finals[i] = alts;
+        } else if (i >= e.resultIndex) interim = mergeHeard([interim, res[0].transcript]);
       }
       sawSpeech = true;
-      const shown = finals.map(a => a[0]).concat(interim ? [interim] : []).join(' ').trim();
+      const shown = heardSoFar();
       $('live-text').textContent = shown ? '“' + shown + '”' : '';
-      // After a final result, wait a short moment for more; after interim text, wait a little longer.
       endSoon(finals.length && !interim ? 900 : 1600);
     };
     r.onspeechstart = () => { sawSpeech = true; };
@@ -2030,10 +2053,10 @@
       if (rec === r) rec = null;
       listening = false; $('mic').classList.remove('live'); showListen(null);
       if (micDenied) return;
-      // Build the best sentence from the alternatives the phone offered
-      const text = finals.length ? (finals.length === 1 ? bestAlternative(finals[0]) : finals.map(a => a[0]).join(' ')) : interim.trim();
+      const parts = finals.filter(Boolean);
+      // One piece: pick the guess Vosa understands best. Several pieces: join them without repeats.
+      const text = parts.length === 1 && !interim ? mergeHeard([bestAlternative(parts[0])]) : heardSoFar();
       if (text) { srRetries = 0; emptyRuns = 0; handle(text, { via: 'voice' }); return; }
-      // Nothing heard. Phones often give up before the person starts talking: listen again, quietly.
       if (!gotError && !sawSpeech && srRetries < 2 && !state.handsFree) { srRetries++; status(t('goAhead')); return startBrowserSR(); }
       srRetries = 0;
       if (state.handsFree) { emptyRuns++; if (emptyRuns < 30) afterReply(); }

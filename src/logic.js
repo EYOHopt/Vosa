@@ -541,7 +541,7 @@
       r.intent = 'explain'; r.term = term[0]; return r;
     }
 
-    if (/\b(withdraw|take out|takeout|comot|cash out|remove|collect|bring out|yo owo|yo kuro|yo jade|gba owo|mu owo|yo|cire|fitar|fito da|wepu|wepuo|weputa|nweta)\b/.test(t0) || /\btake\b.*\bout\b/.test(t0)) { r.intent = 'withdraw'; return r; }
+    if (/\b(withdraw|take out|takeout|comot|cash out|remove|collect|bring out|yo owo|yo kuro|yo jade|gba owo|mu owo|yo|cire|fitar|fito da|wepu|wepuo|weputa|nweta)\b/.test(t0) || /\btake\b.*\bout\b/.test(t0) || (/\b(take|draw|move|carry|pull|shift|transfer)\b/.test(t0) && /\bfrom\b/.test(t0) && !/\bfrom (my )?wallet\b/.test(t0) && r.goal && !r.contact && !r.account && !/\bto (tunde|mama|[a-z]+ bank|gtb|opay|kuda|zenith|access|uba)\b/.test(t0))) { r.intent = 'withdraw'; return r; }
 
     if (/\b(remind|reminder|remember me|ranti|ran mi leti|leti)\b/.test(t0)) { r.intent = 'remind'; return r; }
 
