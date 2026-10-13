@@ -221,6 +221,11 @@
     lIn: { en: 'In', yo: 'Wọlé' }, lOut: { en: 'Out', yo: 'Jáde' }, lSaved: { en: 'Saved', yo: 'Pamọ́' },
     switched: { en: 'Switched to English', pcm: 'I don switch to Pidgin', yo: 'Mo ti yí padà sí Yorùbá' },
     noYoVoice: { en: 'Yorùbá voice replies need the speech service. Showing text.', pcm: 'Yorùbá voice need the speech service. I go show am as text.', yo: 'Ohùn Yorùbá nílò iṣẹ́ ohùn. Mo ń fi ọ̀rọ̀ hàn.' },
+    hearLbl: { en: 'How Vosa hears you', pcm: 'How Vosa dey hear you', yo: 'Bí Vosa ṣe ń gbọ́ ọ' },
+    hearD: { en: 'Phone is free. Spitch understands Nigerian accents and Pidgin better, but uses your Spitch credit.', pcm: 'Phone na free. Spitch sabi Naija accent and Pidgin pass, but e dey use your Spitch credit.', yo: 'Fóònù jẹ́ ọ̀fẹ́. Spitch gbọ́ ohùn Nàìjíríà dáradára, ṣùgbọ́n ó ń lo krẹ́dìtì Spitch rẹ.' },
+    hearPhone: { en: 'Phone', pcm: 'Phone', yo: 'Fóònù' },
+    goAhead: { en: 'Go ahead, I’m listening.', pcm: 'Talk, I dey hear you.', yo: 'Sọ̀rọ̀, mo ń gbọ́.' },
+    heardYou: { en: 'I heard: “{x}”', pcm: 'I hear: “{x}”', yo: 'Mo gbọ́: “{x}”' },
     voiceErr: { en: 'I could not hear that. Try again, or type it.', pcm: 'I no fit hear am. Try again or type am.', yo: 'Mi ò gbọ́ ọ. Gbìyànjú lẹ́ẹ̀kan sí i, tàbí kọ ọ́.' },
     asking: { en: 'Asking Claude to help understand…', pcm: 'I dey ask Claude make e help me understand…', yo: 'Mo ń béèrè lọ́wọ́ Claude…' },
     hfReady: { en: 'Hands-free is on', pcm: 'Hands-free dey on', yo: 'Hands-free wà' },
@@ -419,7 +424,7 @@
   let pending = null;   // {type, needsPhrase, tries, ...}
   let awaiting = null;  // {slot, r}
   let ov = null;        // {kind, data}
-  let lastHeard = '';
+  let lastHeard = '', lastVia = '';
   let lastReply = '';
   let lastReplyLang = 'en';
   let flashGoal = null;
@@ -661,6 +666,7 @@
       row(t('textSize'), null, seg(t('textSize'), [[0.9, 'A', 'font-size:12px'], [1, 'A', 'font-size:15px'], [1.2, 'A', 'font-size:18px']], state.textScale, (s) => { state.textScale = s; persist(); render(); })),
       row(t('srTips'), null, h('button', { class: 'link', type: 'button', text: t('open'), onClick: () => showOv('sheet', { tone: 'ok', icon: 'speaker', title: t('srTips'), body: t('srBody'), actions: [{ label: t('ok'), primary: true, fn: closeOv }] }) }))));
     v.append(h('h2', { class: 'group-t', text: t('demoTools') }), h('div', { class: 'group', style: 'margin-top:0' },
+      SR && backend.ok ? row(t('hearLbl'), t('hearD'), seg(t('hearLbl'), [['phone', t('hearPhone')], ['spitch', 'Spitch']], state.hearSpitch ? 'spitch' : 'phone', (v) => { state.hearSpitch = v === 'spitch'; persist(); render(); })) : null,
       row(t('engineLbl'), engineText(), null),
       row(t('simulateT'), null, h('button', { class: 'link', type: 'button', text: t('run'), onClick: () => incoming(50000, 'Kemi Adewale') })),
       row(t('reset'), null, h('button', { class: 'link', type: 'button', style: 'color:var(--danger)', text: t('resetBtn'), onClick: resetDemo }))));
@@ -1035,7 +1041,7 @@
     stopListening();
     const phraseMode = !!(pending && pending.needsPhrase);
     const isPhrase = phraseMode && L.norm(raw).includes(L.norm(state.secret));
-    lastHeard = isPhrase || (phraseMode && opts.via === 'text') ? '••••••' : raw;
+    lastHeard = isPhrase || (phraseMode && opts.via === 'text') ? '••••••' : raw; lastVia = opts.via || '';
     if (ov && ['success', 'moneyin', 'sheet', 'pot', 'amount', 'goal-form', 'send-form', 'airtime-form'].includes(ov.kind) && !(pending && pending.type === 'nudge')) closeOv();
     maybeSwitch(raw);
     renderTalk();
@@ -1263,7 +1269,7 @@
       case 'greet': return reply(R('greet'));
       default: {
         const text = R('unknown');
-        return fail({ tone: 'warn', icon: 'wave', k: t('kDidnt'), title: text, actions: [
+        return fail({ tone: 'warn', icon: 'wave', k: t('kDidnt'), title: text, body: lastVia === 'voice' && lastHeard ? t('heardYou', { x: lastHeard }) : null, actions: [
           { label: t('tryAgain'), primary: true, fn: () => { closeOv(); micDenied = false; startListening(); } },
           { label: t('typeInstead'), fn: () => { showOv('type'); } }] }, text);
       }
@@ -1692,7 +1698,7 @@
 
   function engineText() {
     const parts = [];
-    parts.push(SR ? 'English/Pidgin: browser' : (backend.ok ? 'English/Pidgin: Spitch' : 'English/Pidgin: typing only'));
+    parts.push(SR && !(state.hearSpitch && backend.ok) ? 'English/Pidgin: phone' : (backend.ok ? 'English/Pidgin: Spitch' : 'English/Pidgin: typing only'));
     parts.push(backend.sttYo ? 'Yorùbá: Spitch' : 'Yorùbá: typing (connect Spitch for voice)');
     if (backend.ttsPcm) parts.push('Pidgin replies: Spitch');
     return parts.join(' · ');
@@ -1728,7 +1734,7 @@
         .catch(() => { vid.starting = false; status(t('vidErrShort')); startRecording(); });
     }
     if (state.lang === 'yo' && backend.sttYo) return startRecording();
-    if (SR) return startBrowserSR();
+    if (SR && !(state.hearSpitch && backend.ok)) return startBrowserSR();
     if (backend.ok) return startRecording();
     voiceUnavailable();
   }
@@ -1801,33 +1807,69 @@
     stopTimer = setTimeout(() => { if (mr.state === 'recording') mr.stop(); }, 15000);
   }
 
+  // Scores how well Vosa understood a transcript, so the best of several guesses can be picked.
+  function understandingScore(text) {
+    const r = L.understand(text, { contacts: state.contacts, helpers: (state.helpers || []).map(x => x.name), awaiting: awaiting && awaiting.slot, pending: !!pending });
+    let sc = 0;
+    if (r.intent && r.intent !== 'unknown') sc += 4;
+    if (r.amount) sc += 2;
+    if (r.contact || r.goal || r.account || r.bank) sc += 1;
+    return sc;
+  }
+  function bestAlternative(alts) {
+    let best = alts[0], bestScore = -1;
+    for (const a of alts) { const sc = understandingScore(a); if (sc > bestScore) { best = a; bestScore = sc; } }
+    return best;
+  }
+
+  let srRetries = 0;
   function startBrowserSR() {
     const r = new SR();
     rec = r;
     r.lang = state.lang === 'yo' ? 'yo-NG' : 'en-NG';
     r.interimResults = true;
-    r.maxAlternatives = 1;
-    let finalText = '', gotError = false;
+    r.maxAlternatives = 5;
+    r.continuous = true; // keep listening through short pauses; we end it ourselves after silence
+    const finals = [];           // one entry per final result: the list of alternatives
+    let interim = '', gotError = false, sawSpeech = false, silence = null, hardStop = null;
+    const endSoon = (ms) => { clearTimeout(silence); silence = setTimeout(() => { try { r.stop(); } catch (e) {} }, ms); };
     r.onresult = (e) => {
-      let interim = '';
+      interim = '';
       for (let i = e.resultIndex; i < e.results.length; i++) {
-        if (e.results[i].isFinal) finalText += e.results[i][0].transcript; else interim += e.results[i][0].transcript;
+        const res = e.results[i];
+        if (res.isFinal) {
+          const alts = [];
+          for (let k = 0; k < res.length; k++) { const tx = (res[k].transcript || '').trim(); if (tx && !alts.includes(tx)) alts.push(tx); }
+          if (alts.length) finals.push(alts);
+        } else interim += res[0].transcript;
       }
-      $('live-text').textContent = '“' + (finalText + interim).trim() + '”';
+      sawSpeech = true;
+      const shown = finals.map(a => a[0]).concat(interim ? [interim] : []).join(' ').trim();
+      $('live-text').textContent = shown ? '“' + shown + '”' : '';
+      // After a final result, wait a short moment for more; after interim text, wait a little longer.
+      endSoon(finals.length && !interim ? 900 : 1600);
     };
+    r.onspeechstart = () => { sawSpeech = true; };
     r.onerror = (e) => {
-      gotError = true;
-      if (['not-allowed', 'service-not-allowed', 'audio-capture', 'language-not-supported'].includes(e.error)) { micDenied = true; voiceUnavailable(); }
-      else if (e.error !== 'no-speech' && e.error !== 'aborted') status(t('voiceErr'));
+      if (['not-allowed', 'service-not-allowed', 'audio-capture', 'language-not-supported'].includes(e.error)) { gotError = true; micDenied = true; voiceUnavailable(); }
+      else if (e.error === 'no-speech') { /* handled in onend: we restart quietly */ }
+      else if (e.error !== 'aborted') { gotError = true; status(t('voiceErr')); }
     };
     r.onend = () => {
+      clearTimeout(silence); clearTimeout(hardStop);
       if (rec === r) rec = null;
       listening = false; $('mic').classList.remove('live'); showListen(null);
-      if (finalText.trim()) { emptyRuns = 0; handle(finalText, { via: 'voice' }); return; }
-      if (!micDenied && state.handsFree) { emptyRuns++; if (emptyRuns < 30) afterReply(); }
+      if (micDenied) return;
+      // Build the best sentence from the alternatives the phone offered
+      const text = finals.length ? (finals.length === 1 ? bestAlternative(finals[0]) : finals.map(a => a[0]).join(' ')) : interim.trim();
+      if (text) { srRetries = 0; emptyRuns = 0; handle(text, { via: 'voice' }); return; }
+      // Nothing heard. Phones often give up before the person starts talking: listen again, quietly.
+      if (!gotError && !sawSpeech && srRetries < 2 && !state.handsFree) { srRetries++; status(t('goAhead')); return startBrowserSR(); }
+      srRetries = 0;
+      if (state.handsFree) { emptyRuns++; if (emptyRuns < 30) afterReply(); }
       else if (!gotError) status(t('voiceErr'));
     };
-    try { r.start(); setLive(true); } catch (e) { micDenied = true; voiceUnavailable(); }
+    try { r.start(); setLive(true); hardStop = setTimeout(() => { try { r.stop(); } catch (e) {} }, 14000); } catch (e) { micDenied = true; voiceUnavailable(); }
   }
 
   function voiceUnavailable() {

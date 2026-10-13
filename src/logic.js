@@ -19,6 +19,33 @@
   }
   const has = (t, re) => re.test(t);
 
+  // Phone speech recognition is trained on foreign English, so it mishears Pidgin and Nigerian
+  // amounts in predictable ways. Fix those before understanding.
+  const HEARING = [
+    [/\b(i|we|dem|she|he|una|make i) (one|won|wand|want to|wanna|wont)\b/g, '$1 wan'],
+    [/\ba beg\b|\babegg\b|\ba bag\b/g, 'abeg'],
+    [/\bcome out\b|\bcomote\b|\bcommot\b/g, 'comot'],
+    [/\b(safe|sieve|sev|saved|serve|safely)\b(?=.*\b(for|to|my|rent|school|goal|savings|k|thousand)\b)/g, 'save'],
+    [/\b(sent|sand|sin|sen|cent|scent)\b(?=\s+(\d|[a-z]+ (k|thousand|naira)|money))/g, 'send'],
+    [/\b(\d+|[a-z]+) (kate|kay to|key to|cato)\b/g, '$1 k to'],
+    [/\b(\d+|[a-z]+) (kay|key|kei|kei)\b/g, '$1 k'],
+    [/\b(\d+)k(\d)\b/g, '$1k$2'],
+    [/\bwetin\b|\bwhat in\b|\bwet in\b/g, 'wetin'],
+    [/\bthey (dey|day)\b/g, 'dey'],
+    [/\b(day|they) (my|for|inside)\b/g, 'dey $2'],
+    [/\bgive am\b|\bgive them\b|\bgive him\b|\bgive her\b/g, 'give am'],
+    [/\bhow fa\b|\bhow fat\b/g, 'how far'],
+    [/\bnairas?\b|\bnyra\b|\bnira\b/g, 'naira'],
+    [/\bairtel\b/g, 'airtel'], [/\bair time\b|\bear time\b/g, 'airtime'],
+    [/\bgt bank\b|\bjeeti bank\b|\bgeetee\b/g, 'gtbank'],
+    [/\bopay\b|\bo pay\b|\boh pay\b/g, 'opay']
+  ];
+  function fixHearing(text) {
+    let t = ' ' + String(text || '').toLowerCase() + ' ';
+    for (const [re, to] of HEARING) t = t.replace(re, to);
+    return t.trim();
+  }
+
   function fmt(n) {
     n = Math.round(n);
     return '₦' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -34,6 +61,9 @@
   const YO_FILLER = { un: 1, an: 1, lona: 1, ni: 0 };
 
   function digitAmount(t) {
+    // "2k5" / "2k 5" = ₦2,500 (Nigerian shorthand)
+    const k5 = t.match(/(?:^|\s)(\d{1,3})k\s?(\d)(?=\s|$)/);
+    if (k5) return parseInt(k5[1], 10) * 1000 + parseInt(k5[2], 10) * 100;
     const re = /(?:^|\s)(?:n|naira\s*)?(\d+(?:\.\d+)?)\s*(k|thousand|m|million|mil|egberun)?(?=\s|$)/g;
     let m;
     while ((m = re.exec(t))) {
@@ -48,13 +78,19 @@
   }
 
   function englishAmount(tokens) {
-    let total = 0, cur = 0, started = false, sawReal = false;
+    let total = 0, cur = 0, started = false, sawReal = false, afterBig = false, sawAnd = false, shortcut = false;
     for (const w of tokens) {
-      if (w in EN_ONES && !(w === 'a' && started)) { if (w !== 'a') sawReal = true; cur += EN_ONES[w]; started = true; }
-      else if (w in EN_TENS) { cur += EN_TENS[w]; started = true; sawReal = true; }
-      else if (w === 'hundred' && started) { cur = (cur || 1) * 100; }
-      else if (w in EN_BIG && started) { total += (cur || 1) * EN_BIG[w]; cur = 0; sawReal = true; }
-      else if (w === 'and' && started) { /* skip */ }
+      if (w in EN_ONES && !(w === 'a' && started)) {
+        if (w !== 'a') sawReal = true;
+        // "two thousand five" (no "and", no "hundred") = 2,500 in Nigerian usage
+        if (afterBig && !sawAnd && cur === 0 && EN_ONES[w] >= 1 && EN_ONES[w] <= 9) { cur = EN_ONES[w] * 100; afterBig = false; shortcut = true; started = true; continue; }
+        // "one fifty" = 150: a single digit followed by a tens word
+        cur += EN_ONES[w]; started = true; afterBig = false;
+      }
+      else if (w in EN_TENS) { if (cur >= 1 && cur <= 9) cur = cur * 100; cur += EN_TENS[w]; started = true; sawReal = true; afterBig = false; }
+      else if (w === 'hundred' && started) { cur = shortcut ? cur : (cur || 1) * 100; afterBig = false; shortcut = false; }
+      else if (w in EN_BIG && started) { total += (cur || 1) * EN_BIG[w]; cur = 0; sawReal = true; afterBig = true; sawAnd = false; }
+      else if (w === 'and' && started) { sawAnd = true; }
       else if (started) { break; }
     }
     const v = total + cur;
@@ -258,12 +294,37 @@
     if (/\bhalf\b|\bidaji\b/.test(t)) return 50;
     return null;
   }
-  function findContact(t, contacts) {
-    for (const c of contacts || []) {
-      const names = [c.name].concat(c.aliases || []).map(n => norm(n));
-      if (names.some(n => new RegExp('\\b' + n + '\\b').test(t))) return c;
+  function editDistance(a, b) {
+    const m = a.length, n = b.length, d = [];
+    for (let i = 0; i <= m; i++) { d[i] = [i]; }
+    for (let j = 1; j <= n; j++) d[0][j] = j;
+    for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++) {
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
     }
-    return null;
+    return d[m][n];
+  }
+  // Collapses the parts of a name that speech recognition confuses: doubled letters, vowel swaps, soft endings.
+  const soundKey = (w) => w.replace(/ph/g, 'f').replace(/ck/g, 'k').replace(/c(?=[eiy])/g, 's').replace(/c/g, 'k').replace(/[aeiouy]+/g, 'a').replace(/(.)\1+/g, '$1');
+  const COMMON = /^(send|transfer|pay|give|buy|save|withdraw|take|keep|put|move|check|show|tell|make|comot|collect|bring|remove|cancel|stop|start|help|hello|balance|much|what|which|where|when|have|from|into|about|some|your|their|dey|wan|dem|them|then|than|also|just|again|only|every|money|mine|my|the|a|an|one|me|am|him|her|them|person|someone|account|bank|money|wallet|rent|school|fees|goal|naira|thousand|hundred|card|airtime|data|please|abeg|wan|want|for|from|into|and|with|this|that|now|today|tomorrow|mama|papa|aunty|uncle|brother|sister|boss|madam|oga|baba|iya)$/;
+  function findContact(t, contacts) {
+    contacts = contacts || [];
+    for (const c of contacts) {
+      const names = [c.name].concat(c.aliases || []).map(n => norm(n));
+      if (names.some(n => n && new RegExp('\\b' + n + '\\b').test(t))) return c;
+    }
+    // Nothing exact: look for a word that sounds like a contact's first name ("Tunday" -> Tunde)
+    const words = t.split(' ').filter(w => w.length >= 4 && !/\d/.test(w) && !COMMON.test(w));
+    let best = null, bestScore = 99;
+    for (const c of contacts) {
+      const parts = [c.name].concat(c.aliases || []).map(n => norm(n)).join(' ').split(' ').filter(p => p.length >= 4);
+      for (const p of parts) for (const w of words) {
+        if (w[0] !== p[0]) continue;
+        const d = editDistance(w, p);
+        const close = soundKey(w) === soundKey(p) || d <= (p.length >= 7 ? 2 : 1);
+        if (close && d < bestScore) { best = c; bestScore = d; }
+      }
+    }
+    return best;
   }
 
   // ---------- challenge digits (anti-replay) ----------
@@ -311,7 +372,7 @@
   function understand(raw, ctx) {
     ctx = ctx || {};
     const now = ctx.now || new Date();
-    const t0 = joinSpokenDigits(norm(raw));
+    const t0 = joinSpokenDigits(norm(fixHearing(raw)));
     const r = { raw, t: t0 };
 
     if (ctx.pending) {
@@ -403,12 +464,13 @@
       r.intent = 'explain'; r.term = term[0]; return r;
     }
 
-    if (/\b(withdraw|take out|takeout|comot|cash out|remove|collect|bring out|yo owo|yo kuro|yo jade|gba owo|mu owo|yo)\b/.test(t0)) { r.intent = 'withdraw'; return r; }
+    if (/\b(withdraw|take out|takeout|comot|cash out|remove|collect|bring out|yo owo|yo kuro|yo jade|gba owo|mu owo|yo)\b/.test(t0) || /\btake\b.*\bout\b/.test(t0)) { r.intent = 'withdraw'; return r; }
 
     if (/\b(remind|reminder|remember me|ranti|ran mi leti|leti)\b/.test(t0)) { r.intent = 'remind'; return r; }
 
     const wantsGoal = /\b(goal|target|afojusun|plan)\b/.test(t0) ||
-      (r.deadline && /\b(want|wan|wanna|need|fe|plan|go save|dey save|save up|gather)\b/.test(t0));
+      (r.deadline && /\b(want|wan|wanna|need|fe|plan|go save|dey save|save up|gather)\b/.test(t0)) ||
+      (/\bsave up\b|\bsaving up\b|\bsaving towards\b|\bsave towards\b/.test(t0) && !r.amount);
     if (wantsGoal && !/\b(how much|balance|elo|melo)\b/.test(t0)) {
       r.intent = 'goal';
       if (!r.goal) r.customName = customGoalName(dl ? dl.rest : raw);
@@ -416,7 +478,7 @@
     }
 
     if (/\b(wallet|spend money|apo owo)\b/.test(t0) && /\b(how much|balance|elo|melo|check|wetin)\b/.test(t0)) { r.intent = 'wallet'; return r; }
-    if (/\b(balance|how much|how far with|wetin (i|dey|remain)|i get how much|elo|melo|iye owo|owo melo|how my money|check)\b/.test(t0)) { r.intent = 'balance'; return r; }
+    if (/\b(balance|how much|how far (with|my|for)|wetin (i|dey|remain)|i get how much|elo|melo|iye owo|owo melo|how my money|check|what do i have|what i get|how many)\b/.test(t0)) { r.intent = 'balance'; return r; }
 
     if (/\b(my goals|all goals|goals|list|show me|afojusun mi|gbogbo)\b/.test(t0) && !r.amount) { r.intent = 'goals'; return r; }
 
@@ -427,6 +489,9 @@
     }
 
     if (/\b(hello|hi|hey|how far|good morning|good afternoon|good evening|bawo|e kaaro|e kaasan|e kaale|pele)\b/.test(t0)) { r.intent = 'greet'; return r; }
+
+    // Just a goal name ("rent", "school fees"): tell them how that goal is doing
+    if (r.goal && t0.split(' ').length <= 4) { r.intent = 'balance'; return r; }
 
     r.intent = 'unknown';
     return r;
@@ -700,5 +765,5 @@
       .replace(/%/g, lang === 'yo' ? ' nínú ọgọ́rùn-ún' : ' percent');
   }
 
-  root.VosaLogic = { newChallenge, spokenDigits, challengeOk, norm, fmt, parseAmount, parseDeadline, parseDay, detectGoal, customGoalName, understand, say, fill, S, EXPLAIN, GOALS, dateLabel, dayLabel, toSpeech };
+  root.VosaLogic = { newChallenge, spokenDigits, challengeOk, norm, fmt, parseAmount, parseDeadline, parseDay, detectGoal, customGoalName, understand, fixHearing, say, fill, S, EXPLAIN, GOALS, dateLabel, dayLabel, toSpeech };
 })(typeof window !== 'undefined' ? window : globalThis);

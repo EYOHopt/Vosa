@@ -382,6 +382,33 @@ body { background: #E6EAE8; }
   }
   const has = (t, re) => re.test(t);
 
+  // Phone speech recognition is trained on foreign English, so it mishears Pidgin and Nigerian
+  // amounts in predictable ways. Fix those before understanding.
+  const HEARING = [
+    [/\b(i|we|dem|she|he|una|make i) (one|won|wand|want to|wanna|wont)\b/g, '$1 wan'],
+    [/\ba beg\b|\babegg\b|\ba bag\b/g, 'abeg'],
+    [/\bcome out\b|\bcomote\b|\bcommot\b/g, 'comot'],
+    [/\b(safe|sieve|sev|saved|serve|safely)\b(?=.*\b(for|to|my|rent|school|goal|savings|k|thousand)\b)/g, 'save'],
+    [/\b(sent|sand|sin|sen|cent|scent)\b(?=\s+(\d|[a-z]+ (k|thousand|naira)|money))/g, 'send'],
+    [/\b(\d+|[a-z]+) (kate|kay to|key to|cato)\b/g, '$1 k to'],
+    [/\b(\d+|[a-z]+) (kay|key|kei|kei)\b/g, '$1 k'],
+    [/\b(\d+)k(\d)\b/g, '$1k$2'],
+    [/\bwetin\b|\bwhat in\b|\bwet in\b/g, 'wetin'],
+    [/\bthey (dey|day)\b/g, 'dey'],
+    [/\b(day|they) (my|for|inside)\b/g, 'dey $2'],
+    [/\bgive am\b|\bgive them\b|\bgive him\b|\bgive her\b/g, 'give am'],
+    [/\bhow fa\b|\bhow fat\b/g, 'how far'],
+    [/\bnairas?\b|\bnyra\b|\bnira\b/g, 'naira'],
+    [/\bairtel\b/g, 'airtel'], [/\bair time\b|\bear time\b/g, 'airtime'],
+    [/\bgt bank\b|\bjeeti bank\b|\bgeetee\b/g, 'gtbank'],
+    [/\bopay\b|\bo pay\b|\boh pay\b/g, 'opay']
+  ];
+  function fixHearing(text) {
+    let t = ' ' + String(text || '').toLowerCase() + ' ';
+    for (const [re, to] of HEARING) t = t.replace(re, to);
+    return t.trim();
+  }
+
   function fmt(n) {
     n = Math.round(n);
     return '₦' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -397,6 +424,9 @@ body { background: #E6EAE8; }
   const YO_FILLER = { un: 1, an: 1, lona: 1, ni: 0 };
 
   function digitAmount(t) {
+    // "2k5" / "2k 5" = ₦2,500 (Nigerian shorthand)
+    const k5 = t.match(/(?:^|\s)(\d{1,3})k\s?(\d)(?=\s|$)/);
+    if (k5) return parseInt(k5[1], 10) * 1000 + parseInt(k5[2], 10) * 100;
     const re = /(?:^|\s)(?:n|naira\s*)?(\d+(?:\.\d+)?)\s*(k|thousand|m|million|mil|egberun)?(?=\s|$)/g;
     let m;
     while ((m = re.exec(t))) {
@@ -411,13 +441,19 @@ body { background: #E6EAE8; }
   }
 
   function englishAmount(tokens) {
-    let total = 0, cur = 0, started = false, sawReal = false;
+    let total = 0, cur = 0, started = false, sawReal = false, afterBig = false, sawAnd = false, shortcut = false;
     for (const w of tokens) {
-      if (w in EN_ONES && !(w === 'a' && started)) { if (w !== 'a') sawReal = true; cur += EN_ONES[w]; started = true; }
-      else if (w in EN_TENS) { cur += EN_TENS[w]; started = true; sawReal = true; }
-      else if (w === 'hundred' && started) { cur = (cur || 1) * 100; }
-      else if (w in EN_BIG && started) { total += (cur || 1) * EN_BIG[w]; cur = 0; sawReal = true; }
-      else if (w === 'and' && started) { /* skip */ }
+      if (w in EN_ONES && !(w === 'a' && started)) {
+        if (w !== 'a') sawReal = true;
+        // "two thousand five" (no "and", no "hundred") = 2,500 in Nigerian usage
+        if (afterBig && !sawAnd && cur === 0 && EN_ONES[w] >= 1 && EN_ONES[w] <= 9) { cur = EN_ONES[w] * 100; afterBig = false; shortcut = true; started = true; continue; }
+        // "one fifty" = 150: a single digit followed by a tens word
+        cur += EN_ONES[w]; started = true; afterBig = false;
+      }
+      else if (w in EN_TENS) { if (cur >= 1 && cur <= 9) cur = cur * 100; cur += EN_TENS[w]; started = true; sawReal = true; afterBig = false; }
+      else if (w === 'hundred' && started) { cur = shortcut ? cur : (cur || 1) * 100; afterBig = false; shortcut = false; }
+      else if (w in EN_BIG && started) { total += (cur || 1) * EN_BIG[w]; cur = 0; sawReal = true; afterBig = true; sawAnd = false; }
+      else if (w === 'and' && started) { sawAnd = true; }
       else if (started) { break; }
     }
     const v = total + cur;
@@ -621,12 +657,37 @@ body { background: #E6EAE8; }
     if (/\bhalf\b|\bidaji\b/.test(t)) return 50;
     return null;
   }
-  function findContact(t, contacts) {
-    for (const c of contacts || []) {
-      const names = [c.name].concat(c.aliases || []).map(n => norm(n));
-      if (names.some(n => new RegExp('\\b' + n + '\\b').test(t))) return c;
+  function editDistance(a, b) {
+    const m = a.length, n = b.length, d = [];
+    for (let i = 0; i <= m; i++) { d[i] = [i]; }
+    for (let j = 1; j <= n; j++) d[0][j] = j;
+    for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++) {
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
     }
-    return null;
+    return d[m][n];
+  }
+  // Collapses the parts of a name that speech recognition confuses: doubled letters, vowel swaps, soft endings.
+  const soundKey = (w) => w.replace(/ph/g, 'f').replace(/ck/g, 'k').replace(/c(?=[eiy])/g, 's').replace(/c/g, 'k').replace(/[aeiouy]+/g, 'a').replace(/(.)\1+/g, '$1');
+  const COMMON = /^(send|transfer|pay|give|buy|save|withdraw|take|keep|put|move|check|show|tell|make|comot|collect|bring|remove|cancel|stop|start|help|hello|balance|much|what|which|where|when|have|from|into|about|some|your|their|dey|wan|dem|them|then|than|also|just|again|only|every|money|mine|my|the|a|an|one|me|am|him|her|them|person|someone|account|bank|money|wallet|rent|school|fees|goal|naira|thousand|hundred|card|airtime|data|please|abeg|wan|want|for|from|into|and|with|this|that|now|today|tomorrow|mama|papa|aunty|uncle|brother|sister|boss|madam|oga|baba|iya)$/;
+  function findContact(t, contacts) {
+    contacts = contacts || [];
+    for (const c of contacts) {
+      const names = [c.name].concat(c.aliases || []).map(n => norm(n));
+      if (names.some(n => n && new RegExp('\\b' + n + '\\b').test(t))) return c;
+    }
+    // Nothing exact: look for a word that sounds like a contact's first name ("Tunday" -> Tunde)
+    const words = t.split(' ').filter(w => w.length >= 4 && !/\d/.test(w) && !COMMON.test(w));
+    let best = null, bestScore = 99;
+    for (const c of contacts) {
+      const parts = [c.name].concat(c.aliases || []).map(n => norm(n)).join(' ').split(' ').filter(p => p.length >= 4);
+      for (const p of parts) for (const w of words) {
+        if (w[0] !== p[0]) continue;
+        const d = editDistance(w, p);
+        const close = soundKey(w) === soundKey(p) || d <= (p.length >= 7 ? 2 : 1);
+        if (close && d < bestScore) { best = c; bestScore = d; }
+      }
+    }
+    return best;
   }
 
   // ---------- challenge digits (anti-replay) ----------
@@ -674,7 +735,7 @@ body { background: #E6EAE8; }
   function understand(raw, ctx) {
     ctx = ctx || {};
     const now = ctx.now || new Date();
-    const t0 = joinSpokenDigits(norm(raw));
+    const t0 = joinSpokenDigits(norm(fixHearing(raw)));
     const r = { raw, t: t0 };
 
     if (ctx.pending) {
@@ -766,12 +827,13 @@ body { background: #E6EAE8; }
       r.intent = 'explain'; r.term = term[0]; return r;
     }
 
-    if (/\b(withdraw|take out|takeout|comot|cash out|remove|collect|bring out|yo owo|yo kuro|yo jade|gba owo|mu owo|yo)\b/.test(t0)) { r.intent = 'withdraw'; return r; }
+    if (/\b(withdraw|take out|takeout|comot|cash out|remove|collect|bring out|yo owo|yo kuro|yo jade|gba owo|mu owo|yo)\b/.test(t0) || /\btake\b.*\bout\b/.test(t0)) { r.intent = 'withdraw'; return r; }
 
     if (/\b(remind|reminder|remember me|ranti|ran mi leti|leti)\b/.test(t0)) { r.intent = 'remind'; return r; }
 
     const wantsGoal = /\b(goal|target|afojusun|plan)\b/.test(t0) ||
-      (r.deadline && /\b(want|wan|wanna|need|fe|plan|go save|dey save|save up|gather)\b/.test(t0));
+      (r.deadline && /\b(want|wan|wanna|need|fe|plan|go save|dey save|save up|gather)\b/.test(t0)) ||
+      (/\bsave up\b|\bsaving up\b|\bsaving towards\b|\bsave towards\b/.test(t0) && !r.amount);
     if (wantsGoal && !/\b(how much|balance|elo|melo)\b/.test(t0)) {
       r.intent = 'goal';
       if (!r.goal) r.customName = customGoalName(dl ? dl.rest : raw);
@@ -779,7 +841,7 @@ body { background: #E6EAE8; }
     }
 
     if (/\b(wallet|spend money|apo owo)\b/.test(t0) && /\b(how much|balance|elo|melo|check|wetin)\b/.test(t0)) { r.intent = 'wallet'; return r; }
-    if (/\b(balance|how much|how far with|wetin (i|dey|remain)|i get how much|elo|melo|iye owo|owo melo|how my money|check)\b/.test(t0)) { r.intent = 'balance'; return r; }
+    if (/\b(balance|how much|how far (with|my|for)|wetin (i|dey|remain)|i get how much|elo|melo|iye owo|owo melo|how my money|check|what do i have|what i get|how many)\b/.test(t0)) { r.intent = 'balance'; return r; }
 
     if (/\b(my goals|all goals|goals|list|show me|afojusun mi|gbogbo)\b/.test(t0) && !r.amount) { r.intent = 'goals'; return r; }
 
@@ -790,6 +852,9 @@ body { background: #E6EAE8; }
     }
 
     if (/\b(hello|hi|hey|how far|good morning|good afternoon|good evening|bawo|e kaaro|e kaasan|e kaale|pele)\b/.test(t0)) { r.intent = 'greet'; return r; }
+
+    // Just a goal name ("rent", "school fees"): tell them how that goal is doing
+    if (r.goal && t0.split(' ').length <= 4) { r.intent = 'balance'; return r; }
 
     r.intent = 'unknown';
     return r;
@@ -1063,7 +1128,7 @@ body { background: #E6EAE8; }
       .replace(/%/g, lang === 'yo' ? ' nínú ọgọ́rùn-ún' : ' percent');
   }
 
-  root.VosaLogic = { newChallenge, spokenDigits, challengeOk, norm, fmt, parseAmount, parseDeadline, parseDay, detectGoal, customGoalName, understand, say, fill, S, EXPLAIN, GOALS, dateLabel, dayLabel, toSpeech };
+  root.VosaLogic = { newChallenge, spokenDigits, challengeOk, norm, fmt, parseAmount, parseDeadline, parseDay, detectGoal, customGoalName, understand, fixHearing, say, fill, S, EXPLAIN, GOALS, dateLabel, dayLabel, toSpeech };
 })(typeof window !== 'undefined' ? window : globalThis);
 </script>
 <script>(function () {
@@ -1289,6 +1354,11 @@ body { background: #E6EAE8; }
     lIn: { en: 'In', yo: 'Wọlé' }, lOut: { en: 'Out', yo: 'Jáde' }, lSaved: { en: 'Saved', yo: 'Pamọ́' },
     switched: { en: 'Switched to English', pcm: 'I don switch to Pidgin', yo: 'Mo ti yí padà sí Yorùbá' },
     noYoVoice: { en: 'Yorùbá voice replies need the speech service. Showing text.', pcm: 'Yorùbá voice need the speech service. I go show am as text.', yo: 'Ohùn Yorùbá nílò iṣẹ́ ohùn. Mo ń fi ọ̀rọ̀ hàn.' },
+    hearLbl: { en: 'How Vosa hears you', pcm: 'How Vosa dey hear you', yo: 'Bí Vosa ṣe ń gbọ́ ọ' },
+    hearD: { en: 'Phone is free. Spitch understands Nigerian accents and Pidgin better, but uses your Spitch credit.', pcm: 'Phone na free. Spitch sabi Naija accent and Pidgin pass, but e dey use your Spitch credit.', yo: 'Fóònù jẹ́ ọ̀fẹ́. Spitch gbọ́ ohùn Nàìjíríà dáradára, ṣùgbọ́n ó ń lo krẹ́dìtì Spitch rẹ.' },
+    hearPhone: { en: 'Phone', pcm: 'Phone', yo: 'Fóònù' },
+    goAhead: { en: 'Go ahead, I’m listening.', pcm: 'Talk, I dey hear you.', yo: 'Sọ̀rọ̀, mo ń gbọ́.' },
+    heardYou: { en: 'I heard: “{x}”', pcm: 'I hear: “{x}”', yo: 'Mo gbọ́: “{x}”' },
     voiceErr: { en: 'I could not hear that. Try again, or type it.', pcm: 'I no fit hear am. Try again or type am.', yo: 'Mi ò gbọ́ ọ. Gbìyànjú lẹ́ẹ̀kan sí i, tàbí kọ ọ́.' },
     asking: { en: 'Asking Claude to help understand…', pcm: 'I dey ask Claude make e help me understand…', yo: 'Mo ń béèrè lọ́wọ́ Claude…' },
     hfReady: { en: 'Hands-free is on', pcm: 'Hands-free dey on', yo: 'Hands-free wà' },
@@ -1487,7 +1557,7 @@ body { background: #E6EAE8; }
   let pending = null;   // {type, needsPhrase, tries, ...}
   let awaiting = null;  // {slot, r}
   let ov = null;        // {kind, data}
-  let lastHeard = '';
+  let lastHeard = '', lastVia = '';
   let lastReply = '';
   let lastReplyLang = 'en';
   let flashGoal = null;
@@ -1729,6 +1799,7 @@ body { background: #E6EAE8; }
       row(t('textSize'), null, seg(t('textSize'), [[0.9, 'A', 'font-size:12px'], [1, 'A', 'font-size:15px'], [1.2, 'A', 'font-size:18px']], state.textScale, (s) => { state.textScale = s; persist(); render(); })),
       row(t('srTips'), null, h('button', { class: 'link', type: 'button', text: t('open'), onClick: () => showOv('sheet', { tone: 'ok', icon: 'speaker', title: t('srTips'), body: t('srBody'), actions: [{ label: t('ok'), primary: true, fn: closeOv }] }) }))));
     v.append(h('h2', { class: 'group-t', text: t('demoTools') }), h('div', { class: 'group', style: 'margin-top:0' },
+      SR && backend.ok ? row(t('hearLbl'), t('hearD'), seg(t('hearLbl'), [['phone', t('hearPhone')], ['spitch', 'Spitch']], state.hearSpitch ? 'spitch' : 'phone', (v) => { state.hearSpitch = v === 'spitch'; persist(); render(); })) : null,
       row(t('engineLbl'), engineText(), null),
       row(t('simulateT'), null, h('button', { class: 'link', type: 'button', text: t('run'), onClick: () => incoming(50000, 'Kemi Adewale') })),
       row(t('reset'), null, h('button', { class: 'link', type: 'button', style: 'color:var(--danger)', text: t('resetBtn'), onClick: resetDemo }))));
@@ -2103,7 +2174,7 @@ body { background: #E6EAE8; }
     stopListening();
     const phraseMode = !!(pending && pending.needsPhrase);
     const isPhrase = phraseMode && L.norm(raw).includes(L.norm(state.secret));
-    lastHeard = isPhrase || (phraseMode && opts.via === 'text') ? '••••••' : raw;
+    lastHeard = isPhrase || (phraseMode && opts.via === 'text') ? '••••••' : raw; lastVia = opts.via || '';
     if (ov && ['success', 'moneyin', 'sheet', 'pot', 'amount', 'goal-form', 'send-form', 'airtime-form'].includes(ov.kind) && !(pending && pending.type === 'nudge')) closeOv();
     maybeSwitch(raw);
     renderTalk();
@@ -2331,7 +2402,7 @@ body { background: #E6EAE8; }
       case 'greet': return reply(R('greet'));
       default: {
         const text = R('unknown');
-        return fail({ tone: 'warn', icon: 'wave', k: t('kDidnt'), title: text, actions: [
+        return fail({ tone: 'warn', icon: 'wave', k: t('kDidnt'), title: text, body: lastVia === 'voice' && lastHeard ? t('heardYou', { x: lastHeard }) : null, actions: [
           { label: t('tryAgain'), primary: true, fn: () => { closeOv(); micDenied = false; startListening(); } },
           { label: t('typeInstead'), fn: () => { showOv('type'); } }] }, text);
       }
@@ -2760,7 +2831,7 @@ body { background: #E6EAE8; }
 
   function engineText() {
     const parts = [];
-    parts.push(SR ? 'English/Pidgin: browser' : (backend.ok ? 'English/Pidgin: Spitch' : 'English/Pidgin: typing only'));
+    parts.push(SR && !(state.hearSpitch && backend.ok) ? 'English/Pidgin: phone' : (backend.ok ? 'English/Pidgin: Spitch' : 'English/Pidgin: typing only'));
     parts.push(backend.sttYo ? 'Yorùbá: Spitch' : 'Yorùbá: typing (connect Spitch for voice)');
     if (backend.ttsPcm) parts.push('Pidgin replies: Spitch');
     return parts.join(' · ');
@@ -2796,7 +2867,7 @@ body { background: #E6EAE8; }
         .catch(() => { vid.starting = false; status(t('vidErrShort')); startRecording(); });
     }
     if (state.lang === 'yo' && backend.sttYo) return startRecording();
-    if (SR) return startBrowserSR();
+    if (SR && !(state.hearSpitch && backend.ok)) return startBrowserSR();
     if (backend.ok) return startRecording();
     voiceUnavailable();
   }
@@ -2869,33 +2940,69 @@ body { background: #E6EAE8; }
     stopTimer = setTimeout(() => { if (mr.state === 'recording') mr.stop(); }, 15000);
   }
 
+  // Scores how well Vosa understood a transcript, so the best of several guesses can be picked.
+  function understandingScore(text) {
+    const r = L.understand(text, { contacts: state.contacts, helpers: (state.helpers || []).map(x => x.name), awaiting: awaiting && awaiting.slot, pending: !!pending });
+    let sc = 0;
+    if (r.intent && r.intent !== 'unknown') sc += 4;
+    if (r.amount) sc += 2;
+    if (r.contact || r.goal || r.account || r.bank) sc += 1;
+    return sc;
+  }
+  function bestAlternative(alts) {
+    let best = alts[0], bestScore = -1;
+    for (const a of alts) { const sc = understandingScore(a); if (sc > bestScore) { best = a; bestScore = sc; } }
+    return best;
+  }
+
+  let srRetries = 0;
   function startBrowserSR() {
     const r = new SR();
     rec = r;
     r.lang = state.lang === 'yo' ? 'yo-NG' : 'en-NG';
     r.interimResults = true;
-    r.maxAlternatives = 1;
-    let finalText = '', gotError = false;
+    r.maxAlternatives = 5;
+    r.continuous = true; // keep listening through short pauses; we end it ourselves after silence
+    const finals = [];           // one entry per final result: the list of alternatives
+    let interim = '', gotError = false, sawSpeech = false, silence = null, hardStop = null;
+    const endSoon = (ms) => { clearTimeout(silence); silence = setTimeout(() => { try { r.stop(); } catch (e) {} }, ms); };
     r.onresult = (e) => {
-      let interim = '';
+      interim = '';
       for (let i = e.resultIndex; i < e.results.length; i++) {
-        if (e.results[i].isFinal) finalText += e.results[i][0].transcript; else interim += e.results[i][0].transcript;
+        const res = e.results[i];
+        if (res.isFinal) {
+          const alts = [];
+          for (let k = 0; k < res.length; k++) { const tx = (res[k].transcript || '').trim(); if (tx && !alts.includes(tx)) alts.push(tx); }
+          if (alts.length) finals.push(alts);
+        } else interim += res[0].transcript;
       }
-      $('live-text').textContent = '“' + (finalText + interim).trim() + '”';
+      sawSpeech = true;
+      const shown = finals.map(a => a[0]).concat(interim ? [interim] : []).join(' ').trim();
+      $('live-text').textContent = shown ? '“' + shown + '”' : '';
+      // After a final result, wait a short moment for more; after interim text, wait a little longer.
+      endSoon(finals.length && !interim ? 900 : 1600);
     };
+    r.onspeechstart = () => { sawSpeech = true; };
     r.onerror = (e) => {
-      gotError = true;
-      if (['not-allowed', 'service-not-allowed', 'audio-capture', 'language-not-supported'].includes(e.error)) { micDenied = true; voiceUnavailable(); }
-      else if (e.error !== 'no-speech' && e.error !== 'aborted') status(t('voiceErr'));
+      if (['not-allowed', 'service-not-allowed', 'audio-capture', 'language-not-supported'].includes(e.error)) { gotError = true; micDenied = true; voiceUnavailable(); }
+      else if (e.error === 'no-speech') { /* handled in onend: we restart quietly */ }
+      else if (e.error !== 'aborted') { gotError = true; status(t('voiceErr')); }
     };
     r.onend = () => {
+      clearTimeout(silence); clearTimeout(hardStop);
       if (rec === r) rec = null;
       listening = false; $('mic').classList.remove('live'); showListen(null);
-      if (finalText.trim()) { emptyRuns = 0; handle(finalText, { via: 'voice' }); return; }
-      if (!micDenied && state.handsFree) { emptyRuns++; if (emptyRuns < 30) afterReply(); }
+      if (micDenied) return;
+      // Build the best sentence from the alternatives the phone offered
+      const text = finals.length ? (finals.length === 1 ? bestAlternative(finals[0]) : finals.map(a => a[0]).join(' ')) : interim.trim();
+      if (text) { srRetries = 0; emptyRuns = 0; handle(text, { via: 'voice' }); return; }
+      // Nothing heard. Phones often give up before the person starts talking: listen again, quietly.
+      if (!gotError && !sawSpeech && srRetries < 2 && !state.handsFree) { srRetries++; status(t('goAhead')); return startBrowserSR(); }
+      srRetries = 0;
+      if (state.handsFree) { emptyRuns++; if (emptyRuns < 30) afterReply(); }
       else if (!gotError) status(t('voiceErr'));
     };
-    try { r.start(); setLive(true); } catch (e) { micDenied = true; voiceUnavailable(); }
+    try { r.start(); setLive(true); hardStop = setTimeout(() => { try { r.stop(); } catch (e) {} }, 14000); } catch (e) { micDenied = true; voiceUnavailable(); }
   }
 
   function voiceUnavailable() {
