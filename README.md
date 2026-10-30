@@ -115,6 +115,16 @@ Say "record a promise for rent", "play my promise", or use the Voice Promise row
 
 Open the site on the phone, then: Android Chrome → menu → **Add to Home screen**; iPhone Safari → Share → **Add to Home Screen**. Vosa then opens full-screen with its own icon.
 
+### Accounts (sign up, sign in, demo money)
+
+People create a real Vosa account with their name, Nigerian phone number and their own spoken secret phrase (`api/auth.js`). Each account starts with ₦50,000 of demo money. Signing in on another phone restores savings, goals, helpers and settings; Voice ID and Voice Promise recordings stay on the old phone and are set up again. Anyone can still choose "Try the demo first".
+
+- One account per phone number. The secret phrase is never stored as text: the server keeps a salted scrypt hash, the phone keeps a separate salted fingerprint.
+- Sign-in locks for 15 minutes after 5 wrong tries for that number.
+- Changing the phrase ("change my secret phrase to …") needs the current phrase first, and the new phrase is never read aloud.
+- Needs the Upstash Redis database. The website's Get started and Sign in buttons open `/?start=signup` and `/?start=login`.
+- Phone numbers are not verified by SMS yet (that needs a paid SMS sender), and money is demo money: real funds would need identity checks and a licensed partner.
+
 ### Phone unlock (optional extra lock)
 
 Settings → Security → **Phone unlock for big transfers**. When on, transfers at or above the approval limit also ask for the phone's own fingerprint or face (WebAuthn). It is off by default and never required: someone who cannot use a fingerprint or face loses nothing. In this prototype the check happens on the phone only; a production build would verify it on the server.

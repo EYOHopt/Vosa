@@ -51,12 +51,12 @@ async function sync(b) {
     if (rec && rec.ownerId === b.ownerId) helpers.push({ token: h.token, name: rec.name, role: rec.role, limit: rec.limit, status: rec.status });
   }
   const acct = {
-    ownerId: b.ownerId, name: String(s.name || 'Vosa user').slice(0, 40), lang: ['en', 'pcm', 'yo'].includes(s.lang) ? s.lang : 'en',
+    ownerId: b.ownerId, name: String(s.name || 'Vosa user').slice(0, 40), lang: ['en', 'pcm', 'yo', 'ha', 'ig'].includes(s.lang) ? s.lang : 'en',
     wallet: Math.max(0, Math.round(Number(s.wallet) || 0)), account: String(s.account || ''), myPhone: String(s.myPhone || ''), myNetwork: s.myNetwork || 'MTN',
-    goals: (s.goals || []).slice(0, 20).map(g => ({ key: g.key, name: g.name || null, bal: Math.max(0, Math.round(g.bal || 0)), target: g.target || null, deadline: g.deadline || null })),
+    goals: (s.goals || []).slice(0, 20).map(g => ({ key: g.key, name: g.name || null, bal: Math.max(0, Math.round(g.bal || 0)), target: g.target || null, deadline: g.deadline || null, promiseRule: ['confirm', 'helper', 'wait'].includes(g.promiseRule) ? g.promiseRule : null })),
     contacts: (s.contacts || []).slice(0, 50).map(c => ({ name: c.name, aliases: (c.aliases || []).slice(0, 10), bank: c.bank, acct: c.acct })),
     activity: (s.activity || []).slice(0, 12),
-    secretHash: s.secretHash || prev.secretHash || null, secretWords: s.secretWords || prev.secretWords || 0,
+    autoSave: s.autoSave && Number(s.autoSave.pct) ? { pct: Math.min(50, Math.max(1, Math.round(Number(s.autoSave.pct)))), ref: s.autoSave.ref ? { key: String(s.autoSave.ref.key || 'flex').slice(0, 20), name: s.autoSave.ref.name ? String(s.autoSave.ref.name).slice(0, 40) : null } : null } : null,
     approveOver: Math.max(1000, Number(s.approveOver) || 20000),
     helpers, rev: (prev.rev || 0) + 1, updatedAt: Date.now()
   };

@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#CC4A0A">
+<link rel="icon" href="/icons/icon-192.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<title>Vosa</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Vosa is a voice-first savings app for people who can't see, type or read easily. Save, send and protect your money by talking, in English, Pidgin, Yorùbá, Hausa and Igbo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans:wght@400;600&display=swap">
+<style>
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+img{max-width:100%}[hidden]{display:none!important}
+
+/* Layout: bank-style marketing page. Full-width bands, each with an inner 1120px column;
+   text and a phone/visual alternate left and right, stacking on phones. */
+:root {
+  --bg: #FFFFFF;
+  --band: #FFF5EE;          /* warm orange-tinted band */
+  --mint: #EAF6EE;          /* light green band (savings, good news) */
+  --ink: #1A1410;
+  --muted: #6B5E55;
+  --line: #EFE4DB;
+  --brand: #CC4A0A;         /* Vosa orange, 4.6:1 with white */
+  --brand-ink: #FFFFFF;
+  --brand-soft: #FDE7DA;
+  --green: #15803D;
+  --phone: #1A1410;
+  --screen: #FFFFFF;
+  --card: #FFFFFF;
+  --shadow: 0 24px 60px rgba(120, 50, 10, .14);
+  --display: "Bricolage Grotesque", "Plus Jakarta Sans", system-ui, sans-serif;
+  --body: "Plus Jakarta Sans", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --local: "Noto Sans", "Plus Jakarta Sans", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #15110E; --band: #1F1712; --mint: #12201A; --ink: #F6EEE8; --muted: #BBA99C; --line: #33271F;
+  --brand: #F07A3A; --brand-ink: #1A0E07; --brand-soft: #3A2215; --green: #4ADE80; --phone: #000000; --screen: #201914; --card: #201914;
+  --shadow: 0 24px 60px rgba(0, 0, 0, .5); color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #15110E; --band: #1F1712; --mint: #12201A; --ink: #F6EEE8; --muted: #BBA99C; --line: #33271F;
+  --brand: #F07A3A; --brand-ink: #1A0E07; --brand-soft: #3A2215; --green: #4ADE80; --phone: #000000; --screen: #201914; --card: #201914;
+  --shadow: 0 24px 60px rgba(0, 0, 0, .5); color-scheme: dark }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.band { padding-block: 88px; }
+.band.tint { background: var(--band); }
+.band.mint { background: var(--mint); }
+h1, h2, h3 { font-family: var(--display); letter-spacing: -0.025em; line-height: 1.05; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(44px, 7vw, 84px); font-weight: 800; }
+h2 { font-size: clamp(34px, 4.6vw, 54px); font-weight: 800; }
+h3 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
+p { margin: 0; }
+.lede { font-size: 19px; color: var(--muted); max-width: 34ch; }
+.eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--brand); }
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: 999px; font: 700 16px var(--body); text-decoration: none; border: 0; cursor: pointer; }
+.btn.p { background: var(--brand); color: var(--brand-ink); }
+.btn.p:hover { filter: brightness(1.06); }
+.btn.o { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.btn svg { flex: 0 0 auto; }
+.split { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+.split.rev > :first-child { order: 2; }
+.split > * { min-width: 0; }
+.stack { display: flex; flex-direction: column; gap: 20px; }
+
+/* nav */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; font: 800 24px var(--display); letter-spacing: -0.03em; text-decoration: none; }
+.logo i { width: 34px; height: 34px; border-radius: 10px; background: var(--brand); display: grid; place-items: center; }
+.nav ul { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; font-weight: 600; font-size: 15px; }
+.nav ul a { text-decoration: none; color: var(--muted); }
+.nav ul a:hover { color: var(--ink); }
+.nav .btn { min-height: 44px; padding: 0 18px; font-size: 15px; }
+@media (max-width: 560px) { .navin { display: none; } }
+
+/* strip */
+.strip { background: var(--ink); color: var(--bg); font-size: 14px; font-weight: 600; text-align: center; padding-block: 10px; }
+.strip a { color: inherit; }
+
+/* hero */
+.hero { padding-block: 64px 88px; overflow: hidden; }
+.hero h1 .say { color: var(--brand); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font: 600 14px var(--local); padding: 8px 14px; border-radius: 999px; background: var(--brand-soft); color: var(--ink); }
+.hero .note { font-size: 14px; color: var(--muted); }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+/* phone mockup */
+.phone-zone { display: grid; place-items: center; position: relative; }
+.phone { width: min(320px, 100%); aspect-ratio: 9 / 18.5; max-width: 100%; background: var(--phone); border-radius: 44px; padding: 12px; box-shadow: var(--shadow); position: relative; }
+.screen { height: 100%; background: var(--screen); border-radius: 34px; overflow: hidden; display: flex; flex-direction: column; padding: 22px 16px 16px; gap: 10px; font-size: 13.5px; }
+.scr-top { display: flex; align-items: center; justify-content: space-between; }
+.scr-top b { font: 800 18px var(--display); }
+.scr-lang { font: 600 12px var(--body); padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); }
+.bal { background: var(--band); border-radius: 18px; padding: 14px; }
+.bal span { color: var(--muted); font-size: 12px; }
+.bal b { display: block; font: 800 26px var(--display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.convo { flex: 1; display: flex; flex-direction: column; gap: 8px; justify-content: flex-end; }
+.bub { max-width: 86%; padding: 10px 12px; border-radius: 16px; line-height: 1.4; animation: pop .4s ease both; }
+.bub.me { align-self: flex-end; background: var(--brand); color: var(--brand-ink); border-bottom-right-radius: 6px; }
+.bub.vo { align-self: flex-start; background: var(--band); border-bottom-left-radius: 6px; }
+.bub.vo small { display: block; color: var(--muted); font-size: 11px; margin-bottom: 2px; font-weight: 600; }
+@keyframes pop { from { transform: translateY(6px); opacity: .4; } to { transform: none; opacity: 1; } }
+.mic { align-self: center; width: 58px; height: 58px; border-radius: 50%; background: var(--brand); color: var(--brand-ink); display: grid; place-items: center; box-shadow: 0 0 0 8px var(--brand-soft); }
+.float { position: absolute; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 10px 14px; box-shadow: var(--shadow); font-size: 13px; font-weight: 600; display: flex; gap: 8px; align-items: center; }
+.float.a { top: 25%; left: 0; }
+.float.b { top: 35%; right: 0; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--green); flex: 0 0 auto; }
+
+/* say-it section */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tab { font: 700 15px var(--body); padding: 10px 18px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.phrases { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.phrase { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.phrase q { font: 600 19px/1.35 var(--local); quotes: "“" "”"; }
+.phrase span { color: var(--muted); font-size: 14px; }
+
+/* promise */
+.quote-card { background: var(--card); border-radius: 28px; padding: 28px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 18px; }
+.quote-card blockquote { margin: 0; font: 600 24px/1.35 var(--display); letter-spacing: -0.01em; }
+.wave { display: flex; align-items: center; gap: 5px; height: 48px; }
+.wave i { width: 6px; border-radius: 3px; background: var(--brand); height: 12px; }
+.wave.live i { animation: wv 1s ease-in-out infinite; }
+.wave i:nth-child(2n) { animation-delay: .15s; } .wave i:nth-child(3n) { animation-delay: .3s; } .wave i:nth-child(5n) { animation-delay: .45s; }
+@keyframes wv { 0%, 100% { height: 10px; } 50% { height: 44px; } }
+.choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.choice { border: 1.5px solid var(--line); border-radius: 16px; padding: 12px; font-size: 14px; display: flex; flex-direction: column; gap: 2px; }
+.choice b { font-size: 15px; }
+.choice span { color: var(--muted); font-size: 13px; line-height: 1.4; }
+.play { align-self: flex-start; }
+
+/* circle */
+.roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.role { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 22px; display: flex; flex-direction: column; gap: 10px; }
+.role .ic { width: 44px; height: 44px; border-radius: 12px; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; }
+.role p { color: var(--muted); font-size: 15px; }
+.never { margin-top: 20px; display: flex; gap: 14px; align-items: flex-start; background: var(--ink); color: var(--bg); border-radius: 22px; padding: 20px 22px; }
+.never b { display: block; font-size: 17px; }
+.never span { opacity: .8; font-size: 15px; }
+
+/* security */
+.checks { display: flex; flex-direction: column; gap: 14px; }
+.check { display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: start; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.check:last-child { border-bottom: 0; }
+.check .n { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--brand); color: var(--brand); display: grid; place-items: center; font: 800 18px var(--display); }
+.check p { color: var(--muted); }
+.digits { display: flex; gap: 10px; }
+.digits span { width: 64px; height: 76px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); display: grid; place-items: center; font: 800 36px var(--display); font-variant-numeric: tabular-nums; }
+
+/* who */
+.who { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.who > div { padding: 22px; border-radius: 22px; background: var(--card); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.who p { color: var(--muted); font-size: 15px; }
+
+/* faq */
+.faq { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 22px 0; font: 600 19px var(--body); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font: 400 28px var(--display); color: var(--brand); flex: 0 0 auto; transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding-bottom: 22px; color: var(--muted); max-width: 70ch; }
+
+/* closing */
+.close { background: var(--brand); color: var(--brand-ink); border-radius: 36px; padding: 56px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 28px; }
+.close h2 { max-width: 14ch; }
+.close .btn.p { background: var(--brand-ink); color: var(--brand); }
+
+/* footer */
+footer { padding-block: 56px 40px; border-top: 1px solid var(--line); }
+.fgrid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 32px; }
+.fgrid h4 { margin: 0 0 12px; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.fgrid ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.fgrid a { text-decoration: none; }
+.fgrid a:hover { color: var(--brand); }
+.legal { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13.5px; display: flex; flex-direction: column; gap: 6px; }
+
+@media (max-width: 900px) {
+  .split { grid-template-columns: 1fr; gap: 40px; }
+  .split.rev > :first-child { order: 0; }
+  .roles, .who { grid-template-columns: 1fr 1fr; }
+  .nav ul { display: none; }
+  .fgrid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .band { padding-block: 64px; }
+  .phrases, .roles, .who, .choices { grid-template-columns: 1fr; }
+  .close { padding: 32px 24px; border-radius: 28px; }
+  .float { display: none; }
+  .digits span { width: 54px; height: 66px; font-size: 30px; }
+}
+@media (prefers-reduced-motion: reduce) { .bub, .wave.live i { animation: none; } .wave.live i { height: 28px; } }
+</style>
+
+</head>
+<body>
+<div class="strip"><div class="wrap">Vosa is in early preview. Balances in the demo are simulated. <a href="/">Try the live prototype</a></div></div>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Vosa home"><i><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><g stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M10 13v6"/><path d="M16 9v14"/><path d="M22 12v8"/></g></svg></i>Vosa</a>
+    <ul>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#promise">Voice Promise</a></li>
+      <li><a href="#circle">Trusted Circle</a></li>
+      <li><a href="#safety">Safety</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div style="display:flex;gap:10px;align-items:center"><a class="btn o navin" href="/?start=login">Sign in</a><a class="btn p" href="/?start=signup">Get started</a></div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap split">
+    <div class="stack">
+      <span class="eyebrow">Voice-first savings</span>
+      <h1>If you can talk, <span class="say">you can save.</span></h1>
+      <p class="lede">Vosa lets people who can't see, type or read easily save, send and protect their money by talking. No screen needed. No PIN to hand over.</p>
+      <div class="chips" aria-label="Languages">
+        <span class="chip" lang="en">English</span><span class="chip">Pidgin</span><span class="chip" lang="yo">Yorùbá</span><span class="chip" lang="ha">Hausa</span><span class="chip" lang="ig">Igbo</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn p" href="/?start=signup"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg>Create your free account</a>
+        <a class="btn o" href="/">Try the demo</a>
+      </div>
+      <p class="note">Nothing to download. Sign up with your phone number and a secret phrase you say out loud. Accounts start with ₦50,000 of demo money.</p>
+    </div>
+    <div class="phone-zone">
+      <div class="phone" role="img" aria-label="Vosa on a phone: the user says save five thousand for house rent, and Vosa confirms the saving out loud.">
+        <div class="screen">
+          <div class="scr-top"><b>Vosa</b><span class="scr-lang" id="hero-lang">Pidgin</span></div>
+          <div class="bal"><span>Wallet</span><b>₦35,000.00</b></div>
+          <div class="convo" id="convo" aria-hidden="true"></div>
+          <div class="mic" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></div>
+        </div>
+      </div>
+      <div class="float a"><span class="dot"></span>Voice ID matched</div>
+      <div class="float b">Rent goal: 60% saved</div>
+    </div>
+  </div>
+</header>
+
+<section class="band tint" id="how" aria-labelledby="how-h">
+  <div class="wrap stack" style="gap:32px">
+    <div class="stack" style="gap:12px">
+      <span class="eyebrow">How it works</span>
+      <h2 id="how-h">Say it the way you'd say it to your apprentice.</h2>
+      <p class="lede" style="max-width:52ch">Vosa understands Nigerian ways of talking about money: “5k”, “two thousand five”, “dubu biyar”, “puku ise”. It reads every transaction back before it moves a naira.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Choose a language">
+      <button class="tab" role="tab" id="t-pcm" aria-selected="true" aria-controls="phrases" data-lang="pcm">Pidgin</button>
+      <button class="tab" role="tab" id="t-en" aria-selected="false" aria-controls="phrases" data-lang="en">English</button>
+      <button class="tab" role="tab" id="t-yo" aria-selected="false" aria-controls="phrases" data-lang="yo">Yorùbá</button>
+      <button class="tab" role="tab" id="t-ha" aria-selected="false" aria-controls="phrases" data-lang="ha">Hausa</button>
+      <button class="tab" role="tab" id="t-ig" aria-selected="false" aria-controls="phrases" data-lang="ig">Igbo</button>
+    </div>
+    <div class="phrases" id="phrases" role="tabpanel" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="band" id="promise" aria-labelledby="promise-h">
+  <div class="wrap split">
+    <div class="stack">
+      <span class="eyebrow">Voice Promise</span>
+      <h2 id="promise-h">Your savings goal, in your own words.</h2>
+      <p class="lede">When you start a goal, you record why it matters. If you ever try to take the money out early, Vosa plays your own voice back to you, then asks one question: is this an emergency?</p>
+      <p style="color:var(--muted);max-width:52ch">It works like the witness at ajo. Nobody locks your money away. You decide in advance what happens in a real emergency.</p>
+    </div>
+    <div class="quote-card">
+      <span class="eyebrow">Recorded 3 months ago</span>
+      <blockquote>“This is for Tolu's school fees. Don't let me touch it before January.”</blockquote>
+      <div class="wave" id="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <button class="btn o play" type="button" id="play"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg>Hear the promise</button>
+      <div class="choices" aria-label="Emergency rules you can choose">
+        <div class="choice"><b>Just confirm</b><span>Your secret phrase is enough.</span></div>
+        <div class="choice"><b>Ask my helper</b><span>Someone you trust says yes first.</span></div>
+        <div class="choice"><b>Hold 24 hours</b><span>A day to think it over.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band mint" id="circle" aria-labelledby="circle-h">
+  <div class="wrap stack" style="gap:32px">
+    <div class="stack" style="gap:12px">
+      <span class="eyebrow" style="color:var(--green)">Trusted Circle</span>
+      <h2 id="circle-h">Help from family, without giving them your PIN.</h2>
+      <p class="lede" style="max-width:56ch">Many blind and older people hand their phone and PIN to a relative to bank for them. Vosa gives that relative a private link and a limited role instead. You can remove them any time.</p>
+    </div>
+    <div class="roles">
+      <div class="role"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Approver</h3><p>Says yes or no to big transfers and to money going to someone new. Gets a reminder to call you first.</p></div>
+      <div class="role"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><h3>Watcher</h3><p>Can see your balance and activity, nothing more. Good for a son or daughter far away.</p></div>
+      <div class="role"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18M16 15h2"/></svg></span><h3>Spender</h3><p>Pays the people you already pay, like the landlord or school, up to a monthly limit you set.</p></div>
+    </div>
+    <div class="never"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex:0 0 auto;margin-top:2px"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><div><b>Helpers can never</b><span>see your secret phrase, change your settings, add other helpers or take money out of your savings. Vosa tells you every time they look.</span></div></div>
+  </div>
+</section>
+
+<section class="band" id="safety" aria-labelledby="safety-h">
+  <div class="wrap split rev">
+    <div class="stack">
+      <span class="eyebrow">Safety</span>
+      <h2 id="safety-h">Checks built for people who can't read a screen.</h2>
+      <div class="checks">
+        <div class="check"><span class="n">1</span><div><h3>Your secret phrase</h3><p>Two or three words only you know, said out loud.</p></div></div>
+        <div class="check"><span class="n">2</span><div><h3>Three fresh numbers</h3><p>Different every time, so a recording of you can't be played back to move money.</p></div></div>
+        <div class="check"><span class="n">3</span><div><h3>Voice ID</h3><p>Checks that the voice matches yours. Your voiceprint is made and kept on your phone and never leaves it.</p></div></div>
+        <div class="check"><span class="n">+</span><div><h3>Phone unlock, if you can use it</h3><p>An optional extra: your phone's fingerprint or face for big transfers. Off by default, never required.</p></div></div>
+      </div>
+    </div>
+    <div class="stack" style="align-items:center;gap:18px">
+      <div class="bal" style="width:min(360px,100%);border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:14px;font-weight:600;color:var(--muted)">Vosa says</span>
+        <p style="font:600 20px/1.35 var(--display)">“Send ₦25,000 to Tunde, GTBank ending 4521? Say your secret phrase, then these numbers:”</p>
+        <div class="digits" aria-label="Example numbers: 7, 4, 2"><span>7</span><span>4</span><span>2</span></div>
+      </div>
+      <p style="color:var(--muted);font-size:14px;text-align:center;max-width:36ch">Every transfer is read back in full before it happens, and you can ask “read my last receipt” any time.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band tint" aria-labelledby="who-h">
+  <div class="wrap stack" style="gap:32px">
+    <div class="stack" style="gap:12px">
+      <span class="eyebrow">Who Vosa is for</span>
+      <h2 id="who-h">Voice-first, never voice-only.</h2>
+      <p class="lede" style="max-width:56ch">Talking is the fastest way in. Typing, large buttons and screen readers all work too, so nobody is shut out.</p>
+    </div>
+    <div class="who">
+      <div><h3>Blind and low-vision</h3><p>Every reply is spoken. Every button has a label for TalkBack and VoiceOver.</p></div>
+      <div><h3>Can't use their hands</h3><p>Hands-free mode listens again after every reply. No tapping needed.</p></div>
+      <div><h3>Older people</h3><p>Plain speech, slower voice options and family help that never needs your PIN.</p></div>
+      <div><h3>Low literacy</h3><p>No reading, no forms. Speak in your own language, the way you count money.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="faq" aria-labelledby="faq-h">
+  <div class="wrap split" style="align-items:start">
+    <div class="stack">
+      <span class="eyebrow">Questions</span>
+      <h2 id="faq-h">Good to know.</h2>
+      <p class="lede">Straight answers about what Vosa is today and what it will become.</p>
+    </div>
+    <div class="faq">
+      <details><summary>Is Vosa a bank?</summary><p>No. Vosa is the way you talk to your money. It is designed to work with licensed savings partners, who hold the money and pay the interest. In this early preview, balances are simulated.</p></details>
+      <details><summary>Does my voice leave my phone?</summary><p>Your voiceprint, the pattern Voice ID uses to recognise you, is made and kept on your phone and never leaves it. What you say is sent to our speech partner, Spitch, only to be turned into words, and is not kept.</p></details>
+      <details><summary>What if someone copies my voice?</summary><p>Voice ID is one check out of several. You also need your secret phrase and three numbers that change every time. For big transfers you can add your phone's fingerprint or face, or ask a trusted helper to approve.</p></details>
+      <details><summary>What if I can't speak clearly?</summary><p>You can type instead, use large buttons, or use your phone's screen reader. Vosa is voice-first, never voice-only.</p></details>
+      <details><summary>Which languages does Vosa speak?</summary><p>English, Nigerian Pidgin, Yorùbá, Hausa and Igbo. Vosa switches automatically when you switch. Hausa and Igbo are newly added and being reviewed by native speakers.</p></details>
+      <details><summary>How do I sign in on a new phone?</summary><p>Sign in with your phone number and your secret phrase. Your savings, goals and helpers come back. Voice ID is made again on the new phone, because your voiceprint never leaves the old one.</p></details>
+      <details><summary>Do I need to download anything?</summary><p>No. Open vosa.vercel.app on your phone. You can add it to your home screen so it opens like an app.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="band" style="padding-top:0" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="close">
+      <h2 id="close-h">Your money. Your voice. Your control.</h2>
+      <a class="btn p" href="/?start=signup">Get started</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="stack" style="gap:12px">
+        <a class="logo" href="#top"><i><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><g stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M10 13v6"/><path d="M16 9v14"/><path d="M22 12v8"/></g></svg></i>Vosa</a>
+        <p style="color:var(--muted);max-width:30ch">If you can talk, you can save.</p>
+      </div>
+      <div><h4>Product</h4><ul><li><a href="#how">How it works</a></li><li><a href="#promise">Voice Promise</a></li><li><a href="#circle">Trusted Circle</a></li><li><a href="#safety">Safety</a></li></ul></div>
+      <div><h4>Try it</h4><ul><li><a href="/">Open the prototype</a></li><li><a href="#faq">Questions</a></li></ul></div>
+      <div><h4>Built with</h4><ul><li>Spitch speech for Nigerian languages</li><li>On-device Voice ID</li><li>Five Nigerian languages</li></ul></div>
+    </div>
+    <div class="legal">
+      <span>Vosa is an early preview. It is not a bank and does not hold customer funds. All balances shown are simulated.</span>
+      <span>© 2026 Vosa team.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Language tabs with real example phrases (what the app understands)
+  const P = {
+    pcm: [['Abeg keep 5k for my house rent', 'Saves ₦5,000 to your rent goal'], ['Send 3k give Mama', 'Sends ₦3,000 to Mama after your checks'], ['Comot 2k from my school fees', 'Plays your promise first, then asks'], ['How much I get?', 'Reads your wallet and savings out loud']],
+    en: [['Save 5,000 for rent', 'Saves ₦5,000 to your rent goal'], ['Send 5k to Tunde', 'Reads back the bank and account first'], ['I want to save 200k for school fees by January', 'Sets a goal and a weekly target'], ['Read my last receipt', 'Tells you what happened, and when']],
+    yo: [['Fi ẹgbẹ̀rún márùn-ún pamọ́ fún owó ilé', 'Saves ₦5,000 to your rent goal'], ['Èló ló wà nínú àpò mi?', 'Reads your wallet out loud'], ['Fi ẹgbẹ̀rún méjì ránṣẹ́ sí Mama', 'Sends ₦2,000 to Mama after your checks'], ['Ra káàdì ìpè MTN ẹgbẹ̀rún kan', 'Buys ₦1,000 MTN airtime']],
+    ha: [['Ajiye dubu biyar don kuɗin haya', 'Saves ₦5,000 to your rent goal'], ['Aika dubu biyar ga Tunde', 'Sends ₦5,000 to Tunde after your checks'], ['Kuɗi nawa nake da shi?', 'Reads your balance out loud'], ['Sayi katin MTN na dubu ɗaya', 'Buys ₦1,000 MTN airtime']],
+    ig: [['Chekwaa puku ise maka ụgwọ ụlọ', 'Saves ₦5,000 to your rent goal'], ['Zipu puku ise nye Tunde', 'Sends ₦5,000 to Tunde after your checks'], ['Ego ole ka m nwere?', 'Reads your balance out loud'], ['Zụta kaadị MTN puku', 'Buys ₦1,000 MTN airtime']]
+  };
+  const box = document.getElementById('phrases');
+  function show(lang) {
+    box.textContent = '';
+    for (const [q, d] of P[lang]) {
+      const el = document.createElement('div'); el.className = 'phrase';
+      const qq = document.createElement('q'); qq.textContent = q; qq.lang = lang === 'pcm' ? 'en' : lang;
+      const s = document.createElement('span'); s.textContent = d;
+      el.append(qq, s); box.append(el);
+    }
+    document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.lang === lang)));
+  }
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => show(t.dataset.lang));
+    t.addEventListener('keydown', (e) => {
+      if (!['ArrowRight', 'ArrowLeft'].includes(e.key)) return;
+      const tabs = [...document.querySelectorAll('.tab')]; const i = tabs.indexOf(t);
+      const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; n.focus(); show(n.dataset.lang);
+    });
+  });
+  show('pcm');
+
+  // Hero phone: a short spoken exchange, looped
+  const scenes = [
+    { lang: 'Pidgin', lines: [['me', 'Abeg keep 5k for my house rent'], ['vo', 'Make I keep ₦5,000 for House rent? Talk yes or no.'], ['me', 'Yes'], ['vo', 'Done. House rent don reach ₦45,000. 60% of your target.']] },
+    { lang: 'English', lines: [['me', 'Send 5k to Tunde'], ['vo', 'Send ₦5,000 to Tunde, GTBank ending 4521? Say your secret phrase, then 7, 4, 2.'], ['me', 'Blue mango, seven four two'], ['vo', 'Sent. Tunde has received ₦5,000.']] },
+    { lang: 'Yorùbá', lines: [['me', 'Èló ló wà nínú àpò mi?'], ['vo', 'Àpò rẹ ní ₦35,000. O ti fi ₦77,000 pamọ́.']] }
+  ];
+  const convo = document.getElementById('convo'), langEl = document.getElementById('hero-lang');
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let si = 0, li = 0;
+  function render(full) {
+    const sc = scenes[si]; langEl.textContent = sc.lang; convo.textContent = '';
+    const upto = full ? sc.lines.length : li + 1;
+    for (const [who, text] of sc.lines.slice(0, upto)) {
+      const b = document.createElement('div'); b.className = 'bub ' + who;
+      if (who === 'vo') { const s = document.createElement('small'); s.textContent = 'Vosa'; b.append(s); }
+      b.append(document.createTextNode(text)); convo.append(b);
+    }
+  }
+  render(true); // complete at rest
+  if (!reduce) {
+    li = 0; render(false);
+    setInterval(() => {
+      li++;
+      if (li >= scenes[si].lines.length + 2) { si = (si + 1) % scenes.length; li = 0; }
+      if (li < scenes[si].lines.length) render(false);
+    }, 1700);
+  }
+
+  // Voice Promise: read the promise aloud with the device voice (if available)
+  const play = document.getElementById('play'), wave = document.getElementById('wave');
+  play.addEventListener('click', () => {
+    const text = "This is for Tolu's school fees. Don't let me touch it before January.";
+    try {
+      if (!('speechSynthesis' in window)) throw new Error('none');
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text); u.rate = 0.95;
+      u.onend = u.onerror = () => wave.classList.remove('live');
+      wave.classList.add('live'); speechSynthesis.speak(u);
+      setTimeout(() => wave.classList.remove('live'), 6000);
+    } catch (e) { wave.classList.add('live'); setTimeout(() => wave.classList.remove('live'), 3000); }
+  });
+})();
+</script>
+
+</body>
+</html>

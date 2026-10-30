@@ -24,6 +24,7 @@ http.createServer(async (req, res) => {
     return require(file)(req, vercelish(res));
   }
   let p = path.join(__dirname, 'public', url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname));
+  if (p.startsWith(path.join(__dirname, 'public')) && fs.existsSync(p) && fs.statSync(p).isDirectory()) p = path.join(p, 'index.html');
   if (!p.startsWith(path.join(__dirname, 'public')) || !fs.existsSync(p)) { res.statusCode = 404; return res.end('Not found'); }
   res.setHeader('Content-Type', TYPES[path.extname(p)] || 'application/octet-stream');
   fs.createReadStream(p).pipe(res);
