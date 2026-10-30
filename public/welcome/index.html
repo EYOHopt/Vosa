@@ -3,285 +3,382 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#CC4A0A">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="light">
 <link rel="icon" href="/icons/icon-192.png">
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <title>Vosa</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Vosa is a voice-first savings app for people who can't see, type or read easily. Save, send and protect your money by talking, in English, Pidgin, Yorùbá, Hausa and Igbo.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&family=Noto+Sans:wght@400;600&display=swap">
 <style>
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
-img{max-width:100%}[hidden]{display:none!important}
-
-/* Layout: bank-style marketing page. Full-width bands, each with an inner 1120px column;
-   text and a phone/visual alternate left and right, stacking on phones. */
+/* Look: warm peach hero card, near-black type, bright orange pill buttons,
+   alternating white / deep navy / black-glow / light-grey / orange bands, black footer. */
 :root {
-  --bg: #FFFFFF;
-  --band: #FFF5EE;          /* warm orange-tinted band */
-  --mint: #EAF6EE;          /* light green band (savings, good news) */
-  --ink: #1A1410;
-  --muted: #6B5E55;
-  --line: #EFE4DB;
-  --brand: #CC4A0A;         /* Vosa orange, 4.6:1 with white */
-  --brand-ink: #FFFFFF;
-  --brand-soft: #FDE7DA;
-  --green: #15803D;
-  --phone: #1A1410;
-  --screen: #FFFFFF;
-  --card: #FFFFFF;
-  --shadow: 0 24px 60px rgba(120, 50, 10, .14);
-  --display: "Bricolage Grotesque", "Plus Jakarta Sans", system-ui, sans-serif;
-  --body: "Plus Jakarta Sans", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --local: "Noto Sans", "Plus Jakarta Sans", system-ui, sans-serif;
+  color-scheme: light;
+  --white: #FFFFFF;
+  --ink: #1F1C1B;          /* headings + body */
+  --ink-2: #474240;        /* secondary text, 9:1 on white */
+  --grey: #F4F4F4;         /* light grey band + FAQ rows */
+  --line: #E7E2DF;
+  --orange: #EE5A16;       /* buttons (white text at 18px+ bold) */
+  --orange-deep: #C2410C;  /* orange text on white / peach, 5:1 */
+  --peach: #FDE9DE;        /* "Get started" pill in the nav */
+  --navy-1: #02040A; --navy-2: #0F2A5C;
+  --night: #050505;
+  --paper: #F3EAE4;
+  --display: "Inter Tight", "Inter", system-ui, sans-serif;
+  --body: "Inter", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --local: "Noto Sans", "Inter", system-ui, sans-serif;
+  --hand: "Caveat", "Segoe Print", cursive;
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .2 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #15110E; --band: #1F1712; --mint: #12201A; --ink: #F6EEE8; --muted: #BBA99C; --line: #33271F;
-  --brand: #F07A3A; --brand-ink: #1A0E07; --brand-soft: #3A2215; --green: #4ADE80; --phone: #000000; --screen: #201914; --card: #201914;
-  --shadow: 0 24px 60px rgba(0, 0, 0, .5); color-scheme: dark } }
-:root[data-theme="dark"] {
-  --bg: #15110E; --band: #1F1712; --mint: #12201A; --ink: #F6EEE8; --muted: #BBA99C; --line: #33271F;
-  --brand: #F07A3A; --brand-ink: #1A0E07; --brand-soft: #3A2215; --green: #4ADE80; --phone: #000000; --screen: #201914; --card: #201914;
-  --shadow: 0 24px 60px rgba(0, 0, 0, .5); color-scheme: dark }
-
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--white); color: var(--ink); font: 17px/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { max-width: 100%; } [hidden] { display: none !important; }
 a { color: inherit; }
-:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; border-radius: 6px; }
-.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-.band { padding-block: 88px; }
-.band.tint { background: var(--band); }
-.band.mint { background: var(--mint); }
-h1, h2, h3 { font-family: var(--display); letter-spacing: -0.025em; line-height: 1.05; margin: 0; text-wrap: balance; }
-h1 { font-size: clamp(44px, 7vw, 84px); font-weight: 800; }
-h2 { font-size: clamp(34px, 4.6vw, 54px); font-weight: 800; }
-h3 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
+:focus-visible { outline: 3px solid var(--orange-deep); outline-offset: 3px; border-radius: 8px; }
+.wrap { max-width: 1340px; margin: 0 auto; padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); }
+.narrow { max-width: 1060px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; color: inherit; }
+h1 { font-size: clamp(48px, 8.4vw, 116px); font-weight: 700; letter-spacing: -0.045em; line-height: .98; }
+h2 { font-size: clamp(40px, 6vw, 92px); font-weight: 700; letter-spacing: -0.045em; line-height: 1; }
+h3 { font-size: 21px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; }
 p { margin: 0; }
-.lede { font-size: 19px; color: var(--muted); max-width: 34ch; }
-.eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--brand); }
-.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: 999px; font: 700 16px var(--body); text-decoration: none; border: 0; cursor: pointer; }
-.btn.p { background: var(--brand); color: var(--brand-ink); }
-.btn.p:hover { filter: brightness(1.06); }
-.btn.o { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.lede { font-size: clamp(18px, 1.6vw, 21px); line-height: 1.6; color: var(--ink-2); max-width: 40ch; }
+.center { text-align: center; margin-inline: auto; }
+.stack { display: flex; flex-direction: column; gap: 22px; }
+
+/* Buttons: pills */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 62px; padding: 0 28px; border-radius: 999px; font: 700 19px var(--body); letter-spacing: -0.01em; text-decoration: none; border: 0; cursor: pointer; transition: transform .15s, box-shadow .15s, filter .15s; }
+.btn:hover { transform: translateY(-1px); }
+.btn.o { background: var(--orange); color: #fff; box-shadow: 0 10px 24px rgba(238, 90, 22, .28); }
+.btn.o:hover { filter: brightness(1.05); }
+.btn.w { background: #fff; color: var(--ink); box-shadow: 0 8px 24px rgba(0, 0, 0, .12); }
+.btn.ghost { background: rgba(255, 255, 255, .7); color: var(--ink); box-shadow: inset 0 0 0 1.5px rgba(31, 28, 27, .14); }
 .btn svg { flex: 0 0 auto; }
-.split { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
-.split.rev > :first-child { order: 2; }
-.split > * { min-width: 0; }
-.stack { display: flex; flex-direction: column; gap: 20px; }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 999px; font: 600 16px var(--body); }
+.pill.dark { background: var(--ink); color: #fff; }
+.pill.white { background: #fff; color: var(--ink); }
+.hand { font: 700 30px/1 var(--hand); color: var(--orange); display: inline-flex; align-items: center; gap: 6px; pointer-events: none; user-select: none; }
 
-/* nav */
-.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; }
-.logo { display: inline-flex; align-items: center; gap: 10px; font: 800 24px var(--display); letter-spacing: -0.03em; text-decoration: none; }
-.logo i { width: 34px; height: 34px; border-radius: 10px; background: var(--brand); display: grid; place-items: center; }
-.nav ul { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; font-weight: 600; font-size: 15px; }
-.nav ul a { text-decoration: none; color: var(--muted); }
-.nav ul a:hover { color: var(--ink); }
-.nav .btn { min-height: 44px; padding: 0 18px; font-size: 15px; }
-@media (max-width: 560px) { .navin { display: none; } }
+/* Nav */
+.nav { position: sticky; top: 0; z-index: 30; background: rgba(255, 255, 255, .86); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); padding-top: env(safe-area-inset-top, 0px); }
+.nav .wrap { max-width: 1340px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; min-height: 96px; gap: 16px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; font: 700 34px var(--display); letter-spacing: -0.05em; color: #4A4544; text-decoration: none; justify-self: start; }
+.logo svg { flex: 0 0 auto; }
+.nav ul { display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; font-size: 18px; font-weight: 500; }
+.nav ul a { text-decoration: none; color: var(--ink); }
+.nav ul a:hover { color: var(--orange-deep); }
+.nav .right { display: flex; align-items: center; gap: 28px; justify-self: end; }
+.nav .signin { font-size: 18px; font-weight: 500; text-decoration: none; }
+.nav .signup { background: var(--peach); color: var(--orange-deep); min-height: 62px; padding: 0 24px; border-radius: 999px; display: inline-flex; align-items: center; font: 600 18px var(--body); text-decoration: none; }
+.nav .signup:hover { background: #FBDCCA; }
 
-/* strip */
-.strip { background: var(--ink); color: var(--bg); font-size: 14px; font-weight: 600; text-align: center; padding-block: 10px; }
-.strip a { color: inherit; }
-
-/* hero */
-.hero { padding-block: 64px 88px; overflow: hidden; }
-.hero h1 .say { color: var(--brand); }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { font: 600 14px var(--local); padding: 8px 14px; border-radius: 999px; background: var(--brand-soft); color: var(--ink); }
-.hero .note { font-size: 14px; color: var(--muted); }
-.cta-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-
-/* phone mockup */
-.phone-zone { display: grid; place-items: center; position: relative; }
-.phone { width: min(320px, 100%); aspect-ratio: 9 / 18.5; max-width: 100%; background: var(--phone); border-radius: 44px; padding: 12px; box-shadow: var(--shadow); position: relative; }
-.screen { height: 100%; background: var(--screen); border-radius: 34px; overflow: hidden; display: flex; flex-direction: column; padding: 22px 16px 16px; gap: 10px; font-size: 13.5px; }
+/* 1. Hero: rounded peach card */
+.hero { padding: 16px max(12px, 2vw) 0; }
+.hero-card { position: relative; overflow: hidden; border-radius: clamp(28px, 3vw, 44px); padding: clamp(56px, 7vw, 96px) 20px 0; text-align: center;
+  background:
+    radial-gradient(40% 50% at 12% 22%, rgba(255, 236, 226, .95), transparent 70%),
+    radial-gradient(35% 45% at 92% 62%, rgba(240, 150, 105, .75), transparent 70%),
+    radial-gradient(60% 60% at 50% 40%, rgba(250, 205, 182, .9), transparent 75%),
+    linear-gradient(115deg, #F8CDB6 0%, #F7BFA3 45%, #F5B08E 100%); }
+.hero-card::before { content: ""; position: absolute; inset: 0; background:
+    linear-gradient(100deg, transparent 12%, rgba(255, 255, 255, .22) 16%, transparent 24%),
+    linear-gradient(80deg, transparent 76%, rgba(255, 255, 255, .18) 82%, transparent 88%); pointer-events: none; }
+.hero-card > * { position: relative; }
+.preview { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px; background: rgba(255, 255, 255, .7); font: 600 15px var(--body); color: var(--ink); text-decoration: none; margin-bottom: 26px; }
+.preview i { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
+.hero h1 { max-width: 11ch; margin-inline: auto; }
+.hero .lede { margin: 26px auto 0; color: #3A3533; max-width: 44ch; }
+.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 24px; }
+.chip { font: 600 15px var(--local); padding: 7px 14px; border-radius: 999px; background: rgba(255, 255, 255, .55); color: var(--ink); }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 30px; }
+.hero .note { margin-top: 16px; font-size: 15px; color: #4A4341; }
+.peek { position: relative; height: clamp(300px, 34vw, 400px); margin-top: 56px; display: flex; justify-content: center; }
+.phone { width: min(500px, 92vw); height: 640px; border-radius: 56px; padding: 14px; background: rgba(255, 255, 255, .55); box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .9), 0 -10px 60px rgba(160, 70, 30, .12); }
+.screen { height: 100%; border-radius: 44px; background: #fff; box-shadow: inset 0 0 0 1px #F1ECE9; padding: 22px 20px; display: flex; flex-direction: column; gap: 12px; text-align: left; font-size: 15px; }
 .scr-top { display: flex; align-items: center; justify-content: space-between; }
-.scr-top b { font: 800 18px var(--display); }
-.scr-lang { font: 600 12px var(--body); padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); }
-.bal { background: var(--band); border-radius: 18px; padding: 14px; }
-.bal span { color: var(--muted); font-size: 12px; }
-.bal b { display: block; font: 800 26px var(--display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-.convo { flex: 1; display: flex; flex-direction: column; gap: 8px; justify-content: flex-end; }
-.bub { max-width: 86%; padding: 10px 12px; border-radius: 16px; line-height: 1.4; animation: pop .4s ease both; }
-.bub.me { align-self: flex-end; background: var(--brand); color: var(--brand-ink); border-bottom-right-radius: 6px; }
-.bub.vo { align-self: flex-start; background: var(--band); border-bottom-left-radius: 6px; }
-.bub.vo small { display: block; color: var(--muted); font-size: 11px; margin-bottom: 2px; font-weight: 600; }
+.scr-top b { font: 700 20px var(--display); letter-spacing: -0.03em; }
+.scr-lang { font: 600 12px var(--body); padding: 4px 10px; border-radius: 999px; background: var(--peach); color: var(--orange-deep); }
+.notif { display: flex; gap: 14px; align-items: center; padding: 14px 16px; border-radius: 22px; background: #FAF8F7; box-shadow: 0 1px 0 #F1ECE9; }
+.notif .ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: var(--orange); flex: 0 0 auto; }
+.notif b { display: block; font: 600 17px var(--body); letter-spacing: -0.01em; }
+.notif span { font-size: 13.5px; color: #6A6361; }
+.convo { display: flex; flex-direction: column; gap: 8px; }
+.bub { max-width: 84%; padding: 10px 13px; border-radius: 18px; line-height: 1.4; animation: pop .4s ease both; }
+.bub.me { align-self: flex-end; background: var(--orange-deep); color: #fff; border-bottom-right-radius: 6px; }
+.bub.vo { align-self: flex-start; background: #F6EEE9; border-bottom-left-radius: 6px; }
+.bub.vo small { display: block; color: #6A6361; font-size: 11.5px; font-weight: 600; margin-bottom: 2px; }
 @keyframes pop { from { transform: translateY(6px); opacity: .4; } to { transform: none; opacity: 1; } }
-.mic { align-self: center; width: 58px; height: 58px; border-radius: 50%; background: var(--brand); color: var(--brand-ink); display: grid; place-items: center; box-shadow: 0 0 0 8px var(--brand-soft); }
-.float { position: absolute; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 10px 14px; box-shadow: var(--shadow); font-size: 13px; font-weight: 600; display: flex; gap: 8px; align-items: center; }
-.float.a { top: 25%; left: 0; }
-.float.b { top: 35%; right: 0; }
-.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--green); flex: 0 0 auto; }
+.float { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 999px; background: #fff; box-shadow: 0 10px 30px rgba(120, 50, 20, .14); font: 500 18px var(--body); white-space: nowrap; }
+.float .dot { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: #1F9D55; flex: 0 0 auto; }
+.float .dot.or { background: var(--orange); }
+.float.a { right: calc(50% + 270px); top: 70px; }
+.float.b { left: calc(50% + 270px); top: 170px; }
 
-/* say-it section */
-.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
-.tab { font: 700 15px var(--body); padding: 10px 18px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
-.tab[aria-selected="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.phrases { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-.phrase { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.phrase q { font: 600 19px/1.35 var(--local); quotes: "“" "”"; }
-.phrase span { color: var(--muted); font-size: 14px; }
+/* 2. Say it your way: deep navy band with tilted orange cards */
+.navy { background: linear-gradient(180deg, var(--navy-1) 0%, #04091A 35%, var(--navy-2) 100%); color: #fff; padding-block: clamp(80px, 10vw, 140px) clamp(72px, 8vw, 110px); position: relative; overflow: hidden; }
+.navy .lede { color: rgba(255, 255, 255, .86); }
+.tabs { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 36px; }
+.tab { font: 600 17px var(--body); min-height: 52px; padding: 0 22px; border-radius: 999px; border: 0; background: rgba(255, 255, 255, .1); color: #fff; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18); }
+.tab:hover { background: rgba(255, 255, 255, .16); }
+.tab[aria-selected="true"] { background: #fff; color: var(--ink); box-shadow: 0 8px 24px rgba(0, 0, 0, .3); }
+.cards { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; margin-top: 64px; }
+.pcard { position: relative; overflow: hidden; min-height: 250px; border-radius: 22px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; color: #fff;
+  background: linear-gradient(150deg, #F2772F 0%, #E2560F 55%, #C2410C 100%); box-shadow: 0 30px 50px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .25); transition: transform .3s; animation: deal .5s ease both; }
+.pcard:nth-child(even) { background: linear-gradient(150deg, #3A4256 0%, #262C3B 100%); }
+.pcard:nth-child(1) { transform: rotate(-4deg) translateY(14px); }
+.pcard:nth-child(2) { transform: rotate(-1deg); }
+.pcard:nth-child(3) { transform: rotate(2deg) translateY(4px); }
+.pcard:nth-child(4) { transform: rotate(4deg) translateY(16px); }
+.pcard:hover { transform: rotate(0) translateY(-6px); }
+.pcard::after { content: ""; position: absolute; right: -40px; bottom: -40px; width: 170px; height: 170px; border-radius: 50%; border: 22px solid rgba(255, 255, 255, .08); }
+.pcard .tag { display: flex; align-items: center; justify-content: space-between; font: 600 14px var(--body); opacity: .92; }
+.pcard .tag svg { opacity: .9; }
+.pcard q { font: 600 22px/1.3 var(--local); letter-spacing: -0.01em; quotes: "“" "”"; }
+.pcard span.d { font-size: 15px; color: rgba(255, 255, 255, .9); position: relative; z-index: 1; }
+@keyframes deal { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
+.navy .hand { position: absolute; right: 3%; top: -54px; transform: rotate(-6deg); }
+.navy .foot { margin-top: 64px; display: flex; flex-direction: column; align-items: center; gap: 14px; color: rgba(255, 255, 255, .9); font-size: 18px; }
+.understands { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.understands span { background: #fff; color: var(--ink); border-radius: 12px; padding: 8px 14px; font: 700 17px var(--local); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1); }
 
-/* promise */
-.quote-card { background: var(--card); border-radius: 28px; padding: 28px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 18px; }
-.quote-card blockquote { margin: 0; font: 600 24px/1.35 var(--display); letter-spacing: -0.01em; }
-.wave { display: flex; align-items: center; gap: 5px; height: 48px; }
-.wave i { width: 6px; border-radius: 3px; background: var(--brand); height: 12px; }
+/* 3/4. Split sections on white */
+.band { padding-block: clamp(80px, 9vw, 130px); position: relative; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 120px); align-items: center; }
+.split > * { min-width: 0; }
+.split h2 { font-size: clamp(42px, 5.6vw, 84px); }
+.visual { border-radius: 26px; position: relative; overflow: hidden; box-shadow: 0 30px 60px rgba(60, 30, 15, .1), inset 0 0 0 1px rgba(0, 0, 0, .06); }
+.paper { background: var(--paper); background-image: radial-gradient(120% 80% at 20% 0%, rgba(255, 255, 255, .7), transparent 60%), var(--grain); padding: clamp(28px, 4vw, 56px); display: flex; flex-direction: column; gap: 18px; }
+.qcard { background: rgba(255, 255, 255, .92); border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 12px 30px rgba(80, 40, 20, .08); }
+.qcard .row { display: flex; align-items: center; gap: 12px; font-size: 14px; color: #6A6361; }
+.qcard .row .av { width: 34px; height: 34px; border-radius: 10px; background: var(--peach); color: var(--orange-deep); display: grid; place-items: center; flex: 0 0 auto; }
+.qcard .row b { color: var(--ink); font-size: 15px; display: block; }
+.qcard blockquote { margin: 0; font: 600 25px/1.3 var(--display); letter-spacing: -0.02em; }
+.wave { display: flex; align-items: center; gap: 5px; height: 52px; }
+.wave i { width: 6px; height: 12px; border-radius: 3px; background: var(--orange); }
 .wave.live i { animation: wv 1s ease-in-out infinite; }
 .wave i:nth-child(2n) { animation-delay: .15s; } .wave i:nth-child(3n) { animation-delay: .3s; } .wave i:nth-child(5n) { animation-delay: .45s; }
-@keyframes wv { 0%, 100% { height: 10px; } 50% { height: 44px; } }
+@keyframes wv { 0%, 100% { height: 10px; } 50% { height: 46px; } }
 .choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.choice { border: 1.5px solid var(--line); border-radius: 16px; padding: 12px; font-size: 14px; display: flex; flex-direction: column; gap: 2px; }
-.choice b { font-size: 15px; }
-.choice span { color: var(--muted); font-size: 13px; line-height: 1.4; }
-.play { align-self: flex-start; }
+.choice { background: rgba(255, 255, 255, .85); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 2px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .05); }
+.choice b { font-size: 15.5px; } .choice span { font-size: 14px; color: #5E5755; line-height: 1.4; }
+.annot { position: absolute; }
+#promise .annot { left: calc(50% + 10px); top: 38px; transform: rotate(-4deg); }
+#safety .annot { left: calc(50% + 60px); top: -6px; transform: rotate(-3deg); }
 
-/* circle */
-.roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.role { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 22px; display: flex; flex-direction: column; gap: 10px; }
-.role .ic { width: 44px; height: 44px; border-radius: 12px; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; }
-.role p { color: var(--muted); font-size: 15px; }
-.never { margin-top: 20px; display: flex; gap: 14px; align-items: flex-start; background: var(--ink); color: var(--bg); border-radius: 22px; padding: 20px 22px; }
-.never b { display: block; font-size: 17px; }
-.never span { opacity: .8; font-size: 15px; }
-
-/* security */
-.checks { display: flex; flex-direction: column; gap: 14px; }
-.check { display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: start; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.vault { background: #231F20; color: #fff; padding: clamp(28px, 4vw, 48px); min-height: 520px; display: flex; flex-direction: column; justify-content: center; gap: 22px; }
+.vault::before { content: ""; position: absolute; inset: 22px 22px auto; height: 150px; border-radius: 18px; border: 1px dashed rgba(255, 255, 255, .16);
+  background-image: linear-gradient(rgba(255, 255, 255, .1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .1) 1px, transparent 1px); background-size: 52px 52px; background-position: -1px -1px;
+  -webkit-mask: linear-gradient(#000, transparent); mask: linear-gradient(#000, transparent); }
+.vault .lock { width: 66px; height: 66px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .35), 0 0 30px rgba(255, 255, 255, .08); align-self: center; position: relative; margin-top: 20px; }
+.vault small { color: rgba(255, 255, 255, .7); font-size: 14px; font-weight: 600; position: relative; }
+.vault p { font: 600 clamp(20px, 2vw, 25px)/1.35 var(--display); letter-spacing: -0.015em; position: relative; }
+.digits { display: flex; gap: 12px; position: relative; }
+.digits span { width: 70px; height: 84px; border-radius: 18px; display: grid; place-items: center; font: 700 40px var(--display); background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .18); font-variant-numeric: tabular-nums; }
+.digits span:nth-child(2) { color: #FFB085; }
+.checks { display: flex; flex-direction: column; }
+.check { display: grid; grid-template-columns: 44px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
 .check:last-child { border-bottom: 0; }
-.check .n { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--brand); color: var(--brand); display: grid; place-items: center; font: 800 18px var(--display); }
-.check p { color: var(--muted); }
-.digits { display: flex; gap: 10px; }
-.digits span { width: 64px; height: 76px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); display: grid; place-items: center; font: 800 36px var(--display); font-variant-numeric: tabular-nums; }
+.check .n { width: 44px; height: 44px; border-radius: 50%; background: var(--peach); color: var(--orange-deep); display: grid; place-items: center; font: 700 18px var(--display); }
+.check p { color: var(--ink-2); font-size: 16px; }
 
-/* who */
-.who { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.who > div { padding: 22px; border-radius: 22px; background: var(--card); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
-.who p { color: var(--muted); font-size: 15px; }
+/* 5. Trusted Circle: black glow band with dotted globe-style circle */
+.glow { background: var(--night); color: #fff; overflow: hidden; padding-block: clamp(90px, 10vw, 150px);
+  background-image: radial-gradient(30% 40% at 72% 70%, rgba(255, 255, 255, .13), transparent 70%), radial-gradient(35% 40% at 18% 20%, rgba(70, 90, 140, .18), transparent 70%), radial-gradient(25% 30% at 30% 85%, rgba(255, 255, 255, .06), transparent 70%); }
+.glow .lede { color: rgba(255, 255, 255, .84); }
+.orbit-wrap { position: relative; display: grid; place-items: center; margin-top: 60px; }
+.orbit { width: min(520px, 100%); height: auto; overflow: visible; }
+.orbit .ring { fill: url(#dots); stroke: #fff; stroke-width: 3; filter: drop-shadow(0 0 14px rgba(255, 255, 255, .55)); }
+.orbit text { font: 600 17px var(--body); fill: #fff; }
+.orbit .you { font: 700 22px var(--display); }
+.glow .hand { position: absolute; right: calc(50% - 470px); top: 30%; transform: rotate(-4deg); }
+.roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 56px; }
+.role { border-radius: 24px; padding: 26px; background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); display: flex; flex-direction: column; gap: 10px; backdrop-filter: blur(6px); }
+.role .ic { width: 48px; height: 48px; border-radius: 14px; background: var(--orange); color: #fff; display: grid; place-items: center; }
+.role p { color: rgba(255, 255, 255, .82); font-size: 16px; }
+.never { margin-top: 18px; display: flex; gap: 16px; align-items: flex-start; border-radius: 24px; padding: 22px 26px; background: #fff; color: var(--ink); }
+.never b { display: block; font-size: 18px; }
+.never span { color: var(--ink-2); font-size: 16px; }
+.glow .cta-row { margin-top: 44px; }
 
-/* faq */
-.faq { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
-.faq details { border-bottom: 1px solid var(--line); }
-.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 22px 0; font: 600 19px var(--body); }
+/* 6. Who it's for: grey band, orange panel with tilted white cards */
+.greyband { background: var(--grey); padding-block: clamp(80px, 9vw, 120px) clamp(80px, 9vw, 120px); }
+.greyband .lede { margin-top: 22px; }
+.panel { margin-top: 56px; border-radius: clamp(28px, 3vw, 44px); padding: clamp(40px, 6vw, 80px) clamp(18px, 4vw, 60px); position: relative; overflow: hidden; color: #fff;
+  background: var(--grain), linear-gradient(180deg, #E86A35 0%, #C9562A 45%, #7C4027 100%); }
+.panel-head { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.panel h3.big { font: 700 clamp(34px, 4.8vw, 72px)/1 var(--display); letter-spacing: -0.045em; }
+.panel-head p { font-size: 19px; color: rgba(255, 255, 255, .92); }
+.who { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 48px; }
+.who > div { background: #fff; color: var(--ink); border-radius: 22px; padding: 26px; display: grid; grid-template-columns: 56px 1fr; gap: 6px 16px; box-shadow: 0 14px 0 -6px rgba(255, 255, 255, .55), 0 20px 40px rgba(60, 20, 5, .25); }
+.who > div:nth-child(1) { transform: rotate(-1.4deg); } .who > div:nth-child(2) { transform: rotate(1.2deg); }
+.who > div:nth-child(3) { transform: rotate(.8deg); } .who > div:nth-child(4) { transform: rotate(-1deg); }
+.who .av { grid-row: span 2; width: 56px; height: 56px; border-radius: 50%; background: var(--peach); color: var(--orange-deep); display: grid; place-items: center; }
+.who p { color: var(--ink-2); font-size: 16.5px; }
+
+/* 7. FAQ */
+.faq { display: flex; flex-direction: column; gap: 14px; margin-top: 64px; }
+.faq details { background: var(--grey); border-radius: 26px; }
+.faq summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 60px 1fr 34px; gap: 22px; align-items: center; padding: 22px 26px; font: 500 clamp(17px, 1.5vw, 20px)/1.35 var(--body); }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; font: 400 28px var(--display); color: var(--brand); flex: 0 0 auto; transition: transform .2s; }
-.faq details[open] summary::after { transform: rotate(45deg); }
-.faq details p { padding-bottom: 22px; color: var(--muted); max-width: 70ch; }
+.faq .ic { width: 60px; height: 60px; border-radius: 16px; background: #fff; display: grid; place-items: center; box-shadow: inset 0 0 0 1px var(--line); }
+.faq .plus { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1.5px #8A8381; color: #5E5755; transition: transform .2s; }
+.faq details[open] .plus { transform: rotate(45deg); }
+.faq details p { padding: 0 26px 26px calc(26px + 60px + 22px); color: var(--ink-2); max-width: 82ch; }
 
-/* closing */
-.close { background: var(--brand); color: var(--brand-ink); border-radius: 36px; padding: 56px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 28px; }
-.close h2 { max-width: 14ch; }
-.close .btn.p { background: var(--brand-ink); color: var(--brand); }
+/* 8. Closing card + black footer */
+.closing { background: linear-gradient(180deg, #fff 0 50%, var(--night) 50% 100%); padding: 20px max(12px, 2vw) 0; }
+.closing .card { border-radius: clamp(28px, 3vw, 44px); padding: clamp(80px, 11vw, 170px) 20px; text-align: center; color: #fff; position: relative; overflow: hidden;
+  background: var(--grain), radial-gradient(45% 60% at 30% 20%, rgba(255, 190, 70, .55), transparent 70%), radial-gradient(40% 60% at 70% 90%, rgba(240, 70, 30, .6), transparent 70%), linear-gradient(120deg, #F5821F, #F1561D); }
+.closing h2 { font-size: clamp(42px, 7vw, 104px); text-shadow: 0 2px 30px rgba(150, 50, 0, .18); }
+.closing .btn { margin-top: 40px; }
+footer { background: var(--night); color: #fff; padding-block: 80px 48px; }
+.fgrid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 36px; }
+.fgrid h4 { margin: 0 0 18px; font: 700 18px var(--body); }
+.fgrid ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; color: rgba(255, 255, 255, .8); }
+.fgrid a { text-decoration: none; } .fgrid a:hover { color: #FFB085; }
+footer .logo { color: #fff; }
+.legal { margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, .14); color: rgba(255, 255, 255, .66); font-size: 14px; display: flex; flex-direction: column; gap: 6px; }
 
-/* footer */
-footer { padding-block: 56px 40px; border-top: 1px solid var(--line); }
-.fgrid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 32px; }
-.fgrid h4 { margin: 0 0 12px; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-.fgrid ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.fgrid a { text-decoration: none; }
-.fgrid a:hover { color: var(--brand); }
-.legal { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13.5px; display: flex; flex-direction: column; gap: 6px; }
-
-@media (max-width: 900px) {
-  .split { grid-template-columns: 1fr; gap: 40px; }
-  .split.rev > :first-child { order: 0; }
-  .roles, .who { grid-template-columns: 1fr 1fr; }
-  .nav ul { display: none; }
-  .fgrid { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 560px) {
-  .band { padding-block: 64px; }
-  .phrases, .roles, .who, .choices { grid-template-columns: 1fr; }
-  .close { padding: 32px 24px; border-radius: 28px; }
+/* Responsive */
+@media (max-width: 1180px) {
   .float { display: none; }
-  .digits span { width: 54px; height: 66px; font-size: 30px; }
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .navy .hand, .glow .hand { display: none; }
 }
-@media (prefers-reduced-motion: reduce) { .bub, .wave.live i { animation: none; } .wave.live i { height: 28px; } }
+@media (max-width: 960px) {
+  .nav ul { display: none; }
+  .nav .wrap { grid-template-columns: 1fr auto; min-height: 76px; }
+  .split { grid-template-columns: 1fr; }
+  .split.rev > :first-child { order: 2; }
+  .roles { grid-template-columns: 1fr; }
+  .fgrid { grid-template-columns: 1fr 1fr; }
+  .annot { display: none; }
+}
+@media (max-width: 640px) {
+  .logo { font-size: 28px; }
+  .nav .signin { display: none; }
+  .nav .signup { min-height: 50px; padding: 0 18px; font-size: 16px; }
+  .btn { min-height: 56px; font-size: 18px; padding: 0 22px; }
+  .cta-row .btn { width: 100%; }
+  .cards, .who, .choices { grid-template-columns: 1fr; }
+  .pcard { min-height: 0; }
+  .pcard:nth-child(n), .who > div:nth-child(n) { transform: none; }
+  .faq summary { grid-template-columns: 44px 1fr 30px; gap: 14px; padding: 18px; }
+  .faq .ic { width: 44px; height: 44px; border-radius: 12px; }
+  .faq details p { padding: 0 18px 22px; }
+  .digits span { width: 58px; height: 70px; font-size: 32px; }
+  .vault { min-height: 0; }
+  .fgrid { grid-template-columns: 1fr; }
+  .peek { height: 340px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .bub, .pcard, .wave.live i { animation: none; }
+  .wave.live i { height: 28px; }
+  .btn, .pcard { transition: none; }
+}
 </style>
-
 </head>
 <body>
-<div class="strip"><div class="wrap">Vosa is in early preview. Balances in the demo are simulated. <a href="/">Try the live prototype</a></div></div>
 
 <nav class="nav" aria-label="Main">
   <div class="wrap">
-    <a class="logo" href="#top" aria-label="Vosa home"><i><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><g stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M10 13v6"/><path d="M16 9v14"/><path d="M22 12v8"/></g></svg></i>Vosa</a>
+    <a class="logo" href="#top" aria-label="Vosa home">
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><circle cx="8" cy="20" r="4" fill="#F7A25E"/><rect x="14" y="10" width="5" height="20" rx="2.5" fill="#EE5A16"/><rect x="22" y="5" width="5" height="30" rx="2.5" fill="#F2772F"/><rect x="30" y="13" width="5" height="14" rx="2.5" fill="#F7A25E"/></svg>
+      vosa
+    </a>
     <ul>
       <li><a href="#how">How it works</a></li>
       <li><a href="#promise">Voice Promise</a></li>
       <li><a href="#circle">Trusted Circle</a></li>
       <li><a href="#safety">Safety</a></li>
-      <li><a href="#faq">FAQ</a></li>
     </ul>
-    <div style="display:flex;gap:10px;align-items:center"><a class="btn o navin" href="/?start=login">Sign in</a><a class="btn p" href="/?start=signup">Get started</a></div>
+    <div class="right">
+      <a class="signin" href="/?start=login">Sign in</a>
+      <a class="signup" href="/?start=signup">Get started</a>
+    </div>
   </div>
 </nav>
 
+<main>
+<!-- 1. Hero -->
 <header class="hero" id="top">
-  <div class="wrap split">
-    <div class="stack">
-      <span class="eyebrow">Voice-first savings</span>
-      <h1>If you can talk, <span class="say">you can save.</span></h1>
-      <p class="lede">Vosa lets people who can't see, type or read easily save, send and protect their money by talking. No screen needed. No PIN to hand over.</p>
-      <div class="chips" aria-label="Languages">
-        <span class="chip" lang="en">English</span><span class="chip">Pidgin</span><span class="chip" lang="yo">Yorùbá</span><span class="chip" lang="ha">Hausa</span><span class="chip" lang="ig">Igbo</span>
-      </div>
-      <div class="cta-row">
-        <a class="btn p" href="/?start=signup"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg>Create your free account</a>
-        <a class="btn o" href="/">Try the demo</a>
-      </div>
-      <p class="note">Nothing to download. Sign up with your phone number and a secret phrase you say out loud. Accounts start with ₦50,000 of demo money.</p>
+  <div class="hero-card">
+    <a class="preview" href="/"><i aria-hidden="true"></i>Early preview · demo money only</a>
+    <h1>If you can talk, you can save.</h1>
+    <p class="lede">Vosa lets people who can't see, type or read easily save, send and protect their money by talking. No screen needed. No PIN to hand over.</p>
+    <div class="chips" aria-label="Languages">
+      <span class="chip" lang="en">English</span><span class="chip">Pidgin</span><span class="chip" lang="yo">Yorùbá</span><span class="chip" lang="ha">Hausa</span><span class="chip" lang="ig">Igbo</span>
     </div>
-    <div class="phone-zone">
+    <div class="cta-row">
+      <a class="btn o" href="/?start=signup"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg>Create your free account</a>
+      <a class="btn ghost" href="/">Try the demo</a>
+    </div>
+    <p class="note">Nothing to download. Accounts start with ₦50,000 of demo money.</p>
+
+    <div class="peek">
+      <div class="float a"><span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5 9-10"/></svg></span>Voice ID matched</div>
+      <div class="float b"><span class="dot or" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span>Rent goal: 60% saved</div>
       <div class="phone" role="img" aria-label="Vosa on a phone: the user says save five thousand for house rent, and Vosa confirms the saving out loud.">
         <div class="screen">
-          <div class="scr-top"><b>Vosa</b><span class="scr-lang" id="hero-lang">Pidgin</span></div>
-          <div class="bal"><span>Wallet</span><b>₦35,000.00</b></div>
+          <div class="notif">
+            <span class="ic" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></span>
+            <div><b>Just say it.</b><span>Vosa reads everything back before money moves.</span></div>
+          </div>
+          <div class="scr-top"><b>Wallet ₦35,000</b><span class="scr-lang" id="hero-lang">Pidgin</span></div>
           <div class="convo" id="convo" aria-hidden="true"></div>
-          <div class="mic" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></div>
         </div>
       </div>
-      <div class="float a"><span class="dot"></span>Voice ID matched</div>
-      <div class="float b">Rent goal: 60% saved</div>
     </div>
   </div>
 </header>
 
-<section class="band tint" id="how" aria-labelledby="how-h">
-  <div class="wrap stack" style="gap:32px">
-    <div class="stack" style="gap:12px">
-      <span class="eyebrow">How it works</span>
-      <h2 id="how-h">Say it the way you'd say it to your apprentice.</h2>
-      <p class="lede" style="max-width:52ch">Vosa understands Nigerian ways of talking about money: “5k”, “two thousand five”, “dubu biyar”, “puku ise”. It reads every transaction back before it moves a naira.</p>
-    </div>
+<!-- 2. Say it your way -->
+<section class="navy" id="how" aria-labelledby="how-h">
+  <div class="wrap narrow center">
+    <h2 id="how-h">Say it your way</h2>
+    <p class="lede center" style="margin-top:22px;max-width:52ch">Vosa understands how Nigerians talk about money, then reads every transaction back before it moves a naira.</p>
     <div class="tabs" role="tablist" aria-label="Choose a language">
-      <button class="tab" role="tab" id="t-pcm" aria-selected="true" aria-controls="phrases" data-lang="pcm">Pidgin</button>
-      <button class="tab" role="tab" id="t-en" aria-selected="false" aria-controls="phrases" data-lang="en">English</button>
-      <button class="tab" role="tab" id="t-yo" aria-selected="false" aria-controls="phrases" data-lang="yo">Yorùbá</button>
-      <button class="tab" role="tab" id="t-ha" aria-selected="false" aria-controls="phrases" data-lang="ha">Hausa</button>
-      <button class="tab" role="tab" id="t-ig" aria-selected="false" aria-controls="phrases" data-lang="ig">Igbo</button>
+      <button class="tab" role="tab" aria-selected="true" aria-controls="phrases" data-lang="pcm">Pidgin</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="phrases" data-lang="en">English</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="phrases" data-lang="yo">Yorùbá</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="phrases" data-lang="ha">Hausa</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="phrases" data-lang="ig">Igbo</button>
     </div>
-    <div class="phrases" id="phrases" role="tabpanel" aria-live="polite"></div>
+  </div>
+  <div class="wrap" style="max-width:1180px;position:relative">
+    <span class="hand" aria-hidden="true">pick a language
+      <svg width="54" height="34" viewBox="0 0 54 34" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M52 6C38 2 18 6 6 26"/><path d="M4 16l2 11 10-3"/></svg></span>
+    <div class="cards" id="phrases" role="tabpanel" aria-live="polite"></div>
+    <div class="foot">
+      <span>Amounts the way you count them</span>
+      <div class="understands"><span>5k</span><span>2k5</span><span>two thousand five</span><span lang="ha">dubu biyar</span><span lang="ig">puku ise</span></div>
+    </div>
   </div>
 </section>
 
+<!-- 3. Voice Promise -->
 <section class="band" id="promise" aria-labelledby="promise-h">
-  <div class="wrap split">
+  <span class="hand annot" aria-hidden="true">press play
+    <svg width="60" height="36" viewBox="0 0 60 36" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 8c18-8 40-4 50 18"/><path d="M56 14l-1 13-12-4"/></svg></span>
+  <div class="wrap narrow split">
     <div class="stack">
-      <span class="eyebrow">Voice Promise</span>
-      <h2 id="promise-h">Your savings goal, in your own words.</h2>
-      <p class="lede">When you start a goal, you record why it matters. If you ever try to take the money out early, Vosa plays your own voice back to you, then asks one question: is this an emergency?</p>
-      <p style="color:var(--muted);max-width:52ch">It works like the witness at ajo. Nobody locks your money away. You decide in advance what happens in a real emergency.</p>
+      <h2 id="promise-h">Make a promise to yourself</h2>
+      <p class="lede">When you start a savings goal, you record why it matters. If you try to take the money out early, Vosa plays your own voice back, then asks: is this an emergency?</p>
+      <p style="color:var(--ink-2);max-width:44ch">Like the witness at ajo. Nobody locks your money away. You choose in advance what happens in a real emergency.</p>
+      <div><button class="btn o" type="button" id="play"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg>Hear the promise</button></div>
     </div>
-    <div class="quote-card">
-      <span class="eyebrow">Recorded 3 months ago</span>
-      <blockquote>“This is for Tolu's school fees. Don't let me touch it before January.”</blockquote>
-      <div class="wave" id="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <button class="btn o play" type="button" id="play"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg>Hear the promise</button>
+    <div class="visual paper">
+      <div class="qcard">
+        <div class="row"><span class="av" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/></svg></span><div><b>School fees · Voice Promise</b>Recorded 3 months ago</div></div>
+        <blockquote>“This is for Tolu's school fees. Don't let me touch it before January.”</blockquote>
+        <div class="wave" id="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
       <div class="choices" aria-label="Emergency rules you can choose">
         <div class="choice"><b>Just confirm</b><span>Your secret phrase is enough.</span></div>
         <div class="choice"><b>Ask my helper</b><span>Someone you trust says yes first.</span></div>
@@ -291,98 +388,126 @@ footer { padding-block: 56px 40px; border-top: 1px solid var(--line); }
   </div>
 </section>
 
-<section class="band mint" id="circle" aria-labelledby="circle-h">
-  <div class="wrap stack" style="gap:32px">
-    <div class="stack" style="gap:12px">
-      <span class="eyebrow" style="color:var(--green)">Trusted Circle</span>
-      <h2 id="circle-h">Help from family, without giving them your PIN.</h2>
-      <p class="lede" style="max-width:56ch">Many blind and older people hand their phone and PIN to a relative to bank for them. Vosa gives that relative a private link and a limited role instead. You can remove them any time.</p>
+<!-- 4. Safety -->
+<section class="band" id="safety" aria-labelledby="safety-h" style="padding-top:0">
+  <span class="hand annot" aria-hidden="true">new numbers every time
+    <svg width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6c20-6 40 2 46 26"/><path d="M40 26l10 8 4-12"/></svg></span>
+  <div class="wrap narrow split rev">
+    <div class="stack">
+      <h2 id="safety-h">Safe, without a screen</h2>
+      <div class="checks">
+        <div class="check"><span class="n">1</span><div><h3>Your secret phrase</h3><p>Two or three words only you know, said out loud.</p></div></div>
+        <div class="check"><span class="n">2</span><div><h3>Three fresh numbers</h3><p>Different every time, so a recording of you can't be replayed to move money.</p></div></div>
+        <div class="check"><span class="n">3</span><div><h3>Voice ID</h3><p>Checks the voice is yours. Your voiceprint is made and kept on your phone.</p></div></div>
+        <div class="check"><span class="n">+</span><div><h3>Phone unlock, if you can use it</h3><p>Fingerprint or face for big transfers. Optional, never required.</p></div></div>
+      </div>
+    </div>
+    <div class="visual vault">
+      <span class="lock" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="16" r=".8" fill="#fff"/></svg></span>
+      <small>Vosa says</small>
+      <p>“Send ₦25,000 to Tunde, GTBank ending 4521? Say your secret phrase, then these numbers:”</p>
+      <div class="digits" aria-label="Example numbers: 7, 4, 2"><span>7</span><span>4</span><span>2</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Trusted Circle -->
+<section class="glow" id="circle" aria-labelledby="circle-h">
+  <div class="wrap narrow center">
+    <h2 id="circle-h">Family help, without your PIN</h2>
+    <p class="lede center" style="margin-top:22px;max-width:54ch">Many blind and older people hand their phone and PIN to a relative. Vosa gives that relative a private link and a limited role instead. Remove them any time.</p>
+  </div>
+  <div class="wrap narrow" style="position:relative">
+    <div class="orbit-wrap">
+      <svg class="orbit" viewBox="-40 -20 600 560" role="img" aria-label="You at the centre of a circle, with an approver, a watcher and a spender around you.">
+        <defs>
+          <pattern id="dots" width="11" height="11" patternUnits="userSpaceOnUse"><circle cx="5.5" cy="5.5" r="1.7" fill="rgba(255,255,255,.5)"/></pattern>
+          <radialGradient id="fade" cx="50%" cy="50%" r="50%"><stop offset="55%" stop-color="#050505" stop-opacity="0"/><stop offset="100%" stop-color="#050505" stop-opacity=".85"/></radialGradient>
+        </defs>
+        <circle class="ring" cx="260" cy="260" r="240"/>
+        <circle cx="260" cy="260" r="240" fill="url(#fade)"/>
+        <circle cx="260" cy="260" r="64" fill="#fff"/>
+        <text class="you" x="260" y="268" text-anchor="middle" fill="#1F1C1B" style="fill:#1F1C1B">You</text>
+        <g stroke="#EE5A16" stroke-width="2" stroke-dasharray="4 6"><path d="M260 196 L260 72"/><path d="M205 292 L96 360"/><path d="M315 292 L424 360"/></g>
+        <circle cx="260" cy="60" r="16" fill="#EE5A16"/><text x="288" y="66">Approver</text>
+        <circle cx="86" cy="368" r="16" fill="#EE5A16"/><text x="86" y="336" text-anchor="middle">Watcher</text>
+        <circle cx="434" cy="368" r="16" fill="#EE5A16"/><text x="434" y="336" text-anchor="middle">Spender</text>
+      </svg>
+      <span class="hand" aria-hidden="true">your people
+        <svg width="54" height="30" viewBox="0 0 54 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="order:-1"><path d="M52 22C40 4 20 2 6 12"/><path d="M14 4L5 12l9 6"/></svg></span>
     </div>
     <div class="roles">
       <div class="role"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Approver</h3><p>Says yes or no to big transfers and to money going to someone new. Gets a reminder to call you first.</p></div>
       <div class="role"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><h3>Watcher</h3><p>Can see your balance and activity, nothing more. Good for a son or daughter far away.</p></div>
       <div class="role"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18M16 15h2"/></svg></span><h3>Spender</h3><p>Pays the people you already pay, like the landlord or school, up to a monthly limit you set.</p></div>
     </div>
-    <div class="never"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex:0 0 auto;margin-top:2px"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><div><b>Helpers can never</b><span>see your secret phrase, change your settings, add other helpers or take money out of your savings. Vosa tells you every time they look.</span></div></div>
+    <div class="never"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex:0 0 auto;margin-top:2px;color:var(--orange-deep)"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><div><b>Helpers can never</b><span>see your secret phrase, change your settings, add other helpers or take money out of your savings. Vosa tells you every time they look.</span></div></div>
+    <div class="cta-row"><a class="btn w" href="/?start=signup">Build your circle</a></div>
   </div>
 </section>
 
-<section class="band" id="safety" aria-labelledby="safety-h">
-  <div class="wrap split rev">
-    <div class="stack">
-      <span class="eyebrow">Safety</span>
-      <h2 id="safety-h">Checks built for people who can't read a screen.</h2>
-      <div class="checks">
-        <div class="check"><span class="n">1</span><div><h3>Your secret phrase</h3><p>Two or three words only you know, said out loud.</p></div></div>
-        <div class="check"><span class="n">2</span><div><h3>Three fresh numbers</h3><p>Different every time, so a recording of you can't be played back to move money.</p></div></div>
-        <div class="check"><span class="n">3</span><div><h3>Voice ID</h3><p>Checks that the voice matches yours. Your voiceprint is made and kept on your phone and never leaves it.</p></div></div>
-        <div class="check"><span class="n">+</span><div><h3>Phone unlock, if you can use it</h3><p>An optional extra: your phone's fingerprint or face for big transfers. Off by default, never required.</p></div></div>
+<!-- 6. Who it's for -->
+<section class="greyband" aria-labelledby="who-h">
+  <div class="wrap narrow center" style="display:flex;flex-direction:column;align-items:center">
+    <span class="pill dark">Who Vosa is for</span>
+    <h2 id="who-h" style="margin-top:22px">Voice-first, never voice-only</h2>
+    <p class="lede center" style="max-width:56ch">Talking is the fastest way in. Typing, large buttons and screen readers work too, so nobody is shut out.</p>
+  </div>
+  <div class="wrap" style="max-width:1300px">
+    <div class="panel">
+      <div class="panel-head">
+        <span class="pill white"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Built with them in mind</span>
+        <h3 class="big">Banking that listens</h3>
+        <p>Four groups banking apps keep leaving behind.</p>
+      </div>
+      <div class="who">
+        <div><span class="av" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><path d="M4 20L20 4"/></svg></span><h3>Blind and low-vision</h3><p>Every reply is spoken. Every button has a label for TalkBack and VoiceOver.</p></div>
+        <div><span class="av" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></span><h3>Can't use their hands</h3><p>Hands-free mode listens again after every reply. No tapping needed.</p></div>
+        <div><span class="av" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="7" r="4"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/></svg></span><h3>Older people</h3><p>Plain speech, slower voices and family help that never needs your PIN.</p></div>
+        <div><span class="av" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h7"/><path d="M17 15l4 4M21 15l-4 4"/></svg></span><h3>Low literacy</h3><p>No reading, no forms. Speak your own language, the way you count money.</p></div>
       </div>
     </div>
-    <div class="stack" style="align-items:center;gap:18px">
-      <div class="bal" style="width:min(360px,100%);border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:14px">
-        <span style="font-size:14px;font-weight:600;color:var(--muted)">Vosa says</span>
-        <p style="font:600 20px/1.35 var(--display)">“Send ₦25,000 to Tunde, GTBank ending 4521? Say your secret phrase, then these numbers:”</p>
-        <div class="digits" aria-label="Example numbers: 7, 4, 2"><span>7</span><span>4</span><span>2</span></div>
-      </div>
-      <p style="color:var(--muted);font-size:14px;text-align:center;max-width:36ch">Every transfer is read back in full before it happens, and you can ask “read my last receipt” any time.</p>
-    </div>
   </div>
 </section>
 
-<section class="band tint" aria-labelledby="who-h">
-  <div class="wrap stack" style="gap:32px">
-    <div class="stack" style="gap:12px">
-      <span class="eyebrow">Who Vosa is for</span>
-      <h2 id="who-h">Voice-first, never voice-only.</h2>
-      <p class="lede" style="max-width:56ch">Talking is the fastest way in. Typing, large buttons and screen readers all work too, so nobody is shut out.</p>
-    </div>
-    <div class="who">
-      <div><h3>Blind and low-vision</h3><p>Every reply is spoken. Every button has a label for TalkBack and VoiceOver.</p></div>
-      <div><h3>Can't use their hands</h3><p>Hands-free mode listens again after every reply. No tapping needed.</p></div>
-      <div><h3>Older people</h3><p>Plain speech, slower voice options and family help that never needs your PIN.</p></div>
-      <div><h3>Low literacy</h3><p>No reading, no forms. Speak in your own language, the way you count money.</p></div>
-    </div>
-  </div>
-</section>
-
+<!-- 7. FAQ -->
 <section class="band" id="faq" aria-labelledby="faq-h">
-  <div class="wrap split" style="align-items:start">
-    <div class="stack">
-      <span class="eyebrow">Questions</span>
-      <h2 id="faq-h">Good to know.</h2>
-      <p class="lede">Straight answers about what Vosa is today and what it will become.</p>
+  <div class="wrap narrow">
+    <div class="center" style="display:flex;flex-direction:column;align-items:center;gap:24px">
+      <span class="pill dark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>FAQs</span>
+      <h2 id="faq-h">Ask anything.<br>We'll answer plainly.</h2>
+      <p class="lede center">What Vosa is today, and what it will become.</p>
     </div>
     <div class="faq">
-      <details><summary>Is Vosa a bank?</summary><p>No. Vosa is the way you talk to your money. It is designed to work with licensed savings partners, who hold the money and pay the interest. In this early preview, balances are simulated.</p></details>
-      <details><summary>Does my voice leave my phone?</summary><p>Your voiceprint, the pattern Voice ID uses to recognise you, is made and kept on your phone and never leaves it. What you say is sent to our speech partner, Spitch, only to be turned into words, and is not kept.</p></details>
-      <details><summary>What if someone copies my voice?</summary><p>Voice ID is one check out of several. You also need your secret phrase and three numbers that change every time. For big transfers you can add your phone's fingerprint or face, or ask a trusted helper to approve.</p></details>
-      <details><summary>What if I can't speak clearly?</summary><p>You can type instead, use large buttons, or use your phone's screen reader. Vosa is voice-first, never voice-only.</p></details>
-      <details><summary>Which languages does Vosa speak?</summary><p>English, Nigerian Pidgin, Yorùbá, Hausa and Igbo. Vosa switches automatically when you switch. Hausa and Igbo are newly added and being reviewed by native speakers.</p></details>
-      <details><summary>How do I sign in on a new phone?</summary><p>Sign in with your phone number and your secret phrase. Your savings, goals and helpers come back. Voice ID is made again on the new phone, because your voiceprint never leaves the old one.</p></details>
-      <details><summary>Do I need to download anything?</summary><p>No. Open vosa.vercel.app on your phone. You can add it to your home screen so it opens like an app.</p></details>
+      <details><summary><span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 10l9-6 9 6M5 10v9M19 10v9M9 10v9M15 10v9M3 21h18"/></svg></span>Is Vosa a bank?<span class="plus" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span></summary><p>No. Vosa is the way you talk to your money. It is designed to work with licensed savings partners, who hold the money and pay the interest. In this early preview, balances are simulated.</p></details>
+      <details><summary><span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></span>Does my voice leave my phone?<span class="plus" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span></summary><p>Your voiceprint, the pattern Voice ID uses to recognise you, is made and kept on your phone and never leaves it. What you say is sent to our speech partner, Spitch, only to be turned into words, and is not kept.</p></details>
+      <details><summary><span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></span>What if someone copies my voice?<span class="plus" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span></summary><p>Voice ID is one check out of several. You also need your secret phrase and three numbers that change every time. For big transfers you can add your phone's fingerprint or face, or ask a trusted helper to approve.</p></details>
+      <details><summary><span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h1M11 9h1M15 9h2M7 13h10"/></svg></span>What if I can't speak clearly?<span class="plus" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span></summary><p>You can type instead, use large buttons, or use your phone's screen reader. Vosa is voice-first, never voice-only.</p></details>
+      <details><summary><span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span>Which languages does Vosa speak?<span class="plus" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span></summary><p>English, Nigerian Pidgin, Yorùbá, Hausa and Igbo. Vosa switches automatically when you switch. Hausa and Igbo are newly added and being reviewed by native speakers.</p></details>
+      <details><summary><span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></span>How do I sign in on a new phone?<span class="plus" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span></summary><p>Sign in with your phone number and your secret phrase. Your savings, goals and helpers come back. Voice ID is made again on the new phone, because your voiceprint never leaves the old one.</p></details>
+      <details><summary><span class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg></span>Do I need to download anything?<span class="plus" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span></summary><p>No. Open vosa.vercel.app on your phone. You can add it to your home screen so it opens like an app.</p></details>
     </div>
   </div>
 </section>
 
-<section class="band" style="padding-top:0" aria-labelledby="close-h">
-  <div class="wrap">
-    <div class="close">
-      <h2 id="close-h">Your money. Your voice. Your control.</h2>
-      <a class="btn p" href="/?start=signup">Get started</a>
-    </div>
+<!-- 8. Closing -->
+<section class="closing" aria-labelledby="close-h">
+  <div class="card">
+    <h2 id="close-h">Your money. Your voice.</h2>
+    <a class="btn w" href="/?start=signup">Get started</a>
   </div>
 </section>
+</main>
 
 <footer>
-  <div class="wrap">
+  <div class="wrap narrow">
     <div class="fgrid">
-      <div class="stack" style="gap:12px">
-        <a class="logo" href="#top"><i><svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><g stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M10 13v6"/><path d="M16 9v14"/><path d="M22 12v8"/></g></svg></i>Vosa</a>
-        <p style="color:var(--muted);max-width:30ch">If you can talk, you can save.</p>
+      <div class="stack" style="gap:14px">
+        <a class="logo" href="#top" aria-label="Vosa home"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><circle cx="8" cy="20" r="4" fill="#F7A25E"/><rect x="14" y="10" width="5" height="20" rx="2.5" fill="#EE5A16"/><rect x="22" y="5" width="5" height="30" rx="2.5" fill="#F2772F"/><rect x="30" y="13" width="5" height="14" rx="2.5" fill="#F7A25E"/></svg>vosa</a>
+        <p style="color:rgba(255,255,255,.8);max-width:30ch">If you can talk, you can save.</p>
       </div>
       <div><h4>Product</h4><ul><li><a href="#how">How it works</a></li><li><a href="#promise">Voice Promise</a></li><li><a href="#circle">Trusted Circle</a></li><li><a href="#safety">Safety</a></li></ul></div>
-      <div><h4>Try it</h4><ul><li><a href="/">Open the prototype</a></li><li><a href="#faq">Questions</a></li></ul></div>
+      <div><h4>Get started</h4><ul><li><a href="/?start=signup">Create an account</a></li><li><a href="/?start=login">Sign in</a></li><li><a href="/">Try the demo</a></li><li><a href="#faq">FAQs</a></li></ul></div>
       <div><h4>Built with</h4><ul><li>Spitch speech for Nigerian languages</li><li>On-device Voice ID</li><li>Five Nigerian languages</li></ul></div>
     </div>
     <div class="legal">
@@ -397,19 +522,23 @@ footer { padding-block: 56px 40px; border-top: 1px solid var(--line); }
   // Language tabs with real example phrases (what the app understands)
   const P = {
     pcm: [['Abeg keep 5k for my house rent', 'Saves ₦5,000 to your rent goal'], ['Send 3k give Mama', 'Sends ₦3,000 to Mama after your checks'], ['Comot 2k from my school fees', 'Plays your promise first, then asks'], ['How much I get?', 'Reads your wallet and savings out loud']],
-    en: [['Save 5,000 for rent', 'Saves ₦5,000 to your rent goal'], ['Send 5k to Tunde', 'Reads back the bank and account first'], ['I want to save 200k for school fees by January', 'Sets a goal and a weekly target'], ['Read my last receipt', 'Tells you what happened, and when']],
+    en: [['Save 5,000 for rent', 'Saves ₦5,000 to your rent goal'], ['Send 5k to Tunde', 'Reads back the bank and account first'], ['Save 200k for school fees by January', 'Sets a goal and a weekly target'], ['Read my last receipt', 'Tells you what happened, and when']],
     yo: [['Fi ẹgbẹ̀rún márùn-ún pamọ́ fún owó ilé', 'Saves ₦5,000 to your rent goal'], ['Èló ló wà nínú àpò mi?', 'Reads your wallet out loud'], ['Fi ẹgbẹ̀rún méjì ránṣẹ́ sí Mama', 'Sends ₦2,000 to Mama after your checks'], ['Ra káàdì ìpè MTN ẹgbẹ̀rún kan', 'Buys ₦1,000 MTN airtime']],
     ha: [['Ajiye dubu biyar don kuɗin haya', 'Saves ₦5,000 to your rent goal'], ['Aika dubu biyar ga Tunde', 'Sends ₦5,000 to Tunde after your checks'], ['Kuɗi nawa nake da shi?', 'Reads your balance out loud'], ['Sayi katin MTN na dubu ɗaya', 'Buys ₦1,000 MTN airtime']],
     ig: [['Chekwaa puku ise maka ụgwọ ụlọ', 'Saves ₦5,000 to your rent goal'], ['Zipu puku ise nye Tunde', 'Sends ₦5,000 to Tunde after your checks'], ['Ego ole ka m nwere?', 'Reads your balance out loud'], ['Zụta kaadị MTN puku', 'Buys ₦1,000 MTN airtime']]
   };
+  const NAMES = { pcm: 'Pidgin', en: 'English', yo: 'Yorùbá', ha: 'Hausa', ig: 'Igbo' };
+  const MIC = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg>';
   const box = document.getElementById('phrases');
   function show(lang) {
     box.textContent = '';
     for (const [q, d] of P[lang]) {
-      const el = document.createElement('div'); el.className = 'phrase';
+      const el = document.createElement('div'); el.className = 'pcard';
+      const tag = document.createElement('div'); tag.className = 'tag'; tag.innerHTML = MIC;
+      const nm = document.createElement('span'); nm.textContent = 'Say it in ' + NAMES[lang]; tag.prepend(nm);
       const qq = document.createElement('q'); qq.textContent = q; qq.lang = lang === 'pcm' ? 'en' : lang;
-      const s = document.createElement('span'); s.textContent = d;
-      el.append(qq, s); box.append(el);
+      const s = document.createElement('span'); s.className = 'd'; s.textContent = d;
+      el.append(tag, qq, s); box.append(el);
     }
     document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.lang === lang)));
   }
@@ -441,7 +570,7 @@ footer { padding-block: 56px 40px; border-top: 1px solid var(--line); }
       b.append(document.createTextNode(text)); convo.append(b);
     }
   }
-  render(true); // complete at rest
+  render(true);
   if (!reduce) {
     li = 0; render(false);
     setInterval(() => {
@@ -466,6 +595,5 @@ footer { padding-block: 56px 40px; border-top: 1px solid var(--line); }
   });
 })();
 </script>
-
 </body>
 </html>
