@@ -230,6 +230,42 @@
     noYoVoice: { en: 'Yorùbá voice replies need the speech service. Showing text.', pcm: 'Yorùbá voice need the speech service. I go show am as text.', yo: 'Ohùn Yorùbá nílò iṣẹ́ ohùn. Mo ń fi ọ̀rọ̀ hàn.' },
     promiseT: { en: 'Voice Promise', pcm: 'Voice Promise', yo: 'Ìlérí Ohùn' },
     scoreT: { en: 'Promise Score', pcm: 'Promise Score' },
+    // Spoken sign-up. Yorùbá, Hausa and Igbo lines are a first version for a fluent speaker to review.
+    wTap: { en: 'Tap anywhere to start', pcm: 'Press anywhere to start' },
+    wTapSub: { en: 'Vosa will set you up by voice. No reading, no typing.', pcm: 'Vosa go set you up with voice. No reading, no typing.' },
+    wTapAria: { en: 'Start setting up Vosa by voice', pcm: 'Start to set up Vosa with voice' },
+    wReady: { en: 'Vosa is ready. Tap anywhere on the screen to start.', pcm: 'Vosa don ready. Press anywhere for the screen to start.' },
+    wScreen: { en: 'Set up on the screen instead', pcm: 'Use the screen instead' },
+    wTitle: { en: 'Set up by voice', pcm: 'Set up with voice' },
+    wSpeak: { en: 'Speak now', pcm: 'Talk now' }, wAgain: { en: 'Hear the question again', pcm: 'Make I hear the question again' },
+    wPhraseSet: { en: 'Secret phrase', pcm: 'Secret phrase' }, wHidden: { en: 'Heard. Kept hidden.', pcm: 'I don hear am. I hide am.' },
+    wHello: { en: 'Hello, I am Vosa. I will set you up by voice. If your phone asks to use the microphone, choose Allow. Which language do you want? Say English, Pidgin, Yorùbá, Hausa or Igbo.', pcm: 'Hello, I am Vosa. I will set you up by voice. If your phone asks to use the microphone, choose Allow. Which language do you want? Say English, Pidgin, Yorùbá, Hausa or Igbo.' },
+    wLangMiss: { en: 'Say English, Pidgin, Yorùbá, Hausa or Igbo.', pcm: 'Say English, Pidgin, Yorùbá, Hausa or Igbo.' },
+    wMode: { en: 'Good. Do you want a new account, or do you want to sign in? Say new account, or sign in. To only try Vosa, say demo.', pcm: 'Okay. You wan open new account, or you wan sign in? Talk new account, or sign in. If you just wan try Vosa, talk demo.',
+      yo: 'Ó dáa. Ṣé o fẹ́ ṣí àkáǹtì tuntun, tàbí o fẹ́ wọlé? Sọ àkáǹtì tuntun, tàbí wọlé. Láti kàn gbìyànjú Vosa, sọ demo.', ha: 'To. Kana son buɗe sabon asusu, ko kana son shiga? Ka ce sabon asusu, ko shiga. Don gwadawa kawai, ka ce demo.', ig: 'Ọ dị mma. Ị chọrọ imepe akaụntụ ọhụrụ, ka ị chọrọ ịbanye? Kwuo akaụntụ ọhụrụ, ma ọ bụ banye. Iji nwalee Vosa naanị, kwuo demo.' },
+    wName: { en: 'What is your name?', pcm: 'Wetin be your name?', yo: 'Kí ni orúkọ rẹ?', ha: 'Menene sunanka?', ig: 'Kedu aha gị?' },
+    wNameOk: { en: 'I heard {n}. Is that right? Say yes or no.', pcm: 'I hear {n}. E correct? Talk yes or no.', yo: 'Mo gbọ́ {n}. Ṣé ó tọ́? Sọ bẹ́ẹ̀ni tàbí rárá.', ha: 'Na ji {n}. Haka ne? Ka ce eh ko a’a.', ig: 'Anụrụ m {n}. Ọ bụ eziokwu? Kwuo ee ma ọ bụ mba.' },
+    wPhone: { en: 'What is your phone number? Say the numbers one by one.', pcm: 'Wetin be your phone number? Call the numbers one by one.', yo: 'Kí ni nọ́ńbà fóònù rẹ? Sọ àwọn nọ́ńbà náà lọ́kọ̀ọ̀kan.', ha: 'Menene lambar wayarka? Ka faɗi lambobin ɗaya bayan ɗaya.', ig: 'Kedu nọmba ekwentị gị? Kwuo nọmba ndị ahụ otu otu.' },
+    wPhoneOk: { en: 'I heard {d}. Is that right? Say yes or no.', pcm: 'I hear {d}. E correct? Talk yes or no.', yo: 'Mo gbọ́ {d}. Ṣé ó tọ́? Sọ bẹ́ẹ̀ni tàbí rárá.', ha: 'Na ji {d}. Haka ne? Ka ce eh ko a’a.', ig: 'Anụrụ m {d}. Ọ bụ eziokwu? Kwuo ee ma ọ bụ mba.' },
+    wPhoneBad: { en: 'I heard {d}. A Nigerian phone number has 11 numbers and starts with zero. Say it again, slowly.', pcm: 'I hear {d}. Naija phone number get 11 numbers and e dey start with zero. Call am again, small small.' },
+    wPhrase: { en: 'Now choose a secret phrase: two or three words that only you know. You will say it to approve payments. If someone is helping you, ask them to step away now. I will not show it or repeat it. Say your secret phrase.', pcm: 'Now choose secret phrase: two or three words wey only you know. You go talk am to approve payment. If person dey help you, tell am make e shift small. I no go show am, I no go repeat am. Talk your secret phrase.',
+      yo: 'Báyìí, yan ọ̀rọ̀ àṣírí: ọ̀rọ̀ méjì tàbí mẹ́ta tí ìwọ nìkan mọ̀. Ìwọ yóò máa sọ ọ́ láti fọwọ́ sí ìsanwó. Tí ẹnìkan bá ń ràn ọ́ lọ́wọ́, ní kí ó kúrò ní báyìí. Mi ò ní fi hàn, mi ò ní tún un sọ. Sọ ọ̀rọ̀ àṣírí rẹ.', ha: 'Yanzu ka zaɓi kalmar sirri: kalmomi biyu ko uku da kai kaɗai ka sani. Za ka faɗe ta don amincewa da biyan kuɗi. Idan wani yana taimaka maka, ka ce ya matsa yanzu. Ba zan nuna ta ba, ba zan maimaita ta ba. Faɗi kalmar sirrinka.', ig: 'Ugbu a, họrọ okwu nzuzo: okwu abụọ ma ọ bụ atọ naanị gị maara. Ị ga-ekwu ya iji kwado ịkwụ ụgwọ. Ọ bụrụ na mmadụ na-enyere gị aka, gwa ya ka ọ pụọ ugbu a. Agaghị m egosi ya, agaghị m ekwughachi ya. Kwuo okwu nzuzo gị.' },
+    wPhrase2: { en: 'Say it one more time.', pcm: 'Talk am one more time.', yo: 'Tún un sọ lẹ́ẹ̀kan sí i.', ha: 'Ka sake faɗar ta.', ig: 'Kwuo ya otu ugboro ọzọ.' },
+    wPhraseShort: { en: 'That is too short. Use at least two words. Say your secret phrase.', pcm: 'E too short. Use at least two words. Talk your secret phrase.' },
+    wPhraseCommon: { en: 'Do not use the example words. Choose your own. Say your secret phrase.', pcm: 'No use the example words. Choose your own. Talk your secret phrase.' },
+    wNoMatch: { en: 'Those two did not match. Let us try again. Say your secret phrase.', pcm: 'The two no match. Make we try again. Talk your secret phrase.', yo: 'Méjèèjì kò dọ́gba. Jẹ́ ká tún gbìyànjú. Sọ ọ̀rọ̀ àṣírí rẹ.', ha: 'Biyun ba su dace ba. Mu sake gwadawa. Faɗi kalmar sirrinka.', ig: 'Ha abụọ adabaghị. Ka anyị nwaa ọzọ. Kwuo okwu nzuzo gị.' },
+    wPhraseIn: { en: 'Say your secret phrase.', pcm: 'Talk your secret phrase.', yo: 'Sọ ọ̀rọ̀ àṣírí rẹ.', ha: 'Faɗi kalmar sirrinka.', ig: 'Kwuo okwu nzuzo gị.' },
+    wWait: { en: 'One moment.', pcm: 'Abeg wait small.', yo: 'Dúró díẹ̀.', ha: 'Jira kaɗan.', ig: 'Chere ntakịrị.' },
+    wExists: { en: 'That number already has an account, so let us sign you in.', pcm: 'That number don get account, so make we sign you in.' },
+    wMiss: { en: 'Sorry, I did not get that. ', pcm: 'Sorry, I no hear am well. ', yo: 'Má bínú, mi ò gbọ́ ọ dáadáa. ', ha: 'Yi haƙuri, ban ji ba. ', ig: 'Ndo, anụghị m ya. ' },
+    wQuiet: { en: 'I did not hear anything. Tap the screen when you are ready, and I will ask again.', pcm: 'I no hear anything. Press the screen when you don ready, I go ask again.' },
+    wNoMic: { en: 'I cannot use the microphone on this phone, so we will use the screen.', pcm: 'I no fit use microphone for this phone, so we go use the screen.' },
+    wVid: { en: 'Your account is ready, with ₦50,000 of demo money. Last step: I need to learn your voice, so nobody else can move your money. When you hear the beep, talk for about twenty seconds. Tell me what you want to save for, or count from one to thirty. Keep talking until you hear two beeps.', pcm: 'Your account don ready, with ₦50,000 demo money. Last step: I need to sabi your voice, so another person no go fit move your money. When you hear the beep, talk for like twenty seconds. Tell me wetin you wan save for, or count from one go thirty. Continue to talk till you hear two beeps.' },
+    wVidBack: { en: 'Welcome back, {n}. Your savings are here. Last step: I need to learn your voice again on this phone. When you hear the beep, talk for about twenty seconds. Count from one to thirty, or tell me about your day. Keep talking until you hear two beeps.', pcm: 'Welcome back, {n}. Your savings dey here. Last step: I need to sabi your voice again for this phone. When you hear the beep, talk for like twenty seconds. Count from one go thirty, or tell me how your day be. Continue to talk till you hear two beeps.' },
+    wVidDemo: { en: 'This is the demo, with demo money. First I need to learn your voice. When you hear the beep, talk for about twenty seconds. Count from one to thirty, or tell me what you want to save for. Keep talking until you hear two beeps.', pcm: 'Na demo be this, with demo money. First I need to sabi your voice. When you hear the beep, talk for like twenty seconds. Count from one go thirty, or tell me wetin you wan save for. Continue to talk till you hear two beeps.' },
+    wVidErr: { en: 'I could not learn your voice. It may be noisy here. Do you want to try again? Say yes or no.', pcm: 'I no fit sabi your voice. Maybe noise dey here. You wan try again? Talk yes or no.' },
+    wDone: { en: 'All done, {n}. I am listening. Tell me what you want to do. For example, say: save five thousand for rent.', pcm: 'We don finish, {n}. I dey listen. Tell me wetin you wan do. For example, talk: keep five thousand for rent.' },
+    wDemoPhrase: { en: ' In the demo, your secret phrase is blue mango.', pcm: ' For the demo, your secret phrase na blue mango.' },
     scoreStart: { en: 'Starts when you keep your first savings promise', pcm: 'E go start when you keep your first savings promise' },
     scoreLine: { en: 'Kept {kept} of {tests} promises when tempted', pcm: 'You keep {kept} out of {tests} promise' },
     scoreOutOf: { en: 'out of 100', pcm: 'out of 100' },
@@ -973,7 +1009,7 @@
     if (!ov) { fresh.hidden = true; fresh.removeAttribute('role'); return; }
     fresh.hidden = false;
     fresh.setAttribute('role', 'dialog'); fresh.setAttribute('aria-modal', 'true');
-    const b = { confirm: ovConfirm, success: ovSuccess, moneyin: ovMoneyIn, sheet: ovSheet, type: ovType, pick: ovPick, 'goal-form': ovGoalForm, 'send-form': ovSendForm, 'airtime-form': ovAirtimeForm, pot: ovPot, amount: ovAmountCompat, onboard: ovOnboard, enroll: ovEnroll, more: ovMore, approval: ovApproval, 'helper-form': ovHelperForm, 'helper-link': ovHelperLink, 'circle-log': ovCircleLog, promise: ovPromise, account: ovAccount, score: ovScore }[ov.kind];
+    const b = { confirm: ovConfirm, success: ovSuccess, moneyin: ovMoneyIn, sheet: ovSheet, type: ovType, pick: ovPick, 'goal-form': ovGoalForm, 'send-form': ovSendForm, 'airtime-form': ovAirtimeForm, pot: ovPot, amount: ovAmountCompat, onboard: ovOnboard, enroll: ovEnroll, more: ovMore, approval: ovApproval, 'helper-form': ovHelperForm, 'helper-link': ovHelperLink, 'circle-log': ovCircleLog, promise: ovPromise, account: ovAccount, score: ovScore, vstart: ovVStart, vsignup: ovVSignup }[ov.kind];
     if (!b) { fresh.hidden = true; return; }
     b(fresh, ov.data);
     const focusEl = fresh.querySelector('h1, h2');
@@ -1332,6 +1368,7 @@
   async function handle(raw, opts) {
     opts = opts || {};
     raw = String(raw || '').trim();
+    if (wiz) return wizHear(raw);
     if (!raw) return afterReply();
     stopListening();
     settleLoans();
@@ -1817,7 +1854,7 @@
   function resetDemo() {
     const lang = state.lang; stopListening(); stopSpeaking();
     state = seed(); state.lang = lang; pending = null; awaiting = null; lastHeard = ''; lastReply = R('welcome');
-    persist(); render(); showOv('onboard', { step: 1 });
+    persist(); render(); wiz = null; showOv('vstart', {});
   }
 
   // ---------- speech out ----------
@@ -2079,7 +2116,7 @@
       try { ctx && ctx.close(); } catch (e) {}
       enrollSession = null; vid.onProgress = null;
     };
-    const fail = (e) => { if (finished) return; finished = true; cleanup(); d.stage = 'error'; d.err = (e && e.message) || String(e); renderOv(); };
+    const fail = (e) => { if (finished) return; finished = true; cleanup(); d.stage = 'error'; d.err = (e && e.message) || String(e); renderOv(); if (d.onEnd) d.onEnd(false); };
     enrollSession = { cancel: () => { finished = true; cleanup(); } };
     try {
       vid.onProgress = (pct) => { d.pct = pct; setEnrollBar(pct); };
@@ -2090,6 +2127,7 @@
       const src = ctx.createMediaStreamSource(stream);
       const col = speechCollector();
       d.stage = 'rec'; d.pct = 0; renderOv();
+      if (d.onRec) d.onRec();
       enrollSession = { cancel: () => { finished = true; cleanup(); } };
       stopTap = pcmTap(ctx, src, (c) => col.push(c));
       timer = setInterval(async () => {
@@ -2099,6 +2137,7 @@
         if (pct < 100) return;
         finished = true; cleanup();
         d.stage = 'saving'; renderOv();
+        if (d.onFull) d.onFull();
         try {
           // Three slices of speech -> three voiceprints -> averaged into one
           const audio = col.audio(), part = Math.floor(audio.length / 3);
@@ -2111,6 +2150,7 @@
           prints.forEach(e => { for (let j = 0; j < e.length; j++) acc[j] += e[j]; });
           state.voicePrint = printToB64(unit(acc)); state.voicePrintV = 2; persist();
           d.stage = 'done'; renderOv(); render();
+          if (d.onEnd) d.onEnd(true);
         } catch (e) { finished = false; fail(e); }
       }, 200);
     } catch (e) { fail(e); }
@@ -2170,6 +2210,15 @@
   }
   function showListen(mode) {
     const el = $('listen');
+    // During spoken sign-up the question stays on screen; listening shows on its own microphone
+    if (wiz && ov && ov.kind === 'vsignup') {
+      el.hidden = true;
+      const m = document.querySelector('.vstart-mic'), sub = document.querySelector('.vstart.talk .vstart-sub');
+      if (m) m.classList.toggle('live', mode === 'listen');
+      if (sub) sub.textContent = mode === 'listen' ? t('listening') : mode === 'work' ? t('working') : t('wSpeak');
+      if (mode) announce(mode === 'work' ? t('working') : t('listening'));
+      return;
+    }
     if (!mode) { el.hidden = true; return; }
     el.hidden = false;
     const ls = $('listen-state'); ls.textContent = ''; ls.append(h('i', { 'aria-hidden': 'true' }), mode === 'work' ? t('working') : t('listening'));
@@ -2266,7 +2315,7 @@
         const voice = scorer ? { score: await scorer.finish() } : null;
         busy = false; showListen(null);
         handle(j.text, { via: 'voice', voice });
-      } catch (e) { busy = false; showListen(null); status(t('voiceErr')); afterReply(); }
+      } catch (e) { busy = false; showListen(null); if (wiz) return wizSilence(); status(t('voiceErr')); afterReply(); }
     };
     mr.start();
     setLive(true);
@@ -2335,7 +2384,7 @@
       }
       sawSpeech = true;
       const shown = heardSoFar();
-      $('live-text').textContent = shown ? '“' + shown + '”' : '';
+      $('live-text').textContent = wiz && wiz.secret ? '••••••' : shown ? '“' + shown + '”' : '';
       endSoon(finals.length && !interim ? 900 : 1600);
     };
     r.onspeechstart = () => { sawSpeech = true; };
@@ -2346,6 +2395,7 @@
     };
     r.onend = () => {
       clearTimeout(silence); clearTimeout(hardStop);
+      const mine = rec === r; // false when we stopped it ourselves
       if (rec === r) rec = null;
       listening = false; $('mic').classList.remove('live'); showListen(null);
       if (micDenied) return;
@@ -2353,6 +2403,7 @@
       // One piece: pick the guess Vosa understands best. Several pieces: join them without repeats.
       const text = parts.length === 1 && !interim ? mergeHeard([bestAlternative(parts[0])]) : heardSoFar();
       if (text) { srRetries = 0; emptyRuns = 0; handle(text, { via: 'voice' }); return; }
+      if (wiz) { srRetries = 0; if (!mine) return; return gotError ? wizMiss() : wizSilence(); }
       if (!gotError && !sawSpeech && srRetries < 2 && !state.handsFree) { srRetries++; status(t('goAhead')); return startBrowserSR(); }
       srRetries = 0;
       if (state.handsFree) { emptyRuns++; if (emptyRuns < 30) afterReply(); }
@@ -2363,6 +2414,7 @@
 
   function voiceUnavailable() {
     setLive(false); showListen(null);
+    if (wiz) return wizNoVoice();
     showOv('sheet', { tone: 'err', icon: 'micoff', k: t('kMic'), title: t('micTitle'), body: t('micBody'), actions: [
       { label: t('typeInstead'), primary: true, fn: () => { showOv('type'); } },
       { label: t('ok'), fn: closeOv }] });
@@ -2640,8 +2692,250 @@
     r.onend = () => { if (got) onText(got.trim()); else status(t('voiceErr')); };
     try { r.start(); status(t('listening')); } catch (e) { status(t('typeInstead')); }
   }
+  // ---------- Spoken sign-up ----------
+  // Setting up Vosa without reading or typing. One tap anywhere starts it (browsers only allow sound and the
+  // microphone after a tap); from then on Vosa asks one question at a time, listens, and reads the name and
+  // phone number back before using them. The secret phrase is never shown, never read back and never logged.
+  // While `wiz` is set, everything Vosa hears goes to wizHear() instead of the money commands.
+  let wiz = null;
+  const WIZ_LANGS = [['en', /\b(english|inglish|oyinbo|turanci|bekee)\b/], ['pcm', /\b(pidgin|pijin|pigeon|broken|naija)\b/], ['yo', /\b(yoruba|yoroba|yaruba|yarbanci)\b/], ['ha', /\b(hausa|housa|hawsa)\b/], ['ig', /\b(igbo|ibo|ebo)\b/]];
+  const groupPhone = (d) => d.replace(/^(\d{4})(\d{3})(\d+)$/, '$1 $2 $3');
+  const sayPhone = (d) => groupPhone(d).split(' ').map(g => g.split('').join(' ')).join(', ');
+  const validPhone = (d) => /^0[789][01]\d{8}$/.test(d);
+  function beep(freq, ms, times) {
+    try {
+      const c = new (window.AudioContext || window.webkitAudioContext)();
+      for (let i = 0; i < (times || 1); i++) {
+        const o = c.createOscillator(), g = c.createGain(), at = c.currentTime + i * (ms + 120) / 1000;
+        o.frequency.value = freq; g.gain.value = 0.18; o.connect(g); g.connect(c.destination); o.start(at); o.stop(at + ms / 1000);
+      }
+      setTimeout(() => { try { c.close(); } catch (e) {} }, (times || 1) * (ms + 120) + 300);
+    } catch (e) {}
+  }
+  function wizStart(next) {
+    stopListening(); stopSpeaking();
+    wiz = { step: 'lang', f: {}, q: '', secret: false, turn: 0, miss: 0, quiet: 0, fails: 0, next: next || null };
+    showOv('vsignup');
+    wizAsk(t('wHello'));
+  }
+  // Say a question, then listen for the answer.
+  async function wizAsk(text, o) {
+    if (!wiz) return;
+    wiz.q = text; wiz.secret = !!(o && o.secret); wiz.paused = false;
+    if (!ov || ov.kind !== 'vsignup') showOv('vsignup'); else renderOv();
+    const my = ++wiz.turn;
+    stopListening();
+    await speak(text, state.lang, true);
+    if (!wiz || wiz.turn !== my) return;
+    wizListen();
+  }
+  function wizListen() {
+    if (!wiz) return;
+    micDenied = false;
+    if (!canListen()) return wizNoVoice();
+    wiz.paused = false; stopSpeaking(); startListening();
+  }
+  function wizGo(step, text, o) { wiz.step = step; wiz.miss = 0; wiz.quiet = 0; return wizAsk(text, o); }
+  function wizMiss(text) {
+    wiz.miss++;
+    if (wiz.miss >= 4) return wizPause();
+    return wizAsk(t('wMiss') + (text || wiz.q.replace(t('wMiss'), '')), { secret: wiz.secret });
+  }
+  function wizSilence() {
+    if (!wiz) return;
+    wiz.quiet++;
+    if (wiz.quiet >= 3) return wizPause();
+    return wizAsk(wiz.q, { secret: wiz.secret });
+  }
+  // Stop asking, and wait for a tap anywhere on the screen.
+  async function wizPause() {
+    wiz.paused = true; wiz.miss = 0; wiz.quiet = 0; wiz.turn++; renderOv();
+    await speak(t('wQuiet'), state.lang, true);
+  }
+  async function wizNoVoice() {
+    const next = wiz && wiz.mode === 'login' ? 'login' : 'signup', f = wiz ? wiz.f : {};
+    wiz = null; stopListening();
+    showOv('account', { stage: next, fromOnboard: true, said: true, f: { name: f.name || '', phone: f.phone || '', phrase: '', phrase2: '' } });
+    await speak(t('wNoMic'), state.lang, true);
+  }
+  function wizToScreen() { const next = wiz ? wiz.next : null; wiz = null; stopListening(); stopSpeaking(); showOv('onboard', { step: 1, next }); }
+  function wizSetLang(code) { state.lang = code; persist(); render(); return wizGo('mode', t('wMode')); }
+
+  function wizHear(raw) {
+    stopListening();
+    if (!wiz) return;
+    if (!raw) return wizSilence();
+    const n = L.norm(raw), f = wiz.f, step = wiz.step;
+    const secretStep = step === 'phrase' || step === 'phrase2' || step === 'phraseIn';
+    lastHeard = secretStep ? '••••••' : raw; lastVia = 'voice';
+    wiz.quiet = 0;
+    const yn = L.understand(raw, { pending: true }).intent;
+    if (!secretStep) {
+      if (/\b(start again|start over|begin again|restart)\b/.test(n)) return wizStart(wiz.next);
+      if (/\b(repeat|say (it|that) again|come again|talk am again)\b/.test(n)) return wizAsk(wiz.q);
+      if (/\b(use (the )?screen|type|typing)\b/.test(n)) return wizToScreen();
+    }
+    switch (step) {
+      case 'lang': {
+        const hit = WIZ_LANGS.find(([, re]) => re.test(n));
+        if (!hit) return wizMiss(t('wLangMiss'));
+        return wizSetLang(hit[0]);
+      }
+      case 'mode': {
+        if (/\b(demo|try|test|gwada|gwadawa|gbiyanju|nwalee)\b/.test(n)) return wizDemo();
+        if (/\b(sign in|signin|log ?in|already|i have|i get|don get|have (an )?account|get account|old|wole|shiga|banye)\b/.test(n)) { wiz.mode = 'login'; return wizGo('phone', t('wPhone')); }
+        if (/\b(new|create|open|sign ?up|register|account|tuntun|sabo|sabon|ohuru|akaunti|asusu)\b/.test(n) || yn === 'yes') {
+          if (!backend.db) return wizDemo();
+          wiz.mode = 'signup'; return wizGo('name', t('wName'));
+        }
+        return wizMiss();
+      }
+      case 'name':
+      case 'nameOk': {
+        if (step === 'nameOk' && yn === 'yes') return wizGo('phone', t('wPhone'));
+        if (step === 'nameOk' && yn === 'no') return wizGo('name', t('wName'));
+        const name = capName(raw.replace(/[^\p{L}\p{M}' -]/gu, ' ').replace(/^\s*(my name is|my name na|i am|i'm|im|it is|it's|na me be|na|oruko mi ni|orúkọ mi ni|sunana|aha m bu|aha m bụ)\s+/i, '').replace(/\s+/g, ' ').trim()).slice(0, 40);
+        if (name.replace(/[^\p{L}]/gu, '').length < 2) return wizMiss(t('wName'));
+        f.name = name;
+        return wizGo('nameOk', t('wNameOk', { n: name }));
+      }
+      case 'phone':
+      case 'phoneOk': {
+        let d = L.spokenDigits(raw).replace(/^234/, '0');
+        if (d.length === 10 && /^[789]/.test(d)) d = '0' + d;
+        if (step === 'phoneOk' && !d) {
+          if (yn === 'yes') return wiz.mode === 'login' ? wizGo('phraseIn', t('wPhraseIn'), { secret: true }) : wizGo('phrase', t('wPhrase'), { secret: true });
+          if (yn === 'no') return wizGo('phone', t('wPhone'));
+          return wizMiss();
+        }
+        if (!d) return wizMiss(t('wPhone'));
+        if (!validPhone(d)) { wiz.step = 'phone'; return wizMiss(t('wPhoneBad', { d: sayPhone(d.slice(0, 14)) })); }
+        f.phone = d;
+        return wizGo('phoneOk', t('wPhoneOk', { d: sayPhone(d) }));
+      }
+      case 'phrase': {
+        const words = n.split(' ').filter(Boolean);
+        if (words.length < 2 || words.join('').length < 6) return wizMiss(t('wPhraseShort'));
+        if (n === 'blue mango' || n === 'green banana') return wizMiss(t('wPhraseCommon'));
+        wiz.phrase = n;
+        return wizGo('phrase2', t('wPhrase2'), { secret: true });
+      }
+      case 'phrase2': {
+        if (n !== wiz.phrase) { wiz.phrase = null; wiz.fails++; if (wiz.fails >= 4) return wizNoVoice(); return wizGo('phrase', t('wNoMatch'), { secret: true }); }
+        return wizCreate();
+      }
+      case 'phraseIn': wiz.phrase = n; return wizLogin();
+      case 'vidRetry': {
+        if (yn === 'yes') return wizVoiceId(null);
+        if (yn === 'no') return wizFinish();
+        return wizMiss();
+      }
+    }
+  }
+
+  async function wizCreate() {
+    const f = wiz.f, phrase = wiz.phrase;
+    wiz.step = 'busy'; wiz.q = t('wWait'); wiz.turn++; renderOv(); speak(t('wWait'), state.lang, true);
+    try {
+      const j = await authApi({ action: 'signup', name: f.name, phone: f.phone, phrase });
+      if (!wiz) return;
+      state = freshAccount(j);
+      await setLocalPhrase(phrase);
+      wiz.phrase = null; wiz.made = true;
+      state.onboarded = true; state.handsFree = true;
+      pending = null; awaiting = null; persist(); render(); syncNow(); startPolling();
+      return wizVoiceId(t('wVid'));
+    } catch (e) {
+      if (!wiz) return;
+      // The number is already registered: carry on as a sign-in with the phrase they just said twice
+      if (e.code === 'taken' || /already/i.test(e.message || '')) { wiz.mode = 'login'; await speak(t('wExists'), state.lang, true); return wizLogin(); }
+      wiz.fails++; wiz.phrase = null;
+      if (wiz.fails >= 3) { await speak(e.message, state.lang, true); return wizNoVoice(); }
+      return wizGo('phone', (e.message || t('errNet')) + ' ' + t('wPhone'));
+    }
+  }
+  async function wizLogin() {
+    const f = wiz.f, phrase = wiz.phrase;
+    wiz.step = 'busy'; wiz.q = t('wWait'); wiz.turn++; renderOv(); speak(t('wWait'), state.lang, true);
+    try {
+      const j = await authApi({ action: 'login', phone: f.phone, phrase });
+      if (!wiz) return;
+      state = restoredAccount(j, j.acct);
+      await setLocalPhrase(phrase);
+      wiz.phrase = null; wiz.made = true;
+      state.onboarded = true; state.handsFree = true;
+      pending = null; awaiting = null; persist(); render(); startPolling(); pollNow();
+      return wizVoiceId(t('wVidBack', { n: state.myName }));
+    } catch (e) {
+      if (!wiz) return;
+      wiz.fails++; wiz.phrase = null;
+      if (wiz.fails >= 3 || e.code === 'locked') { await speak(e.message || t('errNet'), state.lang, true); return wizNoVoice(); }
+      return wizGo('phraseIn', (e.message || t('errNet')) + ' ' + t('wPhraseIn'), { secret: true });
+    }
+  }
+  function wizDemo() {
+    state.onboarded = true; state.handsFree = true; persist(); render();
+    wiz.demo = true;
+    return wizVoiceId(t('wVidDemo'));
+  }
+  // Voice ID without reading: Vosa explains, beeps, the person talks freely, two beeps mean enough.
+  async function wizVoiceId(intro) {
+    if (!(backend.voiceId && navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) return wizFinish();
+    wiz.step = 'vid'; wiz.turn++; stopListening();
+    if (intro) { wiz.q = intro; wiz.vidIntro = intro; if (!ov || ov.kind !== 'vsignup') showOv('vsignup'); else renderOv(); await speak(intro, state.lang, true); if (!wiz) return; }
+    const d = { stage: 'intro', fromOnboard: true, spoken: true };
+    d.onRec = () => beep(880, 220, 1);
+    d.onFull = () => beep(880, 160, 2);
+    d.onEnd = (ok) => {
+      if (!wiz) return;
+      if (ok) return wizFinish();
+      wiz.vidFails = (wiz.vidFails || 0) + 1;
+      if (wiz.vidFails >= 2) return wizFinish();
+      wizGo('vidRetry', t('wVidErr'));
+    };
+    showOv('enroll', d);
+    startEnroll(d);
+  }
+  function wizFinish() {
+    const demo = wiz && wiz.demo;
+    wiz = null; closeOv(); go('home');
+    return reply(t('wDone', { n: (state.myName || '').split(' ')[0] }) + (demo ? t('wDemoPhrase') : ''));
+  }
+
+  function ovVStart(el, d) {
+    el.className = 'ov vstart-ov';
+    if (!d.said) { d.said = true; setTimeout(() => { if (ov && ov.kind === 'vstart') speak(t('wReady'), state.lang, true); }, 600); }
+    el.append(
+      h('button', { class: 'vstart', type: 'button', 'aria-label': t('wTapAria'), onClick: () => wizStart(d.next) },
+        h('span', { class: 'brand-row' }, logoMark(36), h('span', { class: 'wordmark', text: 'Vosa' })),
+        h('span', { class: 'vstart-mic', 'aria-hidden': 'true' }, icon('mic', 56)),
+        h('h1', { text: t('wTap') }),
+        h('span', { class: 'vstart-sub', text: t('wTapSub') }),
+        h('span', { class: 'vstart-langs', 'aria-hidden': 'true', text: 'English · Pidgin · Yorùbá · Hausa · Igbo' })),
+      h('button', { class: 'link vstart-alt', type: 'button', onClick: () => { stopSpeaking(); showOv('onboard', { step: 1, next: d.next }); }, text: t('wScreen') }));
+  }
+  function ovVSignup(el) {
+    if (!wiz) return closeOv();
+    el.className = 'ov vstart-ov';
+    const f = wiz.f;
+    const rows = [f.name ? [t('fName'), f.name] : null, f.phone ? [t('fPhone'), groupPhone(f.phone)] : null,
+      wiz.phrase || wiz.made || wiz.step === 'phrase2' ? [t('wPhraseSet'), t('wHidden')] : null].filter(Boolean);
+    // Everything except the two small buttons is one big target: tap anywhere to speak, or to hear the question again
+    el.append(...[
+      h('button', { class: 'vstart talk', type: 'button', 'aria-label': t('wSpeak'), onClick: () => { if (!wiz || wiz.step === 'busy' || wiz.step === 'vid') return; if (listening) { if (rec) { try { rec.stop(); } catch (e) {} } if (mediaRec && mediaRec.state === 'recording') mediaRec.stop(); return; } if (wiz.paused) return wizAsk(wiz.q, { secret: wiz.secret }); wiz.turn++; wizListen(); } },
+        h('span', { class: 'brand-row' }, logoMark(28), h('span', { class: 'wordmark', text: t('wTitle') })),
+        h('span', { class: 'vsay', style: 'text-align:left' }, h('span', { style: 'flex:0 0 auto' }, logoMark(22)), h('span', { role: 'status', 'aria-live': 'polite', text: wiz.q })),
+        rows.length ? kv(rows) : null,
+        h('span', { class: 'vstart-mic small', 'aria-hidden': 'true' }, icon('mic', 40)),
+        h('span', { class: 'vstart-sub', text: t('wSpeak') })),
+      wiz.step === 'lang' ? h('div', { class: 'vstart-langbtns', role: 'group', 'aria-label': t('language') }, [['en', 'English'], ['pcm', 'Pidgin'], ['yo', 'Yorùbá'], ['ha', 'Hausa'], ['ig', 'Igbo']].map(([c, nm]) => h('button', { class: 'opt', type: 'button', onClick: () => { stopListening(); stopSpeaking(); wiz.turn++; wizSetLang(c); }, text: nm }))) : null,
+      h('div', { class: 'vstart-foot' },
+        h('button', { class: 'link', type: 'button', onClick: () => wizAsk(wiz.q, { secret: wiz.secret }), text: t('wAgain') }),
+        h('button', { class: 'link', type: 'button', onClick: wizToScreen, text: t('wScreen') }))].filter(Boolean));
+  }
+
   function ovAccount(el, d) {
-    d.f = d.f || { name: '', phone: '', phrase: '', phrase2: '' };
+    d.f = Object.assign({ name: '', phone: '', phrase: '', phrase2: '' }, d.f || {});
     const back = () => { if (d.stage === 'choose' || !d.fromOnboard) { if (d.fromOnboard) showOv('onboard', { step: 1 }); else closeOv(); } else { d.stage = 'choose'; d.err = null; renderOv(); } };
     const toDemo = () => showOv('onboard', { step: 2, hf: true });
     if (!d.said) { d.said = true; setTimeout(() => speak(d.stage === 'signup' ? t('suSay') : d.stage === 'login' ? t('liSay') : t('acctSay'), state.lang, true), 250); }
@@ -3170,8 +3464,8 @@
   const startAt = new URLSearchParams(location.search).get('start');
   if (startAt) try { history.replaceState(null, '', location.pathname); } catch (e) {}
   if (!state.signedUp && (startAt === 'signup' || startAt === 'login')) {
-    if (!state.onboarded) showOv('onboard', { step: 1, next: startAt }); else showOv('account', { stage: startAt });
-  } else if (!state.onboarded) showOv('onboard', { step: 1 });
+    if (!state.onboarded) showOv('vstart', { next: startAt }); else showOv('account', { stage: startAt });
+  } else if (!state.onboarded) showOv('vstart', {});
   (async () => {
     try {
       const res = await fetch('api/health', { cache: 'no-store' });

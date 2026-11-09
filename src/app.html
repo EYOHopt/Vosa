@@ -44,6 +44,25 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .view { display: flex; flex-direction: column; padding: 0 20px 24px; }
 
 /* demo-mode notice */
+.vstart-ov { background: var(--bg); }
+.vstart { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 28px 24px; border: 0; background: transparent; color: var(--text); text-align: center; font: inherit; cursor: pointer; width: 100%; }
+.vstart h1 { margin: 0; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+.vstart-sub { font-size: 17px; color: var(--text2); max-width: 26ch; }
+.vstart-langs { font-size: 14px; color: var(--text2); }
+.vstart-mic { width: 148px; height: 148px; border-radius: 50%; background: var(--primary); color: #fff; display: grid; place-items: center; box-shadow: 0 0 0 16px var(--tint); margin: 18px 0; }
+.vstart-mic.small { width: 96px; height: 96px; box-shadow: 0 0 0 10px var(--tint); margin: 10px 0 4px; }
+.vstart-mic.live { animation: vpulse 1.2s ease-in-out infinite; }
+@keyframes vpulse { 0%, 100% { box-shadow: 0 0 0 10px var(--tint); } 50% { box-shadow: 0 0 0 22px var(--tint); } }
+@media (prefers-reduced-motion: reduce) { .vstart-mic.live { animation: none; box-shadow: 0 0 0 18px var(--tint); } }
+.vstart.talk { justify-content: flex-start; padding-top: 32px; }
+.vstart.talk .vsay, .vstart.talk .kv { width: 100%; text-align: left; }
+.vstart.talk .vsay span[role="status"] { font-size: 18px; line-height: 1.45; font-weight: 600; }
+.vstart-alt, .vstart-foot { padding: 14px 20px calc(22px + env(safe-area-inset-bottom, 0px)); }
+.vstart-alt { align-self: center; min-height: 48px; }
+.vstart-foot { display: flex; justify-content: space-between; gap: 16px; }
+.vstart-foot .link { min-height: 44px; }
+.vstart-langbtns { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 0 20px 8px; }
+.vstart-langbtns .opt { min-height: 44px; padding: 0 16px; }
 .card.scorecard { display: flex; align-items: center; gap: 14px; cursor: pointer; }
 .scorecard .mid { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .scorecard .mid b { font-size: 16px; } .scorecard .mid span { font-size: 13.5px; color: var(--text2); }

@@ -102,6 +102,12 @@ Without the database, Trusted Circle still works in **demo mode**: the helper's 
 | `SPITCH_VOICE_PCM` | Pidgin voice. The default is `ufoma`; Spitch also has `boma`, `tega` and `justice`. |
 | `SPITCH_VOICE_EN` | Optional default English voice (`lucy`, `lina`, `john`, `jude`, `henry`, `kani`, `kingsley`, `remi`). People can also pick a voice in Settings → Vosa's voice → Which voice, and hear a sample. Spoken replies are cached on the phone, so a sentence said before costs no credit. |
 
+### Spoken sign-up (setting up without reading or typing)
+
+The first screen is one button the size of the whole screen: "Tap anywhere to start". Browsers only allow sound and the microphone after a tap, so one tap is the least possible. After that Vosa asks one question at a time and listens by itself: language, new account or sign in (or demo), name, phone number, secret phrase. It reads the name and the phone number back (digit by digit) and waits for yes or no. The secret phrase is said twice, is never shown, never read back and never stored in clear; Vosa first asks any helper to step away. Voice ID follows without reading: Vosa beeps once, the person talks freely for about 20 seconds, and two beeps mean it has enough. Then hands-free mode is on and Vosa is listening.
+
+Saying "repeat", "start again" or "use the screen" works at any point. Three silences in a row make Vosa stop and wait for a tap anywhere. If the microphone is blocked, Vosa says so and opens the on-screen form with the name and number already filled in. "Set up on the screen instead" keeps the old flow. Code: the `wiz*` functions in `src/ui.js`. Questions are in all five languages; the Yorùbá, Hausa and Igbo lines are a first version for a fluent speaker to review, and error messages fall back to English.
+
 ### Promise Score and borrowing against savings (credit readiness)
 
 **Promise Score** is a 0 to 100 number built from what a person does when their savings are tempting. Keeping a Voice Promise (+1), borrowing instead of breaking a goal (+1), reaching a promised goal (+2) and repaying a loan on time (+2) raise it. Taking money out of a promised goal early (-2) and a loan that passes its due date (-3) lower it. Everyone starts at 50: `score = 100 x (good + 1) / (good + bad + 2)`. Say "what is my Promise Score" or "read my savings record", or open the card on the Savings tab. The record can be shared as text.
