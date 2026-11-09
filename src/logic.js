@@ -490,6 +490,14 @@
     }
     if (/\b(voice ?id|voiceprint|voice print|my voice)\b/.test(t0) && /\b(set ?up|add|turn on|enable|start|redo|teach|learn|register|sabi)\b/.test(t0)) { r.intent = 'voicesetup'; return r; }
     if (/\b(last receipt|my receipt|read (me )?(my |the )?receipt|last transaction|last payment|what did i (just )?do|what was (my|the) last|wetin i do last|last thing i do|iwe owo mi|idunadura (mi )?to koja)\b/.test(t0)) { r.intent = 'receipt'; return r; }
+    // Promise Score: "what is my promise score", "read my savings record"
+    if (/\b(promise score|my score|savings? record|credit (score|record|readiness)|trust score)\b/.test(t0)) { r.intent = 'score'; return r; }
+    // Loans against savings: "borrow 5k against my rent", "repay 2k", "how much do I owe"
+    if (/\b(repay|pay ?back|pay off|pay (my|the) (loan|debt)|settle (my|the) (loan|debt)|return (the|my) loan)\b/.test(t0)) { r.intent = 'repay'; return r; }
+    if (/\b(borrow|lend me|loan|owe|bashi|gbese)\b/.test(t0)) {
+      r.intent = /\b(borrow|lend me)\b/.test(t0) || (r.amount && !/\b(owe|how much)\b/.test(t0)) ? 'borrow' : 'loan';
+      return r;
+    }
     // Voice Promise: "record a promise for rent", "play my promise", "add a promise to school fees"
     if (/\b(promise|promis|ileri)\b/.test(t0)) {
       r.intent = 'promise'; r.play = /\b(play|hear|listen|replay|gbo)\b/.test(t0) && !/\b(record|add|make|new|redo|change)\b/.test(t0);
@@ -573,6 +581,39 @@
     r.intent = 'unknown';
     return r;
   }
+
+  // ---------- Promise Score and loans against savings ----------
+  // Pure rules, kept here so they can be tested without a browser.
+  //
+  // Promise Score: a 0-100 number built only from what the person did when their savings were tempting.
+  //   kept      heard their Voice Promise at the moment of withdrawal and left the money (+1)
+  //   borrowed  borrowed against the goal instead of breaking it (+1)
+  //   reached   reached a goal that had a promise on it (+2)
+  //   repaid    repaid a loan in full before the due date (+2)
+  //   broke     took money out of a promised goal before it was reached (-2)
+  //   late      a loan passed its due date and was settled from the savings held for it (-3)
+  // score = 100 x (good + 1) / (good + bad + 2). The +1 and +2 start everyone at 50 and stop one event
+  // from swinging the number to 0 or 100.
+  const SCORE_WEIGHT = { kept: 1, borrowed: 1, reached: 2, repaid: 2, broke: -2, late: -3 };
+  function promiseScore(log) {
+    const c = { kept: 0, borrowed: 0, reached: 0, repaid: 0, broke: 0, late: 0 };
+    for (const e of log || []) if (e && e.k in c) c[e.k]++;
+    let good = 0, bad = 0;
+    for (const k in c) { const w = SCORE_WEIGHT[k] * c[k]; if (w > 0) good += w; else bad -= w; }
+    const events = Object.keys(c).reduce((n, k) => n + c[k], 0);
+    const tests = c.kept + c.borrowed + c.broke;
+    const score = events ? Math.round(100 * (good + 1) / (good + bad + 2)) : null;
+    const band = score == null ? 'none' : score >= 75 ? 'strong' : score >= 50 ? 'steady' : 'building';
+    return { score, band, events, tests, keptCount: c.kept + c.borrowed, counts: c };
+  }
+  // A loan is always smaller than the savings behind it: at most half the goal's free balance,
+  // in steps of 500 naira, and never less than 1,000 naira.
+  const LOAN = { share: 0.5, step: 500, min: 1000, days: 30 };
+  function loanLimit(freeBal) {
+    const max = Math.floor(Math.max(0, Number(freeBal) || 0) * LOAN.share / LOAN.step) * LOAN.step;
+    return max >= LOAN.min ? max : 0;
+  }
+  const loanLeft = (loan) => Math.max(0, loan.amount - (loan.repaid || 0));
 
   // ---------- replies ----------
   const MONTH_LABEL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -676,6 +717,33 @@
     promiseReady: { en: 'The 24 hours have passed, so this one goes through.', pcm: 'The 24 hours don pass, so this one go pass.', yo: 'Wákàtí 24 ti kọjá, nítorí náà èyí yóò kọjá.' },
     askedHelperW: { en: 'I have asked {names} to approve taking {amt} out of {goal}. They may call you first. I will tell you when they answer.', pcm: 'I don ask {names} make dem approve to comot {amt} from {goal}. Dem fit call you first. I go tell you when dem answer.', yo: 'Mo ti béèrè lọ́wọ́ {names} láti fọwọ́ sí yíyọ {amt} kúrò nínú {goal}. Wọ́n lè pè ọ́ ná. Màá sọ fún ọ nígbà tí wọ́n bá dáhùn.' },
     promiseReached: { en: ' You kept your promise.', pcm: ' You keep your promise.', yo: ' O pa ìlérí rẹ mọ́.' },
+    // Promise Score
+    scoreNone: { en: 'You do not have a Promise Score yet. It starts the first time you keep, or break, a savings promise.', pcm: 'You never get Promise Score. E go start the first time you keep or break one savings promise.' },
+    scoreSay: { en: 'Your Promise Score is {score} out of 100. That is {band}. {detail}', pcm: 'Your Promise Score na {score} out of 100. E dey {band}. {detail}' },
+    scoreTests: { en: 'You kept {kept} of {tests} promises when you were tempted.', pcm: 'You keep {kept} out of {tests} promise when temptation come.' },
+    scoreReached: { en: ' Goals reached: {n}.', pcm: ' Goal wey you reach: {n}.' },
+    scoreRepaid: { en: ' Loans repaid on time: {n}.', pcm: ' Loan wey you pay back on time: {n}.' },
+    scoreLate: { en: ' Loans settled late: {n}.', pcm: ' Loan wey late: {n}.' },
+    bandStrong: { en: 'strong', pcm: 'strong' }, bandSteady: { en: 'steady', pcm: 'steady' }, bandBuilding: { en: 'still building', pcm: 'still dey build' },
+    scoreUp: { en: ' That goes on your Promise Score.', pcm: ' E don enter your Promise Score.' },
+    // Loans against savings
+    promiseOrBorrow: { en: ' Or say borrow, and I will lend you {amt} against it, so your goal stays whole.', pcm: ' Or talk borrow, make I lend you {amt} on top am, so your goal no go scatter.' },
+    askBorrow: { en: 'How much do you want to borrow?', pcm: 'How much you wan borrow?' },
+    confirmBorrow: { en: 'Borrow {amt} against {goal}? {amt} of your {goal} savings will be held until you pay back. Pay back by {due}. There is no fee in this demo. Yes or no?', pcm: 'Make I lend you {amt} on top {goal}? I go hold {amt} for your {goal} savings till you pay back. Pay back before {due}. No fee for this demo. Yes or no?' },
+    doneBorrow: { en: 'Done. {amt} is in your wallet. Your {goal} goal is untouched. Pay back {amt} by {due}. Just say: repay.', pcm: 'E don do. {amt} don enter your wallet. Your {goal} goal still complete. Pay back {amt} before {due}. Just talk: repay.' },
+    loanActive: { en: 'You already have a loan. You still owe {left}, due {due}. Pay that back first.', pcm: 'You don get one loan already. You still dey owe {left}, e due {due}. Pay that one back first.' },
+    loanTooMuch: { en: 'You can borrow up to {max} against {goal}. That is half of what you have saved there.', pcm: 'You fit borrow reach {max} on top {goal}. Na half of wetin you don save there.' },
+    loanNoSavings: { en: 'You need at least ₦2,000 saved in a goal before you can borrow against it.', pcm: 'You need to save reach ₦2,000 for one goal before you fit borrow on top am.' },
+    loanMin: { en: 'The smallest loan is ₦1,000.', pcm: 'The smallest loan na ₦1,000.' },
+    loanNone: { en: 'You do not owe anything.', pcm: 'You no dey owe anything.' },
+    loanStatus: { en: 'You owe {left} on your loan against {goal}. It is due {due}. {held} of your {goal} savings is held until you pay back.', pcm: 'You dey owe {left} for the loan on top {goal}. E due {due}. I dey hold {held} for your {goal} savings till you pay back.' },
+    confirmRepay: { en: 'Pay back {amt} from your wallet towards your loan? Yes or no?', pcm: 'Make I use {amt} from your wallet pay back your loan? Yes or no?' },
+    doneRepay: { en: 'Done. You paid back {amt}. You still owe {left}, due {due}.', pcm: 'E don do. You pay back {amt}. You still dey owe {left}, e due {due}.' },
+    doneRepayAll: { en: 'Done. Your loan is fully paid, on time. All your {goal} savings are free again.', pcm: 'E don do. You don pay the loan finish, on time. All your {goal} savings don free.' },
+    loanHeld: { en: '{held} of your {goal} savings is held for your loan. You can take out up to {free}. Pay back the loan to free the rest.', pcm: 'I dey hold {held} for your {goal} savings because of your loan. You fit comot reach {free}. Pay back the loan make the rest free.' },
+    loanSettled: { en: 'Your loan passed its due date, so I paid the {amt} you owed from your {goal} savings.', pcm: 'Your loan don pass the date, so I use {amt} from your {goal} savings pay am.' },
+    rLoan: { en: 'you borrowed {amt} against {g}', pcm: 'you borrow {amt} on top {g}' },
+    rRepay: { en: 'you paid back {amt} on your loan', pcm: 'you pay back {amt} for your loan' },
     receiptNone: { en: 'You have not done anything yet.', pcm: 'You never do anything yet.', yo: 'O kò tíì ṣe ohunkóhun.' },
     receipt: {
       en: 'Your last transaction: {when}, {what}{how}. Reference {ref}.',
@@ -962,5 +1030,5 @@
       .replace(/%/g, lang === 'yo' ? ' nínú ọgọ́rùn-ún' : ' percent');
   }
 
-  root.VosaLogic = { newChallenge, spokenDigits, challengeOk, norm, fmt, parseAmount, parseDeadline, parseDay, detectGoal, customGoalName, understand, fixHearing, say, fill, S, EXPLAIN, GOALS, dateLabel, dayLabel, toSpeech };
+  root.VosaLogic = { promiseScore, loanLimit, loanLeft, LOAN, SCORE_WEIGHT, newChallenge, spokenDigits, challengeOk, norm, fmt, parseAmount, parseDeadline, parseDay, detectGoal, customGoalName, understand, fixHearing, say, fill, S, EXPLAIN, GOALS, dateLabel, dayLabel, toSpeech };
 })(typeof window !== 'undefined' ? window : globalThis);

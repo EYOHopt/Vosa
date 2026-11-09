@@ -229,6 +229,37 @@
     switched: { en: 'Switched to English', pcm: 'I don switch to Pidgin', yo: 'Mo ti yí padà sí Yorùbá' },
     noYoVoice: { en: 'Yorùbá voice replies need the speech service. Showing text.', pcm: 'Yorùbá voice need the speech service. I go show am as text.', yo: 'Ohùn Yorùbá nílò iṣẹ́ ohùn. Mo ń fi ọ̀rọ̀ hàn.' },
     promiseT: { en: 'Voice Promise', pcm: 'Voice Promise', yo: 'Ìlérí Ohùn' },
+    scoreT: { en: 'Promise Score', pcm: 'Promise Score' },
+    scoreStart: { en: 'Starts when you keep your first savings promise', pcm: 'E go start when you keep your first savings promise' },
+    scoreLine: { en: 'Kept {kept} of {tests} promises when tempted', pcm: 'You keep {kept} out of {tests} promise' },
+    scoreOutOf: { en: 'out of 100', pcm: 'out of 100' },
+    bandStrong: { en: 'Strong', pcm: 'Strong' }, bandSteady: { en: 'Steady', pcm: 'Steady' }, bandBuilding: { en: 'Still building', pcm: 'Still dey build' }, bandNone: { en: 'No score yet', pcm: 'No score yet' },
+    scKept: { en: 'Promises kept when tempted', pcm: 'Promise wey you keep' }, scOf: { en: '{a} of {b}', pcm: '{a} out of {b}' },
+    scBorrowed: { en: 'Borrowed instead of breaking a goal', pcm: 'Borrow instead of to break goal' },
+    scReached: { en: 'Goals reached', pcm: 'Goal wey you reach' }, scRepaid: { en: 'Loans repaid on time', pcm: 'Loan wey you pay on time' },
+    scBroke: { en: 'Early withdrawals', pcm: 'Money wey you comot early' }, scLate: { en: 'Loans settled late', pcm: 'Loan wey late' },
+    scoreHowT: { en: 'How it is worked out', pcm: 'How we take calculate am' },
+    scoreHow: { en: 'Keeping a promise, reaching a goal and repaying on time raise your score. Taking money out of a promised goal early, or repaying late, lowers it. Everyone starts at 50.', pcm: 'If you keep promise, reach goal or pay back on time, your score go up. If you comot money early or pay late, e go come down. Everybody start from 50.' },
+    scoreDemoT: { en: 'Demo record', pcm: 'Demo record' },
+    scoreDemo: { en: 'Built from demo money. It is not a credit report and is not sent to any lender or credit bureau.', pcm: 'Na demo money we take build am. E no be credit report and we no dey send am give any lender.' },
+    scoreRecent: { en: 'Recent', pcm: 'Recent' }, scoreHear: { en: 'Hear my score', pcm: 'Make I hear my score' }, scoreShare: { en: 'Share my record', pcm: 'Share my record' }, scoreCopied: { en: 'Record copied. You can paste it in a message.', pcm: 'I don copy the record. You fit paste am for message.' },
+    evKept: { en: 'Kept your promise on {g}', pcm: 'You keep your promise for {g}' }, evBorrowed: { en: 'Borrowed against {g} instead of breaking it', pcm: 'You borrow on top {g}, you no break am' },
+    evReached: { en: 'Reached {g}', pcm: 'You reach {g}' }, evRepaid: { en: 'Repaid your loan on time', pcm: 'You pay your loan on time' },
+    evBroke: { en: 'Took money out of {g} early', pcm: 'You comot money from {g} early' }, evLate: { en: 'Loan settled late from {g}', pcm: 'Loan late, we take am from {g}' },
+    loanT: { en: 'Loan against savings', pcm: 'Loan on top savings' }, loanOn: { en: 'Loan against {g}', pcm: 'Loan on top {g}' },
+    youOwe: { en: 'You owe', pcm: 'You dey owe' }, dueBy: { en: 'Pay back by', pcm: 'Pay back before' }, heldRow: { en: 'Held in {g}', pcm: 'We dey hold for {g}' },
+    repayAll: { en: 'Repay {a}', pcm: 'Pay back {a}' }, repayHint: { en: 'Or say: “repay 2k”', pcm: 'Or talk: “pay back 2k”' }, repayBtn: { en: 'Repay loan', pcm: 'Pay back loan' },
+    borrowT: { en: 'Borrow against savings', pcm: 'Borrow on top savings' }, againstPot: { en: 'Against which goal?', pcm: 'On top which goal?' },
+    borrowUpTo: { en: 'You can borrow up to {a} against this goal. No fee in this demo.', pcm: 'You fit borrow reach {a} on top this goal. No fee for this demo.' },
+    borrowRowT: { en: 'Need money, but not ready to break this goal?', pcm: 'You need money, but you no wan break this goal?' }, borrowRowD: { en: 'Borrow up to {a} against it', pcm: 'Borrow reach {a} on top am' }, borrowBtn: { en: 'Borrow', pcm: 'Borrow' },
+    borrowInstead: { en: 'Borrow {a} instead', pcm: 'Borrow {a} instead' },
+    heldRowT: { en: '{a} held for your loan', pcm: 'We dey hold {a} for your loan' }, heldRowD: { en: 'Due {d}. Repay to free it.', pcm: 'E due {d}. Pay back make e free.' },
+    kBorrow: { en: 'Borrow against savings', pcm: 'Borrow on top savings' }, kRepay: { en: 'Repay loan', pcm: 'Pay back loan' },
+    rHeld: { en: 'Held until repaid', pcm: 'We go hold am till you pay' }, rFee: { en: 'Fee (demo)', pcm: 'Fee (demo)' }, rOweAfter: { en: 'Left to repay', pcm: 'Wetin remain to pay' },
+    borrowed: { en: 'Borrowed', pcm: 'You don borrow' }, heldSub: { en: '{a} held in {g} until repaid', pcm: 'We dey hold {a} for {g} till you pay' },
+    repaidPart: { en: 'Loan part-paid', pcm: 'You don pay part' }, repaidAll: { en: 'Loan fully repaid', pcm: 'You don pay finish' }, stillOwe: { en: 'Still owe {a}', pcm: 'You still dey owe {a}' }, loanCleared: { en: 'Your savings are free again', pcm: 'Your savings don free' },
+    actLoan: { en: 'Borrowed against {g}', pcm: 'Borrow on top {g}' }, actRepay: { en: 'Loan repayment', pcm: 'Loan payment' }, actRepayAuto: { en: 'Loan settled from {g}', pcm: 'Loan wey we take from {g}' },
+    borrowMax: { en: 'Borrow {a}', pcm: 'Borrow {a}' },
     ruleT: { en: 'In an emergency', pcm: 'If emergency come', yo: 'Nínú pàjáwìrì' },
     ruleQ: { en: 'If you ever need this money in an emergency, what should Vosa do?', pcm: 'If emergency come and you need this money, wetin Vosa go do?', yo: 'Tí pàjáwìrì bá dé tí o sì nílò owó yìí, kí ni kí Vosa ṣe?' },
     ruleConfirmT: { en: 'Just confirm', pcm: 'Just confirm', yo: 'Kàn jẹ́rìí' }, ruleConfirmD: { en: 'Your secret phrase and Voice ID are enough. Full independence.', pcm: 'Your secret phrase and Voice ID dey enough. Na you dey control am.', yo: 'Ọ̀rọ̀ àṣírí àti Voice ID rẹ ti tó.' },
@@ -500,6 +531,8 @@
         { name: 'Aisha', aliases: ['aisha', 'aishat'], bank: 'Kuda', acct: '2011233307' }
       ],
       reminders: [],
+      promiseLog: [],   // what the person did when savings were tempting: feeds the Promise Score
+      loans: [],        // loans against a savings goal; at most one open at a time
       activity: [
         { kind: 'save', g: { key: 'rent', name: null }, amt: 5000, at: now - 2 * 864e5, sub: 'voice' },
         { kind: 'airtime', n: 'MTN', amt: 1000, detail: '0803 ••• 1234', at: now - 3 * 864e5 },
@@ -520,6 +553,8 @@
   // A private id for this account on the server (Trusted Circle). Never shown to anyone.
   if (!state.ownerId) state.ownerId = Array.from(crypto.getRandomValues(new Uint8Array(24))).map(b => b.toString(16).padStart(2, '0')).join('');
   if (!Array.isArray(state.helpers)) state.helpers = [];
+  if (!Array.isArray(state.promiseLog)) state.promiseLog = [];
+  if (!Array.isArray(state.loans)) state.loans = [];
   const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} try { scheduleSync(); } catch (e) {} };
 
   let pending = null;   // {type, needsPhrase, tries, ...}
@@ -554,6 +589,98 @@
     const behind = weekly > 10000 && elapsedShare < 0.25;
     return { cls: behind ? 'behind' : '', text: t(behind ? 'behind' : 'onTrack', { w: fmt(weekly) }), weekly };
   }
+
+  // ---------- Promise Score and loans against savings ----------
+  // The rules (weights, limits) live in logic.js. This part keeps the records and moves the money.
+  // A loan never creates unsecured debt: the same amount of the goal is held until it is repaid, and if the
+  // due date passes it is settled from that held money. Demo money only; no lender or credit bureau is involved.
+  const openLoan = () => (state.loans || []).find(l => !l.closed) || null;
+  const heldIn = (g) => { const l = openLoan(); return l && findRef(l.g) === g ? Math.min(g.bal, L.loanLeft(l)) : 0; };
+  const freeIn = (g) => Math.max(0, g.bal - heldIn(g));
+  const dueLabel = (ms) => new Date(ms).toLocaleDateString('en-NG', { day: 'numeric', month: 'long' });
+  const isEarly = (g) => !!g.promise && !(g.target && g.bal >= g.target) && !(g.deadline && parseYmd(g.deadline) < new Date());
+  const canBorrow = (g, amount) => !openLoan() && amount >= L.LOAN.min && amount <= L.loanLimit(g.bal);
+  function logPromise(k, g, amt) {
+    state.promiseLog = [{ k, at: Date.now(), g: g ? gref(g) : null, amt: amt || null }].concat(state.promiseLog || []).slice(0, 200);
+  }
+  function noteReached(g) {
+    if (!g.promise || g.promiseDone || !g.target || g.bal < g.target) return false;
+    g.promiseDone = true; logPromise('reached', g, g.target); return true;
+  }
+  // A loan past its due date is paid from the savings that were held for it. Said once, with the next reply.
+  let lateNote = '';
+  function settleLoans() {
+    const l = openLoan();
+    if (!l || Date.now() <= l.due) return;
+    const g = findRef(l.g), paid = g ? Math.min(L.loanLeft(l), g.bal) : 0;
+    if (g) g.bal -= paid;
+    l.repaid = (l.repaid || 0) + paid; l.closed = 'late'; l.closedAt = Date.now();
+    logPromise('late', g, paid);
+    logAct({ kind: 'repay', g: l.g, amt: paid, sub: 'auto', ref: ref() });
+    lateNote = R('loanSettled', { amt: fmt(paid), goal: g ? label(g) : '' });
+    persist();
+  }
+  function scoreSpeech() {
+    const sc = L.promiseScore(state.promiseLog);
+    if (sc.score == null) return R('scoreNone');
+    let detail = sc.tests ? R('scoreTests', { kept: sc.keptCount, tests: sc.tests }) : '';
+    if (sc.counts.reached) detail += R('scoreReached', { n: sc.counts.reached });
+    if (sc.counts.repaid) detail += R('scoreRepaid', { n: sc.counts.repaid });
+    if (sc.counts.late) detail += R('scoreLate', { n: sc.counts.late });
+    return R('scoreSay', { score: sc.score, band: R('band' + sc.band.charAt(0).toUpperCase() + sc.band.slice(1)), detail: detail.trim() });
+  }
+  function scoreText() {
+    const sc = L.promiseScore(state.promiseLog), c = sc.counts;
+    return ['Vosa Promise Score: ' + (sc.score == null ? 'no score yet' : sc.score + ' out of 100'),
+      'Promises kept when tempted: ' + sc.keptCount + ' of ' + sc.tests,
+      'Goals reached: ' + c.reached, 'Loans repaid on time: ' + c.repaid, 'Early withdrawals: ' + c.broke, 'Loans settled late: ' + c.late,
+      'Demo record built from demo money. Not a credit report.'].join('\n');
+  }
+  function scoreRing(sc, size) {
+    const pct = sc.score == null ? 0 : sc.score;
+    return h('span', { class: 'sc-ring', style: '--p:' + pct + ';--s:' + size + 'px', role: 'img', 'aria-label': sc.score == null ? t('bandNone') : sc.score + ' ' + t('scoreOutOf') },
+      h('b', { class: 'num', text: sc.score == null ? '–' : String(sc.score) }));
+  }
+  function scoreCard() {
+    const sc = L.promiseScore(state.promiseLog);
+    const line = sc.score == null ? t('scoreStart') : (t('band' + sc.band.charAt(0).toUpperCase() + sc.band.slice(1)) + (sc.tests ? ' · ' + t('scoreLine', { kept: sc.keptCount, tests: sc.tests }) : ''));
+    return h('button', { class: 'card scorecard', type: 'button', onClick: () => showOv('score') }, scoreRing(sc, 56),
+      h('div', { class: 'mid' }, h('b', { text: t('scoreT') }), h('span', { text: line })), icon('chev', 18));
+  }
+  function loanCard(l) {
+    const g = findRef(l.g), left = L.loanLeft(l), pct = Math.round((l.repaid || 0) / l.amount * 100);
+    return h('section', { class: 'card', 'aria-label': t('loanT') },
+      h('h2', { class: 'card-t', text: t('loanOn', { g: g ? label(g) : '' }) }),
+      kv([[t('youOwe'), fmt(left)], [t('dueBy'), dueLabel(l.due)], g ? [t('heldRow', { g: label(g) }), fmt(heldIn(g))] : null]),
+      h('div', { class: 'bar', style: 'height:8px;margin:10px 0', role: 'progressbar', 'aria-valuenow': pct, 'aria-valuemin': 0, 'aria-valuemax': 100, 'aria-label': pct + '%' }, h('i', { style: 'width:' + pct + '%' })),
+      h('button', { class: 'btn p', type: 'button', onClick: () => routeUI({ intent: 'repay' }), text: t('repayAll', { a: fmt(left) }) }),
+      h('p', { class: 'heard', style: 'text-align:center;margin:8px 0 0', text: t('repayHint') }));
+  }
+  function ovScore(el) {
+    const sc = L.promiseScore(state.promiseLog), c = sc.counts;
+    const evText = (e) => { const g = e.g ? (findRef(e.g) || e.g) : null; const gl = g ? (g.name || (L.GOALS[g.key] || L.GOALS.flex)[state.lang] || (L.GOALS[g.key] || L.GOALS.flex).en) : ''; return t('ev' + e.k.charAt(0).toUpperCase() + e.k.slice(1), { g: gl }); };
+    const share = async () => {
+      const text = scoreText();
+      try { if (navigator.share) { await navigator.share({ title: 'Vosa Promise Score', text }); return; } } catch (e) { return; }
+      try { await navigator.clipboard.writeText(text); } catch (e) {}
+      reply(t('scoreCopied'));
+    };
+    pageWrap(el, t('scoreT'), null, [
+      h('div', { class: 'done', style: 'padding-top:8px' }, scoreRing(sc, 112),
+        h('h1', { text: t('band' + sc.band.charAt(0).toUpperCase() + sc.band.slice(1)) }),
+        h('span', { style: 'color:var(--text2);font-size:14px', text: sc.score == null ? t('scoreStart') : sc.score + ' ' + t('scoreOutOf') })),
+      kv([[t('scKept'), t('scOf', { a: sc.keptCount, b: sc.tests })], [t('scReached'), String(c.reached)], [t('scRepaid'), String(c.repaid)], [t('scBroke'), String(c.broke)], [t('scLate'), String(c.late)]]),
+      h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon('spark', 18)), h('div', null, h('b', { text: t('scoreHowT') }), h('span', { text: t('scoreHow') }))),
+      h('div', { class: 'notice' }, icon('alert', 18), h('div', null, h('b', { text: t('scoreDemoT') }), h('span', { text: t('scoreDemo') }))),
+      (state.promiseLog || []).length ? h('section', null, h('h2', { class: 'day', style: 'margin:4px 0 0', text: t('scoreRecent') }),
+        h('div', null, state.promiseLog.slice(0, 6).map(e => h('div', { class: 'row' },
+          h('span', { class: 'gtile', style: SCORE_GOOD(e.k) ? 'background:#E8F6E5;color:#1F9D55' : 'background:var(--warn-bg);color:var(--warn)', 'aria-hidden': 'true' }, icon(SCORE_GOOD(e.k) ? 'check' : 'alert', 20)),
+          h('div', { class: 'mid' }, h('b', { text: evText(e) }), h('span', { text: new Date(e.at).toLocaleDateString('en-NG', { day: 'numeric', month: 'short' }) })),
+          h('div', { class: 'end' }, h('b', { class: 'num', text: (L.SCORE_WEIGHT[e.k] > 0 ? '+' : '−') + Math.abs(L.SCORE_WEIGHT[e.k]) })))))) : null],
+      [h('button', { class: 'btn p', type: 'button', onClick: () => reply(scoreSpeech()) }, icon('speaker', 20), t('scoreHear')),
+       h('button', { class: 'btn s', type: 'button', onClick: share, text: t('scoreShare') })]);
+  }
+  const SCORE_GOOD = (k) => L.SCORE_WEIGHT[k] > 0;
 
   // ---------- rendering ----------
   const GOAL_STYLE = {
@@ -701,6 +828,8 @@
     v.append(h('div', { class: 'summary' },
       h('div', null, h('span', { text: t('total') }), h('b', { class: 'num', text: naira(total()) })),
       h('div', null, h('span', { text: t('savedMonth') }), h('b', { class: 'num', text: naira(savedMonth) }))));
+    v.append(scoreCard());
+    const ln = openLoan(); if (ln) v.append(loanCard(ln));
     v.append(h('section', { class: 'card' }, state.goals.map(g => potRow(g, true))));
     v.append(h('p', { class: 'empty', style: 'text-align:center', text: t('orSayGoal') }));
   }
@@ -713,6 +842,8 @@
     else if (a.kind === 'send') { title = t('actSent', { n: a.n }); kind = 'out'; tileIc = 'send'; }
     else if (a.kind === 'airtime') { title = t('actAirtime', { n: a.n }); kind = 'out'; tileIc = 'phone'; }
     else if (a.kind === 'move') { title = t('actMoved', { g: gl }); kind = 'in'; tileIc = 'out'; tileStyle = ['#E8F6E5', '#1F9D55']; }
+    else if (a.kind === 'loan') { title = t('actLoan', { g: gl }); kind = 'in'; tileIc = 'in'; tileStyle = ['#E8F6E5', '#1F9D55']; }
+    else if (a.kind === 'repay') { title = a.sub === 'auto' ? t('actRepayAuto', { g: gl }) : t('actRepay'); kind = 'out'; tileIc = 'out'; }
     else { title = t(a.sub === 'auto' ? 'actAuto' : 'actSaved', { g: gl }); kind = 'saved'; tileIc = 'potplus'; tileStyle = ['#E8F6E5', '#1F9D55']; }
     const d = new Date(a.at);
     const time = d.toLocaleDateString([], { day: 'numeric', month: 'short' }) + ', ' + d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
@@ -796,7 +927,7 @@
     const oHeard = document.getElementById('ov-heard'); if (oHeard) { oHeard.textContent = ''; if (lastHeard) oHeard.append(t('youSaid') + ' ', h('b', { text: '“' + lastHeard + '”' })); }
   }
 
-  function go(view) { state.view = view; persist(); render(); $('views').scrollTop = 0; }
+  function go(view) { settleLoans(); state.view = view; persist(); render(); $('views').scrollTop = 0; }
   function setLang(l) { state.lang = l; persist(); stopSpeaking(); render(); if (ov) renderOv(); }
   function cycleLang() { const order = ['en', 'pcm', 'yo', 'ha', 'ig']; setLang(order[(order.indexOf(state.lang) + 1) % order.length]); }
   function toggleHF() { const on = !state.handsFree; setHandsFree(on); reply(R(on ? 'handsfreeOn' : 'handsfreeOff')); }
@@ -842,7 +973,7 @@
     if (!ov) { fresh.hidden = true; fresh.removeAttribute('role'); return; }
     fresh.hidden = false;
     fresh.setAttribute('role', 'dialog'); fresh.setAttribute('aria-modal', 'true');
-    const b = { confirm: ovConfirm, success: ovSuccess, moneyin: ovMoneyIn, sheet: ovSheet, type: ovType, pick: ovPick, 'goal-form': ovGoalForm, 'send-form': ovSendForm, 'airtime-form': ovAirtimeForm, pot: ovPot, amount: ovAmountCompat, onboard: ovOnboard, enroll: ovEnroll, more: ovMore, approval: ovApproval, 'helper-form': ovHelperForm, 'helper-link': ovHelperLink, 'circle-log': ovCircleLog, promise: ovPromise, account: ovAccount }[ov.kind];
+    const b = { confirm: ovConfirm, success: ovSuccess, moneyin: ovMoneyIn, sheet: ovSheet, type: ovType, pick: ovPick, 'goal-form': ovGoalForm, 'send-form': ovSendForm, 'airtime-form': ovAirtimeForm, pot: ovPot, amount: ovAmountCompat, onboard: ovOnboard, enroll: ovEnroll, more: ovMore, approval: ovApproval, 'helper-form': ovHelperForm, 'helper-link': ovHelperLink, 'circle-log': ovCircleLog, promise: ovPromise, account: ovAccount, score: ovScore }[ov.kind];
     if (!b) { fresh.hidden = true; return; }
     b(fresh, ov.data);
     const focusEl = fresh.querySelector('h1, h2');
@@ -860,6 +991,12 @@
     } else if (p.type === 'withdraw') {
       kind = t('kMove');
       rows = [[t('rFrom'), label(p.goal)], [t('rTo'), t('wallet')], [t('potAfter'), fmt(p.goal.bal - p.amount)], [t('walletAfter'), fmt(w + p.amount)]];
+    } else if (p.type === 'borrow') {
+      kind = t('kBorrow');
+      rows = [[t('againstPot').replace('?', ''), label(p.goal)], [t('rHeld'), fmt(p.amount)], [t('dueBy'), dueLabel(p.due)], [t('rFee'), '₦0'], [t('walletAfter'), fmt(w + p.amount)]];
+    } else if (p.type === 'repay') {
+      kind = t('kRepay'); yes = t('repayAll', { a: fmt(p.amount) });
+      rows = [[t('rFrom'), t('wallet')], [t('rOweAfter'), fmt(L.loanLeft(p.loan) - p.amount)], [t('walletAfter'), fmt(w - p.amount)]];
     } else if (p.type === 'send') {
       kind = t('kSend');
       rows = [[t('recipient'), p.to.name], [t('bank'), p.to.bank + ' •••• ' + p.to.acct.slice(-4)], [t('fee'), '₦0'], [t('walletAfter'), fmt(w - p.amount)]];
@@ -969,17 +1106,19 @@
 
   function ovPick(el, d) {
     const isSave = d.mode === 'save';
-    const pots = isSave ? state.goals : state.goals.filter(g => g.bal > 0);
+    const isBorrow = d.mode === 'borrow';
+    const pots = isSave ? state.goals : isBorrow ? state.goals.filter(g => L.loanLimit(g.bal) > 0) : state.goals.filter(g => g.bal > 0);
     if (!d.ref && pots[0]) d.ref = gref(isSave ? (findGoal('rent') || pots[0]) : pots[0]);
     const g = d.ref ? findRef(d.ref) : null;
     const amtIn = h('input', { class: 'field num', id: 'pick-amt', inputmode: 'numeric', value: fmt(d.amount), onInput: (e) => { d.amount = parseInt(e.target.value.replace(/\D/g, ''), 10) || 0; }, onBlur: (e) => { e.target.value = fmt(d.amount); } });
-    sheetWrap(el, [sheetHead(isSave ? t('saveT') : t('withdrawT')),
-      h('div', null, h('span', { class: 'lbl', text: isSave ? t('toPot') : t('fromPot') }),
-        h('div', { role: 'radiogroup', 'aria-label': isSave ? t('toPot') : t('fromPot') }, pots.map(p => h('button', { class: 'row', type: 'button', role: 'radio', 'aria-checked': String(g === p), style: 'padding:10px 0', onClick: () => { d.ref = gref(p); renderOv(); } },
+    const potLbl = isSave ? t('toPot') : isBorrow ? t('againstPot') : t('fromPot');
+    sheetWrap(el, [sheetHead(isSave ? t('saveT') : isBorrow ? t('borrowT') : t('withdrawT')),
+      h('div', null, h('span', { class: 'lbl', text: potLbl }),
+        h('div', { role: 'radiogroup', 'aria-label': potLbl }, pots.map(p => h('button', { class: 'row', type: 'button', role: 'radio', 'aria-checked': String(g === p), style: 'padding:10px 0', onClick: () => { d.ref = gref(p); renderOv(); } },
           goalTile(p), h('div', { class: 'mid' }, h('b', { text: label(p) }), h('span', { class: 'num', text: fmt(p.bal) })), h('span', { class: 'radio', 'aria-hidden': 'true' }))))),
       h('div', null, h('label', { class: 'lbl', for: 'pick-amt', text: t('amount') }), amtIn,
         h('div', { class: 'choice four', style: 'margin-top:8px' }, [1000, 2000, 5000, 10000].map(a => h('button', { class: 'opt num', type: 'button', 'aria-pressed': String(a === d.amount), onClick: () => { d.amount = a; renderOv(); }, text: '₦' + a / 1000 + 'k' })))),
-      h('p', { class: 'heard', text: t('wallet') + ': ' + fmt(state.wallet) }),
+      h('p', { class: 'heard', text: isBorrow && g ? t('borrowUpTo', { a: fmt(L.loanLimit(g.bal)) }) : t('wallet') + ': ' + fmt(state.wallet) }),
       h('button', { class: 'btn p', type: 'button', onClick: () => { if (!g || !d.amount) return; routeUI({ intent: d.mode, goal: g.name ? null : g.key, customName: g.name || null, amount: d.amount }); }, text: t('cont') })]);
   }
   function ovAmountCompat(el, d) { ov = { kind: 'pick', data: { mode: d.mode, ref: d.ref, amount: d.mode === 'save' ? 5000 : 2000 } }; ovPick(el, ov.data); }
@@ -1069,6 +1208,12 @@
       g.promise ? h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon(ruleOf(g) === 'confirm' ? 'check' : ruleOf(g) === 'wait' ? 'clock' : 'shield', 18)),
         h('div', { style: 'flex:1;min-width:0' }, h('b', { text: t('ruleT') }), h('span', { text: t('rule' + cap(ruleOf(g)) + 'T') })),
         h('button', { class: 'link', type: 'button', text: t('change'), onClick: () => showOv('promise', { ref: d.ref, stage: 'rule', rule: ruleOf(g), back: d.ref }) })) : null,
+      heldIn(g) ? h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon('lock', 18)),
+        h('div', { style: 'flex:1;min-width:0' }, h('b', { text: t('heldRowT', { a: fmt(heldIn(g)) }) }), h('span', { text: t('heldRowD', { d: dueLabel(openLoan().due) }) })),
+        h('button', { class: 'link', type: 'button', text: t('repayBtn'), onClick: () => routeUI({ intent: 'repay' }) }))
+      : (!openLoan() && L.loanLimit(g.bal)) ? h('div', { class: 'lockrow' }, h('span', { class: 'lk' }, icon('wallet', 18)),
+        h('div', { style: 'flex:1;min-width:0' }, h('b', { text: t('borrowRowT') }), h('span', { text: t('borrowRowD', { a: fmt(L.loanLimit(g.bal)) }) })),
+        h('button', { class: 'link', type: 'button', text: t('borrowBtn'), onClick: () => showOv('pick', { mode: 'borrow', ref: d.ref, amount: Math.min(5000, L.loanLimit(g.bal)) }) })) : null,
       h('section', null, h('h2', { class: 'day', style: 'margin:4px 0 0', text: t('history') }),
         hist.length ? h('div', null, hist.slice(0, 5).map(actRow)) : h('p', { class: 'empty', text: t('noHistory') }))],
       [h('div', { class: 'row2' },
@@ -1150,6 +1295,7 @@
   // ---------- core flow ----------
   async function reply(text, lang) {
     lang = lang || state.lang;
+    if (lateNote) { text = lateNote + ' ' + text; lateNote = ''; }
     lastReply = text; lastReplyLang = lang;
     renderTalk();
     await speak(text, lang);
@@ -1161,7 +1307,7 @@
 
   function cancelPending() {
     const p = pending; pending = null; closeOv();
-    if (p && p.type === 'promiseq') return reply(R('promiseKept', { goal: label(p.goal) }));
+    if (p && p.type === 'promiseq') { logPromise('kept', p.goal, p.amount); persist(); render(); return reply(R('promiseKept', { goal: label(p.goal) }) + R('scoreUp')); }
     if (p && p.type === 'promise-offer') return reply(R('cancelled'));
     if (p && p.type === 'promiserule') return setPromiseRule(p.goal, p.goal.promiseRule || (hasApprover() ? 'helper' : 'confirm'));
     reply(R('cancelled'));
@@ -1188,10 +1334,11 @@
     raw = String(raw || '').trim();
     if (!raw) return afterReply();
     stopListening();
+    settleLoans();
     const phraseMode = !!(pending && pending.needsPhrase);
     const isPhrase = phraseMode && await phraseIn(raw);
     lastHeard = isPhrase || (phraseMode && opts.via === 'text') ? '••••••' : raw; lastVia = opts.via || '';
-    if (ov && ['success', 'moneyin', 'sheet', 'pot', 'amount', 'goal-form', 'send-form', 'airtime-form'].includes(ov.kind) && !(pending && pending.type === 'nudge')) closeOv();
+    if (ov && ['success', 'moneyin', 'sheet', 'pot', 'score', 'amount', 'goal-form', 'send-form', 'airtime-form'].includes(ov.kind) && !(pending && pending.type === 'nudge')) closeOv();
     maybeSwitch(raw);
     renderTalk();
     let r = L.understand(raw, { pending: !!pending, awaiting: awaiting && awaiting.slot, contacts: state.contacts, helpers: (state.helpers || []).map(x => x.name) });
@@ -1199,6 +1346,11 @@
       const rule = promiseRuleFrom(raw);
       if (rule) { const g = pending.goal; pending = null; closeOv(); return setPromiseRule(g, rule); }
       return reply(R('promiseRuleQ').trim());
+    }
+    // At the promise gate, "borrow" keeps the goal whole: lend against it instead of taking the money out
+    if (pending && pending.type === 'promiseq' && r.intent === 'borrow') {
+      const p = pending; pending = null; stopPromise(); closeOv();
+      return route({ intent: 'borrow', amount: r.amount || p.amount, goal: p.goal.name ? null : p.goal.key, customName: p.goal.name || null, fromGate: true });
     }
     if (cloud.waiting) {
       if (/\b(no|cancel|stop|forget am|leave am|rara|fagile)\b/.test(L.norm(raw))) return cancelApproval();
@@ -1302,7 +1454,7 @@
     pending = p; showOv('confirm'); return reply(text);
   }
 
-  function routeUI(r) { lastHeard = ''; renderTalk(); return route(r); }
+  function routeUI(r) { settleLoans(); lastHeard = ''; renderTalk(); return route(r); }
   function route(r) {
     switch (r.intent) {
       case 'save': {
@@ -1322,12 +1474,51 @@
           const text = R('insufficient', { goal: label(g), bal: fmt(g.bal), amt: fmt(r.amount) });
           return fail({ tone: 'warn', icon: 'alert', k: t('kNoMoney'), title: text, actions: [okAction()] }, text);
         }
+        if (freeIn(g) < r.amount) {
+          const text = R('loanHeld', { held: fmt(heldIn(g)), goal: label(g), free: fmt(freeIn(g)) });
+          return fail({ tone: 'warn', icon: 'lock', k: t('loanT'), title: text, actions: [okAction(), { label: t('repayBtn'), fn: () => { closeOv(); routeUI({ intent: 'repay' }); } }] }, text);
+        }
         const gate = promiseGate(g, r.amount);
         if (gate === 'play') return startPromiseGate(g, r.amount);
         if (gate === 'wait') { const text = R('promiseWaiting', { amt: fmt(g.hold.amount), goal: label(g), when: timeLabel(g.hold.until) }); return fail({ tone: 'warn', icon: 'clock', k: t('promiseT'), title: text, actions: [okAction()] }, text); }
         const extra = gate === 'ready' ? R('promiseReady') + ' ' : '';
         return confirmWith({ type: 'withdraw', amount: r.amount, goal: g, needsPhrase: true, promiseOk: true }, extra + R('confirmWithdraw', { amt: fmt(r.amount), goal: label(g) }));
       }
+      case 'borrow': {
+        const open = openLoan();
+        if (open) { const text = R('loanActive', { left: fmt(L.loanLeft(open)), due: dueLabel(open.due) }); return fail({ tone: 'warn', icon: 'wallet', k: t('loanT'), title: text, actions: [okAction(), { label: t('repayBtn'), fn: () => { closeOv(); routeUI({ intent: 'repay' }); } }] }, text); }
+        // The goal they named; otherwise a goal whose name they said; otherwise the goal with the most saved
+        let g = (r.goal || r.customName) ? findGoal(r.goal, r.customName) : null;
+        if (!g && r.t) g = state.goals.find(x => x.name && r.t.includes(L.norm(x.name))) || null;
+        if (!g && r.goal) { const text = R('noGoal', { goal: L.GOALS[r.goal][state.lang] || L.GOALS[r.goal].en }); return fail({ tone: 'warn', icon: 'pot', k: t('kNoGoal'), title: text, actions: [okAction()] }, text); }
+        if (!g) g = state.goals.slice().sort((a, b) => b.bal - a.bal)[0];
+        const max = g ? L.loanLimit(g.bal) : 0;
+        if (!max) { const text = R('loanNoSavings'); return fail({ tone: 'warn', icon: 'pot', k: t('loanT'), title: text, actions: [okAction()] }, text); }
+        r.goal = g.name ? null : g.key; r.customName = g.name || null;
+        if (!r.amount) return ask('amount', r, 'askBorrow');
+        if (r.amount > max || r.amount < L.LOAN.min) {
+          const text = r.amount > max ? R('loanTooMuch', { max: fmt(max), goal: label(g) }) : R('loanMin');
+          const to = r.amount > max ? max : L.LOAN.min;
+          return fail({ tone: 'warn', icon: 'wallet', k: t('loanT'), title: text, actions: [okAction(), { label: t('borrowMax', { a: fmt(to) }), fn: () => { closeOv(); routeUI(Object.assign({}, r, { amount: to })); } }] }, text);
+        }
+        const due = Date.now() + L.LOAN.days * 864e5;
+        return confirmWith({ type: 'borrow', amount: r.amount, goal: g, due, needsPhrase: true, fromGate: !!r.fromGate }, R('confirmBorrow', { amt: fmt(r.amount), goal: label(g), due: dueLabel(due) }));
+      }
+      case 'repay': {
+        const l = openLoan();
+        if (!l) return reply(R('loanNone'));
+        const amount = Math.min(r.amount || L.loanLeft(l), L.loanLeft(l));
+        if (state.wallet < amount) return lowWallet(amount);
+        return confirmWith({ type: 'repay', amount, loan: l, goal: findRef(l.g) }, R('confirmRepay', { amt: fmt(amount) }));
+      }
+      case 'loan': {
+        const l = openLoan();
+        if (!l) return reply(R('loanNone'));
+        const g = findRef(l.g);
+        go('pots');
+        return reply(R('loanStatus', { left: fmt(L.loanLeft(l)), goal: g ? label(g) : '', due: dueLabel(l.due), held: fmt(g ? heldIn(g) : 0) }));
+      }
+      case 'score': showOv('score'); return reply(scoreSpeech());
       case 'promise': {
         const withTarget = state.goals.filter(x => x.target);
         let g = (r.goal || r.customName) ? findGoal(r.goal, r.customName) : (withTarget.length === 1 ? withTarget[0] : null);
@@ -1403,6 +1594,8 @@
         const what = a.kind === 'send' ? R('rSend', { amt: fmt(a.amt), n: a.n, bank: (a.detail || '').split(' ••••')[0] })
           : a.kind === 'airtime' ? R('rAirtime', { amt: fmt(a.amt), n: a.n })
           : a.kind === 'in' ? R('rIn', { amt: fmt(a.amt), n: a.n })
+          : a.kind === 'loan' ? R('rLoan', { amt: fmt(a.amt), g: gl })
+          : a.kind === 'repay' ? R('rRepay', { amt: fmt(a.amt) })
           : a.kind === 'move' ? R('rMove', { amt: fmt(a.amt), g: gl }) : R('rSave', { amt: fmt(a.amt), g: gl });
         const how = a.verified ? R('rHow', { v: a.verified }) : '';
         return reply(R('receipt', { when, what, how, ref: a.ref || '—' }));
@@ -1473,7 +1666,7 @@
       const rf = ref();
       logAct({ kind: 'save', g: gref(g), amt: p.amount, ref: rf });
       let msg = R('doneSave', { goal: label(g), bal: fmt(g.bal), prog: progVars(g) });
-      if (g.target && g.bal >= g.target) { msg += R('reached'); if (g.promise) { msg += R('promiseReached'); setTimeout(() => playPromise(g), 400); } }
+      if (g.target && g.bal >= g.target) { msg += R('reached'); if (g.promise) { msg += R('promiseReached'); if (noteReached(g)) msg += R('scoreUp'); setTimeout(() => playPromise(g), 400); } }
       flashGoal = g; persist(); render();
       showOv('success', { title: t('savedTo', { g: label(g) }), amount: p.amount, sub: g.target ? Math.min(100, Math.round(g.bal / g.target * 100)) + '% ' + t('of') + ' ' + fmt(g.target) : fmt(g.bal), ref: rf });
       return reply(msg);
@@ -1483,6 +1676,8 @@
         const ap = (state.helpers || []).filter(x => x.role === 'approver' && x.status === 'active');
         if (ap.length) return askApproval(p, { list: ap, isNew: false, kind: 'withdraw' });
       }
+      if (freeIn(g) < p.amount) return reply(R('loanHeld', { held: fmt(heldIn(g)), goal: label(g), free: fmt(freeIn(g)) }));
+      if (isEarly(g)) logPromise('broke', g, p.amount);
       g.bal -= p.amount; state.wallet += p.amount; delete g.hold;
       if (p.approvedBy) p.verified = [p.verified, t('approvedBy', { n: p.approvedBy })].filter(Boolean).join(' · ');
       const rf = ref();
@@ -1490,6 +1685,30 @@
       persist(); render();
       showOv('success', { title: t('moved'), amount: p.amount, sub: label(g) + ': ' + fmt(g.bal), verified: p.verified, ref: rf });
       return reply((p.approvedBy ? R('helperApproved', { name: p.approvedBy }) : '') + R('doneWithdraw', { amt: fmt(p.amount), goal: label(g), bal: fmt(g.bal) }));
+    }
+    if (p.type === 'borrow') {
+      if (!canBorrow(g, p.amount)) return reply(R('cancelled'));
+      state.wallet += p.amount;
+      const rf = ref();
+      state.loans = (state.loans || []).concat([{ id: rf, g: gref(g), amount: p.amount, repaid: 0, at: Date.now(), due: p.due, closed: null }]).slice(-20);
+      if (p.fromGate) logPromise('borrowed', g, p.amount);
+      logAct({ kind: 'loan', g: gref(g), amt: p.amount, ref: rf, verified: p.verified });
+      persist(); render();
+      showOv('success', { title: t('borrowed'), amount: p.amount, sub: t('heldSub', { a: fmt(p.amount), g: label(g) }), verified: p.verified, ref: rf });
+      return reply(R('doneBorrow', { amt: fmt(p.amount), goal: label(g), due: dueLabel(p.due) }) + (p.fromGate ? R('scoreUp') : ''));
+    }
+    if (p.type === 'repay') {
+      const l = p.loan;
+      if (!l || l.closed) return reply(R('loanNone'));
+      const amount = Math.min(p.amount, L.loanLeft(l));
+      if (state.wallet < amount) return lowWallet(amount);
+      state.wallet -= amount; l.repaid = (l.repaid || 0) + amount;
+      const rf = ref(), left = L.loanLeft(l);
+      logAct({ kind: 'repay', g: l.g, amt: amount, ref: rf });
+      if (!left) { l.closed = 'repaid'; l.closedAt = Date.now(); logPromise('repaid', g, l.amount); }
+      persist(); render();
+      showOv('success', { title: t(left ? 'repaidPart' : 'repaidAll'), amount, sub: left ? t('stillOwe', { a: fmt(left) }) : t('loanCleared'), ref: rf });
+      return reply(left ? R('doneRepay', { amt: fmt(amount), left: fmt(left), due: dueLabel(l.due) }) : R('doneRepayAll', { goal: g ? label(g) : '' }) + R('scoreUp'));
     }
     if (p.type === 'goal') {
       g.target = p.target;
@@ -2207,6 +2426,7 @@
       name: state.myName || 'Vosa user', lang: state.lang, wallet: state.wallet, account: state.account, myPhone: state.myPhone, myNetwork: state.myNetwork,
       goals: state.goals.map(g => ({ key: g.key, name: g.name, bal: g.bal, target: g.target, deadline: g.deadline, promiseRule: g.promiseRule || null })),
       contacts: state.contacts, activity: state.activity.slice(0, 12), autoSave: state.autoSave || null,
+      promiseLog: (state.promiseLog || []).slice(0, 200), loans: (state.loans || []).slice(-20),
       approveOver: state.approveOver,
       helpers: (state.helpers || []).filter(x => !x.local).map(x => ({ token: x.token }))
     };
@@ -2396,6 +2616,8 @@
     s.contacts = a.contacts && a.contacts.length ? a.contacts : s.contacts;
     s.activity = a.activity || [];
     s.approveOver = a.approveOver || 20000;
+    s.promiseLog = Array.isArray(a.promiseLog) ? a.promiseLog : [];
+    s.loans = Array.isArray(a.loans) ? a.loans : [];
     s.autoSave = a.autoSave || null;
     s.helpers = (a.helpers || []).filter(x => x.status !== 'removed').map(x => ({ token: x.token, name: x.name, role: x.role, limit: x.limit, status: x.status, local: false, created: Date.now(), link: location.origin + '/?helper=' + x.token }));
     return s;
@@ -2593,7 +2815,7 @@
     pending = { type: 'promiseq', goal: g, amount };
     showOv('promise', { ref: gref(g), stage: 'gate', amount });
     setTimeout(() => playPromise(g), 600);
-    return reply(R('promiseGate', { amt: fmt(amount), goal: label(g) }) + R('promiseAsk'));
+    return reply(R('promiseGate', { amt: fmt(amount), goal: label(g) }) + R('promiseAsk') + (canBorrow(g, amount) ? R('promiseOrBorrow', { amt: fmt(amount) }) : ''));
   }
   function promiseUrl(g) {
     const bin = atob(g.promise.data); const u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
@@ -2649,7 +2871,8 @@
           h('button', { class: 'link', type: 'button', text: t('promiseAgain'), onClick: () => playPromise(g) })), wave),
         h('h2', { style: 'margin:8px 0 0;font-size:22px;font-weight:800;letter-spacing:-0.02em;text-align:center', text: t('promiseQ') }),
         vsay()],
-        [speakBtn(), h('div', { class: 'row2' }, h('button', { class: 'btn s', type: 'button', onClick: () => answer(false), text: t('noKeep') }), h('button', { class: 'btn d', type: 'button', onClick: () => answer(true), text: t('yesEmergency') }))]);
+        [speakBtn(), h('div', { class: 'row2' }, h('button', { class: 'btn s', type: 'button', onClick: () => answer(false), text: t('noKeep') }), h('button', { class: 'btn d', type: 'button', onClick: () => answer(true), text: t('yesEmergency') })),
+         canBorrow(g, d.amount) ? h('button', { class: 'btn o', type: 'button', onClick: () => { if (!pending || pending.type !== 'promiseq') return; pending = null; stopPromise(); closeOv(); routeUI({ intent: 'borrow', amount: d.amount, goal: g.name ? null : g.key, customName: g.name || null, fromGate: true }); }, text: t('borrowInstead', { a: fmt(d.amount) }) }) : null]);
     }
     if (d.stage === 'listen') {
       return pageWrap(el, t('yourPromise', { g: label(g) }), leave, [
@@ -2851,8 +3074,8 @@
     const when = (ms) => { const d = new Date(ms); return d.toLocaleDateString([], { day: 'numeric', month: 'short' }) + ', ' + d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); };
     function actLine(a) {
       const who = a.by ? ' · by ' + a.by : '';
-      const title = a.kind === 'send' ? 'Sent to ' + (a.n || (a.to && a.to.name) || '') : a.kind === 'in' ? 'Received from ' + a.n : a.kind === 'airtime' ? 'Airtime' : a.kind === 'move' || a.kind === 'withdraw' ? 'Moved from savings' : 'Saved';
-      const sign = a.kind === 'in' || a.kind === 'move' || a.kind === 'withdraw' ? '+' : a.kind === 'save' ? '' : '−';
+      const title = a.kind === 'send' ? 'Sent to ' + (a.n || (a.to && a.to.name) || '') : a.kind === 'in' ? 'Received from ' + a.n : a.kind === 'airtime' ? 'Airtime' : a.kind === 'move' || a.kind === 'withdraw' ? 'Moved from savings' : a.kind === 'loan' ? 'Borrowed against savings' : a.kind === 'repay' ? 'Loan repayment' : 'Saved';
+      const sign = a.kind === 'in' || a.kind === 'move' || a.kind === 'withdraw' || a.kind === 'loan' ? '+' : a.kind === 'save' ? '' : '−';
       return h('div', { class: 'row' }, h('div', { class: 'mid' }, h('b', { text: title }), h('span', { text: when(a.at) + who })), h('div', { class: 'end' }, h('b', { class: 'num', text: sign + L.fmt(a.amt) })));
     }
     function draw() {

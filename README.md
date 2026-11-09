@@ -102,6 +102,14 @@ Without the database, Trusted Circle still works in **demo mode**: the helper's 
 | `SPITCH_VOICE_PCM` | Pidgin voice. The default is `ufoma`; Spitch also has `boma`, `tega` and `justice`. |
 | `SPITCH_VOICE_EN` | Optional default English voice (`lucy`, `lina`, `john`, `jude`, `henry`, `kani`, `kingsley`, `remi`). People can also pick a voice in Settings → Vosa's voice → Which voice, and hear a sample. Spoken replies are cached on the phone, so a sentence said before costs no credit. |
 
+### Promise Score and borrowing against savings (credit readiness)
+
+**Promise Score** is a 0 to 100 number built from what a person does when their savings are tempting. Keeping a Voice Promise (+1), borrowing instead of breaking a goal (+1), reaching a promised goal (+2) and repaying a loan on time (+2) raise it. Taking money out of a promised goal early (-2) and a loan that passes its due date (-3) lower it. Everyone starts at 50: `score = 100 x (good + 1) / (good + bad + 2)`. Say "what is my Promise Score" or "read my savings record", or open the card on the Savings tab. The record can be shared as text.
+
+**Borrow against a goal.** Say "borrow 5k against my rent". A person can borrow up to half of what is saved in a goal (₦1,000 minimum, one loan at a time, 30 days). The goal stays whole, but the same amount is held and cannot be withdrawn until the loan is repaid ("repay 2k", "pay back my loan", "how much do I owe"). If the due date passes, the loan is settled from the held savings and Vosa says so. At the Voice Promise moment, Vosa offers borrowing as a third answer besides yes and no. Borrowing needs the secret phrase, the three numbers and Voice ID, like any money leaving savings.
+
+The rules are pure functions in `src/logic.js` (`promiseScore`, `loanLimit`) with tests in `test/score.test.js` (`node test/score.test.js`). This is a demonstration with demo money: there is no fee, no lender and no credit bureau, and the score is not a credit report. Real loans need a licensed lending partner. Replies for these two features are in English and Pidgin; Yorùbá, Hausa and Igbo fall back to English until a fluent speaker translates them.
+
 ### Voice Promise (your own voice protects your savings)
 
 When you set a savings goal, Vosa offers to record a short promise in your own voice ("This is for Tolu's school fees. Don't let me touch it before January."). If you later try to take money out before the goal is reached, Vosa plays your promise back and asks: "Is this an emergency?"

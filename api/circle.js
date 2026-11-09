@@ -58,6 +58,12 @@ async function sync(b) {
     activity: (s.activity || []).slice(0, 12),
     autoSave: s.autoSave && Number(s.autoSave.pct) ? { pct: Math.min(50, Math.max(1, Math.round(Number(s.autoSave.pct)))), ref: s.autoSave.ref ? { key: String(s.autoSave.ref.key || 'flex').slice(0, 20), name: s.autoSave.ref.name ? String(s.autoSave.ref.name).slice(0, 40) : null } : null } : null,
     approveOver: Math.max(1000, Number(s.approveOver) || 20000),
+    // Promise Score events and loans against savings. Only known shapes are kept.
+    promiseLog: (Array.isArray(s.promiseLog) ? s.promiseLog : []).slice(0, 200)
+      .filter(e => e && ['kept', 'borrowed', 'reached', 'repaid', 'broke', 'late'].includes(e.k))
+      .map(e => ({ k: e.k, at: Number(e.at) || Date.now(), g: e.g ? { key: String(e.g.key || 'flex').slice(0, 20), name: e.g.name ? String(e.g.name).slice(0, 40) : null } : null, amt: Math.max(0, Math.round(Number(e.amt) || 0)) || null })),
+    loans: (Array.isArray(s.loans) ? s.loans : []).slice(-20).filter(l => l && l.g)
+      .map(l => ({ id: String(l.id || '').slice(0, 20), g: { key: String(l.g.key || 'flex').slice(0, 20), name: l.g.name ? String(l.g.name).slice(0, 40) : null }, amount: Math.max(0, Math.round(Number(l.amount) || 0)), repaid: Math.max(0, Math.round(Number(l.repaid) || 0)), at: Number(l.at) || 0, due: Number(l.due) || 0, closed: ['repaid', 'late'].includes(l.closed) ? l.closed : null, closedAt: Number(l.closedAt) || null })),
     helpers, rev: (prev.rev || 0) + 1, updatedAt: Date.now()
   };
   await A.saveAcct(b.ownerId, acct);

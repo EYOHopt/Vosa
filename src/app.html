@@ -44,6 +44,11 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .view { display: flex; flex-direction: column; padding: 0 20px 24px; }
 
 /* demo-mode notice */
+.card.scorecard { display: flex; align-items: center; gap: 14px; cursor: pointer; }
+.scorecard .mid { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.scorecard .mid b { font-size: 16px; } .scorecard .mid span { font-size: 13.5px; color: var(--text2); }
+.sc-ring { width: var(--s, 56px); height: var(--s, 56px); border-radius: 50%; flex: 0 0 auto; display: grid; place-items: center; background: conic-gradient(var(--primary) calc(var(--p, 0) * 1%), var(--tint) 0); }
+.sc-ring b { width: calc(100% - 12px); height: calc(100% - 12px); border-radius: 50%; background: var(--bg); display: grid; place-items: center; font-size: calc(var(--s, 56px) * .34); font-weight: 800; color: var(--text); }
 .notice { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: var(--warn-bg); color: var(--warn); font-size: 14px; line-height: 1.4; }
 .notice svg { flex: 0 0 auto; margin-top: 2px; }
 .notice b { display: block; color: inherit; }
