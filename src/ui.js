@@ -2759,7 +2759,12 @@
     await speak(t('wNoMic'), state.lang, true);
   }
   function wizToScreen() { const next = wiz ? wiz.next : null; wiz = null; stopListening(); stopSpeaking(); showOv('onboard', { step: 1, next }); }
-  function wizSetLang(code) { state.lang = code; persist(); render(); return wizGo('mode', t('wMode')); }
+  function wizSetLang(code) {
+    state.lang = code; persist(); render();
+    if (wiz.next === 'signup' && backend.db) { wiz.mode = 'signup'; return wizGo('name', t('wName')); }
+    if (wiz.next === 'login' && backend.db) { wiz.mode = 'login'; return wizGo('phone', t('wPhone')); }
+    return wizGo('mode', t('wMode'));
+  }
 
   function wizHear(raw) {
     stopListening();
@@ -3464,7 +3469,7 @@
   const startAt = new URLSearchParams(location.search).get('start');
   if (startAt) try { history.replaceState(null, '', location.pathname); } catch (e) {}
   if (!state.signedUp && (startAt === 'signup' || startAt === 'login')) {
-    if (!state.onboarded) showOv('vstart', { next: startAt }); else showOv('account', { stage: startAt });
+    showOv('vstart', { next: startAt });
   } else if (!state.onboarded) showOv('vstart', {});
   (async () => {
     try {
